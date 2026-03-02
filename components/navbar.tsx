@@ -10,6 +10,7 @@ const links = [
   { label: "Support", href: "/support" },
   { label: "Contact", href: "/contact" },
   { label: "Keep Updated", href: "/keep-updated" },
+  { label: "Donations", href: "/donations"}
 ];
 
 const brandFont: React.CSSProperties = { fontFamily: "var(--font-heading)" };
