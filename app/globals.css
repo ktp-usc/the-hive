@@ -47,6 +47,16 @@
 
 :root {
     --radius: 0.625rem;
+
+    /* brand colors */
+    --color-teal: #1D979C;
+    --color-yellow: #F3C506;
+    --color-orange: #EC7424;
+
+    /* brand fonts */
+    --font-heading: "Theorem", serif;
+    --font-body: "Proxima Nova", sans-serif;
+
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
