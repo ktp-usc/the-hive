@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-hive-blue: #1D979C;
+  --color-hive-yellow: #F3C506;
+  --color-hive-orange: #EC7424
+}
+
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
