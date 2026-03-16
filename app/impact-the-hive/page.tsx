@@ -5,7 +5,7 @@ import React from "react";
 
 export default function ImpactTheHive() {
   return (
-    <main className="min-h-screen bg-gray-50 py-12 px-6 lg:px-20">
+    <main className="min-h-screen bg-gray-50 pt-24 pb-12 px-6 lg:px-20">
       <header className="max-w-4xl mx-auto text-center mb-12">
         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
           Impact the Hive
@@ -88,10 +88,9 @@ export default function ImpactTheHive() {
               </h2>
 
               <p className="mt-4 text-gray-600">
-                Become a Steward of Hope Today! Donate to The Hive to help support survivors of domestic and sexual violence.
-                Either donate to The Survivor's Pantry, Peer Support/Outreach, or join The Keeper's Club and donate monthly to support the circle.
-                If you want to donate to support the organization directly, donat to the Hope Is Fund in order to support all day-to-day operations.
-                All assistance is accepted and appreciated to help support the survivors in our circle.
+                Become a Steward of Hope today! Donate to The Hive and support survivors of domestic and sexual abuse who are seeking a safe community.
+                Either donate to the Survivor's pantry or Peer Advocacy/Outreach to directly help our survivors, or sign up and become a member of the Keeper's Club
+                and donate monthly. If you want to directly donate to the organization donate to the Hope Is Fund which helps in all day-to-day operating activities.
               </p>
 
               <div className="mt-6">
