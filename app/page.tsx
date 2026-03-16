@@ -1,6 +1,8 @@
+import Footer from "@/components/footer";
+
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black flex items-center justify-center">
+    <div className="relative min-h-screen overflow-hidden bg-black flex flex-col items-center justify-center">
       {/* subtle animated background layer */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0 bg-anim" />
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0 bg-anim-noise" />
@@ -88,6 +90,10 @@ export default function Home() {
           }
         }
       `}</style>
+    {/* footer section */}
+    <footer>
+        <Footer/>
+    </footer>
     </div>
   );
 }
