@@ -9,7 +9,7 @@ export default function Footer() {
             <section className="flex flex-row flex-wrap justify-center gap-20">
 
                 {/* Hive Image */}
-                <Image src={""} alt={"Hive Community Circle Logo"} width={100} height={100}/>
+                {/*<Image src={""} alt={"Hive Community Circle Logo"} width={100} height={100}/>*/}
 
                 {/* Quick Links Section */}
                 <div className="flex flex-col p-4 rounded-2xl mb-10">
