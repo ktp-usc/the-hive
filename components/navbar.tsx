@@ -13,7 +13,7 @@ const links = [
   { label: "Donations", href: "/donations"}
 ];
 
-const brandFont: React.CSSProperties = { fontFamily: "var(--font-heading)" };
+
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -21,7 +21,6 @@ export default function Navbar() {
   return (
     <nav
       style={{
-        ...brandFont,
         position: "fixed",
         top: 0,
         left: 0,
@@ -32,24 +31,24 @@ export default function Navbar() {
         justifyContent: "center",
         gap: "2rem",
         padding: "0.75rem 2rem",
-        background: "#fefde8",
+        background: "#ffffff",
         zIndex: 50,
       }}
     >
       <Link
         href="/"
-        style={{ ...brandFont, color: "#1a1a1a", textDecoration: "none", fontSize: "1.25rem", fontWeight: 700 }}
+        style={{ fontSize: "1.1rem", color: "#1D979C", textDecoration: "none", fontWeight: 700 }}
       >
         The Hive
       </Link>
 
       {/* Desktop links */}
-      <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "row", gap: "0.75rem" }}>
+      <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "row", gap: "2rem" }}>
         {links.map(({ label, href }) => (
           <li key={href}>
             <Link
               href={href}
-              style={{ ...brandFont, color: "#fff", textDecoration: "none", fontSize: "0.95rem", display: "block", background: "#e8935a", borderRadius: "9999px", padding: "0.35rem 1rem", textAlign: "center" }}
+              style={{ fontSize: "1.1rem", color: "#1D979C", textDecoration: "none", fontWeight: 700 }}
             >
               {label}
             </Link>
