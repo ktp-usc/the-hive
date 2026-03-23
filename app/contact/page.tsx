@@ -1,4 +1,3 @@
-import Footer from "@/components/footer";
 import {Mail, MapPin, Phone} from "lucide-react";
 import { Button } from "@/components/ui/button"
 import {
@@ -172,9 +171,6 @@ export default function Contact() {
                 </div>
 
             </section>
-            <footer>
-                <Footer/>
-            </footer>
         </main>
     );
 }

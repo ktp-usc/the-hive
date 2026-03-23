@@ -1,6 +1,8 @@
 // app/support/page.tsx
 "use client";
 import React from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 type Card = {
   id: string;
@@ -138,15 +140,16 @@ export default function SupportPage() {
 
                 {c.cta && (
                   <div className="card-cta">
-                    <a
-                      href={c.cta.href ?? "#"}
-                      className="btn btn-ghost"
-                      onClick={(e) => {
-                        if (!c.cta?.href) e.preventDefault();
-                      }}
-                    >
-                      {c.cta.label}
-                    </a>
+                    <Button asChild variant="outline" size="sm">
+                      <a
+                        href={c.cta.href ?? "#"}
+                        onClick={(e) => {
+                          if (!c.cta?.href) e.preventDefault();
+                        }}
+                      >
+                        {c.cta.label}
+                      </a>
+                    </Button>
                   </div>
                 )}
               </article>
@@ -179,23 +182,15 @@ export default function SupportPage() {
           </div>
 
           <div className="resource">
-            <a className="btn btn-primary" href="/support/emotional-safety-plan">
-              Emotional Safety Plan Resource — CLICK HERE
-            </a>
+            <Button asChild className="bg-hive-blue text-white hover:bg-hive-blue/90">
+              <Link href="/support/emotional-safety-plan">
+                Emotional Safety Plan Resource — CLICK HERE
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
 
-      <footer className="support-footer">
-        <div className="container">
-          
-          <div className="socials">
-            <a href="#" aria-label="facebook">Facebook</a>
-            <a href="#" aria-label="instagram">Instagram</a>
-            <a href="#" aria-label="twitter">Twitter</a>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }
