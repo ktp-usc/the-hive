@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Footer from "@/components/footer";
 
 export default function Home() {
 	{
@@ -118,6 +119,12 @@ export default function Home() {
 					Donate Now
 				</a>
 			</section>
+      
+      {/* footer section */}
+    <footer>
+        <Footer/>
+    </footer>
+    
 		</main>
 	);
 }
