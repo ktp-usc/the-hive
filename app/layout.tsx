@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import Navbar from "@/components/navbar";
+import SafeExit from "@/components/safe-exit";
 import Footer from "@/components/footer";
 
 const inter = Inter({
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <body>
         <Navbar />
         { children }
+        <SafeExit />
         <footer><Footer /></footer>
         </body>
         </html>
