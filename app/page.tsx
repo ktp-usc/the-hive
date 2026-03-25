@@ -17,7 +17,7 @@ export default function Home() {
 					</span>
 				</h1>
 				<Button asChild size="lg" className="mt-10 h-auto rounded-full bg-hive-yellow text-gray-900 font-bold hover:bg-hive-yellow/90 px-16 py-8 text-2xl tracking-widest transition-colors">
-					<Link href="#donate">Donate Today</Link>
+					<Link href="/donations">Donate Today</Link>
 				</Button>
 			</section>
 
@@ -108,7 +108,7 @@ export default function Home() {
 					the care they deserve. Every dollar makes a difference.
 				</p>
 				<Button asChild className="h-auto rounded-full bg-hive-orange text-white font-bold hover:bg-hive-orange/90 px-10 py-4 text-lg transition-colors">
-					<Link href="#">Donate Now</Link>
+					<Link href="/donations">Donate Now</Link>
 				</Button>
 			</section>
       

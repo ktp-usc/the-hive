@@ -67,9 +67,15 @@ export default function DonationsPage() {
                             </div>
 
                             <div className='mt-8'>
-                                <button className='inline-flex items-center px-6 py-3 border rounded-md text-sm font-medium hover:shadow'>
-                                    Sign Up to Volunteer
-                                </button>
+                                <Button className='inline-flex items-center px-6 py-3 border rounded-md text-sm font-medium hover:shadow'>
+                                    <a
+                                        href='https://pointapp.org/orgs/7916'
+                                        target='_blank'
+                                        rel='noopener noreferrer'
+                                    >
+                                        Sign Up to Volunteer
+                                    </a>
+                                </Button>
                             </div>
                         </div>
                     </div>
