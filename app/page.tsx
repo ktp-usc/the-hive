@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Footer from "@/components/footer";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
 	{
@@ -8,19 +9,16 @@ export default function Home() {
 	return (
 		<main className="min-h-screen bg-white text-gray-800">
 			{/* Hero */}
-			<section className="flex flex-col items-center justify-center bg-hive-blue text-white py-24 px-6 text-center min-h-[80vh]">
+			<section className="flex flex-col items-center justify-center bg-hive-blue text-white px-6 text-center min-h-[80vh] mt-16">
 				<h1 className="text-4xl md:text-6xl font-medium leading-tight max-w-3xl mx-auto">
 					Believing in Yourself is the
 					<span className="block font-bold text-7xl">
 						First Step to Healing
 					</span>
 				</h1>
-				<a
-					href="#donate"
-					className="mt-10 inline-block tracking-widest bg-hive-yellow text-gray-900 font-bold px-16 py-8 rounded-full text-2xl hover:bg-yellow-400 transition-colors"
-				>
-					Donate Today
-				</a>
+				<Button asChild size="lg" className="mt-10 h-auto rounded-full bg-hive-yellow text-gray-900 font-bold hover:bg-hive-yellow/90 px-16 py-8 text-2xl tracking-widest transition-colors">
+					<Link href="#donate">Donate Today</Link>
+				</Button>
 			</section>
 
 			{/* Mission */}
@@ -85,10 +83,7 @@ export default function Home() {
 
 					<div className="flex flex-col items-center gap-4">
 						<div className="w-14 h-14 rounded-full bg-hive-yellow/20 flex items-center justify-center"></div>
-						<h3
-							className="text-xl font-semibold"
-							style={{ color: '#c9a000' }}
-						>
+						<h3 className="text-xl font-semibold text-hive-orange">
 							Restoration
 						</h3>
 						<p className="text-gray-500 leading-relaxed">
@@ -112,19 +107,11 @@ export default function Home() {
 					Your contribution helps us reach more survivors and provide
 					the care they deserve. Every dollar makes a difference.
 				</p>
-				<a
-					href="#"
-					className="inline-block bg-hive-orange text-white font-bold px-10 py-4 rounded-full text-lg hover:bg-orange-500 transition-colors"
-				>
-					Donate Now
-				</a>
+				<Button asChild className="h-auto rounded-full bg-hive-orange text-white font-bold hover:bg-hive-orange/90 px-10 py-4 text-lg transition-colors">
+					<Link href="#">Donate Now</Link>
+				</Button>
 			</section>
       
-      {/* footer section */}
-    <footer>
-        <Footer/>
-    </footer>
-    
 		</main>
 	);
 }

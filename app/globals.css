@@ -4,12 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  --color-hive-blue: #1D979C;
-  --color-hive-yellow: #F3C506;
-  --color-hive-orange: #EC7424;
-}
-
 @theme inline {
     --color-hive-blue: #1D979C;
     --color-hive-yellow: #F3C506;
@@ -26,14 +20,9 @@
 :root {
   --radius: 0.625rem;
 
-  /* brand colors */
-  --color-teal: #1D979C;
-  --color-yellow: #F3C506;
-  --color-orange: #EC7424;
-
   /* fonts */
-  --font-heading: "Theorem", serif;
-  --font-body: "Proxima Nova", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-inter);
 
   /* UI tokens (oklch values preserved) */
   --background: oklch(1 0 0);
@@ -66,7 +55,7 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: var(--font-body);
+    font-family: var(--font-body), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
@@ -108,7 +97,7 @@
 }
 
 .hero h1 {
-  font-family: var(--font-heading);
+  font-family: var(--font-heading), Georgia, serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
   color: var(--color-hive-blue);
@@ -211,28 +200,6 @@
   top: .4rem;
 }
 
-/* CTA buttons */
-.btn {
-  display: inline-block;
-  margin-top: .8rem;
-  padding: .45rem .9rem;
-  border-radius: 8px;
-  font-size: .9rem;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.btn-ghost {
-  border: 1px solid rgba(0,0,0,0.1);
-  color: var(--color-hive-blue);
-  background: transparent;
-}
-
-.btn-primary {
-  background: linear-gradient(90deg, var(--color-hive-blue), var(--color-hive-yellow));
-  color: #063337;
-  border: none;
-}
 
 /* ================================================= */
 /* CONTACT / RESOURCE AREA                            */
@@ -266,29 +233,6 @@
   margin-top: 1.5rem;
 }
 
-/* ================================================= */
-/* footer                                           */
-/* ================================================= */
-
-.support-footer {
-  margin-top: 2rem;
-  border-top: 1px solid rgba(0,0,0,0.05);
-  padding: 1.2rem 1rem;
-}
-
-.support-footer .container {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.support-footer a {
-  color: var(--muted-foreground);
-  margin-left: .5rem;
-}
 
 /* ================================================= */
 /* Responsive tweaks                                  */

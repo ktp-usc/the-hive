@@ -1,65 +1,112 @@
 "use client";
 
-// Lily Deller - Navigation
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 const links = [
-  { label: "About Us", href: "/about" },
-  { label: "Awareness", href: "/awareness" },
-  { label: "Support", href: "/support" },
-  { label: "Contact", href: "/contact" },
-  { label: "Keep Updated", href: "/keep-updated" },
-  { label: "Donations", href: "/donations"}
+  { label: "About Us",      href: "/about" },
+  { label: "Awareness",     href: "/awareness" },
+  { label: "Support",       href: "/support" },
+  { label: "Contact",       href: "/contact" },
+  { label: "Keep Updated",  href: "/keep-updated" },
 ];
 
-
+const headingFont: React.CSSProperties = {
+  fontFamily: "var(--font-heading), Georgia, serif",
+};
+const bodyFont: React.CSSProperties = {
+  fontFamily: "var(--font-body), system-ui, sans-serif",
+};
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <nav
       style={{
+        ...bodyFont,
         position: "fixed",
         top: 0,
         left: 0,
         width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "2rem",
-        padding: "0.75rem 2rem",
-        background: "#ffffff",
         zIndex: 50,
+        background: "#ffffff",
+        borderBottom: "1px solid rgba(0,0,0,0.08)",
+        boxShadow: "0 1px 8px rgba(0,0,0,0.06)",
       }}
     >
-      <Link
-        href="/"
-        style={{ fontSize: "1.1rem", color: "#1D979C", textDecoration: "none", fontWeight: 700 }}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "0 1.5rem",
+          height: "64px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
       >
-        The Hive
-      </Link>
+        {/* Brand */}
+        <Link
+          href="/"
+          style={{
+            ...headingFont,
+            color: "var(--color-hive-blue)",
+            textDecoration: "none",
+            fontSize: "1.4rem",
+            fontWeight: 700,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          The Hive
+        </Link>
 
-      {/* Desktop links */}
-      <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "row", gap: "2rem" }}>
-        {links.map(({ label, href }) => (
-          <li key={href}>
-            <Link
-              href={href}
-              style={{ fontSize: "1.1rem", color: "#1D979C", textDecoration: "none", fontWeight: 700 }}
+        {/* Links */}
+        <ul
+          style={{
+            listStyle: "none",
+            margin: 0,
+            padding: 0,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.25rem",
+          }}
+        >
+          {links.map(({ label, href }) => {
+            const active = pathname === href;
+            return (
+              <li key={href}>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className={
+                    active
+                      ? "text-hive-blue font-semibold border-b-2 border-hive-blue rounded-none hover:bg-transparent"
+                      : "text-gray-700 font-medium hover:text-hive-blue hover:bg-transparent"
+                  }
+                  style={bodyFont}
+                >
+                  <Link href={href}>{label}</Link>
+                </Button>
+              </li>
+            );
+          })}
+
+          {/* Donations CTA */}
+          <li style={{ marginLeft: "0.5rem" }}>
+            <Button
+              asChild
+              size="sm"
+              className="rounded-full bg-hive-orange text-white font-semibold hover:bg-hive-orange/90"
+              style={bodyFont}
             >
-              {label}
-            </Link>
+              <Link href="/donations">Donate</Link>
+            </Button>
           </li>
-        ))}
-      </ul>
-
-      {/* Mobile hamburger */}
-      <button onClick={() => setOpen((v) => !v)} style={{ display: "none" }}>
-        {open ? "Close" : "Menu"}
-      </button>
+        </ul>
+      </div>
     </nav>
   );
 }

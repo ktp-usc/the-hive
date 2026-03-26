@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@/components/ui/button";
 
 // Next.js page component: Impact the Hive
 // Place in `pages/impact-the-hive.jsx` (Pages Router) or adapt for App Router.
@@ -7,7 +8,7 @@ export default function DonationsPage() {
   return (
     <main className="min-h-screen bg-gray-50 pt-24 pb-12 px-6 lg:px-20">
       <header className="max-w-4xl mx-auto text-center mb-12">
-        <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
+        <h1 className="text-4xl font-extrabold tracking-tight text-hive-blue" style={{ fontFamily: "var(--font-heading)" }}>
           Impact the Hive
         </h1>
         <p className="mt-4 text-lg text-gray-600">
@@ -22,13 +23,13 @@ export default function DonationsPage() {
           <div className="flex items-start gap-6">
 
             <div className="shrink-0">
-              <div className="h-16 w-16 rounded-full bg-yellow-400 flex items-center justify-center text-2xl font-bold text-white">
+              <div className="h-16 w-16 rounded-full bg-hive-yellow flex items-center justify-center text-2xl font-bold text-white">
                 V
               </div>
             </div>
 
             <div className="flex-1">
-              <h2 className="text-2xl font-semibold text-gray-900">
+              <h2 className="text-2xl font-semibold text-hive-blue">
                 Volunteer Opportunities
               </h2>
 
@@ -62,9 +63,7 @@ export default function DonationsPage() {
               </div>
 
               <div className="mt-8">
-                <button className="inline-flex items-center px-6 py-3 border rounded-md text-sm font-medium hover:shadow">
-                  Sign Up to Volunteer
-                </button>
+                <Button variant="outline">Sign Up to Volunteer</Button>
               </div>
 
             </div>
@@ -77,13 +76,13 @@ export default function DonationsPage() {
           <div className="flex items-start gap-6">
 
             <div className="shrink-0">
-              <div className="h-16 w-16 rounded-full bg-indigo-500 flex items-center justify-center text-2xl font-bold text-white">
+              <div className="h-16 w-16 rounded-full bg-hive-blue flex items-center justify-center text-2xl font-bold text-white">
                 D
               </div>
             </div>
 
             <div className="flex-1">
-              <h2 className="text-2xl font-semibold text-gray-900">
+              <h2 className="text-2xl font-semibold text-hive-blue">
                 Donation Opportunities
               </h2>
 
@@ -94,9 +93,7 @@ export default function DonationsPage() {
               </p>
 
               <div className="mt-6">
-                <button className="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-md text-sm font-medium hover:opacity-95">
-                  Donate Now
-                </button>
+                <Button className="bg-hive-orange text-white hover:bg-hive-orange/90">Donate Now</Button>
               </div>
 
             </div>
