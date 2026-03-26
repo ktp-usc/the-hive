@@ -42,11 +42,11 @@ const boardMembers: MemberRecord[] = [
 function MemberCard({ member }: { member: MemberRecord }) {
   return (
       <article
-          className={cn(
-              "group flex h-full flex-col rounded-[2rem] border border-black/8 bg-white/88 p-4 text-center shadow-[0_18px_60px_rgba(27,34,67,0.08)] transition duration-300",
-              "hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(27,34,67,0.14)]",
-              member.empty && "border-dashed border-black/12 bg-white/55"
-          )}
+      className={cn(
+        "group flex h-full cursor-pointer flex-col rounded-[2rem] border border-black/8 bg-white/88 p-4 text-center shadow-[0_18px_60px_rgba(27,34,67,0.08)] transition duration-300",
+        "hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(27,34,67,0.14)]",
+        member.empty && "border-dashed border-black/12 bg-white/55"
+      )}
       >
         <div
             className={cn(
@@ -135,12 +135,12 @@ export default function AboutPage() {
                         type="button"
                         variant="ghost"
                         onClick={() => setActiveTab(tab.id)}
-                        className={cn(
-                            "rounded-full border px-5 py-6 font-[var(--font-body)] text-sm font-semibold tracking-[0.04em] transition",
-                            isActive
-                                ? "border-transparent bg-[#1d979c] text-white shadow-[0_12px_34px_rgba(29,151,156,0.28)] hover:bg-[#187d81]"
-                                : "border-black/10 bg-white/70 text-slate-600 hover:border-[#1d979c]/25 hover:bg-white hover:text-slate-900"
-                        )}
+                  className={cn(
+                    "cursor-pointer rounded-full border px-5 py-6 font-[var(--font-body)] text-sm font-semibold tracking-[0.04em] transition",
+                    isActive
+                      ? "border-transparent bg-[#1d979c] text-white shadow-[0_12px_34px_rgba(29,151,156,0.28)] hover:bg-[#187d81]"
+                      : "border-black/10 bg-white/70 text-slate-600 hover:border-[#1d979c]/25 hover:bg-white hover:text-slate-900"
+                  )}
                     >
                       {tab.label}
                     </Button>
