@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
@@ -38,8 +39,6 @@ export default function Navbar() {
     >
       <div
         style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
           padding: "0 1.5rem",
           height: "64px",
           display: "flex",
@@ -48,18 +47,14 @@ export default function Navbar() {
         }}
       >
         {/* Brand */}
-        <Link
-          href="/"
-          style={{
-            ...headingFont,
-            color: "var(--color-hive-blue)",
-            textDecoration: "none",
-            fontSize: "1.4rem",
-            fontWeight: 700,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          The Hive
+        <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+          <Image
+            src="/the-hive-logo.png"
+            alt="The Hive"
+            width={120}
+            height={40}
+            style={{ objectFit: "contain" }}
+          />
         </Link>
 
         {/* Links */}
