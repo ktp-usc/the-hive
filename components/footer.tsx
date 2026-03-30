@@ -20,17 +20,17 @@ export default function Footer() {
                     <Link href="/about" className="py-0.5 text-gray-200">
                         About Us
                     </Link>
-                    <Link href="/awareness" className="py-0.5 text-gray-200">
-                        Awareness
-                    </Link>
                     <Link href="/support" className="py-0.5 text-gray-200">
-                        Support
+                        Support Services
                     </Link>
-                    <Link href="/contact" className="py-0.5 text-gray-200">
-                        Contact
+                    <Link href="/events" className="py-0.5 text-gray-200">
+                        Events
                     </Link>
-                    <Link href="/keep-updated" className="py-0.5 text-gray-200">
-                        Keep Updated
+                    <Link href="/bee-in-the-know" className="py-0.5 text-gray-200">
+                        Bee in the Know
+                    </Link>
+                    <Link href="/donations" className="py-0.5 text-gray-200">
+                        Impact the Hive
                     </Link>
                 </div>
 

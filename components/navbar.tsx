@@ -6,11 +6,11 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { label: "About Us",      href: "/about" },
-  { label: "Awareness",     href: "/awareness" },
-  { label: "Support",       href: "/support" },
-  { label: "Contact",       href: "/contact" },
-  { label: "Keep Updated",  href: "/keep-updated" },
+  { label: "About Us",         href: "/about" },
+  { label: "Support Services", href: "/support" },
+  { label: "Events",           href: "/events" },
+  { label: "Bee in the Know",  href: "/bee-in-the-know" },
+  { label: "Contact Us",       href: "/contact" },
 ];
 
 const headingFont: React.CSSProperties = {
@@ -97,7 +97,7 @@ export default function Navbar() {
               className="rounded-full bg-hive-orange text-white font-semibold hover:bg-hive-orange/90"
               style={bodyFont}
             >
-              <Link href="/donations">Donate</Link>
+              <Link href="/donations">Impact the Hive</Link>
             </Button>
           </li>
         </ul>
