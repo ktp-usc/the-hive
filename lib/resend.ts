@@ -14,7 +14,7 @@ type FormData = {
 
 export const sendEmail = async (formData: FormData) => {
     await resend.emails.send({
-        to: "communications@thehivecc.org",
+        to: "noahack22@gmail.com",
         from: "HIVE Contact <onboarding@resend.dev>",
         subject: "New Message from HIVE User",
         html: `

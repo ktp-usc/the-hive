@@ -3,6 +3,8 @@ import Image from "next/image";
 import Footer from "@/components/footer";
 import Script from "next/script";
 import InstagramEmbed from "@/components/InstagramEmbed/page";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
 	{
@@ -19,12 +21,9 @@ export default function Home() {
 						First Step to Healing
 					</span>
 				</h1>
-				<a
-					href="#donate"
-					className="mt-10 inline-block tracking-widest bg-hive-yellow text-gray-900 font-bold px-16 py-8 rounded-full text-2xl hover:bg-yellow-400 transition-colors"
-				>
-					Donate Today
-				</a>
+				<Button asChild size="lg" className="mt-10 h-auto rounded-full bg-hive-yellow text-gray-900 font-bold hover:bg-hive-yellow/90 px-16 py-8 text-2xl tracking-widest transition-colors">
+					<Link href="/donations">Donate Today</Link>
+				</Button>
 			</section>
 
 			{/* Mission */}
@@ -135,12 +134,9 @@ export default function Home() {
 					Your contribution helps us reach more survivors and provide
 					the care they deserve. Every dollar makes a difference.
 				</p>
-				<a
-					href="#"
-					className="inline-block bg-hive-orange text-white font-bold px-10 py-4 rounded-full text-lg hover:bg-orange-500 transition-colors"
-				>
-					Donate Now
-				</a>
+				<Button asChild className="h-auto rounded-full bg-hive-orange text-white font-bold hover:bg-hive-orange/90 px-10 py-4 text-lg transition-colors">
+					<Link href="/donations">Donate Now</Link>
+				</Button>
 			</section>
 
 			{/* footer section */}

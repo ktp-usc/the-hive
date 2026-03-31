@@ -41,10 +41,10 @@ export default function Footer() {
                     </h1>
                     <br/>
                     <p className="py-0.5 text-gray-200">
-                        <b>Email:</b> hello@thehivecc.org
+                        <b>Email:</b> <a href="mailto:hello@thehivecc.org">hello@thehivecc.org</a>
                     </p>
                     <p className="py-0.5 text-gray-200">
-                        <b>Phone:</b> (803) 888-7725
+                        <b>Phone:</b> <a href="tel:8038887725">803-888-7725</a>
                     </p>
                     <p className="py-0.5 text-gray-200">
                         <b>Address:</b> 4704 Colonial Drive Columbia, SC
