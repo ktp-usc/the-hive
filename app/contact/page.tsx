@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Contact() {
 
@@ -165,6 +166,55 @@ export default function Contact() {
                                     4704 Colonial Drive<br />Columbia, SC 29203
                                 </Link>
                             </div>
+                        </div>
+
+                        {/* Socials */}
+                        <div className="flex items-start gap-4">
+
+                            {/* Instagram */}
+                            <Link href="https://www.instagram.com/thehivecc/">
+                                <Image
+                                    src="/images/Instagram_logo_2016.svg"
+                                    alt="Instagram Logo and Link"
+                                    width={50}
+                                    height={50}
+                                    className="rounded"
+                                />
+                            </Link>
+
+                            {/* Facebook */}
+                            <Link href="https://www.facebook.com/hivecc/">
+                                <Image
+                                    src="/images/2023_Facebook_icon.svg"
+                                    alt="Facebook Logo and Link"
+                                    width={50}
+                                    height={50}
+                                    className="rounded"
+                                />
+                            </Link>
+
+                            {/* LinkedIn */}
+                            <Link href="https://www.linkedin.com/company/thehivecc/">
+                                <Image
+                                    src="/images/LinkedIn_icon.svg"
+                                    alt="LinkedIn Logo and Link"
+                                    width={50}
+                                    height={50}
+                                    className="rounded"
+                                />
+                            </Link>
+
+                            {/* Twitter */}
+                            <Link href="https://x.com/thehive_cc">
+                                <Image
+                                    src="/images/X_logo_2023.svg"
+                                    alt="Twitter Logo and Link"
+                                    width={50}
+                                    height={50}
+                                    className="rounded"
+                                />
+                            </Link>
+
                         </div>
 
                     </div>
