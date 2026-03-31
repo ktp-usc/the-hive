@@ -1,4 +1,8 @@
+
 import Image from "next/image";
+import Footer from "@/components/footer";
+import Script from "next/script";
+import InstagramEmbed from "@/components/InstagramEmbed/page";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -9,7 +13,8 @@ export default function Home() {
 	return (
 		<main className="min-h-screen bg-white text-gray-800">
 			{/* Hero */}
-			<section className="flex flex-col items-center justify-center bg-hive-blue text-white px-6 text-center min-h-[80vh] mt-16">
+			<section
+				className="flex flex-col items-center justify-center bg-hive-blue text-white py-24 px-6 text-center min-h-[80vh]">
 				<h1 className="text-4xl md:text-6xl font-medium leading-tight max-w-3xl mx-auto">
 					Believing in Yourself is the
 					<span className="block font-bold text-7xl">
@@ -22,7 +27,8 @@ export default function Home() {
 			</section>
 
 			{/* Mission */}
-			<section className="py-20 px-6 max-w-5xl mx-auto gap-8 text-center flex flex-col md:flex-row items-center justify-center">
+			<section
+				className="py-20 px-6 max-w-5xl mx-auto gap-8 text-center flex flex-col md:flex-row items-center justify-center">
 				<div>
 					<Image
 						src="/images/mission.jpg"
@@ -49,7 +55,7 @@ export default function Home() {
 			</section>
 
 			{/* Divider */}
-			<div className="border-t border-gray-200 max-w-4xl mx-auto" />
+			<div className="border-t border-gray-200 max-w-4xl mx-auto"/>
 
 			{/* What We Do */}
 			<section className="py-20 px-6 max-w-5xl mx-auto">
@@ -70,7 +76,8 @@ export default function Home() {
 					</div>
 
 					<div className="flex flex-col items-center gap-4">
-						<div className="w-14 h-14 rounded-full bg-hive-orange/10 flex items-center justify-center"></div>
+						<div
+							className="w-14 h-14 rounded-full bg-hive-orange/10 flex items-center justify-center"></div>
 						<h3 className="text-xl font-semibold text-hive-orange">
 							Prevention &amp; Outreach
 						</h3>
@@ -82,8 +89,12 @@ export default function Home() {
 					</div>
 
 					<div className="flex flex-col items-center gap-4">
-						<div className="w-14 h-14 rounded-full bg-hive-yellow/20 flex items-center justify-center"></div>
-						<h3 className="text-xl font-semibold text-hive-orange">
+						<div
+							className="w-14 h-14 rounded-full bg-hive-yellow/20 flex items-center justify-center"></div>
+						<h3
+							className="text-xl font-semibold"
+							style={{color: '#c9a000'}}
+						>
 							Restoration
 						</h3>
 						<p className="text-gray-500 leading-relaxed">
@@ -96,7 +107,23 @@ export default function Home() {
 			</section>
 
 			{/* Divider */}
-			<div className="border-t border-gray-200 max-w-4xl mx-auto" />
+			<div className="border-t border-gray-200 max-w-4xl mx-auto"/>
+
+			{/* Instagram Feed */}
+			<div className="mx-auto w-full max-w-lg mt-5">
+				<div className="flex flex-col items-center gap-4 mb-5">
+					<a
+						href="https://www.instagram.com/thehivecc/"
+						className="inline-block bg-hive-orange text-white font-bold px-10 py-4 rounded-full text-lg hover:bg-orange-500 transition-colors"
+					>
+						Follow Us on Instagram!
+					</a>
+				</div>
+				<InstagramEmbed/>
+				<Script async src="https://www.instagram.com/embed.js"></Script>
+			</div>
+
+
 
 			{/* Donate CTA */}
 			<section id="donate" className="py-20 px-6 text-center bg-gray-50">
@@ -111,7 +138,12 @@ export default function Home() {
 					<Link href="/donations">Donate Now</Link>
 				</Button>
 			</section>
-      
+
+			{/* footer section */}
+			<footer>
+				<Footer/>
+			</footer>
+
 		</main>
 	);
 }
