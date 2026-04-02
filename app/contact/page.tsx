@@ -1,3 +1,6 @@
+"use client";
+
+import Footer from "@/components/footer";
 import {Mail, MapPin, Phone} from "lucide-react";
 import { Button } from "@/components/ui/button"
 import {
@@ -9,8 +12,42 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import Link from "next/link";
+import Image from "next/image";
+import {sendEmail} from "@/lib/resend";
+import {useState} from "react";
 
 export default function Contact() {
+
+    // Defines the shape of the form data
+    type FormData = {
+        name: string;
+        email: string;
+        phone: string;
+        comment: string;
+    };
+
+    // Holds the current value of each form field
+    const [formData, setFormData] = useState<FormData>({
+        name: '',
+        email: '',
+        phone: '',
+        comment: '',
+    });
+
+    // Handles submission of the form
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // prevents page reload on submit
+
+        const form = e.currentTarget;
+
+        setFormData({
+            name:    (form.elements.namedItem('name')    as HTMLInputElement).value,
+            email:   (form.elements.namedItem('email')   as HTMLInputElement).value,
+            phone:   (form.elements.namedItem('phone')   as HTMLInputElement).value,
+            comment: (form.elements.namedItem('comment') as HTMLTextAreaElement).value,
+        });
+        sendEmail(formData);
+    };
 
     return (
         <main className="min-h-screen bg-white text-gray-800">
@@ -34,7 +71,7 @@ export default function Contact() {
                         Send Us a Message
                     </h2>
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <FieldSet className=" bg-hive-blue p-5 rounded-xl">
                             <FieldGroup >
                                 <Field>
@@ -46,7 +83,9 @@ export default function Contact() {
                                     </FieldLabel>
                                     <Input
                                         id="name"
+                                        name="name"
                                         autoComplete="off"
+                                        required
                                         placeholder="Jane Doe"
                                         className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
                                     />
@@ -60,6 +99,7 @@ export default function Contact() {
                                     </FieldLabel>
                                     <Input
                                         id="email"
+                                        name="email"
                                         type="email"
                                         required
                                         autoComplete="off"
@@ -76,6 +116,7 @@ export default function Contact() {
                                     </FieldLabel>
                                     <Input
                                         id="phone"
+                                        name="phone"
                                         type="phone"
                                         autoComplete="off"
                                         placeholder="(XXX) XXX-XXXX"
@@ -84,13 +125,14 @@ export default function Contact() {
                                 </Field>
                                 <Field>
                                     <FieldLabel
-                                        htmlFor="comments"
+                                        htmlFor="comment"
                                         className="text-xl text-gray-200">
 
                                         Comments
                                     </FieldLabel>
                                     <Textarea
-                                        id="comments"
+                                        id="comment"
+                                        name="comment"
                                         required
                                         autoComplete="off"
                                         placeholder="Enter message here"
@@ -168,9 +210,54 @@ export default function Contact() {
                         </div>
 
                     </div>
-                </div>
 
+                    {/* Socials */}
+                    <div className="flex items-start gap-4 py-4">
+                        {/* Instagram */}
+                        <Link href="https://www.instagram.com/thehivecc/">
+                            <Image
+                                src="/socials-images/Instagram_logo_2016.svg"
+                                alt="Instagram link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+
+                        {/* Facebook */}
+                        <Link href="https://www.facebook.com/hivecc/">
+                            <Image
+                                src="/socials-images/2023_Facebook_icon.svg"
+                                alt="Facebook link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+
+                        {/* LinkedIn */}
+                        <Link href="https://www.linkedin.com/company/thehivecc/">
+                            <Image
+                                src="/socials-images/LinkedIn_icon.svg"
+                                alt="LinkedIn link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+
+                        {/* Twitter */}
+                        <Link href="https://x.com/thehive_cc">
+                            <Image
+                                src="/socials-images/X_logo_2023.svg"
+                                alt="Twitter link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+                    </div>
+                </div>
             </section>
+            <footer>
+                <Footer/>
+            </footer>
         </main>
     );
 }

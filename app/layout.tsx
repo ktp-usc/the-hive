@@ -30,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Navbar />
         { children }
         <SafeExit />
-        <footer><Footer /></footer>
+        <Footer />
         </body>
         </html>
     );

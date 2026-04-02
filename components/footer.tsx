@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -61,6 +60,16 @@ export default function Footer() {
                 </div>
 
 
+                {/* Donation Section */}
+                <div className="flex flex-col p-4 rounded-2xl mb-10">
+                    <h1 className="font-bold text-gray-200">
+                        Support Our Mission
+                    </h1>
+                    <br/>
+                    <Link href="#" className="py-0.5 text-gray-200">
+                        Donation Link
+                    </Link>
+                </div>
             </section>
 
             <div className="border-t border-gray-200 mx-20"/>
