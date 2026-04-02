@@ -66,7 +66,10 @@ export default function Footer() {
                         Support Our Mission
                     </h1>
                     <br/>
-                    <Link href="#" className="py-0.5 text-gray-200">
+                    <Link href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-0.5 text-gray-200">
                         Donation Link
                     </Link>
                 </div>
