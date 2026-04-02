@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import Link from "next/link";
+import Image from "next/image";
 import {sendEmail} from "@/lib/resend";
 import {useState} from "react";
 
@@ -209,8 +210,50 @@ export default function Contact() {
                         </div>
 
                     </div>
-                </div>
 
+                    {/* Socials */}
+                    <div className="flex items-start gap-4 py-4">
+                        {/* Instagram */}
+                        <Link href="https://www.instagram.com/thehivecc/">
+                            <Image
+                                src="/socials-images/Instagram_logo_2016.svg"
+                                alt="Instagram link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+
+                        {/* Facebook */}
+                        <Link href="https://www.facebook.com/hivecc/">
+                            <Image
+                                src="/socials-images/2023_Facebook_icon.svg"
+                                alt="Facebook link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+
+                        {/* LinkedIn */}
+                        <Link href="https://www.linkedin.com/company/thehivecc/">
+                            <Image
+                                src="/socials-images/LinkedIn_icon.svg"
+                                alt="LinkedIn link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+
+                        {/* Twitter */}
+                        <Link href="https://x.com/thehive_cc">
+                            <Image
+                                src="/socials-images/X_logo_2023.svg"
+                                alt="Twitter link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+                    </div>
+                </div>
             </section>
             <footer>
                 <Footer/>
