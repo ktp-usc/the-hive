@@ -255,6 +255,20 @@ export default function Contact() {
                     </div>
                 </div>
             </section>
+
+            {/* Link to Newsletter */}
+            <section>
+                <Link
+                    href="https://thehivecc.dm.networkforgood.com/emails/first_name-hope-is-growing-in-south-carolina-thanks-to-you-9bd6cd6f-d221-4744-a983-fa7ee063e49a"
+                    rel="noopener noreferrer"
+                    target="_blank">
+                    <div className="flex justify-center bg-hive-orange text-white py-10 rounded-2xl max-w-md mx-auto my-15
+                    hover:bg-hive-orange/90">
+                        <h1 className="text-3xl"><strong>Check Out Our Newsletter!</strong></h1>
+                    </div>
+                </Link>
+            </section>
+
             <footer>
                 <Footer/>
             </footer>
