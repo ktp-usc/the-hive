@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -17,19 +16,19 @@ export default function Footer() {
                         Quick Links
                     </h1>
                     <br/>
-                    <Link href="/about" className="py-0.5 text-gray-200">
+                    <Link href="#" className="py-0.5 text-gray-200">
                         About Us
                     </Link>
-                    <Link href="/awareness" className="py-0.5 text-gray-200">
+                    <Link href="#" className="py-0.5 text-gray-200">
                         Awareness
                     </Link>
-                    <Link href="/support" className="py-0.5 text-gray-200">
+                    <Link href="#" className="py-0.5 text-gray-200">
                         Support
                     </Link>
                     <Link href="/contact" className="py-0.5 text-gray-200">
                         Contact
                     </Link>
-                    <Link href="/keep-updated" className="py-0.5 text-gray-200">
+                    <Link href="#" className="py-0.5 text-gray-200">
                         Keep Updated
                     </Link>
                 </div>
@@ -57,7 +56,7 @@ export default function Footer() {
                         Support Our Mission
                     </h1>
                     <br/>
-                    <Link href="/donations" className="py-0.5 text-gray-200">
+                    <Link href="#" className="py-0.5 text-gray-200">
                         Donation Link
                     </Link>
                 </div>
