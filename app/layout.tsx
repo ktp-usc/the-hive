@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
 import React from "react";
 import Navbar from "@/components/navbar";
 import SafeExit from "@/components/safe-exit";
 import Footer from "@/components/footer";
+import { LanguageProvider } from "@/components/language-provider";
+import {
+    defaultLanguage,
+    isLanguageCode,
+    languageCookieKey,
+} from "@/lib/site-copy";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -23,14 +30,22 @@ export const metadata: Metadata = {
     description: "KTP SP26"
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+    const cookieStore = await cookies();
+    const storedLanguage = cookieStore.get(languageCookieKey)?.value;
+    const initialLanguage = storedLanguage && isLanguageCode(storedLanguage)
+        ? storedLanguage
+        : defaultLanguage;
+
     return (
-        <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+        <html lang={initialLanguage} className={`${inter.variable} ${playfair.variable}`}>
         <body>
-        <Navbar />
-        { children }
-        <SafeExit />
-        <Footer />
+        <LanguageProvider initialLanguage={initialLanguage}>
+            <Navbar />
+            { children }
+            <SafeExit />
+            <Footer />
+        </LanguageProvider>
         </body>
         </html>
     );

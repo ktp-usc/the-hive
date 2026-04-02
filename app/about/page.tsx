@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -18,12 +19,6 @@ type MemberRecord = {
   image?: string;
   empty?: boolean;
 };
-
-const tabs: Array<{ id: MemberTabId; label: string }> = [
-  { id: "founder", label: "Founder/CEO" },
-  { id: "team", label: "Team Members" },
-  { id: "board", label: "Board of Directors" },
-];
 
 const teamMembers: MemberRecord[] = [
   {
@@ -233,7 +228,21 @@ function MemberGrid({
 }
 
 export default function AboutPage() {
+  const copy = useSiteCopy();
   const [activeTab, setActiveTab] = useState<MemberTabId>("founder");
+  const tabs: Array<{ id: MemberTabId; label: string }> = [
+    { id: "founder", label: copy.about.tabs.founder },
+    { id: "team", label: copy.about.tabs.team },
+    { id: "board", label: copy.about.tabs.board },
+  ];
+  const localizedTeamMembers = teamMembers.map((member, index) => ({
+    ...member,
+    ...(copy.about.teamMembers[index] ?? {}),
+  }));
+  const localizedBoardMembers = boardMembers.map((member, index) => ({
+    ...member,
+    ...(copy.about.boardMembers[index] ?? {}),
+  }));
 
   return (
       <main className="min-h-screen bg-[radial-gradient(circle_at_top,#fff9ec_0%,#f8f3eb_42%,#eef3f7_100%)] px-4 pb-20 pt-32 sm:px-6 lg:px-8">
@@ -241,10 +250,10 @@ export default function AboutPage() {
           <section className="overflow-hidden rounded-[2.5rem] border border-white/70 bg-white/78 px-6 py-10 shadow-[0_30px_120px_rgba(32,42,69,0.10)] backdrop-blur sm:px-10 sm:py-14 lg:px-16">
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#d8794a]">
-                Members
+                {copy.about.heroEyebrow}
               </p>
               <h1 className="mt-4 font-[var(--font-heading)] text-4xl leading-tight text-slate-950 sm:text-5xl">
-                Meet the people shaping The Hive.
+                {copy.about.heroTitle}
               </h1>
             </div>
 
@@ -276,51 +285,34 @@ export default function AboutPage() {
                   <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
                     <article className="rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,rgba(255,251,242,0.96),rgba(255,255,255,0.85))] p-6 shadow-[0_20px_70px_rgba(32,42,69,0.08)] sm:p-8">
                       <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#d8794a]">
-                        Founder Story
+                        {copy.about.founderStoryEyebrow}
                       </p>
                       <h2 className="mt-4 font-[var(--font-heading)] text-3xl text-slate-950 sm:text-4xl">
-                        Founder/CEO
+                        {copy.about.founderTitle}
                       </h2>
                         <div className="mt-8 rounded-[1.75rem] border border-dashed border-[#1d979c]/25 bg-[#1d979c]/6 p-5">
                             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1d979c]">
-                                Narrative
+                                {copy.about.founderNarrativeLabel}
                             </p>
                             <p className="mt-3 text-sm leading-7 text-slate-600">
-                                A lifelong advocate, Ashley draws from both lived experience and a strong academic foundation, holding a B.A. in Psychology from Columbia College and a Master of Social Work from the University of Washington. She is known for her ability to mobilize people, resources, and ideas to drive meaningful social change.
-                                Ashley has served in numerous philanthropic and leadership roles, including Board Member of Prisma Health Hospital Foundation, member of the Central Carolina Community Foundation African American Philanthropy Committee, and Chair of the Richland County Domestic Violence Coordinating Community Council. She currently serves on the South Carolina Victim Services Coordinating Council.
-                                Her impact has been nationally recognized. Ashley is a 2022 Aspen SOAR Fellow and recipient of honors including The State’s 20 Under 40 and a Jefferson Award. She is a sought-after speaker and facilitator, having presented at the Essence Festival and been featured in outlets such as Black Enterprise. Her work focuses on social and racial justice, gender-based violence, and leadership.
-                                Above all, Ashley is a mother to three children—Corinne Elizabeth, Caleb Josiah, and Collin Noah—who inspire her continued commitment to building safer, more equitable communities.
+                                {copy.about.founderNarrativeParagraphs.join(" ")}
                             </p>
                         </div>
                       <div className="mt-8 grid gap-5 sm:grid-cols-2">
                         <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5">
                           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-                            Founding Spark
+                            {copy.about.founderSparkTitle}
                           </p>
                           <p className="mt-3 text-sm leading-7 text-slate-600">
-                              As a survivor of sexual abuse and a native of South Carolina,
-                              Ashley Olayinka recognized the critical gaps in culturally
-                              responsive support for Black and Brown women and girls
-                              impacted by gender-based violence. Her lived experience,
-                              combined with her professional training, inspired her to
-                              create a space where survivors could access care that
-                              affirms their identities, addresses systemic barriers,
-                              and fosters true healing. This vision became The Hive.
+                              {copy.about.founderSparkBody}
                           </p>
                         </div>
                         <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5">
                           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-                            Vision Today
+                            {copy.about.founderVisionTitle}
                           </p>
                           <p className="mt-3 text-sm leading-7 text-slate-600">
-                              Today, Ashley leads The Hive alongside fellow survivors,
-                              working to decrease barriers and expand access to equitable,
-                              trauma-informed, and economically empowering services. Her
-                              leadership is rooted in healing justice, ensuring that
-                              survivors are not only supported, but also equipped to
-                              reclaim their autonomy, mental health, and economic mobility.
-                              She continues to advocate for systems change so that women
-                              and girls of color are safe, seen, and supported.
+                              {copy.about.founderVisionBody}
                           </p>
                         </div>
                       </div>
@@ -339,15 +331,13 @@ export default function AboutPage() {
                       </div>
                       <div className="mx-auto mt-6 max-w-sm text-center">
                         <h3 className="font-[var(--font-heading)] text-2xl text-slate-950">
-                            Ashley Olayinka
+                            {copy.about.founderName}
                         </h3>
                         <p className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-slate-500">
-                          Founder &amp; Chief Executive Officer
+                          {copy.about.founderRole}
                         </p>
                         <p className="mt-4 text-sm leading-7 text-slate-600">
-                            Ashley Olayinka is a transformative leader, healing justice advocate, and founder of The Hive,
-                            a culturally specific peer advocacy organization serving Black and Brown survivors of
-                            gender-based violence in South Carolina.
+                            {copy.about.founderProfileBody}
                         </p>
                       </div>
                     </aside>
@@ -356,19 +346,19 @@ export default function AboutPage() {
 
               {activeTab === "team" ? (
                   <MemberGrid
-                      eyebrow="Team"
-                      title="Team Members"
+                      eyebrow={copy.about.teamEyebrow}
+                      title={copy.about.teamTitle}
                       description=""
-                      members={teamMembers}
+                      members={localizedTeamMembers}
                   />
               ) : null}
 
               {activeTab === "board" ? (
                   <MemberGrid
-                      eyebrow="Leadership"
-                      title="Board of Directors"
+                      eyebrow={copy.about.boardEyebrow}
+                      title={copy.about.boardTitle}
                       description=""
-                      members={boardMembers}
+                      members={localizedBoardMembers}
                   />
               ) : null}
             </div>
@@ -379,13 +369,13 @@ export default function AboutPage() {
                 <div className="absolute -right-6 bottom-0 h-24 w-24 rounded-full bg-[#7ab7c4]/30 blur-2xl" />
                 <div className="relative">
                   <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[#d8794a]">
-                    Join The Hive
+                    {copy.about.joinEyebrow}
                   </p>
                   <p className="mx-auto mt-3 max-w-3xl font-[var(--font-heading)] text-2xl leading-tight text-slate-900 sm:text-3xl">
-                    Looking to join our team?
+                    {copy.about.joinTitle}
                   </p>
                   <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-700">
-                    Send your resume and a cover letter to{" "}
+                    {copy.about.joinBodyPrefix}{" "}
                     <a
                       href="mailto:hello@thehivecc.org"
                       className="font-semibold text-[#1d979c] underline decoration-[#1d979c]/35 underline-offset-4 transition hover:text-[#187d81] hover:decoration-[#187d81]"

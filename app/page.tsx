@@ -1,10 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Script from "next/script";
 import InstagramEmbed from "@/components/InstagramEmbed/page";
 import Link from "next/link";
+import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
+    const copy = useSiteCopy();
+
     {
         /* Replace links with shadcn button later */
     }
@@ -14,14 +19,14 @@ export default function Home() {
             <section
                 className="flex flex-col items-center justify-center bg-hive-blue text-white py-24 px-6 text-center min-h-[80vh]">
                 <h1 className="text-4xl md:text-6xl font-medium leading-tight max-w-3xl mx-auto">
-                    Believing in Yourself is the
+                    {copy.home.heroTitleLine1}
                     <span className="block font-bold text-7xl">
-						First Step to Healing
+						{copy.home.heroTitleLine2}
 					</span>
                 </h1>
                 <Button asChild size="lg"
                         className="mt-10 h-auto rounded-full bg-hive-yellow text-gray-900 font-bold hover:bg-hive-yellow/90 px-16 py-8 text-2xl tracking-widest transition-colors">
-                    <Link href="/donations">Donate Today</Link>
+                    <Link href="/donations">{copy.home.donateToday}</Link>
                 </Button>
             </section>
 
@@ -31,7 +36,7 @@ export default function Home() {
                 <div>
                     <Image
                         src="/images/mission.jpg"
-                        alt="Mission"
+                        alt={copy.home.missionImageAlt}
                         width={ 320 }
                         height={ 320 }
                         className="rounded-lg border-2 border-gray-200"
@@ -39,16 +44,10 @@ export default function Home() {
                 </div>
                 <div>
                     <h2 className="text-3xl font-bold mb-6 text-left text-hive-blue">
-                        Our Mission
+                        {copy.home.missionTitle}
                     </h2>
                     <p className="text-lg text-left leading-relaxed text-gray-600">
-                        The Hive Community Circle is a survivor-led,
-                        survivor-driven support organization helping women and
-                        girls in South Carolina overcome the trauma of sexual
-                        assault, intimate partner violence, and stalking. We are
-                        on a mission to provide unwavering support and
-                        compassion to the most impacted, yet most underserved
-                        survivors in SC.
+                        {copy.home.missionBody}
                     </p>
                 </div>
             </section>
@@ -59,18 +58,16 @@ export default function Home() {
             {/* What We Do */ }
             <section className="py-20 px-6 max-w-5xl mx-auto">
                 <h2 className="text-3xl font-bold text-center mb-14 text-hive-blue">
-                    What We Do
+                    {copy.home.whatWeDoTitle}
                 </h2>
                 <div className="grid md:grid-cols-3 gap-10 text-center">
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-14 h-14 rounded-full bg-hive-blue/10 flex items-center justify-center"></div>
                         <h3 className="text-xl font-semibold text-hive-blue">
-                            Advocacy &amp; Support
+                            {copy.home.whatWeDoCards[0].title}
                         </h3>
                         <p className="text-gray-500 leading-relaxed">
-                            We have assisted over 470 survivors and their
-                            families through direct advocacy and wraparound
-                            support services.
+                            {copy.home.whatWeDoCards[0].body}
                         </p>
                     </div>
 
@@ -78,12 +75,10 @@ export default function Home() {
                         <div
                             className="w-14 h-14 rounded-full bg-hive-orange/10 flex items-center justify-center"></div>
                         <h3 className="text-xl font-semibold text-hive-orange">
-                            Prevention &amp; Outreach
+                            {copy.home.whatWeDoCards[1].title}
                         </h3>
                         <p className="text-gray-500 leading-relaxed">
-                            Our prevention programs have reached over 367
-                            community members, creating safer spaces and raising
-                            awareness across South Carolina.
+                            {copy.home.whatWeDoCards[1].body}
                         </p>
                     </div>
 
@@ -94,12 +89,10 @@ export default function Home() {
                             className="text-xl font-semibold"
                             style={ { color: "#c9a000" } }
                         >
-                            Restoration
+                            {copy.home.whatWeDoCards[2].title}
                         </h3>
                         <p className="text-gray-500 leading-relaxed">
-                            We walk alongside survivors as they rebuild their
-                            lives, celebrating every milestone and success story
-                            along the way.
+                            {copy.home.whatWeDoCards[2].body}
                         </p>
                     </div>
                 </div>
@@ -115,7 +108,7 @@ export default function Home() {
                         href="https://www.instagram.com/thehivecc/"
                         className="inline-block bg-hive-orange text-white font-bold px-10 py-4 rounded-full text-lg hover:bg-orange-500 transition-colors"
                     >
-                        Follow Us on Instagram!
+                        {copy.home.followInstagram}
                     </a>
                 </div>
                 <InstagramEmbed/>
@@ -126,15 +119,14 @@ export default function Home() {
             {/* Donate CTA */ }
             <section id="donate" className="py-20 px-6 text-center bg-gray-50">
                 <h2 className="text-3xl font-bold mb-4 text-hive-blue">
-                    Support Our Work
+                    {copy.home.supportTitle}
                 </h2>
                 <p className="text-gray-500 max-w-xl mx-auto mb-10 text-lg">
-                    Your contribution helps us reach more survivors and provide
-                    the care they deserve. Every dollar makes a difference.
+                    {copy.home.supportBody}
                 </p>
                 <Button asChild
                         className="h-auto rounded-full bg-hive-orange text-white font-bold hover:bg-hive-orange/90 px-10 py-4 text-lg transition-colors">
-                    <Link href="/donations">Donate Now</Link>
+                    <Link href="/donations">{copy.home.donateNow}</Link>
                 </Button>
             </section>
 

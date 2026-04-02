@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useSiteCopy } from "@/components/language-provider";
 
 export default function Footer() {
+    const copy = useSiteCopy();
+
     return (
         <footer className="bg-hive-blue pt-15">
 
@@ -13,51 +18,51 @@ export default function Footer() {
                 {/* Quick Links Section */}
                 <div className="flex flex-col p-4 rounded-2xl mb-10">
                     <h1 className="font-bold text-lg text-gray-200">
-                        Quick Links
+                        {copy.footer.quickLinks}
                     </h1>
                     <br/>
                     <Link href="#" className="py-0.5 text-gray-200">
-                        About Us
+                        {copy.footer.about}
                     </Link>
                     <Link href="#" className="py-0.5 text-gray-200">
-                        Awareness
+                        {copy.footer.awareness}
                     </Link>
                     <Link href="#" className="py-0.5 text-gray-200">
-                        Support
+                        {copy.footer.support}
                     </Link>
                     <Link href="/contact" className="py-0.5 text-gray-200">
-                        Contact
+                        {copy.footer.contact}
                     </Link>
                     <Link href="#" className="py-0.5 text-gray-200">
-                        Keep Updated
+                        {copy.footer.keepUpdated}
                     </Link>
                 </div>
 
                 {/* Contact Us Section */}
                 <div className="flex flex-col p-4 rounded-2xl mb-10">
                     <h1 className="font-bold text-lg text-gray-200">
-                        Contact
+                        {copy.footer.contact}
                     </h1>
                     <br/>
                     <p className="py-0.5 text-gray-200">
-                        <b>Email:</b> <a href="mailto:hello@thehivecc.org">hello@thehivecc.org</a>
+                        <b>{copy.footer.email}</b> <a href="mailto:hello@thehivecc.org">hello@thehivecc.org</a>
                     </p>
                     <p className="py-0.5 text-gray-200">
-                        <b>Phone:</b> <a href="tel:8038887725">803-888-7725</a>
+                        <b>{copy.footer.phone}</b> <a href="tel:8038887725">803-888-7725</a>
                     </p>
                     <p className="py-0.5 text-gray-200">
-                        <b>Address:</b> 4704 Colonial Drive Columbia, SC
+                        <b>{copy.footer.address}</b> 4704 Colonial Drive Columbia, SC
                     </p>
                 </div>
 
                 {/* Donation Section */}
                 <div className="flex flex-col p-4 rounded-2xl mb-10">
                     <h1 className="font-bold text-gray-200">
-                        Support Our Mission
+                        {copy.footer.supportMission}
                     </h1>
                     <br/>
                     <Link href="#" className="py-0.5 text-gray-200">
-                        Donation Link
+                        {copy.footer.donationLink}
                     </Link>
                 </div>
             </section>
@@ -66,7 +71,7 @@ export default function Footer() {
             {/* Copyright */}
             <div className="flex flex-col p-4 rounded-2xl pb-10 pt-5 text-center">
                 <p className="text-gray-200">
-                    &copy; 2026 The Hive
+                    {copy.footer.copyright}
                 </p>
             </div>
         </footer>
