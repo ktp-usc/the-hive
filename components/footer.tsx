@@ -17,20 +17,29 @@ export default function Footer() {
                         Quick Links
                     </h1>
                     <br/>
+                    <Link href="/" className="py-0.5 text-gray-200">
+                        Home
+                    </Link>
                     <Link href="/about" className="py-0.5 text-gray-200">
                         About Us
+                    </Link>
+                    <Link href="/donations" className="py-0.5 text-gray-200">
+                        Impact the Hive
+                    </Link>
+                    <Link href="/about/our-partners" className="py-0.5 text-gray-200">
+                        Our Partners
                     </Link>
                     <Link href="/support" className="py-0.5 text-gray-200">
                         Support Services
                     </Link>
+                    <Link href="/awareness" className="py-0.5 text-gray-200">
+                        Prevention & Awareness
+                    </Link>
                     <Link href="/events" className="py-0.5 text-gray-200">
                         Events
                     </Link>
-                    <Link href="/bee-in-the-know" className="py-0.5 text-gray-200">
-                        Bee in the Know
-                    </Link>
-                    <Link href="/donations" className="py-0.5 text-gray-200">
-                        Impact the Hive
+                    <Link href="/contact" className="py-0.5 text-gray-200">
+                        Contact
                     </Link>
                 </div>
 
@@ -51,16 +60,7 @@ export default function Footer() {
                     </p>
                 </div>
 
-                {/* Donation Section */}
-                <div className="flex flex-col p-4 rounded-2xl mb-10">
-                    <h1 className="font-bold text-gray-200">
-                        Support Our Mission
-                    </h1>
-                    <br/>
-                    <Link href="/donations" className="py-0.5 text-gray-200">
-                        Donation Link
-                    </Link>
-                </div>
+
             </section>
 
             <div className="border-t border-gray-200 mx-20"/>
