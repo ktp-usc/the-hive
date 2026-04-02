@@ -8,6 +8,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type DonationTabId = "casita" | "keepers";
+type KeeperTier = {
+  amount: string;
+  name: string;
+  accent: string;
+  description: string;
+};
 
 const tabs: Array<{ id: DonationTabId; label: string }> = [
   { id: "casita", label: "Casita of Care" },
@@ -32,7 +38,7 @@ const casitaWaysToGive = [
   },
 ];
 
-const keeperTiers = [
+const keeperTiers: KeeperTier[] = [
   {
     amount: "$10/mo",
     name: "Hives of Hope",
@@ -81,17 +87,17 @@ function FeatureImage({
 }) {
   return (
     <div className={cn(
-      "overflow-hidden rounded-[2rem] border border-white/60 bg-white/80 p-3 shadow-[0_18px_60px_rgba(27,34,67,0.12)] sm:p-4",
+      "overflow-hidden rounded-4xl border border-white/60 bg-white/80 p-3 shadow-[0_18px_60px_rgba(27,34,67,0.12)] sm:p-4",
       className
     )}>
-      <div className="flex min-h-[19rem] w-full items-center justify-center rounded-[1.5rem] bg-[radial-gradient(circle_at_top,rgba(255,248,236,0.9),rgba(244,248,250,0.9))]">
+      <div className="flex min-h-76 w-full items-center justify-center rounded-3xl bg-[radial-gradient(circle_at_top,rgba(255,248,236,0.9),rgba(244,248,250,0.9))]">
         <Image
           src={src}
           alt={alt}
           width={1200}
           height={1500}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="h-auto max-h-[32rem] w-full rounded-[1.25rem] object-contain"
+          className="h-auto max-h-128 w-full rounded-[1.25rem] object-contain"
         />
       </div>
     </div>
@@ -115,7 +121,7 @@ export default function DonationsPage() {
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#d8794a]">
                 Impact the Hive
               </p>
-              <h1 className="mt-4 font-[var(--font-heading)] text-4xl leading-tight text-slate-950 sm:text-5xl lg:text-[4.3rem] lg:leading-[1.02]">
+              <h1 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-950 sm:text-5xl lg:text-[4.3rem] lg:leading-[1.02]">
                 Support survivors through spaces of care and sustaining generosity.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
@@ -185,7 +191,7 @@ export default function DonationsPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#d8794a]">
               Giving Sections
             </p>
-            <h2 className="mt-4 font-[var(--font-heading)] text-3xl leading-tight text-slate-950 sm:text-4xl">
+            <h2 className="mt-4 font-(--font-heading) text-3xl leading-tight text-slate-950 sm:text-4xl">
               Explore the giving story that speaks to you.
             </h2>
             <p className="mt-5 text-base leading-7 text-slate-600">
@@ -225,7 +231,7 @@ export default function DonationsPage() {
                     <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#d8794a]">
                       Casita of Care
                     </p>
-                    <h3 className="mt-4 font-[var(--font-heading)] text-4xl leading-tight text-slate-700 sm:text-5xl">
+                    <h3 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-700 sm:text-5xl">
                       More Than a Pantry. A Place of Belonging.
                     </h3>
                     <div className="mt-6 space-y-6 text-lg leading-9 text-slate-600">
@@ -273,7 +279,7 @@ export default function DonationsPage() {
                   />
 
                   <article className="px-2 sm:px-4">
-                    <h4 className="font-[var(--font-heading)] text-4xl leading-tight text-slate-700 sm:text-5xl">
+                    <h4 className="font-(--font-heading) text-4xl leading-tight text-slate-700 sm:text-5xl">
                       A Refuge for Survivors in the Midlands
                     </h4>
                     <div className="mt-6 space-y-6 text-lg leading-9 text-slate-600">
@@ -301,7 +307,7 @@ export default function DonationsPage() {
                       <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1d979c]">
                         Community Story
                       </p>
-                      <h4 className="mx-auto mt-4 max-w-5xl font-[var(--font-heading)] text-3xl leading-tight text-[#1d979c] sm:text-4xl">
+                      <h4 className="mx-auto mt-4 max-w-5xl font-(--font-heading) text-3xl leading-tight text-[#1d979c] sm:text-4xl">
                         A Community Rallies: How the Casita of Care Came to Be
                       </h4>
                       <p className="mx-auto mt-6 max-w-4xl text-xl leading-10 text-slate-500">
@@ -337,7 +343,7 @@ export default function DonationsPage() {
                     </article>
                 </div>
 
-                <div className="relative overflow-hidden rounded-[2rem] border border-black/8 shadow-[0_20px_70px_rgba(32,42,69,0.06)]">
+                <div className="relative overflow-hidden rounded-4xl border border-black/8 shadow-[0_20px_70px_rgba(32,42,69,0.06)]">
                   <div className="absolute inset-0 bg-[url('/donations/casitaofcare4.png')] bg-cover bg-center" />
                   <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,251,242,0.9),rgba(255,255,255,0.9))]" />
 
@@ -346,7 +352,7 @@ export default function DonationsPage() {
                     <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d8794a]">
                       Ways to Help
                     </p>
-                    <h4 className="mt-3 font-[var(--font-heading)] text-3xl text-slate-900">
+                    <h4 className="mt-3 font-(--font-heading) text-3xl text-slate-900">
                       Support the space with practical care.
                     </h4>
                     <p className="mt-4 text-base leading-8 text-slate-600">
@@ -386,10 +392,7 @@ export default function DonationsPage() {
                     {casitaWaysToGive.map((item) => (
                       <div
                         key={item.title}
-                        className={cn(
-                          "rounded-[1.5rem] p-5 shadow-[0_10px_30px_rgba(32,42,69,0.06)]",
-                          tier.accent
-                        )}
+                        className="rounded-3xl bg-white p-5 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
                       >
                         <Sparkles className="h-4 w-4 text-[#1d979c]" />
                         <p className="mt-3 text-base font-semibold text-slate-900">
@@ -413,7 +416,7 @@ export default function DonationsPage() {
                     <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1d979c]">
                       The Keepers Club
                     </p>
-                    <h3 className="mt-4 font-[var(--font-heading)] text-4xl leading-tight text-slate-700 sm:text-5xl">
+                    <h3 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-700 sm:text-5xl">
                       Stewarding sustainability for survivors every month.
                     </h3>
                     <div className="mt-6 space-y-6 text-lg leading-9 text-slate-600">
@@ -458,7 +461,7 @@ export default function DonationsPage() {
                         Member Benefits
                       </p>
                     </div>
-                    <h4 className="mt-4 font-[var(--font-heading)] text-4xl leading-tight text-slate-700 sm:text-5xl">
+                    <h4 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-700 sm:text-5xl">
                       A giving community with meaningful connection.
                     </h4>
 
@@ -466,7 +469,7 @@ export default function DonationsPage() {
                       {keeperBenefits.map((benefit) => (
                         <div
                           key={benefit}
-                          className="rounded-[1.5rem] border border-black/6 bg-white/82 p-4 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
+                          className="rounded-3xl border border-black/6 bg-white/82 p-4 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
                         >
                           <p className="text-sm leading-7 text-slate-600">
                             {benefit}
@@ -475,7 +478,7 @@ export default function DonationsPage() {
                       ))}
                     </div>
 
-                    <div className="mt-6 rounded-[1.5rem] border border-black/6 bg-[#fff7ea] p-5 text-left">
+                    <div className="mt-6 rounded-3xl border border-black/6 bg-[#fff7ea] p-5 text-left">
                       <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#d8794a]">
                         Contact
                       </p>
@@ -494,8 +497,8 @@ export default function DonationsPage() {
                   </article>
                 </div>
 
-                <div className="relative overflow-hidden rounded-[2rem] border border-black/8 shadow-[0_20px_70px_rgba(32,42,69,0.06)]">
-                  <div className="absolute inset-0 bg-[url('/donations/honeycomb.png?v=2')] bg-[length:340px_auto] bg-repeat opacity-85" />
+                <div className="relative overflow-hidden rounded-4xl border border-black/8 shadow-[0_20px_70px_rgba(32,42,69,0.06)]">
+                  <div className="absolute inset-0 bg-[url('/donations/honeycomb.png?v=2')] bg-size-[340px_auto] bg-repeat opacity-85" />
                   <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,248,236,0.48),rgba(255,255,255,0.54))]" />
 
                   <div className="relative z-10 grid gap-8 p-6 sm:p-8 lg:grid-cols-[0.85fr_1.15fr]">
@@ -503,7 +506,7 @@ export default function DonationsPage() {
                     <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#1d979c]">
                       Monthly Levels
                     </p>
-                    <h4 className="mt-3 font-[var(--font-heading)] text-3xl text-slate-900">
+                    <h4 className="mt-3 font-(--font-heading) text-3xl text-slate-900">
                       Choose the level of support that fits your giving.
                     </h4>
                     <p className="mt-4 text-base leading-8 text-slate-600">
@@ -527,7 +530,7 @@ export default function DonationsPage() {
                     {keeperTiers.map((tier) => (
                       <div
                         key={tier.name}
-                        className="rounded-[1.5rem] p-5 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
+                        className="rounded-3xl p-5 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
                         style={{ backgroundColor: tier.accent }}
                       >
                         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
