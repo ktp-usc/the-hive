@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 type DonationTabId = "casita" | "keepers";
 type KeeperTier = {
   amount: string;
+  yearly: string;
   name: string;
   accent: string;
   description: string;
@@ -41,6 +42,7 @@ const casitaWaysToGive = [
 const keeperTiers: KeeperTier[] = [
   {
     amount: "$10/mo",
+    yearly: "$120/year",
     name: "Hives of Hope",
     accent: "#fff0de",
     description:
@@ -48,6 +50,7 @@ const keeperTiers: KeeperTier[] = [
   },
   {
     amount: "$20/mo",
+    yearly: "$240/year",
     name: "Beeyond Donor",
     accent: "#ffd9b3",
     description:
@@ -55,6 +58,7 @@ const keeperTiers: KeeperTier[] = [
   },
   {
     amount: "$30/mo",
+    yearly: "$360/year",
     name: "Beelievers Circle",
     accent: "#ffc083",
     description:
@@ -62,6 +66,7 @@ const keeperTiers: KeeperTier[] = [
   },
   {
     amount: "$50/mo",
+    yearly: "$600/year",
     name: "Pollinator Pledge",
     accent: "#f3a351",
     description:
@@ -74,6 +79,29 @@ const keeperBenefits = [
   "Bee In The Know reports and annual impact updates.",
   "Exclusive invitations to Hive events throughout the year.",
   "A year-end tax deduction letter for recurring gifts.",
+];
+
+const keeperImpactAreas = [
+  {
+    title: "Emergency and Economic Relief",
+    src: "/donations/keepersclub2.avif",
+    alt: "Emergency and economic relief support",
+  },
+  {
+    title: "Counseling",
+    src: "/donations/keepersclub3.avif",
+    alt: "Counseling support",
+  },
+  {
+    title: "Survivor-Based Outreach",
+    src: "/donations/keepersclub4.avif",
+    alt: "Survivor-based outreach",
+  },
+  {
+    title: "Education and Prevention",
+    src: "/donations/keepersclub5.avif",
+    alt: "Education and prevention",
+  },
 ];
 
 function FeatureImage({
@@ -299,50 +327,6 @@ export default function DonationsPage() {
                   </article>
                 </div>
 
-                <div className="relative overflow-hidden rounded-[2.5rem] border border-[#f2dfc7] shadow-[0_20px_70px_rgba(32,42,69,0.06)]">
-                  <div className="absolute inset-0 bg-[url('/donations/flowers.avif')] bg-cover bg-center" />
-                  <div className="absolute inset-0 bg-white/4" />
-
-                  <article className="relative z-10 mx-auto max-w-6xl bg-white/88 px-5 py-12 text-center backdrop-blur-[1px] sm:px-8 lg:px-16 lg:py-16">
-                      <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1d979c]">
-                        Community Story
-                      </p>
-                      <h4 className="mx-auto mt-4 max-w-5xl font-(--font-heading) text-3xl leading-tight text-[#1d979c] sm:text-4xl">
-                        A Community Rallies: How the Casita of Care Came to Be
-                      </h4>
-                      <p className="mx-auto mt-6 max-w-4xl text-xl leading-10 text-slate-500">
-                        The story of the Casita of Care is one of persistence,
-                        heart, and the power of community.
-                      </p>
-
-                      <div className="mx-auto mt-10 max-w-5xl space-y-8 text-lg leading-10 text-slate-800">
-                        <p>
-                          The Casita of Care started with a simple conviction:
-                          survivors deserve dignity when accessing resources. The
-                          Hive began keeping hygiene and household items in a
-                          closet for those who needed them. In early 2025, a
-                          generous donation drive brought in so many supplies that
-                          the overflow broke the closet doors.
-                        </p>
-                        <p>
-                          After moving to a donated storage shed, the team faced a
-                          new challenge: the South Carolina sun made the space hard
-                          to use. Early support from local partners helped make the
-                          shed functional through insulation, electricity, and the
-                          first infrastructure upgrades.
-                        </p>
-                        <p>
-                          Then the broader community stepped in. Business owners,
-                          volunteers, and generous supporters helped transform the
-                          idea into something beautiful and real. What started as a
-                          stopgap solution became a boutique-style resource space
-                          created with care, intention, and deep belief in
-                          survivor-centered healing.
-                        </p>
-                      </div>
-                    </article>
-                </div>
-
                 <div className="relative overflow-hidden rounded-4xl border border-black/8 shadow-[0_20px_70px_rgba(32,42,69,0.06)]">
                   <div className="absolute inset-0 bg-[url('/donations/casitaofcare4.png')] bg-cover bg-center" />
                   <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,251,242,0.9),rgba(255,255,255,0.9))]" />
@@ -406,6 +390,89 @@ export default function DonationsPage() {
                   </div>
                   </div>
                 </div>
+
+                <div className="relative overflow-hidden rounded-[2.5rem] border border-[#f2dfc7] shadow-[0_20px_70px_rgba(32,42,69,0.06)]">
+                  <div className="absolute inset-0 bg-[url('/donations/flowers.avif')] bg-cover bg-center" />
+                  <div className="absolute inset-0 bg-white/4" />
+
+                  <article className="relative z-10 mx-auto max-w-6xl bg-white/88 px-5 py-12 text-center backdrop-blur-[1px] sm:px-8 lg:px-16 lg:py-16">
+                      <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1d979c]">
+                        Community Story
+                      </p>
+                      <h4 className="mx-auto mt-4 max-w-5xl font-(--font-heading) text-3xl leading-tight text-[#1d979c] sm:text-4xl">
+                        A Community Rallies: How the Casita of Care Came to Be
+                      </h4>
+                      <p className="mx-auto mt-6 max-w-4xl text-xl leading-10 text-slate-500">
+                        The story of the Casita of Care is one of persistence,
+                        heart, and the power of community.
+                      </p>
+
+                      <div className="mx-auto mt-10 max-w-5xl space-y-8 text-lg leading-10 text-slate-800">
+                        <p>
+                          The Casita of Care started with a simple conviction:
+                          survivors deserve dignity when accessing resources. The
+                          Hive began keeping hygiene and household items in a
+                          closet for those who needed them. In early 2025, a
+                          generous donation drive brought in so many supplies that
+                          the overflow broke the closet doors.
+                        </p>
+                        <p>
+                          After moving to a donated storage shed, the team faced a
+                          new challenge: the South Carolina sun made the space hard
+                          to use. Early support from local partners helped make the
+                          shed functional through insulation, electricity, and the
+                          first infrastructure upgrades.
+                        </p>
+                        <p>
+                          Then the broader community stepped in. Business owners,
+                          volunteers, and generous supporters helped transform the
+                          idea into something beautiful and real. What started as a
+                          stopgap solution became a boutique-style resource space
+                          created with care, intention, and deep belief in
+                          survivor-centered healing.
+                        </p>
+                      </div>
+                    </article>
+                </div>
+
+                <section className="mx-auto max-w-5xl px-4 py-4 text-center">
+                  <div className="space-y-12 rounded-[2.5rem] bg-white/82 px-6 py-10 shadow-[0_20px_70px_rgba(32,42,69,0.05)] sm:px-10 sm:py-14">
+                    <div>
+                      <h4 className="font-(--font-heading) text-4xl leading-tight text-[#1d979c] sm:text-5xl">
+                        Dedicated in Honor of Brianna
+                      </h4>
+                      <div className="mx-auto mt-6 max-w-4xl space-y-6 text-lg leading-10 text-slate-800">
+                        <p>
+                          The Casita of Care is dedicated in honor of{" "}
+                          <span className="font-semibold">Brianna</span> , a
+                          beloved teacher, sister, daughter, auntie, friend, and
+                          lover of crochet. May the warmth and care she radiated
+                          in life continue to live through this space.
+                        </p>
+                        <p>
+                          We also dedicate the Casita of Care to all those whose
+                          lives were taken by domestic violence, sexual assault,
+                          and trafficking. May their names be held with dignity,
+                          and may this space offer light, care, and hope to our
+                          community.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-(--font-heading) text-4xl leading-tight text-[#1d979c] sm:text-5xl">
+                        Thank You to Our Community Partners
+                      </h4>
+                      <p className="mx-auto mt-6 max-w-4xl text-lg leading-10 text-slate-800">
+                        The Casita of Care exists because over 25 local
+                        businesses and individuals said yes. From interior design
+                        and construction to marketing, flooring, HVAC, and
+                        beyond, each partner contributed their time, talent, and
+                        resources to make this vision a reality.
+                      </p>
+                    </div>
+                  </div>
+                </section>
               </section>
             ) : null}
 
@@ -501,7 +568,7 @@ export default function DonationsPage() {
                   <div className="absolute inset-0 bg-[url('/donations/honeycomb.png?v=2')] bg-size-[340px_auto] bg-repeat opacity-85" />
                   <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,248,236,0.48),rgba(255,255,255,0.54))]" />
 
-                  <div className="relative z-10 grid gap-8 p-6 sm:p-8 lg:grid-cols-[0.85fr_1.15fr]">
+                  <div className="relative z-10 grid gap-8 p-8 sm:p-10 lg:min-h-[44rem] lg:grid-cols-[0.85fr_1.15fr] lg:p-12">
                   <div>
                     <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#1d979c]">
                       Monthly Levels
@@ -524,6 +591,7 @@ export default function DonationsPage() {
                         prevention training throughout the year.
                       </p>
                     </div>
+
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">
@@ -536,6 +604,9 @@ export default function DonationsPage() {
                         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
                           {tier.amount}
                         </p>
+                        <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500/85">
+                          {tier.yearly}
+                        </p>
                         <p className="mt-2 text-xl font-semibold text-slate-950">
                           {tier.name}
                         </p>
@@ -547,6 +618,41 @@ export default function DonationsPage() {
                   </div>
                   </div>
                 </div>
+
+                <section className="rounded-4xl border border-black/8 bg-[linear-gradient(145deg,rgba(255,250,242,0.94),rgba(255,255,255,0.9))] p-6 shadow-[0_20px_70px_rgba(32,42,69,0.06)] sm:p-8">
+                  <div className="mx-auto max-w-3xl text-center">
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d8794a]">
+                      Supported Through Your Giving
+                    </p>
+                    <h4 className="mt-3 font-(--font-heading) text-3xl text-slate-900 sm:text-4xl">
+                      Recurring support helps fuel this work all year long.
+                    </h4>
+                  </div>
+
+                  <div className="mt-8 flex gap-4 overflow-x-auto pb-2 lg:overflow-visible">
+                    {keeperImpactAreas.map((area) => (
+                      <article
+                        key={area.title}
+                        className="min-w-[240px] flex-1 overflow-hidden rounded-3xl bg-white shadow-[0_12px_36px_rgba(32,42,69,0.08)]"
+                      >
+                        <div className="relative aspect-[4/4.6] w-full">
+                          <Image
+                            src={area.src}
+                            alt={area.alt}
+                            fill
+                            sizes="(max-width: 1024px) 240px, 25vw"
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <h5 className="text-lg font-semibold leading-tight text-slate-950 xl:text-xl">
+                            {area.title}
+                          </h5>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
               </section>
             ) : null}
           </div>
