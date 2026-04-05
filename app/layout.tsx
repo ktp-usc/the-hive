@@ -5,6 +5,7 @@ import React from "react";
 import Navbar from "@/components/navbar";
 import SafeExit from "@/components/safe-exit";
 import Footer from "@/components/footer";
+import { SanityLive } from "@/sanity/lib/live";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <body>
         <Navbar />
         { children }
+        <SanityLive />
         <SafeExit />
         <Footer />
         </body>
