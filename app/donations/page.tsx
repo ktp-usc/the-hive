@@ -8,6 +8,10 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type DonationTabId = "casita" | "keepers";
+type VolunteerOpportunity = {
+  title: string;
+  description: string;
+};
 type KeeperTier = {
   amount: string;
   yearly: string;
@@ -36,6 +40,29 @@ const casitaWaysToGive = [
     title: "Volunteer with care",
     description:
       "Support sorting, restocking, and welcoming community efforts that make the Casita feel calm, beautiful, and survivor-centered.",
+  },
+];
+
+const volunteerOpportunities: VolunteerOpportunity[] = [
+  {
+    title: "The Voices of Washindi-Speaker’s Bureau",
+    description:
+      "A community and platform for survivors of sexual assault and intimate partner violence to share their stories of resiliency and courage through the incorporation of the arts and craft of storytelling. Additional Training is required.",
+  },
+  {
+    title: "Hive Ambassadors",
+    description:
+      "If you love sharing The Hive, then tabling and general outreach may interest you. In this role you will have the opportunity to connect with the community and share about The Hive at community based events.",
+  },
+  {
+    title: "Hive Hostesses/Hosts",
+    description:
+      "Hive Hostesses/Hosts are special event volunteers who may not have the capacity to volunteer regularly but desire to support our work. As a volunteer in this area you will be contacted to volunteer when we have Hive hosted events such as our Annual SC Survivors Summit or fundraisers.",
+  },
+  {
+    title: "Volunteer Groups",
+    description:
+      "We have opportunities available for groups looking to volunteer together. These opportunities for groups of 5 or more include packing Bee Boxes of support for survivors or assembling BuzzPaks for our prevention education programming for youth.",
   },
 ];
 
@@ -152,12 +179,6 @@ export default function DonationsPage() {
               <h1 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-950 sm:text-5xl lg:text-[4.3rem] lg:leading-[1.02]">
                 Support survivors through spaces of care and sustaining generosity.
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-                This page centers the two giving stories that matter most right now:
-                the Casita of Care and The Keepers Club. Each section keeps the
-                message focused, easy to scan, and ready for images when you are.
-              </p>
-
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild className="rounded-full bg-[#1d979c] px-6 py-6 text-sm font-semibold text-white shadow-[0_12px_34px_rgba(29,151,156,0.26)] hover:bg-[#187d81]">
                   <a
@@ -212,6 +233,28 @@ export default function DonationsPage() {
                 </div>
               </div>
           </div>
+
+          <div className="relative z-10 mt-12">
+            <h2 className="font-(--font-heading) text-3xl text-slate-950 sm:text-4xl">
+              Volunteer Opportunities
+            </h2>
+
+            <div className="mt-8 grid gap-5 lg:grid-cols-3">
+              {volunteerOpportunities.map((opportunity) => (
+                <article
+                  key={opportunity.title}
+                  className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_10px_30px_rgba(32,42,69,0.05)]"
+                >
+                  <h3 className="text-[1.15rem] font-semibold leading-tight text-slate-950">
+                    {opportunity.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    {opportunity.description}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section className="overflow-hidden rounded-[2.5rem] border border-white/70 bg-white/78 px-6 py-10 shadow-[0_30px_120px_rgba(32,42,69,0.10)] backdrop-blur sm:px-10 sm:py-14 lg:px-16">
@@ -222,10 +265,6 @@ export default function DonationsPage() {
             <h2 className="mt-4 font-(--font-heading) text-3xl leading-tight text-slate-950 sm:text-4xl">
               Explore the giving story that speaks to you.
             </h2>
-            <p className="mt-5 text-base leading-7 text-slate-600">
-              These tabs follow the same member-style interaction used on the About
-              page, but focus on support opportunities instead of people.
-            </p>
           </div>
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
