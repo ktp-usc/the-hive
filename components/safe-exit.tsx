@@ -6,7 +6,16 @@ export default function SafeExit() {
     const copy = useSiteCopy();
 
     const handleClick = () => {
-        window.location.replace("https://www.msn.com/");
+        // clear session/local data 
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // overwrite history completely
+        window.history.pushState(null, "", "/");
+        window.history.replaceState(null, "", "/");
+
+        // force hard redirect
+        window.location.href = "https://www.google.com";
     };
 
     return (
