@@ -223,7 +223,6 @@ export default function SupportPage() {
           </p>
         </div>
       </section>
-
     </main>
   );
 }
