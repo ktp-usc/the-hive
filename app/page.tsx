@@ -14,20 +14,28 @@ export default function Home() {
             {/* Hero */ }
             <section
                 style={{ backgroundImage: "url('/images/TheHive_12.06.2025_135.jpg')" }}
-                className="flex flex-col items-center justify-center bg-hive-blue text-white py-24 px-6 text-center min-h-[80vh] bg-cover bg-center bg-no-repeat h-64 w-full">
-                <div className="rounded-2xl bg-black/80 p-3">
-                    <h1 className="text-4xl md:text-6xl font-medium leading-tight max-w-3xl mx-auto">
-                        Believing in Yourself is the
-                        <span className="block font-bold text-7xl">
-						First Step to Healing
-					</span>
-                    </h1>
-                </div>
+                className="relative flex flex-col items-center justify-center text-white py-24 px-6 text-center min-h-[80vh] bg-cover bg-center bg-no-repeat w-full"
+            >
+                {/* FULL OVERLAY */}
+                <div className="absolute inset-0 bg-hive-blue/70"></div>
 
-                <Button asChild size="lg"
-                        className="mt-10 h-auto rounded-full bg-hive-yellow text-gray-900 font-bold hover:bg-hive-yellow/90 px-16 py-8 text-2xl tracking-widest transition-colors">
-                    <Link href="/donations">Donate Today</Link>
-                </Button>
+                {/* CONTENT */}
+                <div className="relative z-10">
+                    <h1 className="text-4xl md:text-6xl font-medium leading-tight max-w-5xl mx-auto">
+                        Believing in Yourself is the
+                        <span className="block font-bold text-8xl">
+                            First Step to Healing
+                        </span>
+                    </h1>
+
+                    <Button
+                        asChild
+                        size="lg"
+                        className="mt-10 h-auto rounded-full bg-hive-yellow text-gray-900 font-bold hover:bg-hive-yellow/90 px-16 py-8 text-2xl tracking-widest transition-colors"
+                    >
+                        <Link href="/donations">Donate Today</Link>
+                    </Button>
+                </div>
             </section>
 
             {/* Mission */ }
