@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function KeepUpdatedPage() {
-  return <main />;
+  redirect("/bee-in-the-know");
 }
