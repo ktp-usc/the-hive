@@ -319,15 +319,15 @@ export default function AboutPage() {
                       </div>
                     </article>
 
-                    <aside className="rounded-[2rem] border border-black/8 bg-white/88 p-6 shadow-[0_20px_70px_rgba(32,42,69,0.08)] sm:p-8">
-                      <div className="relative mx-auto h-[18rem] max-w-sm overflow-hidden rounded-[2rem] border border-white/70 shadow-inner sm:h-[22rem]">
-                        <Image
-                          src="/member-images/Ashley2.png"
-                          alt="Ashley Olayinka"
-                          fill
-                          className="object-contain p-4 object-center"
-                        />
-                      </div>
+                      <aside className="rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,rgba(255,251,242,0.96),rgba(255,255,255,0.85))] p-6 shadow-[0_20px_70px_rgba(32,42,69,0.08)] sm:p-8">
+                          <div className="relative mx-auto h-[18rem] max-w-sm overflow-hidden rounded-[2rem] sm:h-[22rem]">
+                              <Image
+                                  src="/member-images/Ashley2.png"
+                                  alt="Ashley Olayinka"
+                                  fill
+                                  className="object-contain object-center p-4"
+                              />
+                          </div>
                       <div className="mx-auto mt-6 max-w-sm text-center">
                         <h3 className="font-[var(--font-heading)] text-2xl text-slate-950">
                             Ashley Olayinka
