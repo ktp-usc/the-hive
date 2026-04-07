@@ -144,13 +144,6 @@ function MemberCard({ member }: { member: MemberRecord }) {
         <div className="relative mb-4 aspect-[4/4.5] w-full overflow-hidden rounded-[1.5rem] border border-white/60 shadow-inner transition duration-300 group-hover:scale-[1.01]">
           {member.image ? (
             <>
-              <div
-                className={cn(
-                  "absolute inset-0 bg-gradient-to-br opacity-95",
-                  member.accent
-                )}
-              />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.42),transparent_58%)]" />
               <Image
                 src={member.image}
                 alt={member.name}
@@ -328,8 +321,6 @@ export default function AboutPage() {
 
                     <aside className="rounded-[2rem] border border-black/8 bg-white/88 p-6 shadow-[0_20px_70px_rgba(32,42,69,0.08)] sm:p-8">
                       <div className="relative mx-auto h-[18rem] max-w-sm overflow-hidden rounded-[2rem] border border-white/70 shadow-inner sm:h-[22rem]">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#f7d68d] via-[#f0a76e] to-[#7ab7c4] opacity-95" />
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.4),transparent_58%)]" />
                         <Image
                           src="/member-images/Ashley2.png"
                           alt="Ashley Olayinka"
