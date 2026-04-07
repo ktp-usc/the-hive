@@ -361,7 +361,7 @@ export default function AboutPage() {
                         <div className="absolute inset-0 bg-gradient-to-br from-[#f7d68d] via-[#f0a76e] to-[#7ab7c4] opacity-95" />
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.4),transparent_58%)]" />
                         <Image
-                          src="/member-images/AshleyThomas.avif"
+                          src="/member-images/Ashley2.png"
                           alt="Ashley Olayinka"
                           fill
                           className="object-contain p-4 object-center"
