@@ -144,13 +144,6 @@ function MemberCard({ member }: { member: MemberRecord }) {
         <div className="relative mb-4 aspect-[4/4.5] w-full overflow-hidden rounded-[1.5rem] border border-white/60 shadow-inner transition duration-300 group-hover:scale-[1.01]">
           {member.image ? (
             <>
-              <div
-                className={cn(
-                  "absolute inset-0 bg-gradient-to-br opacity-95",
-                  member.accent
-                )}
-              />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.42),transparent_58%)]" />
               <Image
                 src={member.image}
                 alt={member.name}
@@ -239,8 +232,38 @@ export default function AboutPage() {
       <main className="min-h-screen bg-[radial-gradient(circle_at_top,#fff9ec_0%,#f8f3eb_42%,#eef3f7_100%)] px-4 pb-20 pt-32 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <section className="overflow-hidden rounded-[2.5rem] border border-white/70 bg-white/78 px-6 py-10 shadow-[0_30px_120px_rgba(32,42,69,0.10)] backdrop-blur sm:px-10 sm:py-14 lg:px-16">
+            <section
+              aria-labelledby="about-founded-heading"
+              className="mx-auto max-w-4xl"
+            >
+              <div className="relative overflow-hidden rounded-[2rem] border border-[#1d979c]/16 bg-[linear-gradient(135deg,rgba(255,245,225,0.96),rgba(255,255,255,0.96),rgba(223,240,236,0.94))] px-6 py-8 shadow-[0_18px_60px_rgba(32,42,69,0.08)] sm:px-8 sm:py-10">
+                <div className="absolute -left-10 top-0 h-28 w-28 rounded-full bg-[#f7c766]/25 blur-3xl" />
+                <div className="absolute -right-8 bottom-0 h-28 w-28 rounded-full bg-[#7ab7c4]/24 blur-3xl" />
+                <div className="relative">
+                  <h2
+                    id="about-founded-heading"
+                    className="font-[var(--font-heading)] text-2xl text-slate-950 sm:text-3xl"
+                  >
+                    Why We Were Founded
+                  </h2>
+                  <p className="mt-5 max-w-3xl text-base leading-8 text-slate-700 sm:text-[1.05rem]">
+                    We were founded in 2015 with a visionary spirit and urgent
+                    objective: to help prevent violence against some of our
+                    nation’s most vulnerable populations of women and girls. As
+                    a survivor-led, survivor-driven peer advocacy organization,
+                    we bring a culturally-competent approach to preventing and
+                    educating survivors and their surrounding communities about
+                    sexual assault, intimate partner violence, and stalking. We
+                    exist to enhance support services and prevention for women
+                    and girls of color and those experiencing economic
+                    instability.
+                  </p>
+                </div>
+              </div>
+            </section>
+
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#d8794a]">
+              <p className="mt-12 text-sm font-semibold uppercase tracking-[0.3em] text-[#d8794a]">
                 Members
               </p>
               <h1 className="mt-4 font-[var(--font-heading)] text-4xl leading-tight text-slate-950 sm:text-5xl">
@@ -326,17 +349,15 @@ export default function AboutPage() {
                       </div>
                     </article>
 
-                    <aside className="rounded-[2rem] border border-black/8 bg-white/88 p-6 shadow-[0_20px_70px_rgba(32,42,69,0.08)] sm:p-8">
-                      <div className="relative mx-auto h-[18rem] max-w-sm overflow-hidden rounded-[2rem] border border-white/70 shadow-inner sm:h-[22rem]">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#f7d68d] via-[#f0a76e] to-[#7ab7c4] opacity-95" />
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.4),transparent_58%)]" />
-                        <Image
-                          src="/member-images/Ashley2.png"
-                          alt="Ashley Olayinka"
-                          fill
-                          className="object-contain p-4 object-center"
-                        />
-                      </div>
+                      <aside className="rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,rgba(255,251,242,0.96),rgba(255,255,255,0.85))] p-6 shadow-[0_20px_70px_rgba(32,42,69,0.08)] sm:p-8">
+                          <div className="relative mx-auto h-[18rem] max-w-sm overflow-hidden rounded-[2rem] sm:h-[22rem]">
+                              <Image
+                                  src="/member-images/Ashley2.png"
+                                  alt="Ashley Olayinka"
+                                  fill
+                                  className="object-contain object-center p-4"
+                              />
+                          </div>
                       <div className="mx-auto mt-6 max-w-sm text-center">
                         <h3 className="font-[var(--font-heading)] text-2xl text-slate-950">
                             Ashley Olayinka
