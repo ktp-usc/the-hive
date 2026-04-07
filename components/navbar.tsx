@@ -6,6 +6,17 @@ import { usePathname } from "next/navigation";
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 
+const links = [
+  { label: "About Us",         href: "/about" },
+  { label: "Support Services", href: "/support" },
+  { label: "Events",           href: "/events" },
+  { label: "Bee in the Know",  href: "/bee-in-the-know" },
+  { label: "Contact Us",       href: "/contact" },
+];
+
+const headingFont: React.CSSProperties = {
+  fontFamily: "var(--font-heading), Georgia, serif",
+};
 const bodyFont: React.CSSProperties = {
   fontFamily: "var(--font-body), system-ui, sans-serif",
 };

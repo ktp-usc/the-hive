@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import React from "react";
-import Navbar from "@/components/navbar";
-import SafeExit from "@/components/safe-exit";
-import Footer from "@/components/footer";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -27,10 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
         <body>
-        <Navbar />
-        { children }
-        <SafeExit />
-        <Footer />
+        {children}
         </body>
         </html>
     );
