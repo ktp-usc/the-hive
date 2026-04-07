@@ -6,16 +6,12 @@ export default function SafeExit() {
     const copy = useSiteCopy();
 
     const handleClick = () => {
-        // clear session/local data 
+        // clear any stored data
         localStorage.clear();
         sessionStorage.clear();
 
-        // overwrite history completely
-        window.history.pushState(null, "", "/");
-        window.history.replaceState(null, "", "/");
-
-        // force hard redirect
-        window.location.href = "https://www.google.com";
+        // redirect and remove current page from history
+        window.location.replace("https://www.youtube.com");
     };
 
     return (
