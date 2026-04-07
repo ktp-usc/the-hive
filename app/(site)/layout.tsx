@@ -6,12 +6,12 @@ import { SanityLive } from "@/sanity/lib/live";
 
 export default function SiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <>
+        <div className="site-shell">
             <Navbar />
             {children}
             <SanityLive />
             <SafeExit />
             <Footer />
-        </>
+        </div>
     );
 }

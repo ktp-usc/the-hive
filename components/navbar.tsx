@@ -1,27 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const links = [
-  { label: "About Us",         href: "/about" },
-  { label: "Support Services", href: "/support" },
-  { label: "Events",           href: "/events" },
-  { label: "Bee in the Know",  href: "/bee-in-the-know" },
-  { label: "Contact Us",       href: "/contact" },
-];
-
-const headingFont: React.CSSProperties = {
-  fontFamily: "var(--font-heading), Georgia, serif",
+type DropdownItem = {
+  label: string;
+  href: string;
 };
-const bodyFont: React.CSSProperties = {
-  fontFamily: "var(--font-body), system-ui, sans-serif",
-};
-
-type DropdownItem = { label: string; href: string };
 
 type NavItem =
   | { label: string; href: string; dropdown?: never }
@@ -48,56 +39,37 @@ const navItems: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-function DropdownMenu({
+function NavDropdown({
   items,
-  open,
+  pathname,
+  onNavigate,
 }: {
   items: DropdownItem[];
-  open: boolean;
+  pathname: string;
+  onNavigate: () => void;
 }) {
-  if (!open) return null;
   return (
-    <ul
-      style={{
-        position: "absolute",
-        top: "calc(100% + 4px)",
-        left: "50%",
-        transform: "translateX(-50%)",
-        background: "#ffffff",
-        border: "1px solid rgba(0,0,0,0.08)",
-        borderRadius: "8px",
-        boxShadow: "0 4px 16px rgba(0,0,0,0.1)",
-        listStyle: "none",
-        margin: 0,
-        padding: "4px 0",
-        minWidth: "180px",
-        zIndex: 100,
-      }}
-    >
-      {items.map(({ label, href }) => (
-        <li key={href}>
-          <Link
-            href={href}
-            style={{
-              display: "block",
-              padding: "8px 16px",
-              color: "#374151",
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-              fontSize: "0.875rem",
-              ...bodyFont,
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = "#f3f4f6")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.background = "transparent")
-            }
-          >
-            {label}
-          </Link>
-        </li>
-      ))}
+    <ul className="min-w-52 rounded-lg border border-black/8 bg-white py-1 shadow-lg">
+      {items.map((item) => {
+        const active = pathname === item.href;
+
+        return (
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              onClick={onNavigate}
+              className={cn(
+                "block px-4 py-2 text-sm font-medium transition",
+                active
+                  ? "bg-hive-blue text-white"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-hive-blue"
+              )}
+            >
+              {item.label}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -105,132 +77,199 @@ function DropdownMenu({
 export default function Navbar() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [pinnedMenu, setPinnedMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
 
-  function handleMouseEnter(label: string) {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setOpenMenu(label);
-  }
+  const closeMenus = () => {
+    setOpenMenu(null);
+    setPinnedMenu(null);
+    setMobileOpen(false);
+  };
 
-  function handleMouseLeave() {
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 120);
-  }
+  useEffect(() => {
+    function handlePointerDown(event: MouseEvent) {
+      if (!navRef.current?.contains(event.target as Node)) {
+        setOpenMenu(null);
+        setPinnedMenu(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, []);
 
   return (
-    <nav
-      style={{
-        ...bodyFont,
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        zIndex: 50,
-        background: "#ffffff",
-        borderBottom: "1px solid rgba(0,0,0,0.08)",
-        boxShadow: "0 1px 8px rgba(0,0,0,0.06)",
-      }}
+    <header
+      ref={navRef}
+      className="fixed inset-x-0 top-0 z-50 border-b border-black/8 bg-white shadow-sm"
     >
-      <div
-        style={{
-          padding: "0 1.5rem",
-          height: "64px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        {/* Brand */}
-        <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <Link href="/" onClick={closeMenus}>
           <Image
             src="/the-hive-logo.png"
             alt="The Hive"
             width={120}
             height={40}
-            style={{ objectFit: "contain" }}
+            className="h-auto w-[120px] object-contain"
+            priority
           />
         </Link>
 
-        {/* Links */}
-        <ul
-          style={{
-            listStyle: "none",
-            margin: 0,
-            padding: 0,
-            display: "flex",
-            alignItems: "center",
-            gap: "0.25rem",
-          }}
-        >
+        <div className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => {
-            const isActive =
-              item.href !== undefined
-                ? pathname === item.href
-                : item.dropdown?.some((d) => pathname === d.href);
-
             if (item.dropdown) {
+              const active = item.dropdown.some((entry) => pathname === entry.href);
+              const expanded = openMenu === item.label;
+
               return (
-                <li
+                <div
                   key={item.label}
-                  style={{ position: "relative" }}
-                  onMouseEnter={() => handleMouseEnter(item.label)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={
-                      isActive
-                        ? "text-hive-blue font-semibold border-b-2 border-hive-blue rounded-none hover:bg-transparent"
-                        : "text-gray-700 font-medium hover:text-hive-blue hover:bg-transparent"
+                  className="relative"
+                  onMouseEnter={() => {
+                    if (!pinnedMenu) {
+                      setOpenMenu(item.label);
                     }
-                    style={{ ...bodyFont, gap: "4px" }}
+                  }}
+                  onMouseLeave={() => {
+                    if (!pinnedMenu) {
+                      setOpenMenu(null);
+                    }
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={expanded}
+                    className={cn(
+                      "inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition",
+                      active
+                        ? "text-hive-blue"
+                        : "text-gray-700 hover:text-hive-blue"
+                    )}
+                    onClick={() =>
+                      setPinnedMenu((current) => {
+                        const nextValue = current === item.label ? null : item.label;
+                        setOpenMenu(nextValue);
+                        return nextValue;
+                      })
+                    }
                   >
                     {item.label}
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                      fill="currentColor"
-                      aria-hidden
-                    >
-                      <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                    </svg>
-                  </Button>
-                  <DropdownMenu
-                    items={item.dropdown}
-                    open={openMenu === item.label}
-                  />
-                </li>
+                    <span className={cn("text-xs transition", expanded && "rotate-180")}>
+                      v
+                    </span>
+                  </button>
+
+                  {expanded ? (
+                    <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
+                      <NavDropdown
+                        items={item.dropdown}
+                        pathname={pathname}
+                        onNavigate={closeMenus}
+                      />
+                    </div>
+                  ) : null}
+                </div>
               );
             }
 
+            const active = pathname === item.href;
+
             return (
-              <li key={item.href}>
-                <Button
-                  asChild
-                  variant="ghost"
-                  size="sm"
-                  className={
-                    isActive
-                      ? "text-hive-blue font-semibold border-b-2 border-hive-blue rounded-none hover:bg-transparent"
-                      : "text-gray-700 font-medium hover:text-hive-blue hover:bg-transparent"
-                  }
-                  style={bodyFont}
-                >
-                  <Link href={item.href!}>{item.label}</Link>
-                </Button>
-              </li>
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={closeMenus}
+                className={cn(
+                  "rounded-md px-4 py-2 text-sm font-medium transition",
+                  active
+                    ? "text-hive-blue"
+                    : "text-gray-700 hover:text-hive-blue"
+                )}
+              >
+                {item.label}
+              </Link>
             );
           })}
+        </div>
 
-          {/* Donate CTA */}
-          <li style={{ marginLeft: "0.5rem" }}>
-            <Button
-              asChild
-              size="sm"
-              className="rounded-full bg-hive-orange text-white font-semibold hover:bg-hive-orange/90"
-              style={{ ...bodyFont, padding: "0.4rem 1.25rem" }}
+        <div className="hidden lg:block">
+          <Button asChild className="rounded-full bg-hive-orange px-5 py-2 text-sm font-semibold text-white hover:bg-hive-orange/90">
+            <a
+              href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+              target="_blank"
+              rel="noopener noreferrer"
             >
+              Donate
+            </a>
+          </Button>
+        </div>
+
+        <button
+          type="button"
+          aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-black/8 text-gray-700 lg:hidden"
+          onClick={() => setMobileOpen((value) => !value)}
+        >
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </nav>
+
+      {mobileOpen ? (
+        <div className="border-t border-black/8 bg-white px-4 py-4 lg:hidden sm:px-6">
+          <div className="space-y-2">
+            {navItems.map((item) => {
+              if (item.dropdown) {
+                return (
+                  <div key={item.label} className="rounded-lg bg-gray-50 p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                      {item.label}
+                    </p>
+                    <div className="mt-2 space-y-1">
+                      {item.dropdown.map((entry) => {
+                        const active = pathname === entry.href;
+
+                        return (
+                          <Link
+                            key={entry.href}
+                            href={entry.href}
+                            onClick={closeMenus}
+                            className={cn(
+                              "block rounded-md px-3 py-2 text-sm font-medium transition",
+                              active
+                                ? "bg-hive-blue text-white"
+                                : "text-gray-700 hover:bg-white hover:text-hive-blue"
+                            )}
+                          >
+                            {entry.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              }
+
+              const active = pathname === item.href;
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMenus}
+                  className={cn(
+                    "block rounded-md px-3 py-2 text-sm font-medium transition",
+                    active
+                      ? "bg-hive-blue text-white"
+                      : "text-gray-700 hover:bg-gray-50 hover:text-hive-blue"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+
+            <Button asChild className="mt-2 w-full rounded-full bg-hive-orange text-white hover:bg-hive-orange/90">
               <a
                 href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
                 target="_blank"
@@ -239,9 +278,9 @@ export default function Navbar() {
                 Donate
               </a>
             </Button>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          </div>
+        </div>
+      ) : null}
+    </header>
   );
 }
