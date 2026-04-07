@@ -250,9 +250,15 @@ export default function AwarenessPage() {
               Download Training Catalog
             </Link>
           </Button>
-          <Button asChild className="h-auto rounded-full bg-hive-yellow text-gray-900 font-bold hover:bg-hive-yellow/90 px-8 py-4 text-base transition-colors">
-            <Link href="mailto:kinnethia@thehivecc.org">Contact Our Team</Link>
-          </Button>
+            <Button asChild className="h-auto rounded-full bg-hive-yellow text-gray-900 font-bold hover:bg-hive-yellow/90 px-8 py-4 text-base transition-colors">
+                <a
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=kinnethia@thehivecc.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Contact Our Team
+                </a>
+            </Button>
         </div>
       </section>
 
