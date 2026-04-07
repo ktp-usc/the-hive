@@ -3,9 +3,32 @@ import Script from "next/script";
 import InstagramEmbed from "@/components/InstagramEmbed/page";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import {Coffee, Search, Sun} from "lucide-react";
+import { Coffee, Search, Sun } from "lucide-react";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-export default function Home() {
+type HomeImageData = {
+    heroImage?: SanityImageSource;
+    missionImage?: SanityImageSource;
+};
+
+export default async function Home() {
+    const query = `*[_type == "page" && slug.current == "landing"][0]{
+        "heroImage": sections[_type == "sectionHero"][0].images[0],
+        "missionImage": sections[_type == "sectionImageText"][0].image
+    }` as const;
+
+    const { data } = await sanityFetch({ query });
+    const homeImages = data as HomeImageData;
+
+    const heroBackgroundImageUrl = homeImages?.heroImage
+        ? urlFor(homeImages.heroImage).width(2000).height(1200).url()
+        : "/images/TheHive_12.06.2025_135.jpg";
+
+    const missionImageUrl = homeImages?.missionImage
+        ? urlFor(homeImages.missionImage).width(2000).height(2000).url()
+        : "/images/TheHive_12.06.2025_87.jpg";
     {
         /* Replace links with shadcn button later */
     }
@@ -13,7 +36,7 @@ export default function Home() {
         <main className="min-h-screen bg-white text-gray-800">
             {/* Hero */ }
             <section
-                style={{ backgroundImage: "url('/images/TheHive_12.06.2025_135.jpg')" }}
+                style={{ backgroundImage: `url("${heroBackgroundImageUrl}")` }}
                 className="flex flex-col items-center justify-center bg-hive-blue text-white py-24 px-6 text-center min-h-[80vh] bg-cover bg-center bg-no-repeat h-64 w-full">
                 <div className="rounded-2xl bg-black/80 p-3">
                     <h1 className="text-4xl md:text-6xl font-medium leading-tight max-w-3xl mx-auto">
@@ -35,10 +58,10 @@ export default function Home() {
                 className="py-20 px-6 max-w-5xl mx-auto gap-8 text-center flex flex-col md:flex-row items-center justify-center">
                 <div>
                     <Image
-                        src="/images/TheHive_12.06.2025_87.jpg"
-                        alt="Mission"
-                        width={ 1500 }
-                        height={ 1500 }
+                        src={missionImageUrl}
+                        alt="Mission Image"
+                        width={ 2000 }
+                        height={ 2000 }
                         className="rounded-lg border-2 border-gray-200"
                     />
                 </div>
