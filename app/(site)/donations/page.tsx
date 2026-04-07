@@ -1,24 +1,172 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
+import { sanityFetch } from '@/sanity/lib/live';
 import Image from 'next/image';
 
-// Next.js page component: Impact the Hive
-// Place in `pages/impact-the-hive.jsx` (Pages Router) or adapt for App Router.
+type VolunteerCard = {
+    _key?: string;
+    title: string;
+    description: string;
+};
 
-export default function DonationsPage() {
+type DonationsPageData = {
+    title?: string;
+    description?: string;
+    volunteerSection?: {
+        sectionTitle?: string;
+        intro?: string;
+        cards?: VolunteerCard[];
+        ctaLabel?: string;
+        ctaHref?: string;
+    };
+    donationSection?: {
+        sectionTitle?: string;
+        body?: string;
+        ctaLabel?: string;
+        ctaHref?: string;
+    };
+};
+
+type DonationsPageContent = {
+    title: string;
+    description: string;
+    volunteerSection: {
+        sectionTitle: string;
+        intro: string;
+        cards: VolunteerCard[];
+        ctaLabel: string;
+        ctaHref: string;
+    };
+    donationSection: {
+        sectionTitle: string;
+        body: string;
+        ctaLabel: string;
+        ctaHref: string;
+    };
+};
+
+const FALLBACK_CONTENT: DonationsPageContent = {
+    title: 'Impact the Hive',
+    description: 'Choose how you want to support our community through volunteering or donating.',
+    volunteerSection: {
+        sectionTitle: 'Volunteer Opportunities',
+        intro: '',
+        cards: [
+            {
+                title: "The Voices of Washindi-Speaker's Bureau",
+                description:
+                    'A community and platform for survivors of sexual assault and intimate partner violence to share their stories of resiliency and courage through the incorporation of the arts and craft of storytelling. Additional training is required.',
+            },
+            {
+                title: 'Hive Ambassadors',
+                description:
+                    'If you love sharing The Hive, then tabling and general outreach may interest you. In this role you will have the opportunity to connect with the community and share about The Hive at community based events.',
+            },
+            {
+                title: 'Hive Hostesses/Hosts',
+                description:
+                    'Hive Hostesses/Hosts are special event volunteers who may not have the capacity to volunteer regularly but desire to support our work. As a volunteer in this area you will be contacted to volunteer when we have Hive hosted events such as our Annual SC Survivors Summit or fundraisers.',
+            },
+            {
+                title: 'Volunteer Groups',
+                description:
+                    'We have opportunities available for groups looking to volunteer together. These opportunities for groups of 5 or more include packing Bee Boxes of support for survivors or assembling BuzzPaks for our prevention education programming for youth.',
+            },
+        ],
+        ctaLabel: 'Sign Up to Volunteer',
+        ctaHref: 'https://pointapp.org/orgs/7916',
+    },
+    donationSection: {
+        sectionTitle: 'Donation Opportunities',
+        body:
+            "Become a Steward of Hope today! Donate to The Hive and support survivors of domestic and sexual abuse who are seeking a safe community. Either donate to the Survivor's pantry or Peer Advocacy/Outreach to directly help our survivors, or sign up and become a member of the Keeper's Club and donate monthly. If you want to directly donate to the organization donate to the Hope Is Fund which helps in all day-to-day operating activities.",
+        ctaLabel: 'Donate Now',
+        ctaHref: 'https://thehivecc.networkforgood.com/projects/204053-what-is-hope',
+    },
+};
+
+function ActionButton({
+    href,
+    label,
+    className,
+}: {
+    href: string;
+    label: string;
+    className?: string;
+}) {
+    const isExternal = /^https?:\/\//.test(href);
+
+    return (
+        <Button asChild className={className}>
+            <a
+                href={href}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+            >
+                {label}
+            </a>
+        </Button>
+    );
+}
+
+export default async function DonationsPage() {
+    const query = `*[_type == "page" && slug.current == "donations"][0]{
+        title,
+        description,
+        "volunteerSection": sections[_type == "sectionVolunteerCards"][0]{
+            sectionTitle,
+            intro,
+            cards[]{
+                _key,
+                title,
+                description
+            },
+            ctaLabel,
+            ctaHref
+        },
+        "donationSection": sections[_type == "sectionDonationOpportunity"][0]{
+            sectionTitle,
+            body,
+            ctaLabel,
+            ctaHref
+        }
+    }` as const;
+
+    const { data } = await sanityFetch({ query });
+    const cmsContent = (data ?? {}) as DonationsPageData;
+
+    const volunteerSection = {
+        ...FALLBACK_CONTENT.volunteerSection,
+        ...cmsContent.volunteerSection,
+        cards:
+            cmsContent.volunteerSection?.cards && cmsContent.volunteerSection.cards.length > 0
+                ? cmsContent.volunteerSection.cards
+                : FALLBACK_CONTENT.volunteerSection.cards,
+    };
+
+    const donationSection = {
+        ...FALLBACK_CONTENT.donationSection,
+        ...cmsContent.donationSection,
+    };
+
+    const content = {
+        title: cmsContent.title ?? FALLBACK_CONTENT.title,
+        description: cmsContent.description ?? FALLBACK_CONTENT.description,
+        volunteerSection,
+        donationSection,
+    };
+
     return (
         <main className='min-h-screen bg-gray-50 pt-24 pb-12 px-6 lg:px-20'>
             <header className='max-w-4xl mx-auto text-center mb-12'>
                 <h1 className='text-4xl font-extrabold tracking-tight text-gray-900'>
-                    Impact the Hive
+                    {content.title}
                 </h1>
                 <p className='mt-4 text-lg text-gray-600'>
-                    Choose how you want to support our community — through volunteering or donating.
+                    {content.description}
                 </p>
             </header>
 
             <section className='max-w-5xl mx-auto space-y-12'>
-                {/* Volunteer Opportunities */}
                 <article className='bg-white shadow-md rounded-2xl p-8'>
                     <div className='flex items-start gap-6'>
                         <div className='shrink-0'>
@@ -29,59 +177,40 @@ export default function DonationsPage() {
 
                         <div className='flex-1'>
                             <h2 className='text-2xl font-semibold text-gray-900'>
-                                Volunteer Opportunities
+                                {content.volunteerSection.sectionTitle}
                             </h2>
 
-                            <p className='mt-4 text-gray-600'>
-                                {/* Add volunteer section description here */}
-                            </p>
+                            {content.volunteerSection.intro ? (
+                                <p className='mt-4 text-gray-600'>
+                                    {content.volunteerSection.intro}
+                                </p>
+                            ) : null}
 
                             <div className='mt-6 grid grid-cols-1 md:grid-cols-2 gap-4'>
-                                <div className='border rounded-lg p-4'>
-                                    <h3 className='font-medium'>The Voices of Washindi-Speaker’s Bureau</h3>
-                                    <p className='mt-2 text-sm text-gray-500'>
-                                        A community and platform for survivors of sexual assault and intimate partner violence to share their stories of resiliency and courage through the incorporation of the arts and craft of storytelling. Additional Training is required.
-                                    </p>
-                                </div>
-
-                                <div className='border rounded-lg p-4'>
-                                    <h3 className='font-medium'>Hive Ambassadors</h3>
-                                    <p className='mt-2 text-sm text-gray-500'>
-                                        If you love sharing The Hive, then tabling and general outreach may interest you. In this role you will have the opportunity to connect with the community and share about The Hive at community based events.
-                                    </p>
-                                </div>
-
-                                <div className='border rounded-lg p-4'>
-                                    <h3 className='font-medium'>Hive Hostesses/Hosts</h3>
-                                    <p className='mt-2 text-sm text-gray-500'>
-                                        Hive Hostesses/Hosts are special event volunteers who may not have the capacity to volunteer regularly but desire to support our work. As a volunteer in this area you will be contacted to volunteer when we have Hive hosted events such as our Annual SC Survivors Summit or fundraisers.
-                                    </p>
-                                </div>
-
-                                <div className='border rounded-lg p-4'>
-                                    <h3 className='font-medium'>Volunteer Groups</h3>
-                                    <p className='mt-2 text-sm text-gray-500'>
-                                        We have opportunities available for groups looking to volunteer together. These opportunities for groups of 5 or more include packing Bee Boxes of support for survivors or assembling BuzzPaks for our prevention education programming for youth.
-                                    </p>
-                                </div>
+                                {content.volunteerSection.cards.map((card, index) => (
+                                    <div
+                                        key={card._key ?? `${card.title}-${index}`}
+                                        className='border rounded-lg p-4'
+                                    >
+                                        <h3 className='font-medium'>{card.title}</h3>
+                                        <p className='mt-2 text-sm text-gray-500'>
+                                            {card.description}
+                                        </p>
+                                    </div>
+                                ))}
                             </div>
 
                             <div className='mt-8'>
-                                <Button className='inline-flex items-center px-6 py-3 border rounded-md text-sm font-medium hover:shadow'>
-                                    <a
-                                        href='https://pointapp.org/orgs/7916'
-                                        target='_blank'
-                                        rel='noopener noreferrer'
-                                    >
-                                        Sign Up to Volunteer
-                                    </a>
-                                </Button>
+                                <ActionButton
+                                    href={content.volunteerSection.ctaHref}
+                                    label={content.volunteerSection.ctaLabel}
+                                    className='inline-flex items-center px-6 py-3 border rounded-md text-sm font-medium hover:shadow'
+                                />
                             </div>
                         </div>
                     </div>
                 </article>
 
-                {/* Donation Opportunities */}
                 <article className='bg-white shadow-md rounded-2xl p-8'>
                     <div className='flex items-start gap-6'>
                         <div className='shrink-0'>
@@ -92,25 +221,19 @@ export default function DonationsPage() {
 
                         <div className='flex-1'>
                             <h2 className='text-2xl font-semibold text-gray-900'>
-                                Donation Opportunities
+                                {content.donationSection.sectionTitle}
                             </h2>
 
                             <p className='mt-4 text-gray-600'>
-                                Become a Steward of Hope today! Donate to The Hive and support survivors of domestic and sexual abuse who are seeking a safe community.
-                                Either donate to the Survivor&apos;s pantry or Peer Advocacy/Outreach to directly help our survivors, or sign up and become a member of the Keeper&apos;s Club
-                                and donate monthly. If you want to directly donate to the organization donate to the Hope Is Fund which helps in all day-to-day operating activities.
+                                {content.donationSection.body}
                             </p>
 
                             <div className='mt-6'>
-                                <Button asChild className='px-6 py-3 bg-indigo-600 hover:opacity-95'>
-                                    <a
-                                        href='https://thehivecc.networkforgood.com/projects/204053-what-is-hope'
-                                        target='_blank'
-                                        rel='noopener noreferrer'
-                                    >
-                                        Donate Now
-                                    </a>
-                                </Button>
+                                <ActionButton
+                                    href={content.donationSection.ctaHref}
+                                    label={content.donationSection.ctaLabel}
+                                    className='px-6 py-3 bg-indigo-600 hover:opacity-95'
+                                />
                             </div>
                         </div>
                     </div>
@@ -122,7 +245,6 @@ export default function DonationsPage() {
                     Our Partners
                 </h2>
 
-                {/* Philanthropic */}
                 <div className='mb-12'>
                     <h3 className='text-xl font-semibold mb-6'>Philanthropic</h3>
                     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
@@ -153,7 +275,6 @@ export default function DonationsPage() {
                     </div>
                 </div>
 
-                {/* Non-Profit */}
                 <div className='mb-12'>
                     <h3 className='text-xl font-semibold mb-6'>Non-Profit Organizations</h3>
                     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
@@ -177,7 +298,6 @@ export default function DonationsPage() {
                     </div>
                 </div>
 
-                {/* Law Enforcement */}
                 <div className='mb-12'>
                     <h3 className='text-xl font-semibold mb-6'>Law Enforcement</h3>
                     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
@@ -189,7 +309,6 @@ export default function DonationsPage() {
                     </div>
                 </div>
 
-                {/* Education */}
                 <div className='mb-12'>
                     <h3 className='text-xl font-semibold mb-6'>Education</h3>
                     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
@@ -201,7 +320,6 @@ export default function DonationsPage() {
                     </div>
                 </div>
 
-                {/* Faith Based */}
                 <div className='mb-12'>
                     <h3 className='text-xl font-semibold mb-6'>Faith Based</h3>
                     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
@@ -214,7 +332,6 @@ export default function DonationsPage() {
                     </div>
                 </div>
 
-                {/* Merchant */}
                 <div>
                     <h3 className='text-xl font-semibold mb-6'>Merchant Based</h3>
                     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
