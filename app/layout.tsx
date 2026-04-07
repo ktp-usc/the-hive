@@ -41,10 +41,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <html lang={initialLanguage} className={`${inter.variable} ${playfair.variable}`}>
         <body>
         <LanguageProvider initialLanguage={initialLanguage}>
-            <Navbar />
             { children }
-            <SafeExit />
-            <Footer />
         </LanguageProvider>
         </body>
         </html>

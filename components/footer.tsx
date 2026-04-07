@@ -21,14 +21,26 @@ export default function Footer() {
                         {copy.footer.quickLinks}
                     </h1>
                     <br/>
-                    <Link href="#" className="py-0.5 text-gray-200">
+                    <Link href="/" className="py-0.5 text-gray-200">
+                        Home
+                    </Link>
+                    <Link href="/about" className="py-0.5 text-gray-200">
                         {copy.footer.about}
                     </Link>
-                    <Link href="#" className="py-0.5 text-gray-200">
+                    <Link href="/donations" className="py-0.5 text-gray-200">
+                        Impact the Hive
+                    </Link>
+                    <Link href="/about/our-partners" className="py-0.5 text-gray-200">
+                        Our Partners
+                    </Link>
+                    <Link href="/support" className="py-0.5 text-gray-200">
+                        {copy.footer.support}
+                    </Link>
+                    <Link href="/awareness" className="py-0.5 text-gray-200">
                         {copy.footer.awareness}
                     </Link>
-                    <Link href="#" className="py-0.5 text-gray-200">
-                        {copy.footer.support}
+                    <Link href="/events" className="py-0.5 text-gray-200">
+                        Events
                     </Link>
                     <Link href="/contact" className="py-0.5 text-gray-200">
                         {copy.footer.contact}
@@ -61,7 +73,10 @@ export default function Footer() {
                         {copy.footer.supportMission}
                     </h1>
                     <br/>
-                    <Link href="#" className="py-0.5 text-gray-200">
+                    <Link href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                           className="py-0.5 text-gray-200">
                         {copy.footer.donationLink}
                     </Link>
                 </div>
