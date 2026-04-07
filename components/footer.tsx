@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -17,20 +16,29 @@ export default function Footer() {
                         Quick Links
                     </h1>
                     <br/>
-                    <Link href="CHANGE" className="py-0.5 text-gray-200">
+                    <Link href="/" className="py-0.5 text-gray-200">
+                        Home
+                    </Link>
+                    <Link href="/about" className="py-0.5 text-gray-200">
                         About Us
                     </Link>
-                    <Link href="CHANGE" className="py-0.5 text-gray-200">
-                        Awareness
+                    <Link href="/donations" className="py-0.5 text-gray-200">
+                        Impact the Hive
                     </Link>
-                    <Link href="CHANGE" className="py-0.5 text-gray-200">
-                        Support
+                    <Link href="/about/our-partners" className="py-0.5 text-gray-200">
+                        Our Partners
+                    </Link>
+                    <Link href="/support" className="py-0.5 text-gray-200">
+                        Support Services
+                    </Link>
+                    <Link href="/awareness" className="py-0.5 text-gray-200">
+                        Prevention & Awareness
+                    </Link>
+                    <Link href="/events" className="py-0.5 text-gray-200">
+                        Events
                     </Link>
                     <Link href="/contact" className="py-0.5 text-gray-200">
                         Contact
-                    </Link>
-                    <Link href="CHANGE" className="py-0.5 text-gray-200">
-                        Keep Updated
                     </Link>
                 </div>
 
@@ -51,13 +59,17 @@ export default function Footer() {
                     </p>
                 </div>
 
+
                 {/* Donation Section */}
                 <div className="flex flex-col p-4 rounded-2xl mb-10">
                     <h1 className="font-bold text-gray-200">
                         Support Our Mission
                     </h1>
                     <br/>
-                    <Link href="CHANGE" className="py-0.5 text-gray-200">
+                    <Link href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-0.5 text-gray-200">
                         Donation Link
                     </Link>
                 </div>

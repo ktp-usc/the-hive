@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import Link from "next/link";
+import Image from "next/image";
 import {sendEmail} from "@/lib/resend";
 import {useState} from "react";
 
@@ -140,7 +141,7 @@ export default function Contact() {
                                 </Field>
                                 <Button
                                     type="submit"
-                                    className="bg-hive-orange hover:bg-hive-yellow">
+                                    className="bg-hive-orange hover:bg-hive-orange/90 text-white text-xl">
 
                                     Submit
                                 </Button>
@@ -209,9 +210,100 @@ export default function Contact() {
                         </div>
 
                     </div>
+
+                    {/* Socials */}
+                    <div className="flex items-start gap-4 py-4">
+                        {/* Instagram */}
+                        <Link href="https://www.instagram.com/thehivecc/">
+                            <Image
+                                src="/socials-images/Instagram_logo_2016.svg"
+                                alt="Instagram link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+
+                        {/* Facebook */}
+                        <Link href="https://www.facebook.com/hivecc/">
+                            <Image
+                                src="/socials-images/2023_Facebook_icon.svg"
+                                alt="Facebook link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+
+                        {/* LinkedIn */}
+                        <Link href="https://www.linkedin.com/company/thehivecc/">
+                            <Image
+                                src="/socials-images/LinkedIn_icon.svg"
+                                alt="LinkedIn link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+
+                        {/* Twitter */}
+                        <Link href="https://x.com/thehive_cc">
+                            <Image
+                                src="/socials-images/X_logo_2023.svg"
+                                alt="Twitter link and logo"
+                                width={50}
+                                height={50}
+                            />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* Newsletter */}
+            <section>
+                <Link
+                    href="https://thehivecc.dm.networkforgood.com/emails/first_name-hope-is-growing-in-south-carolina-thanks-to-you-9bd6cd6f-d221-4744-a983-fa7ee063e49a"
+                    rel="noopener noreferrer"
+                    target="_blank">
+                    <div className="flex justify-center bg-hive-orange text-white py-10 rounded-2xl max-w-md mx-auto mt-10
+                    hover:bg-hive-orange/90">
+                        <h1 className="text-3xl"><strong>Check Out Our Newsletter!</strong></h1>
+                    </div>
+                </Link>
+
+                <div className="py-10 px-6 max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+                    <form>
+                        <FieldSet className=" bg-hive-blue p-5 rounded-xl">
+                            <FieldGroup>
+                                <Field>
+                                    <h1 className="text-white text-center text-3xl"><strong>Subscribe to Our Newsletter</strong></h1>
+                                    <FieldLabel
+                                        htmlFor="email"
+                                        className="text-xl text-gray-200">
+
+                                        Email
+                                    </FieldLabel>
+                                    <Input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        required
+                                        autoComplete="off"
+                                        placeholder="example@gmail.com"
+                                        className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
+                                    />
+                                </Field>
+                                <Button
+                                    type="submit"
+                                    className="bg-hive-orange hover:bg-hive-orange/90 text-xl text-white">
+
+                                    Submit
+                                </Button>
+                            </FieldGroup>
+                        </FieldSet>
+                    </form>
                 </div>
 
+
             </section>
+
             <footer>
                 <Footer/>
             </footer>
