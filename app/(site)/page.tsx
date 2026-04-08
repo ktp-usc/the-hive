@@ -4,26 +4,52 @@ import InstagramEmbed from "@/components/InstagramEmbed/page";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Coffee, Search, Sun } from "lucide-react";
+import { sanityFetch } from "@/sanity/lib/live";
+import { urlFor } from "@/sanity/lib/image";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-export default function Home() {
-  {
-    /* Replace links with shadcn button later */
-  }
-  return (
-    <main className="min-h-screen bg-white text-gray-800">
-      <section
-        style={{ backgroundImage: "url('/images/TheHive_12.06.2025_135.jpg')" }}
-        className="relative flex min-h-[80vh] w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-24 text-center text-white"
-      >
-        <div className="absolute inset-0 bg-hive-blue/70"></div>
+type HomeImageData = {
+    heroImage?: SanityImageSource;
+    missionImage?: SanityImageSource;
+};
 
-        <div className="relative z-10">
-          <h1 className="mx-auto max-w-5xl text-4xl font-medium leading-tight md:text-6xl">
-            Believing in Yourself is the
-            <span className="block text-8xl font-bold">
+export default async function Home() {
+    const query = `*[_type == "page" && slug.current == "landing"][0]{
+        "heroImage": sections[_type == "sectionHero"][0].images[0],
+        "missionImage": sections[_type == "sectionImageText"][0].image
+    }` as const;
+
+    const { data } = await sanityFetch({ query });
+    const homeImages = data as HomeImageData;
+
+    const heroBackgroundImageUrl = homeImages?.heroImage
+        ? urlFor(homeImages.heroImage).width(2000).height(1200).url()
+        : "/images/TheHive_12.06.2025_135.jpg";
+
+    const missionImageUrl = homeImages?.missionImage
+        ? urlFor(homeImages.missionImage).width(2000).height(2000).url()
+        : "/images/TheHive_12.06.2025_87.jpg";
+    {
+        /* Replace links with shadcn button later */
+    }
+    return (
+        <main className="min-h-screen bg-white text-gray-800">
+            {/* Hero */ }
+            <section
+                style={{ backgroundImage: `url("${heroBackgroundImageUrl}")` }}
+                className="relative flex min-h-[80vh] w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-24 text-center text-white"
+            >
+                {/* FULL OVERLAY */}
+                <div className="absolute inset-0 bg-hive-blue/70"></div>
+
+                {/* CONTENT */}
+                <div className="relative z-10">
+                    <h1 className="mx-auto max-w-5xl text-4xl font-medium leading-tight md:text-6xl">
+                        Believing in Yourself is the
+                        <span className="block text-8xl font-bold">
               First Step to Healing
             </span>
-          </h1>
+                    </h1>
 
           <Button
             asChild
@@ -35,13 +61,14 @@ export default function Home() {
         </div>
       </section>
 
+        {/* Mission */ }
       <section className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-8 px-6 py-20 text-center md:flex-row">
         <div>
           <Image
-            src="/images/TheHive_12.06.2025_87.jpg"
-            alt="Mission"
-            width={1500}
-            height={1500}
+            src={missionImageUrl}
+            alt="MissionImage"
+            width={2000}
+            height={2000}
             className="rounded-lg border-2 border-gray-200"
           />
         </div>
@@ -59,8 +86,10 @@ export default function Home() {
         </div>
       </section>
 
+            {/* Divider */ }
       <div className="mx-auto max-w-4xl border-t border-gray-200" />
 
+            {/* What We Do */ }
       <section className="mx-auto max-w-5xl px-6 py-20">
         <h2 className="mb-14 text-center text-3xl font-bold text-hive-blue">
           What We Do
@@ -107,8 +136,10 @@ export default function Home() {
         </div>
       </section>
 
+            {/* Divider */ }
       <div className="mx-auto max-w-4xl border-t border-gray-200" />
 
+            {/* Instagram Feed */ }
       <div className="mx-auto mt-5 w-full max-w-lg">
         <div className="mb-5 flex flex-col items-center gap-4">
           <a
@@ -122,6 +153,7 @@ export default function Home() {
         <Script async src="https://www.instagram.com/embed.js"></Script>
       </div>
 
+            {/* Donate CTA */ }
       <section id="donate" className="bg-gray-50 px-6 py-20 text-center">
         <h2 className="mb-4 text-3xl font-bold text-hive-blue">
           Support Our Work
