@@ -115,10 +115,22 @@ export const sectionCardGrid = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'subtitle',
+      title: 'Subtitle',
+      type: 'string',
+      description: 'Short accent line shown below the section title (e.g. in orange).',
+    }),
+    defineField({
       name: 'intro',
       title: 'Intro',
       type: 'text',
       rows: 4,
+    }),
+    defineField({
+      name: 'cardsHeading',
+      title: 'Cards heading',
+      type: 'string',
+      description: 'Optional subheading shown above the cards list.',
     }),
     defineField({
       name: 'cards',

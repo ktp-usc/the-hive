@@ -34,7 +34,7 @@ const navItems: NavItem[] = [
     label: "Support",
     dropdown: [
       { label: "Support Services", href: "/support" },
-      { label: "Prevention & Awareness", href: "/awareness" },
+      { label: "Prevention & Awareness", href: "/prevention-and-awareness" },
     ],
   },
   { label: "Events", href: "/events" },
