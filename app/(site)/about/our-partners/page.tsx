@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+
+import { useSiteCopy } from "@/components/language-provider";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
@@ -7,14 +11,23 @@ type Partner = {
   alt: string;
 };
 
+type CategoryKey =
+  | "philanthropic"
+  | "nonprofit"
+  | "lawEnforcement"
+  | "education"
+  | "faithBased"
+  | "merchant"
+  | "community";
+
 type Category = {
-  title: string;
+  key: CategoryKey;
   partners: Partner[];
 };
 
 const categories: Category[] = [
   {
-    title: "Philanthropic",
+    key: "philanthropic",
     partners: [
       { src: "/partner-images/JLC.png", alt: "Junior League of Columbia" },
       { src: "/partner-images/Allstate.webp", alt: "Allstate Foundation" },
@@ -43,7 +56,7 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "Non-Profit Organizations",
+    key: "nonprofit",
     partners: [
       { src: "/partner-images/CT.webp", alt: "Children's Trust of South Carolina" },
       { src: "/partner-images/Prisma.webp", alt: "Prisma" },
@@ -65,7 +78,7 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "Law Enforcement",
+    key: "lawEnforcement",
     partners: [
       { src: "/partner-images/Richland.jpg", alt: "Richland County Sheriff Department" },
       { src: "/partner-images/LaborOfficer.jpg", alt: "Richland County Inmate Labor Officer" },
@@ -75,7 +88,7 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "Education",
+    key: "education",
     partners: [
       { src: "/partner-images/BC.png", alt: "Benedict College" },
       { src: "/partner-images/CC.png", alt: "Columbia College" },
@@ -85,7 +98,7 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "Faith Based",
+    key: "faithBased",
     partners: [
       { src: "/partner-images/Church1.jfif", alt: "Mt. Olive AME Church" },
       { src: "/partner-images/Church2.png", alt: "International Praise" },
@@ -96,7 +109,7 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "Merchant Based",
+    key: "merchant",
     partners: [
       { src: "/partner-images/Merchant1.jpg", alt: "Painting With a Twist" },
       { src: "/partner-images/Merchant2.svg", alt: "The Fresh Market" },
@@ -114,7 +127,7 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "Community Partners",
+    key: "community",
     partners: [
       { src: "/partner-images/Comm1.webp", alt: "Stanley Martin" },
       { src: "/partner-images/Comm2.png", alt: "One to One Consulting" },
@@ -161,60 +174,55 @@ function PartnerGrid({ partners }: { partners: Partner[] }) {
   );
 }
 
-
 export default function OurPartnersPage() {
+  const copy = useSiteCopy();
+
   return (
     <main className="min-h-screen bg-background">
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-            Our Partners
+            {copy.partners.heroTitle}
           </h1>
           <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-            We are grateful for the organizations, businesses, and community leaders who support this work.
+            {copy.partners.heroBody}
           </p>
-          <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl text-center">
-          Partnership Opportunities
+          <h2 className="mt-3 text-center text-4xl font-bold tracking-tight sm:text-5xl">
+            {copy.partners.opportunitiesTitle}
           </h2>
         </div>
 
-        <div className="mt-12 max-w-6xl mx-auto grid gap-8 items-center md:grid-cols-2">
-  
-          <div className="relative w-full h-72 sm:h-96 md:h-full">
+        <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
+          <div className="relative h-72 w-full sm:h-96 md:h-full">
             <Image
-            src="/partner-images/TheBeeBox.avif"
-            alt="The Bee Box"
-            fill
-            className="object-contain"
-            priority
+              src="/partner-images/TheBeeBox.avif"
+              alt="The Bee Box"
+              fill
+              className="object-contain"
+              priority
             />
           </div>
-        <div>
-          <p className="text-base text-muted-foreground sm:text-lg leading-relaxed">
-          Sitting in a cold waiting room, trembling with fear as one contemplates
-          disclosing their abuse is never a vision one would desire to have, but
-          this is often the reality for survivors of abuse and violence. The Bee
-          Box was designed to support survivors who disclose in public settings
-          such as healthcare settings, police stations, schools, or churches. The
-          Bee Box has been uniquely designed to provide aid and support as a
-          survivor embarks on their journey of healing, consisting of a grounding
-          tool, tea for care and wellness, powerful affirmations written by fellow
-          survivors, and an all-natural room enhancer spray.
+          <div>
+            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {copy.partners.beeBoxBody}
+            </p>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
+          <p className="mx-auto max-w-2xl text-center text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {copy.partners.beeBoxPartnerPrefix}{" "}
+            <a href="mailto:volunteer@thehivecc.org">volunteer@thehivecc.org</a>
           </p>
         </div>
-      </div>
-
-      <div className="mt-12 max-w-6xl mx-auto grid gap-8 items-center md:grid-cols-2">
-        <p className="text-base text-muted-foreground sm:text-lg leading-relaxed text-center max-w-2xl mx-auto">
-        If you are interested in becoming a partner site for the Bee Box, please reach out to <a href="mailto:volunteer@thehivecc.org">volunteer@thehivecc.org</a>
-        </p>
-      </div>
 
         <div className="mt-12 space-y-8">
           {categories.map((category, index) => (
-            <Card key={category.title} className="overflow-hidden">
+            <Card key={category.key} className="overflow-hidden">
               <CardHeader className="pb-4">
-                <CardTitle className="text-2xl">{category.title}</CardTitle>
+                <CardTitle className="text-2xl">
+                  {copy.partners.categoryTitles[category.key]}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <PartnerGrid partners={category.partners} />
@@ -225,5 +233,5 @@ export default function OurPartnersPage() {
         </div>
       </section>
     </main>
-  );;
+  );
 }

@@ -15,8 +15,10 @@ import Link from "next/link";
 import Image from "next/image";
 import {sendEmail} from "@/lib/resend";
 import {useState} from "react";
+import { useSiteCopy } from "@/components/language-provider";
 
 export default function Contact() {
+    const copy = useSiteCopy();
 
     // Defines the shape of the form data
     type FormData = {
@@ -55,10 +57,10 @@ export default function Contact() {
             {/* Hero */}
             <section className="flex flex-col items-center justify-center bg-hive-blue text-white py-24 px-6 text-center">
                 <h1 className="text-4xl md:text-6xl font-bold leading-tight max-w-3xl mx-auto">
-                    Get in Touch
+                    {copy.contact.heroTitle}
                 </h1>
                 <p className="mt-4 text-lg md:text-xl text-white/70 max-w-xl">
-                    We&apos;re here for you. Reach out and a member of our team will get back with you shortly.
+                    {copy.contact.heroBody}
                 </p>
             </section>
 
@@ -68,7 +70,7 @@ export default function Contact() {
                 {/* Contact Form */}
                 <div>
                     <h2 className="text-3xl font-bold text-hive-blue mb-8">
-                        Send Us a Message
+                        {copy.contact.formTitle}
                     </h2>
 
                     <form onSubmit={handleSubmit}>
@@ -79,14 +81,14 @@ export default function Contact() {
                                         htmlFor="name"
                                         className="text-xl text-gray-200">
 
-                                        Name
+                                        {copy.contact.fields.name}
                                     </FieldLabel>
                                     <Input
                                         id="name"
                                         name="name"
                                         autoComplete="off"
                                         required
-                                        placeholder="Jane Doe"
+                                        placeholder={copy.contact.fields.placeholders.name}
                                         className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
                                     />
                                 </Field>
@@ -95,7 +97,7 @@ export default function Contact() {
                                         htmlFor="email"
                                         className="text-xl text-gray-200">
 
-                                        Email
+                                        {copy.contact.fields.email}
                                     </FieldLabel>
                                     <Input
                                         id="email"
@@ -103,7 +105,7 @@ export default function Contact() {
                                         type="email"
                                         required
                                         autoComplete="off"
-                                        placeholder="example@gmail.com"
+                                        placeholder={copy.contact.fields.placeholders.email}
                                         className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
                                     />
                                 </Field>
@@ -112,14 +114,14 @@ export default function Contact() {
                                         htmlFor="phone"
                                         className="text-xl text-gray-200">
 
-                                        Phone
+                                        {copy.contact.fields.phone}
                                     </FieldLabel>
                                     <Input
                                         id="phone"
                                         name="phone"
                                         type="phone"
                                         autoComplete="off"
-                                        placeholder="(XXX) XXX-XXXX"
+                                        placeholder={copy.contact.fields.placeholders.phone}
                                         className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
                                     />
                                 </Field>
@@ -128,14 +130,14 @@ export default function Contact() {
                                         htmlFor="comment"
                                         className="text-xl text-gray-200">
 
-                                        Comments
+                                        {copy.contact.fields.comment}
                                     </FieldLabel>
                                     <Textarea
                                         id="comment"
                                         name="comment"
                                         required
                                         autoComplete="off"
-                                        placeholder="Enter message here"
+                                        placeholder={copy.contact.fields.placeholders.comment}
                                         className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
                                     />
                                 </Field>
@@ -143,7 +145,7 @@ export default function Contact() {
                                     type="submit"
                                     className="bg-hive-orange hover:bg-hive-orange/90 text-white text-xl">
 
-                                    Submit
+                                    {copy.contact.fields.submit}
                                 </Button>
                             </FieldGroup>
                         </FieldSet>
@@ -154,7 +156,7 @@ export default function Contact() {
                 {/* Contact Info */}
                 <div>
                     <h2 className="text-3xl font-bold text-hive-blue mb-8">
-                        Contact Information
+                        {copy.contact.infoTitle}
                     </h2>
 
                     <div className="flex flex-col gap-6">
@@ -165,7 +167,7 @@ export default function Contact() {
                                 <Mail className="text-hive-blue"/>
                             </div>
                             <div>
-                                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Email</p>
+                                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">{copy.contact.info.email}</p>
                                 <Link
                                     href="mailto:hello@thehivecc.org"
                                     className="text-gray-700 font-medium">
@@ -181,7 +183,7 @@ export default function Contact() {
                                 <Phone className="text-hive-orange"/>
                             </div>
                             <div>
-                                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Phone</p>
+                                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">{copy.contact.info.phone}</p>
                                 <Link
                                     href="tel:+18038887725"
                                     className="text-gray-700 font-medium">
@@ -197,7 +199,7 @@ export default function Contact() {
                                     <MapPin className="text-hive-yellow"/>
                             </div>
                             <div>
-                                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Address</p>
+                                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">{copy.contact.info.address}</p>
                                 <Link
                                     href="https://www.google.com/maps/place/The+Hive+Community+Circle/@34.044254,-81.0319489,17z/data=!3m1!4b1!4m6!3m5!1s0x88f8bb73a2107003:0x3018e4f7f747e058!8m2!3d34.044254!4d-81.029374!16s%2Fg%2F11h0mwc9st?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D"
                                     target="_blank"
@@ -217,7 +219,7 @@ export default function Contact() {
                         <Link href="https://www.instagram.com/thehivecc/">
                             <Image
                                 src="/socials-images/Instagram_logo_2016.svg"
-                                alt="Instagram link and logo"
+                                alt={copy.contact.socials.instagram}
                                 width={50}
                                 height={50}
                             />
@@ -227,7 +229,7 @@ export default function Contact() {
                         <Link href="https://www.facebook.com/hivecc/">
                             <Image
                                 src="/socials-images/2023_Facebook_icon.svg"
-                                alt="Facebook link and logo"
+                                alt={copy.contact.socials.facebook}
                                 width={50}
                                 height={50}
                             />
@@ -237,7 +239,7 @@ export default function Contact() {
                         <Link href="https://www.linkedin.com/company/thehivecc/">
                             <Image
                                 src="/socials-images/LinkedIn_icon.svg"
-                                alt="LinkedIn link and logo"
+                                alt={copy.contact.socials.linkedin}
                                 width={50}
                                 height={50}
                             />
@@ -247,7 +249,7 @@ export default function Contact() {
                         <Link href="https://x.com/thehive_cc">
                             <Image
                                 src="/socials-images/X_logo_2023.svg"
-                                alt="Twitter link and logo"
+                                alt={copy.contact.socials.x}
                                 width={50}
                                 height={50}
                             />

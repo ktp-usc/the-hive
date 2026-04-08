@@ -4,131 +4,32 @@ import { useState } from "react";
 import Image from "next/image";
 import { Flower2, HeartHandshake, Sparkles, Star, Users } from "lucide-react";
 
+import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type DonationTabId = "casita" | "keepers";
-type VolunteerOpportunity = {
-  title: string;
-  description: string;
-};
-type KeeperTier = {
-  amount: string;
-  yearly: string;
-  name: string;
+
+type TierStyle = {
   accent: string;
-  description: string;
 };
 
-const tabs: Array<{ id: DonationTabId; label: string }> = [
-  { id: "casita", label: "Casita of Care" },
-  { id: "keepers", label: "The Keepers Club" },
+type ImpactAreaMedia = {
+  src: string;
+};
+
+const tierStyles: TierStyle[] = [
+  { accent: "#fff0de" },
+  { accent: "#ffd9b3" },
+  { accent: "#ffc083" },
+  { accent: "#f3a351" },
 ];
 
-const casitaWaysToGive = [
-  {
-    title: "Donate essential items",
-    description:
-      "Stock the space with hygiene products, cleaning supplies, household basics, and beauty items survivors actually want to choose from.",
-  },
-  {
-    title: "Give financially",
-    description:
-      "Help keep the shelves full, the space maintained, and the Casita ready for each person who walks through the door.",
-  },
-  {
-    title: "Volunteer with care",
-    description:
-      "Support sorting, restocking, and welcoming community efforts that make the Casita feel calm, beautiful, and survivor-centered.",
-  },
-];
-
-const volunteerOpportunities: VolunteerOpportunity[] = [
-  {
-    title: "The Voices of Washindi-Speaker’s Bureau",
-    description:
-      "A community and platform for survivors of sexual assault and intimate partner violence to share their stories of resiliency and courage through the incorporation of the arts and craft of storytelling. Additional Training is required.",
-  },
-  {
-    title: "Hive Ambassadors",
-    description:
-      "If you love sharing The Hive, then tabling and general outreach may interest you. In this role you will have the opportunity to connect with the community and share about The Hive at community based events.",
-  },
-  {
-    title: "Hive Hostesses/Hosts",
-    description:
-      "Hive Hostesses/Hosts are special event volunteers who may not have the capacity to volunteer regularly but desire to support our work. As a volunteer in this area you will be contacted to volunteer when we have Hive hosted events such as our Annual SC Survivors Summit or fundraisers.",
-  },
-  {
-    title: "Volunteer Groups",
-    description:
-      "We have opportunities available for groups looking to volunteer together. These opportunities for groups of 5 or more include packing Bee Boxes of support for survivors or assembling BuzzPaks for our prevention education programming for youth.",
-  },
-];
-
-const keeperTiers: KeeperTier[] = [
-  {
-    amount: "$10/mo",
-    yearly: "$120/year",
-    name: "Hives of Hope",
-    accent: "#fff0de",
-    description:
-      "A simple monthly gift that helps provide practical support like Bee Boxes and everyday essentials.",
-  },
-  {
-    amount: "$20/mo",
-    yearly: "$240/year",
-    name: "Beeyond Donor",
-    accent: "#ffd9b3",
-    description:
-      "Strengthens access to survivor support such as counseling and other stabilizing services throughout the year.",
-  },
-  {
-    amount: "$30/mo",
-    yearly: "$360/year",
-    name: "Beelievers Circle",
-    accent: "#ffc083",
-    description:
-      "Creates dependable funding that helps cover urgent needs and extend survivor-centered care each month.",
-  },
-  {
-    amount: "$50/mo",
-    yearly: "$600/year",
-    name: "Pollinator Pledge",
-    accent: "#f3a351",
-    description:
-      "Expands The Hive's ability to fund prevention training, outreach, and stronger long-term community impact.",
-  },
-];
-
-const keeperBenefits = [
-  "A welcome packet with a Keeper's Club shirt and Hive decal.",
-  "Bee In The Know reports and annual impact updates.",
-  "Exclusive invitations to Hive events throughout the year.",
-  "A year-end tax deduction letter for recurring gifts.",
-];
-
-const keeperImpactAreas = [
-  {
-    title: "Emergency and Economic Relief",
-    src: "/donations/keepersclub2.avif",
-    alt: "Emergency and economic relief support",
-  },
-  {
-    title: "Counseling",
-    src: "/donations/keepersclub3.avif",
-    alt: "Counseling support",
-  },
-  {
-    title: "Survivor-Based Outreach",
-    src: "/donations/keepersclub4.avif",
-    alt: "Survivor-based outreach",
-  },
-  {
-    title: "Education and Prevention",
-    src: "/donations/keepersclub5.avif",
-    alt: "Education and prevention",
-  },
+const impactAreaMedia: ImpactAreaMedia[] = [
+  { src: "/donations/keepersclub2.avif" },
+  { src: "/donations/keepersclub3.avif" },
+  { src: "/donations/keepersclub4.avif" },
+  { src: "/donations/keepersclub5.avif" },
 ];
 
 function FeatureImage({
@@ -141,10 +42,12 @@ function FeatureImage({
   className?: string;
 }) {
   return (
-    <div className={cn(
-      "overflow-hidden rounded-4xl border border-white/60 bg-white/80 p-3 shadow-[0_18px_60px_rgba(27,34,67,0.12)] sm:p-4",
-      className
-    )}>
+    <div
+      className={cn(
+        "overflow-hidden rounded-4xl border border-white/60 bg-white/80 p-3 shadow-[0_18px_60px_rgba(27,34,67,0.12)] sm:p-4",
+        className
+      )}
+    >
       <div className="flex min-h-76 w-full items-center justify-center rounded-3xl bg-[radial-gradient(circle_at_top,rgba(255,248,236,0.9),rgba(244,248,250,0.9))]">
         <Image
           src={src}
@@ -160,7 +63,14 @@ function FeatureImage({
 }
 
 export default function DonationsPage() {
+  const copy = useSiteCopy();
+  const pageCopy = copy.donations.page;
   const [activeTab, setActiveTab] = useState<DonationTabId>("casita");
+
+  const tabs = [
+    { id: "casita" as const, label: pageCopy.tabs.casita },
+    { id: "keepers" as const, label: pageCopy.tabs.keepers },
+  ];
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,#fff9ef_0%,#f7f1e6_34%,#edf5f6_100%)] px-4 pb-20 pt-32 sm:px-6 lg:px-8">
@@ -173,74 +83,78 @@ export default function DonationsPage() {
           <div className="pointer-events-none absolute bottom-0 left-0 h-52 w-52 rounded-full bg-[#ec7424]/14 blur-3xl" />
 
           <div className="relative z-10 max-w-2xl xl:max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#d8794a]">
-                Impact the Hive
-              </p>
-              <h1 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-950 sm:text-5xl lg:text-[4.3rem] lg:leading-[1.02]">
-                Support survivors through spaces of care and sustaining generosity.
-              </h1>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild className="rounded-full bg-[#1d979c] px-6 py-6 text-sm font-semibold text-white shadow-[0_12px_34px_rgba(29,151,156,0.26)] hover:bg-[#187d81]">
-                  <a
-                    href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Donate Now
-                  </a>
-                </Button>
-                <Button asChild variant="ghost" className="rounded-full border border-black/10 bg-white/70 px-6 py-6 text-sm font-semibold text-slate-700 hover:border-[#1d979c]/25 hover:bg-white hover:text-slate-950">
-                  <a
-                    href="https://pointapp.org/orgs/7916"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Volunteer
-                  </a>
-                </Button>
-              </div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#d8794a]">
+              {pageCopy.heroEyebrow}
+            </p>
+            <h1 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-950 sm:text-5xl lg:text-[4.3rem] lg:leading-[1.02]">
+              {pageCopy.heroTitle}
+            </h1>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button
+                asChild
+                className="rounded-full bg-[#1d979c] px-6 py-6 text-sm font-semibold text-white shadow-[0_12px_34px_rgba(29,151,156,0.26)] hover:bg-[#187d81]"
+              >
+                <a
+                  href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {pageCopy.primaryCta}
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="ghost"
+                className="rounded-full border border-black/10 bg-white/70 px-6 py-6 text-sm font-semibold text-slate-700 hover:border-[#1d979c]/25 hover:bg-white hover:text-slate-950"
+              >
+                <a
+                  href="https://pointapp.org/orgs/7916"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {pageCopy.secondaryCta}
+                </a>
+              </Button>
+            </div>
 
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5">
-                  <Flower2 className="h-5 w-5 text-[#1d979c]" />
-                  <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    Casita of Care
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                    A boutique-style resource space designed around dignity,
-                    privacy, and belonging.
-                  </p>
-                </div>
-                <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5">
-                  <HeartHandshake className="h-5 w-5 text-[#ec7424]" />
-                  <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    Monthly Giving
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                    The Keepers Club creates steady support that helps The Hive
-                    respond month after month.
-                  </p>
-                </div>
-                <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5">
-                  <Users className="h-5 w-5 text-[#d8794a]" />
-                  <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    Community Powered
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                    Every gift helps survivors feel seen, supported, and connected
-                    to a stronger community.
-                  </p>
-                </div>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5">
+                <Flower2 className="h-5 w-5 text-[#1d979c]" />
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
+                  {pageCopy.highlights[0].title}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  {pageCopy.highlights[0].body}
+                </p>
               </div>
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5">
+                <HeartHandshake className="h-5 w-5 text-[#ec7424]" />
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
+                  {pageCopy.highlights[1].title}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  {pageCopy.highlights[1].body}
+                </p>
+              </div>
+              <div className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5">
+                <Users className="h-5 w-5 text-[#d8794a]" />
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
+                  {pageCopy.highlights[2].title}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  {pageCopy.highlights[2].body}
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="relative z-10 mt-12">
             <h2 className="font-(--font-heading) text-3xl text-slate-950 sm:text-4xl">
-              Volunteer Opportunities
+              {pageCopy.volunteerTitle}
             </h2>
 
             <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {volunteerOpportunities.map((opportunity) => (
+              {pageCopy.volunteerOpportunities.map((opportunity) => (
                 <article
                   key={opportunity.title}
                   className="rounded-[1.75rem] border border-black/6 bg-white/82 p-5 shadow-[0_10px_30px_rgba(32,42,69,0.05)]"
@@ -260,10 +174,10 @@ export default function DonationsPage() {
         <section className="overflow-hidden rounded-[2.5rem] border border-white/70 bg-white/78 px-6 py-10 shadow-[0_30px_120px_rgba(32,42,69,0.10)] backdrop-blur sm:px-10 sm:py-14 lg:px-16">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#d8794a]">
-              Giving Sections
+              {pageCopy.givingSectionsEyebrow}
             </p>
             <h2 className="mt-4 font-(--font-heading) text-3xl leading-tight text-slate-950 sm:text-4xl">
-              Explore the giving story that speaks to you.
+              {pageCopy.givingSectionsTitle}
             </h2>
           </div>
 
@@ -296,36 +210,27 @@ export default function DonationsPage() {
                 <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
                   <article className="px-2 sm:px-4">
                     <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#d8794a]">
-                      Casita of Care
+                      {pageCopy.casita.eyebrow}
                     </p>
                     <h3 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-700 sm:text-5xl">
-                      More Than a Pantry. A Place of Belonging.
+                      {pageCopy.casita.title}
                     </h3>
                     <div className="mt-6 space-y-6 text-lg leading-9 text-slate-600">
-                      <p>
-                        The Casita of Care reimagines what free resources can look
-                        and feel like.{" "}
-                        <span className="font-semibold text-[#1d979c]">
-                          This isn&apos;t a thrift store or donation center,
-                        </span>{" "}
-                        it&apos;s a thoughtfully designed boutique where survivors
-                        can shop with dignity for the items they need and want.
-                      </p>
-                      <p>
-                        From culturally specific hair and beauty products to
-                        household essentials and cleaning supplies, every detail is
-                        chosen with care and intention.
-                      </p>
+                      <p>{pageCopy.casita.paragraphs[0]}</p>
+                      <p>{pageCopy.casita.paragraphs[1]}</p>
                     </div>
 
                     <div className="mt-8 flex flex-wrap gap-3">
-                      <Button asChild className="rounded-sm bg-[#1d979c] px-8 py-6 text-base font-medium text-white hover:bg-[#187d81]">
+                      <Button
+                        asChild
+                        className="rounded-sm bg-[#1d979c] px-8 py-6 text-base font-medium text-white hover:bg-[#187d81]"
+                      >
                         <a
                           href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Support the Casita
+                          {pageCopy.casita.cta}
                         </a>
                       </Button>
                     </div>
@@ -333,7 +238,7 @@ export default function DonationsPage() {
 
                   <FeatureImage
                     src="/donations/casitaofcare3.avif"
-                    alt="Casita of Care main photo"
+                    alt={pageCopy.casita.mainAlt}
                     className="border-none bg-transparent p-0 shadow-none"
                   />
                 </div>
@@ -341,27 +246,18 @@ export default function DonationsPage() {
                 <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
                   <FeatureImage
                     src="/donations/casitaofcare2.avif"
-                    alt="Casita of Care detail photo"
+                    alt={pageCopy.casita.detailAlt}
                     className="border-none bg-transparent p-0 shadow-none"
                   />
 
                   <article className="px-2 sm:px-4">
                     <h4 className="font-(--font-heading) text-4xl leading-tight text-slate-700 sm:text-5xl">
-                      A Refuge for Survivors in the Midlands
+                      {pageCopy.casita.refugeTitle}
                     </h4>
                     <div className="mt-6 space-y-6 text-lg leading-9 text-slate-600">
-                      <p>
-                        The Casita of Care serves those in the South Carolina
-                        Midlands who are healing from sexual assault, intimate
-                        partner violence, and stalking.
-                      </p>
-                      <p>
-                        Survivors leave feeling a little more hopeful, a little
-                        more grounded, and with one less thing on their worry list.
-                        They walk away empowered, knowing their story is valued,
-                        their healing matters, and they are part of a community
-                        standing with them.
-                      </p>
+                      {pageCopy.casita.refugeParagraphs.map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
                     </div>
                   </article>
                 </div>
@@ -371,62 +267,66 @@ export default function DonationsPage() {
                   <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,251,242,0.9),rgba(255,255,255,0.9))]" />
 
                   <div className="relative z-10 grid gap-8 p-6 sm:p-8 lg:grid-cols-[0.85fr_1.15fr]">
-                  <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d8794a]">
-                      Ways to Help
-                    </p>
-                    <h4 className="mt-3 font-(--font-heading) text-3xl text-slate-900">
-                      Support the space with practical care.
-                    </h4>
-                    <p className="mt-4 text-base leading-8 text-slate-600">
-                      Help stock the Casita, sustain the experience, and keep this
-                      resource ready for each survivor who comes through the door.
-                    </p>
-                    <div className="mt-6">
-                      <div className="flex flex-wrap gap-3">
-                        <Button asChild variant="ghost" className="rounded-sm border border-black/10 bg-white px-6 py-6 text-base text-slate-700 hover:bg-slate-50">
-                          <a
-                            href="https://pointapp.org/orgs/7916"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Volunteer
-                          </a>
-                        </Button>
-                        <Button asChild className="rounded-sm bg-[#ec7424] px-6 py-6 text-base font-medium text-white hover:bg-[#d9651b]">
-                          <a
-                            href="https://www.amazon.com/hz/wishlist/ls/OIKGIA7FGP0W?ref_=wl_share"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Casita Wishlist
-                          </a>
-                        </Button>
-                      </div>
-                      <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">
-                        Want to donate practical items directly? The Casita of
-                        Care Amazon wishlist makes it easy to send needed
-                        essentials straight to the space.
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d8794a]">
+                        {pageCopy.casita.waysEyebrow}
                       </p>
-                    </div>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-3">
-                    {casitaWaysToGive.map((item) => (
-                      <div
-                        key={item.title}
-                        className="rounded-3xl bg-white p-5 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
-                      >
-                        <Sparkles className="h-4 w-4 text-[#1d979c]" />
-                        <p className="mt-3 text-base font-semibold text-slate-900">
-                          {item.title}
-                        </p>
-                        <p className="mt-3 text-sm leading-7 text-slate-600">
-                          {item.description}
+                      <h4 className="mt-3 font-(--font-heading) text-3xl text-slate-900">
+                        {pageCopy.casita.waysTitle}
+                      </h4>
+                      <p className="mt-4 text-base leading-8 text-slate-600">
+                        {pageCopy.casita.waysBody}
+                      </p>
+                      <div className="mt-6">
+                        <div className="flex flex-wrap gap-3">
+                          <Button
+                            asChild
+                            variant="ghost"
+                            className="rounded-sm border border-black/10 bg-white px-6 py-6 text-base text-slate-700 hover:bg-slate-50"
+                          >
+                            <a
+                              href="https://pointapp.org/orgs/7916"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {pageCopy.casita.volunteerCta}
+                            </a>
+                          </Button>
+                          <Button
+                            asChild
+                            className="rounded-sm bg-[#ec7424] px-6 py-6 text-base font-medium text-white hover:bg-[#d9651b]"
+                          >
+                            <a
+                              href="https://www.amazon.com/hz/wishlist/ls/OIKGIA7FGP0W?ref_=wl_share"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {pageCopy.casita.wishlistCta}
+                            </a>
+                          </Button>
+                        </div>
+                        <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">
+                          {pageCopy.casita.wishlistNote}
                         </p>
                       </div>
+                    </div>
+
+                    <div className="grid gap-4 sm:grid-cols-3">
+                      {pageCopy.casita.waysToGive.map((item) => (
+                        <div
+                          key={item.title}
+                          className="rounded-3xl bg-white p-5 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
+                        >
+                          <Sparkles className="h-4 w-4 text-[#1d979c]" />
+                          <p className="mt-3 text-base font-semibold text-slate-900">
+                            {item.title}
+                          </p>
+                          <p className="mt-3 text-sm leading-7 text-slate-600">
+                            {item.description}
+                          </p>
+                        </div>
                       ))}
-                  </div>
+                    </div>
                   </div>
                 </div>
 
@@ -435,79 +335,43 @@ export default function DonationsPage() {
                   <div className="absolute inset-0 bg-white/4" />
 
                   <article className="relative z-10 mx-auto max-w-6xl bg-white/88 px-5 py-12 text-center backdrop-blur-[1px] sm:px-8 lg:px-16 lg:py-16">
-                      <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1d979c]">
-                        Community Story
-                      </p>
-                      <h4 className="mx-auto mt-4 max-w-5xl font-(--font-heading) text-3xl leading-tight text-[#1d979c] sm:text-4xl">
-                        A Community Rallies: How the Casita of Care Came to Be
-                      </h4>
-                      <p className="mx-auto mt-6 max-w-4xl text-xl leading-10 text-slate-500">
-                        The story of the Casita of Care is one of persistence,
-                        heart, and the power of community.
-                      </p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1d979c]">
+                      {pageCopy.casita.communityEyebrow}
+                    </p>
+                    <h4 className="mx-auto mt-4 max-w-5xl font-(--font-heading) text-3xl leading-tight text-[#1d979c] sm:text-4xl">
+                      {pageCopy.casita.communityTitle}
+                    </h4>
+                    <p className="mx-auto mt-6 max-w-4xl text-xl leading-10 text-slate-500">
+                      {pageCopy.casita.communityLead}
+                    </p>
 
-                      <div className="mx-auto mt-10 max-w-5xl space-y-8 text-lg leading-10 text-slate-800">
-                        <p>
-                          The Casita of Care started with a simple conviction:
-                          survivors deserve dignity when accessing resources. The
-                          Hive began keeping hygiene and household items in a
-                          closet for those who needed them. In early 2025, a
-                          generous donation drive brought in so many supplies that
-                          the overflow broke the closet doors.
-                        </p>
-                        <p>
-                          After moving to a donated storage shed, the team faced a
-                          new challenge: the South Carolina sun made the space hard
-                          to use. Early support from local partners helped make the
-                          shed functional through insulation, electricity, and the
-                          first infrastructure upgrades.
-                        </p>
-                        <p>
-                          Then the broader community stepped in. Business owners,
-                          volunteers, and generous supporters helped transform the
-                          idea into something beautiful and real. What started as a
-                          stopgap solution became a boutique-style resource space
-                          created with care, intention, and deep belief in
-                          survivor-centered healing.
-                        </p>
-                      </div>
-                    </article>
+                    <div className="mx-auto mt-10 max-w-5xl space-y-8 text-lg leading-10 text-slate-800">
+                      {pageCopy.casita.communityParagraphs.map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+                  </article>
                 </div>
 
                 <section className="mx-auto max-w-5xl px-4 py-4 text-center">
                   <div className="space-y-12 rounded-[2.5rem] bg-white/82 px-6 py-10 shadow-[0_20px_70px_rgba(32,42,69,0.05)] sm:px-10 sm:py-14">
                     <div>
                       <h4 className="font-(--font-heading) text-4xl leading-tight text-[#1d979c] sm:text-5xl">
-                        Dedicated in Honor of Brianna
+                        {pageCopy.casita.dedicationTitle}
                       </h4>
                       <div className="mx-auto mt-6 max-w-4xl space-y-6 text-lg leading-10 text-slate-800">
-                        <p>
-                          The Casita of Care is dedicated in honor of{" "}
-                          <span className="font-semibold">Brianna</span> , a
-                          beloved teacher, sister, daughter, auntie, friend, and
-                          lover of crochet. May the warmth and care she radiated
-                          in life continue to live through this space.
-                        </p>
-                        <p>
-                          We also dedicate the Casita of Care to all those whose
-                          lives were taken by domestic violence, sexual assault,
-                          and trafficking. May their names be held with dignity,
-                          and may this space offer light, care, and hope to our
-                          community.
-                        </p>
+                        {pageCopy.casita.dedicationParagraphs.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
                       </div>
                     </div>
 
                     <div>
                       <h4 className="font-(--font-heading) text-4xl leading-tight text-[#1d979c] sm:text-5xl">
-                        Thank You to Our Community Partners
+                        {pageCopy.casita.thanksTitle}
                       </h4>
                       <p className="mx-auto mt-6 max-w-4xl text-lg leading-10 text-slate-800">
-                        The Casita of Care exists because over 25 local
-                        businesses and individuals said yes. From interior design
-                        and construction to marketing, flooring, HVAC, and
-                        beyond, each partner contributed their time, talent, and
-                        resources to make this vision a reality.
+                        {pageCopy.casita.thanksBody}
                       </p>
                     </div>
                   </div>
@@ -520,33 +384,28 @@ export default function DonationsPage() {
                 <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
                   <article className="px-2 sm:px-4">
                     <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1d979c]">
-                      The Keepers Club
+                      {pageCopy.keepers.eyebrow}
                     </p>
                     <h3 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-700 sm:text-5xl">
-                      Stewarding sustainability for survivors every month.
+                      {pageCopy.keepers.title}
                     </h3>
                     <div className="mt-6 space-y-6 text-lg leading-9 text-slate-600">
-                      <p>
-                        The Keepers Club is The Hive&apos;s monthly giving
-                        community. Recurring support helps create a steadier
-                        budget for emergency relief, counseling, outreach, and
-                        prevention work as demand continues to grow.
-                      </p>
-                      <p>
-                        It&apos;s designed for people who want their generosity to
-                        keep showing up month after month, helping survivors
-                        access stable, responsive care when they need it most.
-                      </p>
+                      {pageCopy.keepers.paragraphs.map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
                     </div>
 
                     <div className="mt-8 flex flex-wrap gap-3">
-                      <Button asChild className="rounded-sm bg-[#1d979c] px-8 py-6 text-base font-medium text-white hover:bg-[#187d81]">
+                      <Button
+                        asChild
+                        className="rounded-sm bg-[#1d979c] px-8 py-6 text-base font-medium text-white hover:bg-[#187d81]"
+                      >
                         <a
                           href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Join The Keepers Club
+                          {pageCopy.keepers.cta}
                         </a>
                       </Button>
                     </div>
@@ -554,7 +413,7 @@ export default function DonationsPage() {
 
                   <FeatureImage
                     src="/donations/keepersclub1.avif"
-                    alt="Keepers Club main photo"
+                    alt={pageCopy.keepers.mainAlt}
                     className="border-none bg-transparent p-0 shadow-none"
                   />
                 </div>
@@ -564,15 +423,15 @@ export default function DonationsPage() {
                     <div className="flex items-center gap-3">
                       <Star className="h-5 w-5 text-[#ec7424]" />
                       <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d8794a]">
-                        Member Benefits
+                        {pageCopy.keepers.benefitsEyebrow}
                       </p>
                     </div>
                     <h4 className="mt-4 font-(--font-heading) text-4xl leading-tight text-slate-700 sm:text-5xl">
-                      A giving community with meaningful connection.
+                      {pageCopy.keepers.benefitsTitle}
                     </h4>
 
                     <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                      {keeperBenefits.map((benefit) => (
+                      {pageCopy.keepers.benefits.map((benefit) => (
                         <div
                           key={benefit}
                           className="rounded-3xl border border-black/6 bg-white/82 p-4 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
@@ -586,11 +445,10 @@ export default function DonationsPage() {
 
                     <div className="mt-6 rounded-3xl border border-black/6 bg-[#fff7ea] p-5 text-left">
                       <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#d8794a]">
-                        Contact
+                        {pageCopy.keepers.contactLabel}
                       </p>
                       <p className="mt-2 text-sm leading-7 text-slate-600">
-                        For questions about The Keepers Club, contact The Hive&apos;s
-                        Philanthropy and Partnerships Officer at{" "}
+                        {pageCopy.keepers.contactPrefix}{" "}
                         <a
                           className="font-semibold text-[#1d979c] underline decoration-[#1d979c]/30 underline-offset-4"
                           href="mailto:chio@thehivecc.org"
@@ -608,75 +466,70 @@ export default function DonationsPage() {
                   <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(255,248,236,0.48),rgba(255,255,255,0.54))]" />
 
                   <div className="relative z-10 grid gap-8 p-8 sm:p-10 lg:min-h-[44rem] lg:grid-cols-[0.85fr_1.15fr] lg:p-12">
-                  <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#1d979c]">
-                      Monthly Levels
-                    </p>
-                    <h4 className="mt-3 font-(--font-heading) text-3xl text-slate-900">
-                      Choose the level of support that fits your giving.
-                    </h4>
-                    <p className="mt-4 text-base leading-8 text-slate-600">
-                      Every tier helps fuel survivor-centered care, with monthly
-                      giving that makes The Hive&apos;s response more consistent
-                      and sustainable.
-                    </p>
-                    <div className="mt-6 rounded-[1.75rem] border border-dashed border-[#1d979c]/25 bg-[#1d979c]/6 p-5">
-                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1d979c]">
-                        Focused impact
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#1d979c]">
+                        {pageCopy.keepers.monthlyEyebrow}
                       </p>
-                      <p className="mt-3 text-sm leading-7 text-slate-600">
-                        Monthly gifts help sustain hotel stays, counseling
-                        access, survivor-based outreach, and awareness and
-                        prevention training throughout the year.
+                      <h4 className="mt-3 font-(--font-heading) text-3xl text-slate-900">
+                        {pageCopy.keepers.monthlyTitle}
+                      </h4>
+                      <p className="mt-4 text-base leading-8 text-slate-600">
+                        {pageCopy.keepers.monthlyBody}
                       </p>
-                    </div>
-
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    {keeperTiers.map((tier) => (
-                      <div
-                        key={tier.name}
-                        className="rounded-3xl p-5 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
-                        style={{ backgroundColor: tier.accent }}
-                      >
-                        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                          {tier.amount}
-                        </p>
-                        <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500/85">
-                          {tier.yearly}
-                        </p>
-                        <p className="mt-2 text-xl font-semibold text-slate-950">
-                          {tier.name}
+                      <div className="mt-6 rounded-[1.75rem] border border-dashed border-[#1d979c]/25 bg-[#1d979c]/6 p-5">
+                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1d979c]">
+                          {pageCopy.keepers.focusedImpactTitle}
                         </p>
                         <p className="mt-3 text-sm leading-7 text-slate-600">
-                          {tier.description}
+                          {pageCopy.keepers.focusedImpactBody}
                         </p>
                       </div>
+                    </div>
+
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      {pageCopy.keepers.tiers.map((tier, index) => (
+                        <div
+                          key={tier.name}
+                          className="rounded-3xl p-5 shadow-[0_10px_30px_rgba(32,42,69,0.06)]"
+                          style={{ backgroundColor: tierStyles[index]?.accent ?? "#fff0de" }}
+                        >
+                          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
+                            {tier.amount}
+                          </p>
+                          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500/85">
+                            {tier.yearly}
+                          </p>
+                          <p className="mt-2 text-xl font-semibold text-slate-950">
+                            {tier.name}
+                          </p>
+                          <p className="mt-3 text-sm leading-7 text-slate-600">
+                            {tier.description}
+                          </p>
+                        </div>
                       ))}
-                  </div>
+                    </div>
                   </div>
                 </div>
 
                 <section className="rounded-4xl border border-black/8 bg-[linear-gradient(145deg,rgba(255,250,242,0.94),rgba(255,255,255,0.9))] p-6 shadow-[0_20px_70px_rgba(32,42,69,0.06)] sm:p-8">
                   <div className="mx-auto max-w-3xl text-center">
                     <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#d8794a]">
-                      Supported Through Your Giving
+                      {pageCopy.keepers.supportedEyebrow}
                     </p>
                     <h4 className="mt-3 font-(--font-heading) text-3xl text-slate-900 sm:text-4xl">
-                      Recurring support helps fuel this work all year long.
+                      {pageCopy.keepers.supportedTitle}
                     </h4>
                   </div>
 
                   <div className="mt-8 flex gap-4 overflow-x-auto pb-2 lg:overflow-visible">
-                    {keeperImpactAreas.map((area) => (
+                    {pageCopy.keepers.impactAreas.map((area, index) => (
                       <article
                         key={area.title}
                         className="min-w-[240px] flex-1 overflow-hidden rounded-3xl bg-white shadow-[0_12px_36px_rgba(32,42,69,0.08)]"
                       >
                         <div className="relative aspect-[4/4.6] w-full">
                           <Image
-                            src={area.src}
+                            src={impactAreaMedia[index]?.src ?? "/donations/keepersclub2.avif"}
                             alt={area.alt}
                             fill
                             sizes="(max-width: 1024px) 240px, 25vw"
@@ -696,7 +549,6 @@ export default function DonationsPage() {
             ) : null}
           </div>
         </section>
-
       </div>
     </main>
   );

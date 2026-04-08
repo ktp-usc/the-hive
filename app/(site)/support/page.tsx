@@ -1,132 +1,42 @@
 "use client";
 
 import Link from "next/link";
+import { useSiteCopy } from "@/components/language-provider";
 
 type Card = {
   id: string;
-  title: string;
-  subtitle?: string;
-  summary: string;
-  details?: string[];
-  cta?: { label: string; href?: string };
-  badge?: string;
+  href?: string;
 };
 
-const CARDS: Card[] = [
-  {
-    id: "peer-advocacy",
-    title: "Peer Advocacy",
-    subtitle: "Emotional support & navigation",
-    summary:
-      "Trained peer advocates provide confidential support, help you understand rights and options, and connect you to resources.",
-    details: [
-      "Ensure survivors understand their rights and options",
-      "Social-emotional support and safety planning",
-      "For primary and secondary survivors ages 11+",
-      "Services at no cost to the survivor",
-    ],
-    cta: { label: "Call 803-888-7725", href: "tel:8038887725" },
-    badge: "Confidential",
-  },
-  {
-    id: "economic-relief",
-    title: "Economic Relief",
-    subtitle: "Immediate financial support",
-    summary:
-      "Wrap-around financial support for urgent needs — housing, food, utility help, relocation, and transportation support.",
-    details: [
-      "Transitional housing",
-      "Utility support and gas vouchers",
-      "Food security and hotel accommodations",
-    ],
-    cta: { label: "Request help", href: "/contact" },
-    badge: "No cost",
-  },
-  {
-    id: "individual-counseling",
-    title: "Individual Counseling",
-    subtitle: "Licensed trauma-trained therapists",
-    summary:
-      "Professional counseling for survivors. Services are provided by licensed therapists trained in trauma treatment.",
-    details: [
-      "For survivors of sexual assault, IPV, or stalking (ages 11+)",
-      "Provided at no cost to the survivor",
-    ],
-    cta: { label: "Groups & Counseling: 803-766-8067", href: "tel:8037668067" },
-  },
-  {
-    id: "healing-circles",
-    title: "Peer Support Healing Circles",
-    subtitle: "Peer-led group healing",
-    summary:
-      "Confidential healing circles using psycho-educational and wellness-based curriculum for community and recovery.",
-    details: [
-      "Queens Gather — Women 18+",
-      "Bloom — Girls 11–18",
-      "Held in a safe and affirming space",
-    ],
-    cta: { label: "Learn about circles", href: "/support/healing-circles" },
-    badge: "Groups",
-  },
-  {
-    id: "holistic-support",
-    title: "Holistic Support",
-    subtitle: "Wrap-around support",
-    summary:
-      "Support that goes beyond one service and helps address the survivor’s full situation.",
-    details: [
-      "Goal and intervention case planning",
-      "Financial planning",
-      "Employment support",
-      "Assist in applying for additional services",
-    ],
-    badge: "Case Planning",
-  },
-  {
-    id: "refer-survivor",
-    title: "How to Refer a Survivor",
-    subtitle: "Quick contact info",
-    summary:
-      "Use these contact options to connect a survivor with General Support, Counseling, or Advocacy.",
-    details: [
-      "General Support / Advocacy: 803-888-7725",
-      "Groups and Counseling: 803-766-8067",
-      "Services are confidential",
-      "We are mandated reporters",
-    ],
-    cta: { label: "Go to Contact", href: "/contact" },
-    badge: "Referrals",
-  },
-  {
-    id: "training-prevention",
-    title: "Request Training / Prevention Programming",
-    subtitle: "Outreach events",
-    summary:
-      "Request training, prevention programming, or outreach events for your organization or community.",
-    details: [
-      "Email: hello@thehivecc.org",
-      "Call: 803-888-7725",
-      "We can coordinate outreach events",
-    ],
-    cta: { label: "Email Us", href: "mailto:hello@thehivecc.org" },
-    badge: "Outreach",
-  },
+const CARD_META: Card[] = [
+  { id: "peer-advocacy", href: "tel:8038887725" },
+  { id: "economic-relief", href: "/contact" },
+  { id: "individual-counseling", href: "tel:8037668067" },
+  { id: "healing-circles", href: "/support/healing-circles" },
+  { id: "holistic-support" },
+  { id: "refer-survivor", href: "/contact" },
+  { id: "training-prevention", href: "mailto:hello@thehivecc.org" },
 ];
 
 const cardLinkClassName =
   "inline-flex items-center rounded-full border border-hive-blue px-4 py-2 text-sm font-semibold text-hive-blue transition hover:bg-hive-blue hover:text-white";
 
 export default function SupportPage() {
+  const copy = useSiteCopy();
+  const cards = CARD_META.map((card, index) => ({
+    ...card,
+    ...(copy.support.cards[index] ?? {}),
+  }));
+
   return (
     <main className="bg-white text-gray-900">
       <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-[#1D979C] px-6 py-28 text-center text-white">
         <div className="mx-auto w-full max-w-5xl">
           <h1 className="text-5xl font-bold leading-none md:text-6xl xl:text-7xl">
-            Support Services
+            {copy.support.heroTitle}
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/85 md:text-2xl">
-            Compassionate support and practical resources, here when you need
-            them.
+            {copy.support.heroBody}
           </p>
         </div>
       </section>
@@ -140,11 +50,11 @@ export default function SupportPage() {
             id="services-heading"
             className="text-3xl font-bold tracking-tight text-hive-blue md:text-4xl"
           >
-            Explore Support Options
+            {copy.support.servicesHeading}
           </h2>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {CARDS.map((card) => (
+            {cards.map((card) => (
               <article
                 key={card.id}
                 tabIndex={0}
@@ -182,15 +92,15 @@ export default function SupportPage() {
                   </ul>
                 )}
 
-                {card.cta && (
+                {card.ctaLabel && card.href && (
                   <div className="mt-6">
-                    {card.cta.href?.startsWith("/") ? (
-                      <Link href={card.cta.href} className={cardLinkClassName}>
-                        {card.cta.label}
+                    {card.href.startsWith("/") ? (
+                      <Link href={card.href} className={cardLinkClassName}>
+                        {card.ctaLabel}
                       </Link>
                     ) : (
-                      <a href={card.cta.href ?? "#"} className={cardLinkClassName}>
-                        {card.cta.label}
+                      <a href={card.href} className={cardLinkClassName}>
+                        {card.ctaLabel}
                       </a>
                     )}
                   </div>
@@ -204,7 +114,7 @@ export default function SupportPage() {
       <section className="bg-hive-blue/5 px-6 py-24 text-center">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-8">
           <h2 className="text-3xl font-bold text-hive-blue md:text-5xl">
-            Emotional Safety Plan Resource
+            {copy.support.safetyPlanTitle}
           </h2>
 
           <a
@@ -213,13 +123,11 @@ export default function SupportPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center rounded-full bg-hive-yellow px-12 py-5 text-xl font-bold text-gray-900 transition hover:bg-yellow-400"
           >
-            Click Here
+            {copy.support.safetyPlanButton}
           </a>
 
           <p className="text-lg leading-8 text-gray-600 md:text-xl">
-            If you need help filling out this form or creating a plan that meets
-            your needs, you can always contact The Hive. One of our advocates
-            can assist you. You do not have to go through this alone.
+            {copy.support.safetyPlanBody}
           </p>
         </div>
       </section>
