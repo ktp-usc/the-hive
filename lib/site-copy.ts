@@ -22,6 +22,680 @@ type DeepWiden<T> = T extends string
             ? { [K in keyof T]: DeepWiden<T[K]> }
             : T;
 
+const enPartners = {
+    heroTitle: "Our Partners",
+    heroBody:
+        "We are grateful for the organizations, businesses, and community leaders who support this work.",
+    opportunitiesTitle: "Partnership Opportunities",
+    beeBoxBody:
+        "Sitting in a cold waiting room, trembling with fear as one contemplates disclosing their abuse is never a vision one would desire to have, but this is often the reality for survivors of abuse and violence. The Bee Box was designed to support survivors who disclose in public settings such as healthcare settings, police stations, schools, or churches. The Bee Box has been uniquely designed to provide aid and support as a survivor embarks on their journey of healing, consisting of a grounding tool, tea for care and wellness, powerful affirmations written by fellow survivors, and an all-natural room enhancer spray.",
+    beeBoxPartnerPrefix:
+        "If you are interested in becoming a partner site for the Bee Box, please reach out to",
+    categoryTitles: {
+        philanthropic: "Philanthropic",
+        nonprofit: "Non-Profit Organizations",
+        lawEnforcement: "Law Enforcement",
+        education: "Education",
+        faithBased: "Faith Based",
+        merchant: "Merchant Based",
+        community: "Community Partners",
+    },
+};
+
+const esPartners = {
+    heroTitle: "Nuestras Personas Aliadas",
+    heroBody:
+        "Agradecemos a las organizaciones, negocios y líderes comunitarios que apoyan este trabajo.",
+    opportunitiesTitle: "Oportunidades de Alianza",
+    beeBoxBody:
+        "Estar sentada en una sala de espera fría, temblando de miedo mientras una persona contempla revelar el abuso que ha vivido, nunca es una escena que alguien quisiera imaginar, pero con frecuencia esa es la realidad para sobrevivientes de abuso y violencia. La Bee Box fue diseñada para apoyar a sobrevivientes que revelan su experiencia en espacios públicos como entornos de salud, estaciones de policía, escuelas o iglesias. La Bee Box fue creada de forma única para brindar ayuda y apoyo mientras una sobreviviente inicia su camino de sanación; incluye una herramienta de regulación, té para el cuidado y el bienestar, afirmaciones poderosas escritas por otras sobrevivientes y un spray natural para armonizar el espacio.",
+    beeBoxPartnerPrefix:
+        "Si te interesa convertirte en un sitio aliado de la Bee Box, escríbenos a",
+    categoryTitles: {
+        philanthropic: "Filantrópicas",
+        nonprofit: "Organizaciones sin Fines de Lucro",
+        lawEnforcement: "Fuerza Pública",
+        education: "Educación",
+        faithBased: "Comunidades de Fe",
+        merchant: "Comercios",
+        community: "Aliadas Comunitarias",
+    },
+};
+
+const enAwareness = {
+    heroTitle: "Training & Education at The Hive",
+    heroBody:
+        "Healing centered learning rooted in culture, care, and connection.",
+    valuesTitle: "Our Guiding Principles: HIVE Values",
+    valuesIntro:
+        "At The Hive, we approach training through our core values:",
+    valuesPillars: ["Healing", "Interconnection", "Voice", "Empowerment"],
+    valuesOutro:
+        "These pillars reflect our commitment to nurturing trauma-informed, culturally grounded learning spaces where people can heal, connect, be heard, and grow together.",
+    preventionTitle: "Prevention",
+    preventionEyebrow:
+        "Empowering young people to prevent harm and promote care",
+    preventionBody:
+        "From preteens to college students, our prevention education builds early awareness and healthy relationship skills. Ideal for middle and high school classrooms, youth groups, advocates in training programs, camp counselors, residence assistants, and first-year experience courses, BuzzPak and Interconnected: Healthy Relationships offer interactive, age-appropriate insights that engage students meaningfully.",
+    signatureProgramsTitle: "Signature Programs",
+    signaturePrograms: [
+        {
+            title: "BuzzPak multiseries",
+            body:
+                "Explore the foundations of healthy relationships and violence prevention. Engage real-world scenarios that address boundaries, consent, communication, and respect. Build skills to recognize harm, support peers, and create safer school and campus communities. Designed to spark dialogue, foster empathy, and equip young people to lead with awareness and accountability.",
+            details: [
+                "BuzzPak 2.0",
+                "Technical Assistance",
+                "Course: Prevention & Awareness — Start at 101, range to 300+ level (technical assistance)",
+                "TA offerings",
+                "Implement culturally specific training into your program",
+                "Train the trainer facilitator model",
+            ],
+        },
+        {
+            title: "Bee Real: Healthy Relationships & Boundaries",
+            badge: "Available in 1x session",
+            body:
+                "Examine the building blocks of safe and supportive relationships. Learn to navigate boundaries, consent, and communication while recognizing the signs of unhealthy dynamics. Includes strategies for cultivating empathy, fostering mutual respect, and practicing accountability in everyday interactions. Designed to empower young people to make informed choices and nurture connections rooted in care.",
+        },
+    ],
+    trainingTitle: "Signature Training Series",
+    trainingEyebrow: "Education centered in equity, culture, and care",
+    trainingBody:
+        "These trainings are designed for Parents/Guardians/Caregivers, Faith Organizations, Community Groups, Law Enforcement, Healthcare Professionals, Advocates, K–12 School Professionals, Colleges/Universities and Educators, and Social Service Organizations. Invite us to your conference, professional development, retreat, classroom, or community meeting.",
+    trainingNote: "Some training can be tailored for youth groups (11+)",
+    trainingSeries: [
+        {
+            title: "Healing is Work: Centering the Brain, Body & Culture in Trauma Care",
+            body:
+                "Explore how trauma lives in the nervous system and how healing practices can be culturally relevant, affordable, and community-driven. Learn to identify trauma responses and co-regulate in support spaces.",
+        },
+        {
+            title: "Interconnected: Reimagining Relationships, Boundaries & Belonging",
+            body:
+                "Go beyond the basics of healthy relationships to explore love, care, and accountability. Explore relationships beyond romantic partnerships, including family, community, and institutions. Includes cultural insights into consent, boundary setting, emotional safety, and trust-building.",
+            tailored: true,
+        },
+        {
+            title: "Language of Liberation: Understanding IPV, SA & Stalking in Context",
+            body:
+                "Learn the core definitions, root causes, and social dynamics of intimate partner violence, sexual assault, and stalking while naming how systems and identities intersect in survivor experiences. Build skills in supporting disclosure and safety planning.",
+        },
+        {
+            title: "Claiming Voice: Storytelling, Disclosure & Holding Space Without Harm",
+            body:
+                "Gain skills in affirming survivor voice while reducing harm when disclosures are unexpected or occur in everyday interactions. Great for service providers, educators, or anyone who might be a first listener.",
+            badge: "Free for Bee Box Partners!",
+            tailored: true,
+        },
+        {
+            title: "Cultural Resilience in Practice: A BIPOC Approach to Trauma-Informed Care",
+            body:
+                "Move past checkbox trauma-informed care. This session equips you with tools grounded in cultural practices and uplifts community-defined healing, spiritual safety, and non-clinical responses.",
+        },
+        {
+            title: "Cultural Humility: A Liberatory Practice for Safer Communities",
+            body:
+                "Unpack the lifelong practice of cultural humility. Learn to engage identity, power, and discomfort while building more honest, accountable systems and relationships. Includes strategies for naming harm, making repairs, and navigating discomfort with intentional dialogue.",
+            tailored: true,
+        },
+        {
+            title: "From Bystander to Community Keeper: Responding to Harm with Care & Courage",
+            body:
+                "Build practical skills to notice, name, and navigate harm in your everyday environment. From schools to workplaces to public spaces, this training is about courage and community care in action. Covers grounded intervention, survivor-led support, and how to avoid unintentional retraumatization.",
+            tailored: true,
+        },
+    ],
+    tailoredNote: "This training can be tailored for youth groups (11+)",
+    technicalAssistanceTitle: "Technical Assistance",
+    technicalAssistanceEyebrow: "Let's build together",
+    technicalAssistanceBody:
+        "At The Hive, we know that every organization, school, or community group has unique needs when it comes to creating safer, more supportive spaces. That's why we offer customized technical assistance, partnering with you to strengthen capacity, develop survivor-centered responses, and build systems of care that last. Whether you're just beginning to explore anti-violence work or looking to deepen your team's skills, our experts are here to listen, co-create, and guide. Together, we'll design a plan that reflects your culture, values, and goals.",
+    technicalAssistanceOfferingsTitle: "Offerings",
+    technicalAssistanceOfferings: [
+        {
+            title: "Custom Training Design",
+            body: "Tailored workshops and learning journeys for your team.",
+        },
+        {
+            title: "Capacity Building Plans",
+            body: "Strengthening internal systems, policies, and practices.",
+        },
+        {
+            title: "Collaborative Problem-Solving",
+            body: "Partnering to navigate challenges and identify solutions.",
+        },
+        {
+            title: "Ongoing Support",
+            body: "Continued consultation to ensure your team can sustain the work.",
+        },
+    ],
+    ctaTitle: "Ready to Learn with Us?",
+    ctaBody:
+        "Whether you're booking a training, exploring a partnership, or just getting started, we're here for it.",
+    requestTraining: "Request a Training",
+    bookCall: "Book a Discovery Call",
+    downloadCatalog: "Download Training Catalog",
+    contactTeam: "Contact Our Team",
+};
+
+const esAwareness = {
+    heroTitle: "Capacitación y Educación en The Hive",
+    heroBody:
+        "Aprendizaje centrado en la sanación, arraigado en la cultura, el cuidado y la conexión.",
+    valuesTitle: "Nuestros Principios Guía: Valores HIVE",
+    valuesIntro:
+        "En The Hive abordamos la capacitación desde nuestros valores centrales:",
+    valuesPillars: ["Sanación", "Interconexión", "Voz", "Empoderamiento"],
+    valuesOutro:
+        "Estos pilares reflejan nuestro compromiso con espacios de aprendizaje informados por el trauma y culturalmente arraigados, donde las personas pueden sanar, conectar, ser escuchadas y crecer juntas.",
+    preventionTitle: "Prevención",
+    preventionEyebrow:
+        "Fortaleciendo a la juventud para prevenir el daño y promover el cuidado",
+    preventionBody:
+        "Desde la preadolescencia hasta la universidad, nuestra educación en prevención desarrolla conciencia temprana y habilidades para relaciones saludables. Es ideal para aulas de secundaria y preparatoria, grupos juveniles, programas de formación para defensoras, consejeras de campamento, asistentes de residencia y cursos de primer año. BuzzPak e Interconnected: Healthy Relationships ofrecen experiencias interactivas y apropiadas para la edad que conectan de manera significativa con estudiantes.",
+    signatureProgramsTitle: "Programas Distintivos",
+    signaturePrograms: [
+        {
+            title: "Serie múltiple BuzzPak",
+            body:
+                "Explora los fundamentos de las relaciones saludables y la prevención de la violencia. Trabaja con escenarios reales sobre límites, consentimiento, comunicación y respeto. Desarrolla habilidades para reconocer el daño, apoyar a tus pares y crear comunidades escolares y universitarias más seguras. Diseñado para abrir diálogo, fomentar empatía y equipar a la juventud para liderar con conciencia y responsabilidad.",
+            details: [
+                "BuzzPak 2.0",
+                "Asistencia técnica",
+                "Curso: Prevención y Concientización — inicia en nivel 101 y puede llegar a 300+ (asistencia técnica)",
+                "Opciones de asistencia técnica",
+                "Implementa formación culturalmente específica en tu programa",
+                "Modelo de capacitación para facilitadoras",
+            ],
+        },
+        {
+            title: "Bee Real: Relaciones Saludables y Límites",
+            badge: "Disponible en 1 sesión",
+            body:
+                "Examina los elementos que construyen relaciones seguras y de apoyo. Aprende a navegar límites, consentimiento y comunicación mientras reconoces señales de dinámicas poco saludables. Incluye estrategias para cultivar empatía, fomentar el respeto mutuo y practicar la responsabilidad en la vida diaria. Diseñado para que la juventud tome decisiones informadas y construya vínculos basados en el cuidado.",
+        },
+    ],
+    trainingTitle: "Serie Distintiva de Capacitación",
+    trainingEyebrow: "Educación centrada en la equidad, la cultura y el cuidado",
+    trainingBody:
+        "Estas capacitaciones están diseñadas para madres, padres y personas cuidadoras, organizaciones de fe, grupos comunitarios, fuerza pública, profesionales de la salud, personas defensoras, personal escolar de K–12, universidades y personas educadoras, así como organizaciones de servicios sociales. Invítanos a tu conferencia, desarrollo profesional, retiro, salón de clases o reunión comunitaria.",
+    trainingNote: "Algunas capacitaciones pueden adaptarse para grupos juveniles (11+)",
+    trainingSeries: [
+        {
+            title: "Healing is Work: Centering the Brain, Body & Culture in Trauma Care",
+            body:
+                "Explora cómo el trauma vive en el sistema nervioso y cómo las prácticas de sanación pueden ser culturalmente relevantes, accesibles y guiadas por la comunidad. Aprende a identificar respuestas traumáticas y a co-regular en espacios de apoyo.",
+        },
+        {
+            title: "Interconnected: Reimagining Relationships, Boundaries & Belonging",
+            body:
+                "Ve más allá de lo básico sobre relaciones saludables para explorar amor, cuidado y responsabilidad. Analiza vínculos más allá de lo romántico, incluyendo familia, comunidad e instituciones. Incluye perspectivas culturales sobre consentimiento, establecimiento de límites, seguridad emocional y construcción de confianza.",
+            tailored: true,
+        },
+        {
+            title: "Language of Liberation: Understanding IPV, SA & Stalking in Context",
+            body:
+                "Aprende las definiciones centrales, las causas de raíz y las dinámicas sociales de la violencia de pareja, la agresión sexual y el acoso, reconociendo cómo los sistemas y las identidades se cruzan en la experiencia de las sobrevivientes. Fortalece habilidades para apoyar revelaciones y planes de seguridad.",
+        },
+        {
+            title: "Claiming Voice: Storytelling, Disclosure & Holding Space Without Harm",
+            body:
+                "Desarrolla habilidades para afirmar la voz de las sobrevivientes y reducir el daño cuando las revelaciones llegan de forma inesperada o en interacciones cotidianas. Ideal para proveedoras de servicios, educadoras o cualquier persona que pueda ser la primera en escuchar.",
+            badge: "Gratis para sitios aliados de Bee Box",
+            tailored: true,
+        },
+        {
+            title: "Cultural Resilience in Practice: A BIPOC Approach to Trauma-Informed Care",
+            body:
+                "Ve más allá del enfoque superficial de atención informada por el trauma. Esta sesión ofrece herramientas arraigadas en prácticas culturales y eleva formas de sanación definidas por la comunidad, la seguridad espiritual y respuestas no clínicas.",
+        },
+        {
+            title: "Cultural Humility: A Liberatory Practice for Safer Communities",
+            body:
+                "Profundiza en la práctica de toda la vida que implica la humildad cultural. Aprende a abordar identidad, poder e incomodidad mientras construyes sistemas y relaciones más honestas y responsables. Incluye estrategias para nombrar el daño, reparar y atravesar la incomodidad mediante un diálogo intencional.",
+            tailored: true,
+        },
+        {
+            title: "From Bystander to Community Keeper: Responding to Harm with Care & Courage",
+            body:
+                "Desarrolla habilidades prácticas para notar, nombrar y abordar el daño en tu entorno cotidiano. Desde escuelas hasta lugares de trabajo y espacios públicos, esta capacitación trata sobre valentía y cuidado comunitario en acción. Incluye intervención situada, apoyo guiado por sobrevivientes y cómo evitar retraumatización no intencional.",
+            tailored: true,
+        },
+    ],
+    tailoredNote: "Esta capacitación puede adaptarse para grupos juveniles (11+)",
+    technicalAssistanceTitle: "Asistencia Técnica",
+    technicalAssistanceEyebrow: "Construyamos juntas",
+    technicalAssistanceBody:
+        "En The Hive sabemos que cada organización, escuela o grupo comunitario tiene necesidades únicas cuando se trata de crear espacios más seguros y de mayor apoyo. Por eso ofrecemos asistencia técnica personalizada, trabajando contigo para fortalecer capacidades, desarrollar respuestas centradas en sobrevivientes y construir sistemas de cuidado duraderos. Ya sea que apenas estés comenzando a explorar el trabajo contra la violencia o quieras profundizar las habilidades de tu equipo, nuestras expertas están aquí para escuchar, cocrear y acompañar. Juntas diseñaremos un plan que refleje tu cultura, tus valores y tus metas.",
+    technicalAssistanceOfferingsTitle: "Ofertas",
+    technicalAssistanceOfferings: [
+        {
+            title: "Diseño de Capacitación a la Medida",
+            body: "Talleres y recorridos de aprendizaje adaptados para tu equipo.",
+        },
+        {
+            title: "Planes de Fortalecimiento Institucional",
+            body: "Fortalecimiento de sistemas, políticas y prácticas internas.",
+        },
+        {
+            title: "Resolución Colaborativa de Problemas",
+            body: "Acompañamiento para navegar desafíos e identificar soluciones.",
+        },
+        {
+            title: "Apoyo Continuo",
+            body: "Consulta constante para que tu equipo pueda sostener este trabajo.",
+        },
+    ],
+    ctaTitle: "¿Lista para Aprender con Nosotras?",
+    ctaBody:
+        "Ya sea que quieras agendar una capacitación, explorar una alianza o simplemente empezar, aquí estamos para acompañarte.",
+    requestTraining: "Solicitar una Capacitación",
+    bookCall: "Agendar una Llamada Inicial",
+    downloadCatalog: "Descargar el Catálogo de Capacitación",
+    contactTeam: "Contactar a Nuestro Equipo",
+};
+
+const enEvents = {
+    eyebrow: "Community Calendar",
+    title: "Stay up to date with Hive events.",
+    body:
+        "This calendar is connected directly to The Hive's Google Calendar, so new events and updates appear here automatically.",
+    openCalendar: "Open Full Calendar",
+    askAboutEvent: "Ask About an Event",
+    iframeTitle: "The Hive events calendar",
+};
+
+const esEvents = {
+    eyebrow: "Calendario Comunitario",
+    title: "Mantente al día con los eventos de The Hive.",
+    body:
+        "Este calendario está conectado directamente con el Google Calendar de The Hive, así que los nuevos eventos y actualizaciones aparecen aquí automáticamente.",
+    openCalendar: "Abrir Calendario Completo",
+    askAboutEvent: "Preguntar por un Evento",
+    iframeTitle: "Calendario de eventos de The Hive",
+};
+
+const enDonationsPage = {
+    tabs: {
+        casita: "Casita of Care",
+        keepers: "The Keepers Club",
+    },
+    heroEyebrow: "Impact the Hive",
+    heroTitle:
+        "Support survivors through spaces of care and sustaining generosity.",
+    primaryCta: "Donate Now",
+    secondaryCta: "Volunteer",
+    highlights: [
+        {
+            title: "Casita of Care",
+            body:
+                "A boutique-style resource space designed around dignity, privacy, and belonging.",
+        },
+        {
+            title: "Monthly Giving",
+            body:
+                "The Keepers Club creates steady support that helps The Hive respond month after month.",
+        },
+        {
+            title: "Community Powered",
+            body:
+                "Every gift helps survivors feel seen, supported, and connected to a stronger community.",
+        },
+    ],
+    volunteerTitle: "Volunteer Opportunities",
+    givingSectionsEyebrow: "Giving Sections",
+    givingSectionsTitle: "Explore the giving story that speaks to you.",
+    volunteerOpportunities: [
+        {
+            title: "The Voices of Washindi-Speaker’s Bureau",
+            description:
+                "A community and platform for survivors of sexual assault and intimate partner violence to share their stories of resiliency and courage through the incorporation of the arts and craft of storytelling. Additional training is required.",
+        },
+        {
+            title: "Hive Ambassadors",
+            description:
+                "If you love sharing The Hive, then tabling and general outreach may interest you. In this role you will have the opportunity to connect with the community and share about The Hive at community based events.",
+        },
+        {
+            title: "Hive Hostesses/Hosts",
+            description:
+                "Hive Hostesses/Hosts are special event volunteers who may not have the capacity to volunteer regularly but desire to support our work. As a volunteer in this area you will be contacted to volunteer when we have Hive hosted events such as our Annual SC Survivors Summit or fundraisers.",
+        },
+        {
+            title: "Volunteer Groups",
+            description:
+                "We have opportunities available for groups looking to volunteer together. These opportunities for groups of 5 or more include packing Bee Boxes of support for survivors or assembling BuzzPaks for our prevention education programming for youth.",
+        },
+    ],
+    casita: {
+        eyebrow: "Casita of Care",
+        title: "More Than a Pantry. A Place of Belonging.",
+        paragraphs: [
+            "The Casita of Care reimagines what free resources can look and feel like. This isn't a thrift store or donation center, it's a thoughtfully designed boutique where survivors can shop with dignity for the items they need and want.",
+            "From culturally specific hair and beauty products to household essentials and cleaning supplies, every detail is chosen with care and intention.",
+        ],
+        cta: "Support the Casita",
+        mainAlt: "Casita of Care main photo",
+        refugeTitle: "A Refuge for Survivors in the Midlands",
+        refugeParagraphs: [
+            "The Casita of Care serves those in the South Carolina Midlands who are healing from sexual assault, intimate partner violence, and stalking.",
+            "Survivors leave feeling a little more hopeful, a little more grounded, and with one less thing on their worry list. They walk away empowered, knowing their story is valued, their healing matters, and they are part of a community standing with them.",
+        ],
+        detailAlt: "Casita of Care detail photo",
+        waysEyebrow: "Ways to Help",
+        waysTitle: "Support the space with practical care.",
+        waysBody:
+            "Help stock the Casita, sustain the experience, and keep this resource ready for each survivor who comes through the door.",
+        volunteerCta: "Volunteer",
+        wishlistCta: "Casita Wishlist",
+        wishlistNote:
+            "Want to donate practical items directly? The Casita of Care Amazon wishlist makes it easy to send needed essentials straight to the space.",
+        waysToGive: [
+            {
+                title: "Donate essential items",
+                description:
+                    "Stock the space with hygiene products, cleaning supplies, household basics, and beauty items survivors actually want to choose from.",
+            },
+            {
+                title: "Give financially",
+                description:
+                    "Help keep the shelves full, the space maintained, and the Casita ready for each person who walks through the door.",
+            },
+            {
+                title: "Volunteer with care",
+                description:
+                    "Support sorting, restocking, and welcoming community efforts that make the Casita feel calm, beautiful, and survivor-centered.",
+            },
+        ],
+        communityEyebrow: "Community Story",
+        communityTitle: "A Community Rallies: How the Casita of Care Came to Be",
+        communityLead:
+            "The story of the Casita of Care is one of persistence, heart, and the power of community.",
+        communityParagraphs: [
+            "The Casita of Care started with a simple conviction: survivors deserve dignity when accessing resources. The Hive began keeping hygiene and household items in a closet for those who needed them. In early 2025, a generous donation drive brought in so many supplies that the overflow broke the closet doors.",
+            "After moving to a donated storage shed, the team faced a new challenge: the South Carolina sun made the space hard to use. Early support from local partners helped make the shed functional through insulation, electricity, and the first infrastructure upgrades.",
+            "Then the broader community stepped in. Business owners, volunteers, and generous supporters helped transform the idea into something beautiful and real. What started as a stopgap solution became a boutique-style resource space created with care, intention, and deep belief in survivor-centered healing.",
+        ],
+        dedicationTitle: "Dedicated in Honor of Brianna",
+        dedicationParagraphs: [
+            "The Casita of Care is dedicated in honor of Brianna, a beloved teacher, sister, daughter, auntie, friend, and lover of crochet. May the warmth and care she radiated in life continue to live through this space.",
+            "We also dedicate the Casita of Care to all those whose lives were taken by domestic violence, sexual assault, and trafficking. May their names be held with dignity, and may this space offer light, care, and hope to our community.",
+        ],
+        thanksTitle: "Thank You to Our Community Partners",
+        thanksBody:
+            "The Casita of Care exists because over 25 local businesses and individuals said yes. From interior design and construction to marketing, flooring, HVAC, and beyond, each partner contributed their time, talent, and resources to make this vision a reality.",
+    },
+    keepers: {
+        eyebrow: "The Keepers Club",
+        title: "Stewarding sustainability for survivors every month.",
+        paragraphs: [
+            "The Keepers Club is The Hive's monthly giving community. Recurring support helps create a steadier budget for emergency relief, counseling, outreach, and prevention work as demand continues to grow.",
+            "It's designed for people who want their generosity to keep showing up month after month, helping survivors access stable, responsive care when they need it most.",
+        ],
+        cta: "Join The Keepers Club",
+        mainAlt: "Keepers Club main photo",
+        benefitsEyebrow: "Member Benefits",
+        benefitsTitle: "A giving community with meaningful connection.",
+        benefits: [
+            "A welcome packet with a Keeper's Club shirt and Hive decal.",
+            "Bee In The Know reports and annual impact updates.",
+            "Exclusive invitations to Hive events throughout the year.",
+            "A year-end tax deduction letter for recurring gifts.",
+        ],
+        contactLabel: "Contact",
+        contactPrefix:
+            "For questions about The Keepers Club, contact The Hive's Philanthropy and Partnerships Officer at",
+        focusedImpactTitle: "Focused impact",
+        focusedImpactBody:
+            "Monthly gifts help sustain hotel stays, counseling access, survivor-based outreach, and awareness and prevention training throughout the year.",
+        monthlyEyebrow: "Monthly Levels",
+        monthlyTitle: "Choose the level of support that fits your giving.",
+        monthlyBody:
+            "Every tier helps fuel survivor-centered care, with monthly giving that makes The Hive's response more consistent and sustainable.",
+        tiers: [
+            {
+                amount: "$10/mo",
+                yearly: "$120/year",
+                name: "Hives of Hope",
+                description:
+                    "A simple monthly gift that helps provide practical support like Bee Boxes and everyday essentials.",
+            },
+            {
+                amount: "$20/mo",
+                yearly: "$240/year",
+                name: "Beeyond Donor",
+                description:
+                    "Strengthens access to survivor support such as counseling and other stabilizing services throughout the year.",
+            },
+            {
+                amount: "$30/mo",
+                yearly: "$360/year",
+                name: "Beelievers Circle",
+                description:
+                    "Creates dependable funding that helps cover urgent needs and extend survivor-centered care each month.",
+            },
+            {
+                amount: "$50/mo",
+                yearly: "$600/year",
+                name: "Pollinator Pledge",
+                description:
+                    "Expands The Hive's ability to fund prevention training, outreach, and stronger long-term community impact.",
+            },
+        ],
+        supportedEyebrow: "Supported Through Your Giving",
+        supportedTitle: "Recurring support helps fuel this work all year long.",
+        impactAreas: [
+            {
+                title: "Emergency and Economic Relief",
+                alt: "Emergency and economic relief support",
+            },
+            {
+                title: "Counseling",
+                alt: "Counseling support",
+            },
+            {
+                title: "Survivor-Based Outreach",
+                alt: "Survivor-based outreach",
+            },
+            {
+                title: "Education and Prevention",
+                alt: "Education and prevention",
+            },
+        ],
+    },
+};
+
+const esDonationsPage = {
+    tabs: {
+        casita: "Casita of Care",
+        keepers: "The Keepers Club",
+    },
+    heroEyebrow: "Impulsa a The Hive",
+    heroTitle:
+        "Apoya a las sobrevivientes a través de espacios de cuidado y una generosidad sostenida.",
+    primaryCta: "Donar Ahora",
+    secondaryCta: "Hacer Voluntariado",
+    highlights: [
+        {
+            title: "Casita of Care",
+            body:
+                "Un espacio de recursos estilo boutique diseñado alrededor de la dignidad, la privacidad y el sentido de pertenencia.",
+        },
+        {
+            title: "Donación Mensual",
+            body:
+                "The Keepers Club crea un apoyo constante que ayuda a The Hive a responder mes tras mes.",
+        },
+        {
+            title: "Impulsado por la Comunidad",
+            body:
+                "Cada aporte ayuda a que las sobrevivientes se sientan vistas, apoyadas y conectadas con una comunidad más fuerte.",
+        },
+    ],
+    volunteerTitle: "Oportunidades de Voluntariado",
+    givingSectionsEyebrow: "Formas de Dar",
+    givingSectionsTitle: "Explora la historia de generosidad que más conecta contigo.",
+    volunteerOpportunities: [
+        {
+            title: "The Voices of Washindi-Speaker’s Bureau",
+            description:
+                "Una comunidad y plataforma para sobrevivientes de agresión sexual y violencia de pareja que comparten sus historias de resiliencia y valentía a través del arte y la narración. Se requiere capacitación adicional.",
+        },
+        {
+            title: "Embajadoras de Hive",
+            description:
+                "Si te encanta compartir The Hive, participar en mesas informativas y actividades de alcance comunitario puede ser para ti. En este rol tendrás la oportunidad de conectar con la comunidad y hablar sobre The Hive en eventos locales.",
+        },
+        {
+            title: "Anfitrionas y Anfitriones de Hive",
+            description:
+                "Las anfitrionas y anfitriones de Hive son personas voluntarias para eventos especiales que quizá no puedan participar de manera regular, pero desean apoyar nuestro trabajo. En esta área te contactaremos cuando tengamos eventos organizados por The Hive, como nuestra Cumbre Anual de Sobrevivientes de SC o actividades de recaudación.",
+        },
+        {
+            title: "Grupos de Voluntariado",
+            description:
+                "Tenemos oportunidades para grupos que quieren hacer voluntariado en conjunto. Estas oportunidades para grupos de 5 o más personas incluyen empacar Bee Boxes de apoyo para sobrevivientes o armar BuzzPaks para nuestra programación de prevención con jóvenes.",
+        },
+    ],
+    casita: {
+        eyebrow: "Casita of Care",
+        title: "Más que una despensa. Un lugar de pertenencia.",
+        paragraphs: [
+            "La Casita of Care replantea cómo pueden verse y sentirse los recursos gratuitos. No es una tienda de segunda mano ni un centro de donaciones; es una boutique diseñada con intención donde las sobrevivientes pueden elegir con dignidad los artículos que necesitan y desean.",
+            "Desde productos de belleza y cuidado del cabello culturalmente pertinentes hasta artículos esenciales para el hogar y productos de limpieza, cada detalle se selecciona con cuidado e intención.",
+        ],
+        cta: "Apoyar la Casita",
+        mainAlt: "Foto principal de Casita of Care",
+        refugeTitle: "Un Refugio para Sobrevivientes en Midlands",
+        refugeParagraphs: [
+            "La Casita of Care sirve a personas del área Midlands de Carolina del Sur que están sanando de agresión sexual, violencia de pareja y acoso.",
+            "Las sobrevivientes salen sintiéndose un poco más esperanzadas, un poco más centradas y con una preocupación menos en su lista. Se van fortalecidas, sabiendo que su historia tiene valor, que su sanación importa y que forman parte de una comunidad que está con ellas.",
+        ],
+        detailAlt: "Foto de detalle de Casita of Care",
+        waysEyebrow: "Formas de Ayudar",
+        waysTitle: "Apoya este espacio con cuidado práctico.",
+        waysBody:
+            "Ayuda a abastecer la Casita, sostener la experiencia y mantener este recurso listo para cada sobreviviente que llegue a la puerta.",
+        volunteerCta: "Hacer Voluntariado",
+        wishlistCta: "Lista de Deseos de la Casita",
+        wishlistNote:
+            "¿Quieres donar artículos prácticos directamente? La lista de Amazon de Casita of Care facilita enviar lo necesario directamente al espacio.",
+        waysToGive: [
+            {
+                title: "Dona artículos esenciales",
+                description:
+                    "Abastece el espacio con productos de higiene, limpieza, básicos para el hogar y artículos de belleza que las sobrevivientes realmente quieran elegir.",
+            },
+            {
+                title: "Aporta económicamente",
+                description:
+                    "Ayuda a mantener los estantes llenos, el espacio en buen estado y la Casita lista para cada persona que cruce la puerta.",
+            },
+            {
+                title: "Haz voluntariado con cuidado",
+                description:
+                    "Apoya la clasificación, el reabastecimiento y los esfuerzos comunitarios de bienvenida que hacen que la Casita se sienta serena, hermosa y centrada en sobrevivientes.",
+            },
+        ],
+        communityEyebrow: "Historia Comunitaria",
+        communityTitle: "Una Comunidad se Une: Cómo Nació la Casita of Care",
+        communityLead:
+            "La historia de la Casita of Care es una historia de persistencia, corazón y poder comunitario.",
+        communityParagraphs: [
+            "La Casita of Care comenzó con una convicción sencilla: las sobrevivientes merecen dignidad al acceder a recursos. The Hive empezó guardando artículos de higiene y hogar en un clóset para quienes los necesitaban. A inicios de 2025, una generosa colecta trajo tantos suministros que el exceso rompió las puertas del clóset.",
+            "Después de trasladarse a una bodega donada, el equipo enfrentó un nuevo reto: el sol de Carolina del Sur hacía difícil usar el espacio. El apoyo inicial de aliadas locales ayudó a hacer funcional la bodega con aislamiento, electricidad y las primeras mejoras de infraestructura.",
+            "Luego intervino la comunidad en general. Personas dueñas de negocios, voluntarias y donantes generosas ayudaron a transformar la idea en algo hermoso y real. Lo que comenzó como una solución temporal se convirtió en un espacio de recursos estilo boutique creado con cuidado, intención y una profunda convicción en la sanación centrada en sobrevivientes.",
+        ],
+        dedicationTitle: "Dedicada en Honor a Brianna",
+        dedicationParagraphs: [
+            "La Casita of Care está dedicada en honor a Brianna, una querida maestra, hermana, hija, tía, amiga y amante del crochet. Que la calidez y el cuidado que irradiaba en vida sigan presentes en este espacio.",
+            "También dedicamos la Casita of Care a todas las personas cuyas vidas fueron arrebatadas por la violencia doméstica, la agresión sexual y la trata. Que sus nombres sean honrados con dignidad, y que este espacio ofrezca luz, cuidado y esperanza a nuestra comunidad.",
+        ],
+        thanksTitle: "Gracias a Nuestras Personas Aliadas Comunitarias",
+        thanksBody:
+            "La Casita of Care existe porque más de 25 negocios y personas de la comunidad dijeron sí. Desde diseño interior y construcción hasta mercadeo, pisos, HVAC y más, cada aliada aportó su tiempo, talento y recursos para hacer realidad esta visión.",
+    },
+    keepers: {
+        eyebrow: "The Keepers Club",
+        title: "Sosteniendo cada mes la continuidad para las sobrevivientes.",
+        paragraphs: [
+            "The Keepers Club es la comunidad de donación mensual de The Hive. El apoyo recurrente ayuda a crear un presupuesto más estable para alivio de emergencia, consejería, alcance comunitario y trabajo de prevención mientras la demanda sigue creciendo.",
+            "Está pensado para personas que desean que su generosidad siga presente mes tras mes, ayudando a que las sobrevivientes accedan a un cuidado estable y oportuno cuando más lo necesitan.",
+        ],
+        cta: "Unirme a The Keepers Club",
+        mainAlt: "Foto principal de The Keepers Club",
+        benefitsEyebrow: "Beneficios para Miembros",
+        benefitsTitle: "Una comunidad de generosidad con conexión significativa.",
+        benefits: [
+            "Un paquete de bienvenida con camiseta de Keeper's Club y calcomanía de The Hive.",
+            "Informes Bee In The Know y actualizaciones anuales de impacto.",
+            "Invitaciones exclusivas a eventos de The Hive durante el año.",
+            "Carta anual para deducción fiscal de donaciones recurrentes.",
+        ],
+        contactLabel: "Contacto",
+        contactPrefix:
+            "Si tienes preguntas sobre The Keepers Club, comunícate con la persona encargada de Filantropía y Alianzas de The Hive en",
+        focusedImpactTitle: "Impacto Enfocado",
+        focusedImpactBody:
+            "Las donaciones mensuales ayudan a sostener estadías en hoteles, acceso a consejería, alcance liderado por sobrevivientes y capacitaciones de concientización y prevención durante todo el año.",
+        monthlyEyebrow: "Niveles Mensuales",
+        monthlyTitle: "Elige el nivel de apoyo que mejor se ajusta a tu forma de donar.",
+        monthlyBody:
+            "Cada nivel impulsa el cuidado centrado en sobrevivientes, con una donación mensual que hace que la respuesta de The Hive sea más consistente y sostenible.",
+        tiers: [
+            {
+                amount: "$10/mes",
+                yearly: "$120/año",
+                name: "Hives of Hope",
+                description:
+                    "Una donación mensual sencilla que ayuda a brindar apoyo práctico como Bee Boxes y artículos esenciales del día a día.",
+            },
+            {
+                amount: "$20/mes",
+                yearly: "$240/año",
+                name: "Beeyond Donor",
+                description:
+                    "Fortalece el acceso a apoyo para sobrevivientes, como consejería y otros servicios de estabilización durante el año.",
+            },
+            {
+                amount: "$30/mes",
+                yearly: "$360/año",
+                name: "Beelievers Circle",
+                description:
+                    "Crea una base de financiamiento confiable que ayuda a cubrir necesidades urgentes y ampliar el cuidado centrado en sobrevivientes cada mes.",
+            },
+            {
+                amount: "$50/mes",
+                yearly: "$600/año",
+                name: "Pollinator Pledge",
+                description:
+                    "Amplía la capacidad de The Hive para financiar capacitaciones de prevención, alcance comunitario e impacto a largo plazo.",
+            },
+        ],
+        supportedEyebrow: "Sostenido Gracias a tu Donación",
+        supportedTitle: "El apoyo recurrente impulsa este trabajo durante todo el año.",
+        impactAreas: [
+            {
+                title: "Alivio de Emergencia y Económico",
+                alt: "Apoyo de alivio de emergencia y económico",
+            },
+            {
+                title: "Consejería",
+                alt: "Apoyo de consejería",
+            },
+            {
+                title: "Alcance Liderado por Sobrevivientes",
+                alt: "Alcance liderado por sobrevivientes",
+            },
+            {
+                title: "Educación y Prevención",
+                alt: "Educación y prevención",
+            },
+        ],
+    },
+};
+
 const en = {
     nav: {
         brand: "The Hive",
@@ -95,6 +769,9 @@ const en = {
         },
         heroEyebrow: "Members",
         heroTitle: "Meet the people shaping The Hive.",
+        whyFoundedTitle: "Why We Were Founded",
+        whyFoundedBody:
+            "We were founded in 2015 with a visionary spirit and urgent objective: to help prevent violence against some of our nation's most vulnerable populations of women and girls. As a survivor-led, survivor-driven peer advocacy organization, we bring a culturally competent approach to preventing and educating survivors and their surrounding communities about sexual assault, intimate partner violence, and stalking. We exist to enhance support services and prevention for women and girls of color and those experiencing economic instability.",
         founderStoryEyebrow: "Founder Story",
         founderTitle: "Founder/CEO",
         founderNarrativeLabel: "Narrative",
@@ -364,7 +1041,11 @@ const en = {
             faithBased: "Faith Based",
             merchant: "Merchant Based",
         },
+        page: enDonationsPage,
     },
+    partners: enPartners,
+    awareness: enAwareness,
+    events: enEvents,
 } as const;
 
 export const siteCopy = {
@@ -442,6 +1123,9 @@ export const siteCopy = {
             },
             heroEyebrow: "Miembros",
             heroTitle: "Conoce a las personas que dan forma a The Hive.",
+            whyFoundedTitle: "Por Qué Fuimos Fundadas",
+            whyFoundedBody:
+                "Fuimos fundadas en 2015 con un espíritu visionario y un objetivo urgente: ayudar a prevenir la violencia contra algunas de las poblaciones de mujeres y niñas más vulnerables de nuestro país. Como una organización de defensa entre pares dirigida por y para sobrevivientes, aportamos un enfoque culturalmente pertinente para prevenir y educar a sobrevivientes y a las comunidades que las rodean sobre agresión sexual, violencia de pareja y acoso. Existimos para fortalecer los servicios de apoyo y la prevención para mujeres y niñas racializadas y para quienes enfrentan inestabilidad económica.",
             founderStoryEyebrow: "Historia de la Fundadora",
             founderTitle: "Fundadora/CEO",
             founderNarrativeLabel: "Narrativa",
@@ -711,7 +1395,11 @@ export const siteCopy = {
                 faithBased: "Comunidades de Fe",
                 merchant: "Comercios",
             },
+            page: esDonationsPage,
         },
+        partners: esPartners,
+        awareness: esAwareness,
+        events: esEvents,
     },
     "es-MX": {
         nav: {
@@ -786,6 +1474,9 @@ export const siteCopy = {
             },
             heroEyebrow: "Miembros",
             heroTitle: "Conoce a las personas que dan forma a The Hive.",
+            whyFoundedTitle: "Por Qué Fuimos Fundadas",
+            whyFoundedBody:
+                "Fuimos fundadas en 2015 con un espíritu visionario y un objetivo urgente: ayudar a prevenir la violencia contra algunas de las poblaciones de mujeres y niñas más vulnerables de nuestro país. Como organización de defensa entre pares dirigida por y para sobrevivientes, aportamos un enfoque culturalmente pertinente para prevenir y educar a sobrevivientes y a las comunidades que las rodean sobre agresión sexual, violencia de pareja y acoso. Existimos para fortalecer los servicios de apoyo y la prevención para mujeres y niñas racializadas y para quienes enfrentan inestabilidad económica.",
             founderStoryEyebrow: "Historia de la Fundadora",
             founderTitle: "Fundadora/CEO",
             founderNarrativeLabel: "Narrativa",
@@ -1055,6 +1746,10 @@ export const siteCopy = {
                 faithBased: "Comunidades de Fe",
                 merchant: "Comercios",
             },
+            page: esDonationsPage,
         },
+        partners: esPartners,
+        awareness: esAwareness,
+        events: esEvents,
     },
 } satisfies Record<LanguageCode, DeepWiden<typeof en>>;
