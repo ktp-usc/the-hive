@@ -30,27 +30,6 @@ type NavItem =
     | { label: string; href: string; dropdown?: never }
     | { label: string; href?: never; dropdown: DropdownItem[] };
 
-const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
-  {
-    label: "About",
-    dropdown: [
-      { label: "About Us", href: "/about" },
-      { label: "Impact the Hive", href: "/donations" },
-      { label: "Our Partners", href: "/about/our-partners" },
-    ],
-  },
-  {
-    label: "Support",
-    dropdown: [
-      { label: "Support Services", href: "/support" },
-      { label: "Prevention & Awareness", href: "/awareness" },
-    ],
-  },
-  { label: "Events", href: "/events" },
-  { label: "Contact", href: "/contact" },
-];
-
 function DropdownMenu({
                           items,
                           open,
@@ -108,6 +87,28 @@ function DropdownMenu({
 export default function Navbar() {
     const pathname = usePathname();
     const copy = useSiteCopy();
+
+    const navItems: NavItem[] = [
+        { label: copy.nav.home, href: "/" },
+        {
+            label: copy.nav.about,
+            dropdown: [
+                { label: copy.nav.aboutUs, href: "/about" },
+                { label: copy.nav.impact, href: "/donations" },
+                { label: copy.nav.partners, href: "/about/our-partners" },
+            ],
+        },
+        {
+            label: copy.nav.support,
+            dropdown: [
+                { label: copy.nav.supportServices, href: "/support" },
+                { label: copy.nav.prevention, href: "/awareness" },
+            ],
+        },
+        { label: copy.nav.events, href: "/events" },
+        { label: copy.nav.contact, href: "/contact" },
+    ];
+
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -242,7 +243,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Donate
+                  {copy.nav.donate}
               </a>
             </Button>
           </li>
