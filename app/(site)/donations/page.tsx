@@ -225,7 +225,7 @@ export default function DonationsPage() {
         <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
           <h2 className="site-heading">Volunteer Opportunities</h2>
 
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid gap-5 lg:grid-cols-2 xl:grid-cols-4">
             {volunteerOpportunities.map((opportunity) => (
               <article key={opportunity.title} className="site-card p-5">
                 <h3 className="text-[1.15rem] font-semibold leading-tight text-hive-blue">
@@ -359,7 +359,7 @@ export default function DonationsPage() {
                     heart, and the power of community.
                   </p>
 
-                  <div className="mx-auto mt-10 max-w-5xl space-y-8 text-left text-lg leading-10 text-gray-800">
+                  <div className="mx-auto mt-7 max-w-5xl space-y-5 text-center text-lg leading-10 text-gray-800">
                     <p>
                       The Casita of Care started with a simple conviction:
                       survivors deserve dignity when accessing resources. The
