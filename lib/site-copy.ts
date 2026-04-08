@@ -223,41 +223,41 @@ const esAwareness = {
     trainingNote: "Algunas capacitaciones pueden adaptarse para grupos juveniles (11+)",
     trainingSeries: [
         {
-            title: "Healing is Work: Centering the Brain, Body & Culture in Trauma Care",
+            title: "Sanar es Trabajo: Enfocando el Cerebro, el Cuerpo y la Cultura en el Cuidado del Trauma",
             body:
                 "Explora cómo el trauma vive en el sistema nervioso y cómo las prácticas de sanación pueden ser culturalmente relevantes, accesibles y guiadas por la comunidad. Aprende a identificar respuestas traumáticas y a co-regular en espacios de apoyo.",
         },
         {
-            title: "Interconnected: Reimagining Relationships, Boundaries & Belonging",
+            title: "Interconectadas: Reimaginando Relaciones, Límites y Pertenencia",
             body:
                 "Ve más allá de lo básico sobre relaciones saludables para explorar amor, cuidado y responsabilidad. Analiza vínculos más allá de lo romántico, incluyendo familia, comunidad e instituciones. Incluye perspectivas culturales sobre consentimiento, establecimiento de límites, seguridad emocional y construcción de confianza.",
             tailored: true,
         },
         {
-            title: "Language of Liberation: Understanding IPV, SA & Stalking in Context",
+            title: "Lenguaje de Liberación: Entender IPV, SA y el Acoso en su Contexto",
             body:
                 "Aprende las definiciones centrales, las causas de raíz y las dinámicas sociales de la violencia de pareja, la agresión sexual y el acoso, reconociendo cómo los sistemas y las identidades se cruzan en la experiencia de las sobrevivientes. Fortalece habilidades para apoyar revelaciones y planes de seguridad.",
         },
         {
-            title: "Claiming Voice: Storytelling, Disclosure & Holding Space Without Harm",
+            title: "Reivindicar la Voz: Narración, Revelación y Contener Sin Hacer Daño",
             body:
                 "Desarrolla habilidades para afirmar la voz de las sobrevivientes y reducir el daño cuando las revelaciones llegan de forma inesperada o en interacciones cotidianas. Ideal para proveedoras de servicios, educadoras o cualquier persona que pueda ser la primera en escuchar.",
             badge: "Gratis para sitios aliados de Bee Box",
             tailored: true,
         },
         {
-            title: "Cultural Resilience in Practice: A BIPOC Approach to Trauma-Informed Care",
+            title: "Resiliencia Cultural en la Práctica: Un Enfoque BIPOC para el Cuidado Informado por Trauma",
             body:
                 "Ve más allá del enfoque superficial de atención informada por el trauma. Esta sesión ofrece herramientas arraigadas en prácticas culturales y eleva formas de sanación definidas por la comunidad, la seguridad espiritual y respuestas no clínicas.",
         },
         {
-            title: "Cultural Humility: A Liberatory Practice for Safer Communities",
+            title: "Humildad Cultural: Una Práctica Liberadora para Comunidades Más Seguras",
             body:
                 "Profundiza en la práctica de toda la vida que implica la humildad cultural. Aprende a abordar identidad, poder e incomodidad mientras construyes sistemas y relaciones más honestas y responsables. Incluye estrategias para nombrar el daño, reparar y atravesar la incomodidad mediante un diálogo intencional.",
             tailored: true,
         },
         {
-            title: "From Bystander to Community Keeper: Responding to Harm with Care & Courage",
+            title: "De Observadora a Guardiana Comunitaria: Responder al Daño con Cuidado y Valentía",
             body:
                 "Desarrolla habilidades prácticas para notar, nombrar y abordar el daño en tu entorno cotidiano. Desde escuelas hasta lugares de trabajo y espacios públicos, esta capacitación trata sobre valentía y cuidado comunitario en acción. Incluye intervención situada, apoyo guiado por sobrevivientes y cómo evitar retraumatización no intencional.",
             tailored: true,
@@ -294,6 +294,46 @@ const esAwareness = {
     bookCall: "Agendar una Llamada Inicial",
     downloadCatalog: "Descargar el Catálogo de Capacitación",
     contactTeam: "Contactar a Nuestro Equipo",
+};
+
+const esMxAwareness = {
+    ...esAwareness,
+
+    trainingSeries: [
+        {
+            title: "Sanar es Trabajo: Enfocando el Cerebro, el Cuerpo y la Cultura en el Cuidado del Trauma",
+            body: esAwareness.trainingSeries[0].body,
+        },
+        {
+            title: "Interconectadas: Reimaginando Relaciones, Límites y Pertenencia",
+            body: esAwareness.trainingSeries[1].body,
+            tailored: true,
+        },
+        {
+            title: "Lenguaje de Liberación: Entender IPV, SA y el Acoso en su Contexto",
+            body: esAwareness.trainingSeries[2].body,
+        },
+        {
+            title: "Reivindicar la Voz: Narración, Revelación y Contener Sin Hacer Daño",
+            body: esAwareness.trainingSeries[3].body,
+            badge: esAwareness.trainingSeries[3].badge,
+            tailored: true,
+        },
+        {
+            title: "Resiliencia Cultural en la Práctica: Un Enfoque BIPOC para el Cuidado Informado por Trauma",
+            body: esAwareness.trainingSeries[4].body,
+        },
+        {
+            title: "Humildad Cultural: Una Práctica Liberadora para Comunidades Más Seguras",
+            body: esAwareness.trainingSeries[5].body,
+            tailored: true,
+        },
+        {
+            title: "De Observadora a Guardiana Comunitaria: Responder al Daño con Cuidado y Valentía",
+            body: esAwareness.trainingSeries[6].body,
+            tailored: true,
+        },
+    ],
 };
 
 const enEvents = {
@@ -1764,7 +1804,7 @@ export const siteCopy = {
             page: esDonationsPage,
         },
         partners: esPartners,
-        awareness: esAwareness,
+        awareness: esMxAwareness,
         events: esEvents,
     },
 } satisfies Record<LanguageCode, DeepWiden<typeof en>>;
