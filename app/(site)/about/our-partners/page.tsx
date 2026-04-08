@@ -201,7 +201,7 @@ function PartnerGrid({ partners }: { partners: Partner[] }) {
       {partners.map((partner) => (
         <div
           key={partner.alt}
-          className="flex items-center justify-center rounded-xl border bg-background p-4 shadow-sm transition hover:shadow-md"
+          className="flex items-center justify-center rounded-xl border border-gray-400 bg-background p-4 shadow-sm"
         >
           <div className="relative h-16 w-full">
             <Image
@@ -219,70 +219,76 @@ function PartnerGrid({ partners }: { partners: Partner[] }) {
 }
 
 export default function OurPartnersPage() {
-  return (
-    <main className="min-h-screen bg-background">
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-            Our Partners
-          </h1>
-          <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-            We are grateful for the organizations, businesses, and community
-            leaders who support this work.
-          </p>
-          <h2 className="mt-3 text-center text-4xl font-bold tracking-tight sm:text-5xl">
-            Partnership Opportunities
-          </h2>
-        </div>
+    return (
+        <main className="site-page">
+            <div className="site-page--narrow space-y-10">
+                <section
+                    className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-center text-white sm:px-10 sm:py-12 lg:py-14">
+                    <div className="mx-auto max-w-7xl">
+                        <p className="site-eyebrow text-white/90">Our Partners</p>
+                        <h1 className="site-title mt-4">Our Partners</h1>
+                    </div>
+                </section>
 
-        <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
-          <div className="relative h-72 w-full sm:h-96 md:h-full">
-            <Image
-              src="/partner-images/TheBeeBox.avif"
-              alt="The Bee Box"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-          <div>
-            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Sitting in a cold waiting room, trembling with fear as one
-              contemplates disclosing their abuse is never a vision one would
-              desire to have, but this is often the reality for survivors of
-              abuse and violence. The Bee Box was designed to support survivors
-              who disclose in public settings such as healthcare settings,
-              police stations, schools, or churches. The Bee Box has been
-              uniquely designed to provide aid and support as a survivor embarks
-              on their journey of healing, consisting of a grounding tool, tea
-              for care and wellness, powerful affirmations written by fellow
-              survivors, and an all-natural room enhancer spray.
-            </p>
-          </div>
-        </div>
+                <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
+                    <div className="mx-auto max-w-3xl text-center">
+                        <h2 className="site-heading">Partnership Opportunities</h2>
+                        <p className="site-copy text-lg mt-4">
+                            We are grateful for the organizations, businesses, and community
+                            leaders who support this work.
+                        </p>
+                    </div>
 
-        <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
-          <p className="mx-auto max-w-2xl text-center text-base leading-relaxed text-muted-foreground sm:text-lg">
-            If you are interested in becoming a partner site for the Bee Box,
-            please reach out to{" "}
-            <a href="mailto:volunteer@thehivecc.org">volunteer@thehivecc.org</a>
-          </p>
-        </div>
+                    <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
+                        <div className="relative h-72 w-full sm:h-96 md:h-full">
+                            <Image
+                                src="/partner-images/TheBeeBox.avif"
+                                alt="The Bee Box"
+                                fill
+                                className="object-contain"
+                                priority
+                            />
+                        </div>
 
-        <div className="mt-12 space-y-8">
-          {categories.map((category, index) => (
-            <Card key={category.title} className="overflow-hidden">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-2xl">{category.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <PartnerGrid partners={category.partners} />
-              </CardContent>
-              {index < categories.length - 1 ? <Separator /> : null}
-            </Card>
-          ))}
-        </div>
-      </section>
-    </main>
-  );
+                        <div>
+                            <p className="site-copy text-lg text-center">
+                                Sitting in a cold waiting room, trembling with fear as one
+                                contemplates disclosing their abuse is never a vision one would
+                                desire to have, but this is often the reality for survivors of
+                                abuse and violence. The Bee Box was designed to support
+                                survivors who disclose in public settings such as healthcare
+                                settings, police stations, schools, or churches. The Bee Box has
+                                been uniquely designed to provide aid and support as a survivor
+                                embarks on their journey of healing, consisting of a grounding
+                                tool, tea for care and wellness, powerful affirmations written
+                                by fellow survivors, and an all-natural room enhancer spray.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="mx-auto mt-18 max-w-2xl text-center">
+                        <p className="site-copy text-lg text-center">
+                            If you are interested in becoming a partner site for the Bee Box,
+                            please reach out to{" "}
+                            <a href="mailto:volunteer@thehivecc.org">volunteer@thehivecc.org</a>
+                        </p>
+                    </div>
+                </section>
+
+                <div className="mt-12 space-y-8 pb-12">
+                    {categories.map((category, index) => (
+                        <Card key={category.title} className="overflow-hidden border border-gray-400 shadow-sm">
+                            <CardHeader className="pb-4">
+                                <CardTitle className="text-2xl text-hive-blue">{category.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <PartnerGrid partners={category.partners}/>
+                            </CardContent>
+                            {index < categories.length - 1 ? <Separator/> : null}
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        </main>
+    );
 }
