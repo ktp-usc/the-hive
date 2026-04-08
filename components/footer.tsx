@@ -22,16 +22,16 @@ export default function Footer() {
                     </h1>
                     <br/>
                     <Link href="/" className="py-0.5 text-gray-200">
-                        Home
+                        {copy.footer.home}
                     </Link>
                     <Link href="/about" className="py-0.5 text-gray-200">
                         {copy.footer.about}
                     </Link>
                     <Link href="/donations" className="py-0.5 text-gray-200">
-                        Impact the Hive
+                        {copy.footer.impact}
                     </Link>
                     <Link href="/about/our-partners" className="py-0.5 text-gray-200">
-                        Our Partners
+                        {copy.footer.partners}
                     </Link>
                     <Link href="/support" className="py-0.5 text-gray-200">
                         {copy.footer.support}
@@ -40,7 +40,7 @@ export default function Footer() {
                         {copy.footer.awareness}
                     </Link>
                     <Link href="/events" className="py-0.5 text-gray-200">
-                        Events
+                        {copy.footer.events}
                     </Link>
                     <Link href="/contact" className="py-0.5 text-gray-200">
                         {copy.footer.contact}
