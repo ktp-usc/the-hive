@@ -1,169 +1,153 @@
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+"use client";
+
 import Image from "next/image";
-import { cookies } from "next/headers";
-import Link from "next/link";
 import Script from "next/script";
-import { Coffee, Search, Sun } from "lucide-react";
-
 import InstagramEmbed from "@/components/InstagramEmbed/page";
+import Link from "next/link";
+import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
-import { urlFor } from "@/sanity/lib/image";
-import { sanityFetch } from "@/sanity/lib/live";
-import {
-  defaultLanguage,
-  isLanguageCode,
-  languageCookieKey,
-  siteCopy,
-} from "@/lib/site-copy";
+import {Coffee, Search, Sun} from "lucide-react";
 
-type HomeImageData = {
-  heroImage?: SanityImageSource;
-  missionImage?: SanityImageSource;
-};
+export default function Home() {
+    const copy = useSiteCopy();
 
-export default async function Home() {
-  const cookieStore = await cookies();
-  const storedLanguage = cookieStore.get(languageCookieKey)?.value;
-  const language =
-    storedLanguage && isLanguageCode(storedLanguage)
-      ? storedLanguage
-      : defaultLanguage;
-  const copy = siteCopy[language];
+    {
+        /* Replace links with shadcn button later */
+    }
+    return (
+        <main className="min-h-screen bg-white text-gray-800">
+            {/* Hero */ }
+            <section
+                style={{ backgroundImage: "url('/images/TheHive_12.06.2025_135.jpg')" }}
+                className="relative flex flex-col items-center justify-center text-white py-24 px-6 text-center min-h-[80vh] bg-cover bg-center bg-no-repeat w-full"
+            >
+                {/* FULL OVERLAY */}
+                <div className="absolute inset-0 bg-hive-blue/70"></div>
 
-  const query = `*[_type == "page" && slug.current == "landing"][0]{
-    "heroImage": sections[_type == "sectionHero"][0].images[0],
-    "missionImage": sections[_type == "sectionImageText"][0].image
-  }` as const;
+                {/* CONTENT */}
+                <div className="relative z-10">
+                    <h1 className="text-4xl md:text-6xl font-medium leading-tight max-w-5xl mx-auto">
+                        {copy.home.heroTitleLine1}
+                        <span className="block font-bold text-8xl">
+                            {copy.home.heroTitleLine2}
+                        </span>
+                    </h1>
 
-  const { data } = await sanityFetch({ query });
-  const homeImages = data as HomeImageData | null;
+                    <Button
+                        asChild
+                        size="lg"
+                        className="mt-10 h-auto rounded-full bg-hive-yellow text-gray-900 font-bold hover:bg-hive-yellow/90 px-16 py-8 text-2xl tracking-widest transition-colors"
+                    >
+                        <Link href="/donations">{copy.home.donateToday}</Link>
+                    </Button>
+                </div>
+            </section>
 
-  const heroBackgroundImageUrl = homeImages?.heroImage
-    ? urlFor(homeImages.heroImage).width(2000).height(1200).url()
-    : "/images/TheHive_12.06.2025_135.jpg";
+            {/* Mission */ }
+            <section
+                className="py-20 px-6 max-w-5xl mx-auto gap-8 text-center flex flex-col md:flex-row items-center justify-center">
+                <div>
+                    <Image
+                        src="/images/TheHive_12.06.2025_87.jpg"
+                        alt={copy.home.missionImageAlt}
+                        width={ 1500 }
+                        height={ 1500 }
+                        className="rounded-lg border-2 border-gray-200"
+                    />
+                </div>
+                <div>
+                    <h2 className="text-3xl font-bold mb-6 text-left text-hive-blue">
+                        {copy.home.missionTitle}
+                    </h2>
+                    <p className="text-lg text-left leading-relaxed text-gray-600">
+                        {copy.home.missionBody}
+                    </p>
+                </div>
+            </section>
 
-  const missionImageUrl = homeImages?.missionImage
-    ? urlFor(homeImages.missionImage).width(2000).height(2000).url()
-    : "/images/TheHive_12.06.2025_87.jpg";
+            {/* Divider */ }
+            <div className="border-t border-gray-200 max-w-4xl mx-auto"/>
 
-  return (
-    <main className="min-h-screen bg-white text-gray-800">
-      <section
-        style={{ backgroundImage: `url("${heroBackgroundImageUrl}")` }}
-        className="flex min-h-[80vh] w-full flex-col items-center justify-center bg-hive-blue bg-cover bg-center bg-no-repeat px-6 py-24 text-center text-white"
-      >
-        <div className="rounded-2xl bg-black/80 p-3">
-          <h1 className="mx-auto max-w-3xl text-4xl font-medium leading-tight md:text-6xl">
-            {copy.home.heroTitleLine1}
-            <span className="block text-7xl font-bold">
-              {copy.home.heroTitleLine2}
-            </span>
-          </h1>
-        </div>
+            {/* What We Do */ }
+            <section className="py-20 px-6 max-w-5xl mx-auto">
+                <h2 className="text-3xl font-bold text-center mb-14 text-hive-blue">
+                    {copy.home.whatWeDoTitle}
+                </h2>
+                <div className="grid md:grid-cols-3 gap-10 text-center">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-14 h-14 rounded-full bg-hive-blue/10 flex items-center justify-center">
+                            <Coffee className="text-hive-blue"/>
+                        </div>
+                        <h3 className="text-xl font-semibold text-hive-blue">
+                            {copy.home.whatWeDoCards[0].title}
+                        </h3>
+                        <p className="text-gray-500 leading-relaxed">
+                            {copy.home.whatWeDoCards[0].body}
+                        </p>
+                    </div>
 
-        <Button
-          asChild
-          size="lg"
-          className="mt-10 h-auto rounded-full bg-hive-yellow px-16 py-8 text-2xl font-bold tracking-widest text-gray-900 transition-colors hover:bg-hive-yellow/90"
-        >
-          <Link href="/donations">{copy.home.donateToday}</Link>
-        </Button>
-      </section>
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-14 h-14 rounded-full bg-hive-orange/10 flex items-center justify-center">
+                            <Search className="text-hive-orange"/>
+                        </div>
+                        <h3 className="text-xl font-semibold text-hive-orange">
+                            {copy.home.whatWeDoCards[1].title}
+                        </h3>
+                        <p className="text-gray-500 leading-relaxed">
+                            {copy.home.whatWeDoCards[1].body}
+                        </p>
+                    </div>
 
-      <section className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-8 px-6 py-20 text-center md:flex-row">
-        <div>
-          <Image
-            src={missionImageUrl}
-            alt={copy.home.missionImageAlt}
-            width={2000}
-            height={2000}
-            className="rounded-lg border-2 border-gray-200"
-          />
-        </div>
-        <div>
-          <h2 className="mb-6 text-left text-3xl font-bold text-hive-blue">
-            {copy.home.missionTitle}
-          </h2>
-          <p className="text-left text-lg leading-relaxed text-gray-600">
-            {copy.home.missionBody}
-          </p>
-        </div>
-      </section>
+                    <div className="flex flex-col items-center gap-4">
+                        <div
+                            className="w-14 h-14 rounded-full bg-hive-yellow/20 flex items-center justify-center">
+                            <Sun className="text-hive-yellow"/>
+                        </div>
+                        <h3
+                            className="text-xl font-semibold"
+                            style={ { color: "#c9a000" } }
+                        >
+                            {copy.home.whatWeDoCards[2].title}
+                        </h3>
+                        <p className="text-gray-500 leading-relaxed">
+                            {copy.home.whatWeDoCards[2].body}
+                        </p>
+                    </div>
+                </div>
+            </section>
 
-      <div className="mx-auto max-w-4xl border-t border-gray-200" />
+            {/* Divider */ }
+            <div className="border-t border-gray-200 max-w-4xl mx-auto"/>
 
-      <section className="mx-auto max-w-5xl px-6 py-20">
-        <h2 className="mb-14 text-center text-3xl font-bold text-hive-blue">
-          {copy.home.whatWeDoTitle}
-        </h2>
-        <div className="grid gap-10 text-center md:grid-cols-3">
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-hive-blue/10">
-              <Coffee className="text-hive-blue" />
+            {/* Instagram Feed */ }
+            <div className="mx-auto w-full max-w-lg mt-5">
+                <div className="flex flex-col items-center gap-4 mb-5">
+                    <a
+                        href="https://www.instagram.com/thehivecc/"
+                        className="inline-block bg-hive-orange text-white font-bold px-10 py-4 rounded-full text-lg hover:bg-orange-500 transition-colors"
+                    >
+                        {copy.home.followInstagram}
+                    </a>
+                </div>
+                <InstagramEmbed/>
+                <Script async src="https://www.instagram.com/embed.js"></Script>
             </div>
-            <h3 className="text-xl font-semibold text-hive-blue">
-              {copy.home.whatWeDoCards[0].title}
-            </h3>
-            <p className="leading-relaxed text-gray-500">
-              {copy.home.whatWeDoCards[0].body}
-            </p>
-          </div>
 
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-hive-orange/10">
-              <Search className="text-hive-orange" />
-            </div>
-            <h3 className="text-xl font-semibold text-hive-orange">
-              {copy.home.whatWeDoCards[1].title}
-            </h3>
-            <p className="leading-relaxed text-gray-500">
-              {copy.home.whatWeDoCards[1].body}
-            </p>
-          </div>
 
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-hive-yellow/20">
-              <Sun className="text-hive-yellow" />
-            </div>
-            <h3 className="text-xl font-semibold" style={{ color: "#c9a000" }}>
-              {copy.home.whatWeDoCards[2].title}
-            </h3>
-            <p className="leading-relaxed text-gray-500">
-              {copy.home.whatWeDoCards[2].body}
-            </p>
-          </div>
-        </div>
-      </section>
+            {/* Donate CTA */ }
+            <section id="donate" className="py-20 px-6 text-center bg-gray-50">
+                <h2 className="text-3xl font-bold mb-4 text-hive-blue">
+                    {copy.home.supportTitle}
+                </h2>
+                <p className="text-gray-500 max-w-xl mx-auto mb-10 text-lg">
+                    {copy.home.supportBody}
+                </p>
+                <Button asChild
+                        className="h-auto rounded-full bg-hive-orange text-white font-bold hover:bg-hive-orange/90 px-10 py-4 text-lg transition-colors">
+                    <Link href="/donations">{copy.home.donateNow}</Link>
+                </Button>
+            </section>
 
-      <div className="mx-auto max-w-4xl border-t border-gray-200" />
-
-      <div className="mx-auto mt-5 w-full max-w-lg">
-        <div className="mb-5 flex flex-col items-center gap-4">
-          <a
-            href="https://www.instagram.com/thehivecc/"
-            className="inline-block rounded-full bg-hive-orange px-10 py-4 text-lg font-bold text-white transition-colors hover:bg-orange-500"
-          >
-            {copy.home.followInstagram}
-          </a>
-        </div>
-        <InstagramEmbed />
-        <Script async src="https://www.instagram.com/embed.js" />
-      </div>
-
-      <section id="donate" className="bg-gray-50 px-6 py-20 text-center">
-        <h2 className="mb-4 text-3xl font-bold text-hive-blue">
-          {copy.home.supportTitle}
-        </h2>
-        <p className="mx-auto mb-10 max-w-xl text-lg text-gray-500">
-          {copy.home.supportBody}
-        </p>
-        <Button
-          asChild
-          className="h-auto rounded-full bg-hive-orange px-10 py-4 text-lg font-bold text-white transition-colors hover:bg-hive-orange/90"
-        >
-          <Link href="/donations">{copy.home.donateNow}</Link>
-        </Button>
-      </section>
-    </main>
-  );
+        </main>
+    );
 }
