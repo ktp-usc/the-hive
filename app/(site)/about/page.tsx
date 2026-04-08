@@ -188,16 +188,29 @@ export default function AboutPage() {
       <div className="site-page--narrow space-y-10">
         <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14">
           <div className="mx-auto max-w-7xl">
-            <p className="site-eyebrow">About Us</p>
-            <h1 className="site-title mt-4">Meet the people shaping The Hive.</h1>
+            <p className="site-eyebrow text-base tracking-[0.2em]">About Us</p>
+            <h1 className="site-title mt-4">About The Hive</h1>
           </div>
         </section>
 
+          <section className="px-6 py-6 sm:px-10 sm:py-8 lg:px-14">
+              <div className="mx-auto max-w-4xl">
+                  <Image
+                      src="/member-images/BeeEmpowered.avif"
+                      alt="Two members of The Hive sitting together"
+                      width={1200}
+                      height={1500}
+                      className="mx-auto h-auto w-full max-w-md rounded-2xl object-contain"
+                      priority
+                  />
+              </div>
+          </section>
+
         <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
           <div className="mx-auto max-w-4xl">
-            <h2 className="site-heading">Why We Were Founded</h2>
-            <p className="site-copy mt-5 text-base">
-              We were founded in 2015 with a visionary spirit and urgent
+            <h2 className="site-heading text-center">Why We Were Founded</h2>
+            <p className="site-copy text-center mt-5 text-xl">
+                We were founded in 2015 with a visionary spirit and urgent
               objective: to help prevent violence against some of our nation&apos;s
               most vulnerable populations of women and girls. As a survivor-led,
               survivor-driven peer advocacy organization, we bring a
@@ -210,12 +223,12 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
+        <section className="site-surface px-6 py-2 sm:px-10 sm:py-10 lg:px-14">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-hive-orange">
+            <p className="text-md font-semibold uppercase tracking-[0.3em] text-hive-orange">
               Members
             </p>
-            <h2 className="site-heading mt-4">Meet the people shaping The Hive.</h2>
+            <h2 className="site-heading mt-6">Meet the people shaping The Hive.</h2>
           </div>
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -365,7 +378,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="site-surface px-6 py-10 text-center sm:px-10 lg:px-14">
+        <section className="site-surface px-6 py-2 pb-20 text-center sm:px-10 lg:px-14">
           <p className="text-sm font-semibold uppercase tracking-[0.26em] text-hive-orange">
             Join The Hive
           </p>

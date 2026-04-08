@@ -10,7 +10,17 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 type HomeImageData = {
     heroImage?: SanityImageSource;
-    missionImage?: SanityImageSource;
+    missionImage?: SanityImageSource & {
+        asset?: {
+            metadata?: {
+                dimensions?: {
+                    width: number;
+                    height: number;
+                    aspectRatio: number;
+                };
+            };
+        };
+    };
 };
 
 export default async function Home() {
@@ -22,12 +32,14 @@ export default async function Home() {
     const { data } = await sanityFetch({ query });
     const homeImages = data as HomeImageData;
 
+    const missionDims = homeImages?.missionImage?.asset?.metadata?.dimensions;
+
     const heroBackgroundImageUrl = homeImages?.heroImage
         ? urlFor(homeImages.heroImage).width(2000).height(1200).url()
         : "/images/TheHive_12.06.2025_135.jpg";
 
     const missionImageUrl = homeImages?.missionImage
-        ? urlFor(homeImages.missionImage).width(2000).height(2000).url()
+        ? urlFor(homeImages.missionImage).width(1200).url()
         : "/images/TheHive_12.06.2025_87.jpg";
     {
         /* Replace links with shadcn button later */
