@@ -10,381 +10,353 @@ import { cn } from "@/lib/utils";
 type MemberTabId = "founder" | "team" | "board";
 
 type MemberRecord = {
-  name: string;
-  role?: string;
-  note?: string;
-  email?: string;
-  extension?: string;
-  accent: string;
-  image?: string;
-  empty?: boolean;
+    name: string;
+    role?: string;
+    note?: string;
+    email?: string;
+    extension?: string;
+    image?: string;
 };
 
 const teamMembers: MemberRecord[] = [
-  {
-    name: "Alyson Berry",
-    role: "Executive Administrator",
-    email: "alyson@thehivecc.org",
-    extension: "ext 104",
-    accent: "from-[#f7c766] via-[#ef8f57] to-[#de6d67]",
-    image: "/member-images/AlysonBerry.avif",
-  },
-  {
-    name: "Jalona Webb",
-    role: "Legal Outreach Advocate",
-    email: "jalona.webb@thehivecc.org",
-    extension: "ext 108",
-    accent: "from-[#f4d6a0] via-[#cde6d8] to-[#7ab7c4]",
-    image: "/member-images/JalonaWebb.avif",
-  },
-  {
-    name: "Kinnethia Tolson",
-    role: "Education and Volunteer Coordinator",
-    email: "kinnethia@thehivecc.org",
-    extension: "ext. 109",
-    accent: "from-[#d8efe7] via-[#8fd0c8] to-[#4d8fa1]",
-    image: "/member-images/KinnethiaTolson.avif",
-  },
-  {
-    name: "Beatrice Hernandez-Morales",
-    role: "Bilingual Outreach Advocate",
-    email: "beatrice@thehivecc.org",
-    extension: "ext. 107",
-    accent: "from-[#fde0b0] via-[#f8b77e] to-[#d8878d]",
-    image: "/member-images/BeatriceHernandezMorales.avif",
-  },
+    {
+        name: "Alyson Berry",
+        role: "Executive Administrator",
+        email: "alyson@thehivecc.org",
+        extension: "ext 104",
+        image: "/member-images/AlysonBerry.avif",
+    },
+    {
+        name: "Jalona Webb",
+        role: "Legal Outreach Advocate",
+        email: "jalona.webb@thehivecc.org",
+        extension: "ext 108",
+        image: "/member-images/JalonaWebb.avif",
+    },
+    {
+        name: "Kinnethia Tolson",
+        role: "Education and Volunteer Coordinator",
+        email: "kinnethia@thehivecc.org",
+        extension: "ext. 109",
+        image: "/member-images/KinnethiaTolson.avif",
+    },
+    {
+        name: "Beatrice Hernandez-Morales",
+        role: "Bilingual Outreach Advocate",
+        email: "beatrice@thehivecc.org",
+        extension: "ext. 107",
+        image: "/member-images/BeatriceHernandezMorales.avif",
+    },
 ];
 
 const boardMembers: MemberRecord[] = [
-  {
-    name: "Dr. Stephanie Kirkland",
-    role: "Board Chair",
-    note: "Identity Dynamics\nCEO",
-    accent: "from-[#f2cc7a] via-[#ea9c65] to-[#bc6f6c]",
-    image: "/member-images/StephanieKirkland.avif",
-  },
-  {
-    name: "Jordan Crapps",
-    role: "Vice Chair",
-    note: "Gallivan, White, Boyd\nPartner",
-    accent: "from-[#f7ddc1] via-[#d3e7e0] to-[#87b5c1]",
-    image: "/member-images/JordanCrapps.avif",
-  },
-  {
-    name: "Andrea Lee",
-    role: "Treasurer",
-    note: "Center for Community Health Alignment\nAssociate Director of Operations",
-    accent: "from-[#d6eae4] via-[#96c9c3] to-[#628aa1]",
-    image: "/member-images/AndreaLee.avif",
-  },
-  {
-    name: "Ann Turner",
-    role: "AVP",
-    note: "Underwriting Operations",
-    accent: "from-[#f8dfaf] via-[#f3c18b] to-[#d78f7f]",
-    image: "/member-images/AnnTurner.avif",
-  },
-  {
-    name: "Anthony Bryant",
-    role: "Board Member",
-    note: "Leadership Strategist, Speaker, Author",
-    accent: "from-[#f1c978] via-[#d9925f] to-[#b66a55]",
-    image: "/member-images/AnthonyBryant.avif",
-  },
-  {
-    name: "Bency Beals",
-    role: "Board Member",
-    note: "Ignite Leadership Solutions\nCEO",
-    accent: "from-[#f5d8c0] via-[#e4b1a3] to-[#ba8792]",
-    image: "/member-images/BencyBeals.avif",
-  },
-  {
-    name: "Ebone Ivory",
-    role: "Board Member",
-    note: "SC Department of Employment and Workforce\nAdministrative Hearing Officer",
-    accent: "from-[#f5d792] via-[#e4a85e] to-[#c66d5f]",
-    image: "/member-images/EboneIvory.avif",
-  },
-  {
-    name: "Naomi Walton",
-    role: "Board Member",
-    accent: "from-[#dceef0] via-[#a7d3da] to-[#6aa1b0]",
-    image: "/member-images/NaomiWalton.avif",
-  },
-  {
-    name: "Nicki Woodson",
-    role: "Board Member",
-    note: "Starbucks\nManager of Partner Resources (HR)",
-    accent: "from-[#f8ddb8] via-[#efb47b] to-[#cf8372]",
-    image: "/member-images/NickiWoodson.avif",
-  },
-  {
-    name: "Terry Judy",
-    role: "Board Member",
-    note: "Ignite Leadership Solutions\nImpact & Partnerships Director",
-    accent: "from-[#ecd8be] via-[#d7b3a0] to-[#a9858c]",
-    image: "/member-images/TerryJudy.avif",
-  },
+    {
+        name: "Dr. Stephanie Kirkland",
+        role: "Board Chair",
+        note: "Identity Dynamics\nCEO",
+        image: "/member-images/StephanieKirkland.avif",
+    },
+    {
+        name: "Jordan Crapps",
+        role: "Vice Chair",
+        note: "Gallivan, White, Boyd\nPartner",
+        image: "/member-images/JordanCrapps.avif",
+    },
+    {
+        name: "Andrea Lee",
+        role: "Treasurer",
+        note: "Center for Community Health Alignment\nAssociate Director of Operations",
+        image: "/member-images/AndreaLee.avif",
+    },
+    {
+        name: "Ann Turner",
+        role: "AVP",
+        note: "Underwriting Operations",
+        image: "/member-images/AnnTurner.avif",
+    },
+    {
+        name: "Anthony Bryant",
+        role: "Board Member",
+        note: "Leadership Strategist, Speaker, Author",
+        image: "/member-images/AnthonyBryant.avif",
+    },
+    {
+        name: "Bency Beals",
+        role: "Board Member",
+        note: "Ignite Leadership Solutions\nCEO",
+        image: "/member-images/BencyBeals.avif",
+    },
+    {
+        name: "Ebone Ivory",
+        role: "Board Member",
+        note: "SC Department of Employment and Workforce\nAdministrative Hearing Officer",
+        image: "/member-images/EboneIvory.avif",
+    },
+    {
+        name: "Naomi Walton",
+        role: "Board Member",
+        image: "/member-images/NaomiWalton.avif",
+    },
+    {
+        name: "Nicki Woodson",
+        role: "Board Member",
+        note: "Starbucks\nManager of Partner Resources (HR)",
+        image: "/member-images/NickiWoodson.avif",
+    },
+    {
+        name: "Terry Judy",
+        role: "Board Member",
+        note: "Ignite Leadership Solutions\nImpact & Partnerships Director",
+        image: "/member-images/TerryJudy.avif",
+    },
 ];
 
 function MemberCard({ member }: { member: MemberRecord }) {
-  return (
-    <article
-      className={cn(
-        "group flex h-full cursor-pointer flex-col rounded-[2rem] border border-black/8 bg-[linear-gradient(160deg,rgba(255,255,255,0.96),rgba(255,248,238,0.92))] p-4 text-center shadow-[0_18px_60px_rgba(27,34,67,0.08)] transition duration-300",
-        "hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(27,34,67,0.14)]",
-        member.empty && "border-dashed border-black/12 bg-white/55"
-      )}
-    >
-      <div className="relative mb-4 aspect-[4/4.5] w-full overflow-hidden rounded-[1.5rem] border border-white/60 shadow-inner transition duration-300 group-hover:scale-[1.01]">
-        {member.image ? (
-          <>
-            <div
-              className={cn(
-                "absolute inset-0 bg-gradient-to-br opacity-95",
-                member.accent
-              )}
-            />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.42),transparent_58%)]" />
-            <Image
-              src={member.image}
-              alt={member.name}
-              fill
-              className="object-contain p-3"
-            />
-          </>
-        ) : (
-          <div
-            className={cn(
-              "h-full w-full bg-gradient-to-br",
-              member.accent,
-              member.empty && "opacity-55 saturate-50"
-            )}
-          />
-        )}
-      </div>
-      <div className="space-y-1">
-        <h3 className="font-[var(--font-heading)] text-[1.15rem] leading-tight text-slate-900">
-          {member.name}
-        </h3>
-        <p className="text-sm font-medium uppercase tracking-[0.14em] text-slate-500">
-          {member.role}
-        </p>
-        {member.email ? (
-          <a
-            href={`mailto:${member.email}`}
-            className="mx-auto break-words text-sm leading-6 text-[#1d979c] underline decoration-[#1d979c]/35 underline-offset-4 transition hover:text-[#187d81] hover:decoration-[#187d81]"
-          >
-            {member.email}
-          </a>
-        ) : null}
-        {member.extension ? (
-          <p className="text-sm leading-6 text-slate-600">{member.extension}</p>
-        ) : null}
-        {member.note ? (
-          <p className="mx-auto max-w-[24ch] whitespace-pre-line text-sm leading-6 text-slate-600">
-            {member.note}
-          </p>
-        ) : null}
-      </div>
-    </article>
-  );
+    return (
+        <article className="site-card p-6 text-center">
+            <div className="relative mx-auto mb-5 aspect-[4/4.5] w-full max-w-[15rem] overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
+                {member.image ? (
+                    <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-contain p-3"
+                    />
+                ) : null}
+            </div>
+            <h3 className="text-xl font-bold text-hive-blue">{member.name}</h3>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                {member.role}
+            </p>
+            {member.email ? (
+                <a
+                    href={`mailto:${member.email}`}
+                    className="site-link mt-3 inline-block text-sm"
+                >
+                    {member.email}
+                </a>
+            ) : null}
+            {member.extension ? (
+                <p className="mt-2 text-sm text-gray-600">{member.extension}</p>
+            ) : null}
+            {member.note ? (
+                <p className="mt-3 whitespace-pre-line text-sm leading-7 text-gray-600">
+                    {member.note}
+                </p>
+            ) : null}
+        </article>
+    );
 }
 
 function MemberGrid({
-  eyebrow,
-  title,
-  description,
-  members,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-  members: MemberRecord[];
+                        eyebrow,
+                        title,
+                        description,
+                        members,
+                    }: {
+    eyebrow: string;
+    title: string;
+    description?: string;
+    members: MemberRecord[];
 }) {
-  return (
-    <section className="space-y-8">
-      <div className="mx-auto max-w-3xl text-center">
-        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#d8794a]">
-          {eyebrow}
-        </p>
-        <h2 className="font-[var(--font-heading)] text-3xl text-slate-950 sm:text-4xl">
-          {title}
-        </h2>
-        <p className="mt-4 text-base leading-7 text-slate-600">{description}</p>
-      </div>
+    return (
+        <section className="space-y-8">
+            <div className="mx-auto max-w-3xl text-center">
+                <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-orange">
+                    {eyebrow}
+                </p>
+                <h2 className="site-heading mt-4">{title}</h2>
+                {description ? <p className="site-copy mt-4">{description}</p> : null}
+            </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-        {members.map((member, index) => (
-          <MemberCard key={`${member.name}-${index}`} member={member} />
-        ))}
-      </div>
-    </section>
-  );
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {members.map((member, index) => (
+                    <MemberCard key={`${member.name}-${index}`} member={member} />
+                ))}
+            </div>
+        </section>
+    );
 }
 
 export default function AboutPage() {
-  const copy = useSiteCopy();
-  const [activeTab, setActiveTab] = useState<MemberTabId>("founder");
-  const tabs: Array<{ id: MemberTabId; label: string }> = [
-    { id: "founder", label: copy.about.tabs.founder },
-    { id: "team", label: copy.about.tabs.team },
-    { id: "board", label: copy.about.tabs.board },
-  ];
-  const localizedTeamMembers = teamMembers.map((member, index) => ({
-    ...member,
-    ...(copy.about.teamMembers[index] ?? {}),
-  }));
-  const localizedBoardMembers = boardMembers.map((member, index) => ({
-    ...member,
-    ...(copy.about.boardMembers[index] ?? {}),
-  }));
+    const copy = useSiteCopy();
+    const [activeTab, setActiveTab] = useState<MemberTabId>("founder");
 
-  return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,#fff9ec_0%,#f8f3eb_42%,#eef3f7_100%)] px-4 pb-20 pt-32 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <section className="overflow-hidden rounded-[2.5rem] border border-white/70 bg-white/78 px-6 py-10 shadow-[0_30px_120px_rgba(32,42,69,0.10)] backdrop-blur sm:px-10 sm:py-14 lg:px-16">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#d8794a]">
-              {copy.about.heroEyebrow}
-            </p>
-            <h1 className="mt-4 font-[var(--font-heading)] text-4xl leading-tight text-slate-950 sm:text-5xl">
-              {copy.about.heroTitle}
-            </h1>
-          </div>
+    const tabs: Array<{ id: MemberTabId; label: string }> = [
+        { id: "founder", label: copy.about.tabs.founder },
+        { id: "team", label: copy.about.tabs.team },
+        { id: "board", label: copy.about.tabs.board },
+    ];
 
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            {tabs.map((tab) => {
-              const isActive = tab.id === activeTab;
+    const localizedTeamMembers = teamMembers.map((member, index) => ({
+        ...member,
+        ...(copy.about.teamMembers[index] ?? {}),
+    }));
 
-              return (
-                <Button
-                  key={tab.id}
-                  type="button"
-                  variant="ghost"
-                  onClick={() => setActiveTab(tab.id)}
-                  className={cn(
-                    "cursor-pointer rounded-full border px-5 py-6 font-[var(--font-body)] text-sm font-semibold tracking-[0.04em] transition",
-                    isActive
-                      ? "border-transparent bg-[#1d979c] text-white shadow-[0_12px_34px_rgba(29,151,156,0.28)] hover:bg-[#187d81]"
-                      : "border-black/10 bg-white/70 text-slate-600 hover:border-[#1d979c]/25 hover:bg-white hover:text-slate-900"
-                  )}
-                >
-                  {tab.label}
-                </Button>
-              );
-            })}
-          </div>
+    const localizedBoardMembers = boardMembers.map((member, index) => ({
+        ...member,
+        ...(copy.about.boardMembers[index] ?? {}),
+    }));
 
-          <div className="mt-12">
-            {activeTab === "founder" ? (
-              <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-                <article className="rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,rgba(255,251,242,0.96),rgba(255,255,255,0.85))] p-6 shadow-[0_20px_70px_rgba(32,42,69,0.08)] sm:p-8">
-                  <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#d8794a]">
-                    {copy.about.founderStoryEyebrow}
-                  </p>
-                  <h2 className="mt-4 font-[var(--font-heading)] text-3xl text-slate-950 sm:text-4xl">
-                    {copy.about.founderTitle}
-                  </h2>
-                  <div className="mt-8 rounded-[1.75rem] border border-dashed border-[#1d979c]/25 bg-[#1d979c]/6 p-5">
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1d979c]">
-                      {copy.about.founderNarrativeLabel}
-                    </p>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">
-                      {copy.about.founderNarrativeParagraphs.join(" ")}
-                    </p>
-                  </div>
-                  <div className="mt-8 grid gap-5 sm:grid-cols-2">
-                    <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5">
-                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-                        {copy.about.founderSparkTitle}
-                      </p>
-                      <p className="mt-3 text-sm leading-7 text-slate-600">
-                        {copy.about.founderSparkBody}
-                      </p>
+    return (
+        <main className="site-page">
+            <div className="site-page--narrow space-y-10">
+                <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14">
+                    <div className="mx-auto max-w-7xl">
+                        <p className="site-eyebrow">{copy.about.heroEyebrow}</p>
+                        <h1 className="site-title mt-4">{copy.about.heroTitle}</h1>
                     </div>
-                    <div className="rounded-[1.75rem] border border-black/6 bg-white/80 p-5">
-                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-                        {copy.about.founderVisionTitle}
-                      </p>
-                      <p className="mt-3 text-sm leading-7 text-slate-600">
-                        {copy.about.founderVisionBody}
-                      </p>
+                </section>
+
+                <section className="px-6 py-6 sm:px-10 sm:py-8 lg:px-14">
+                    <div className="mx-auto max-w-4xl">
+                        <Image
+                            src="/member-images/BeeEmpowered.avif"
+                            alt="Two members of The Hive sitting together"
+                            width={1200}
+                            height={1500}
+                            className="mx-auto h-auto w-full max-w-md rounded-2xl object-contain"
+                            priority
+                        />
                     </div>
-                  </div>
-                </article>
+                </section>
 
-                <aside className="rounded-[2rem] border border-black/8 bg-white/88 p-6 shadow-[0_20px_70px_rgba(32,42,69,0.08)] sm:p-8">
-                  <div className="relative mx-auto h-[18rem] max-w-sm overflow-hidden rounded-[2rem] border border-white/70 shadow-inner sm:h-[22rem]">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#f7d68d] via-[#f0a76e] to-[#7ab7c4] opacity-95" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.4),transparent_58%)]" />
-                    <Image
-                      src="/member-images/AshleyThomas.avif"
-                      alt="Ashley Olayinka"
-                      fill
-                      className="object-contain p-4 object-center"
-                    />
-                  </div>
-                  <div className="mx-auto mt-6 max-w-sm text-center">
-                    <h3 className="font-[var(--font-heading)] text-2xl text-slate-950">
-                      {copy.about.founderName}
-                    </h3>
-                    <p className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-slate-500">
-                      {copy.about.founderRole}
+                <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
+                    <div className="mx-auto max-w-4xl">
+                        <h2 className="site-heading text-center">
+                            {copy.about.whyFoundedTitle}
+                        </h2>
+                        <p className="site-copy mt-5 text-center text-xl">
+                            {copy.about.whyFoundedBody}
+                        </p>
+                    </div>
+                </section>
+
+                <section className="site-surface px-6 py-2 sm:px-10 sm:py-10 lg:px-14">
+                    <div className="mx-auto max-w-3xl text-center">
+                        <p className="text-md font-semibold uppercase tracking-[0.3em] text-hive-orange">
+                            {copy.about.heroEyebrow}
+                        </p>
+                        <h2 className="site-heading mt-6">{copy.about.heroTitle}</h2>
+                    </div>
+
+                    <div className="mt-10 flex flex-wrap justify-center gap-3">
+                        {tabs.map((tab) => {
+                            const isActive = tab.id === activeTab;
+
+                            return (
+                                <Button
+                                    key={tab.id}
+                                    type="button"
+                                    variant="ghost"
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={cn(
+                                        "rounded-full border px-5 py-3 text-sm font-semibold transition",
+                                        isActive
+                                            ? "border-hive-blue bg-hive-blue text-white hover:bg-hive-blue/90"
+                                            : "border-hive-blue/20 bg-white text-hive-blue hover:bg-hive-blue/5"
+                                    )}
+                                >
+                                    {tab.label}
+                                </Button>
+                            );
+                        })}
+                    </div>
+
+                    <div className="mt-12">
+                        {activeTab === "founder" ? (
+                            <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+                                <article className="site-card p-6 sm:p-8">
+                                    <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-orange">
+                                        {copy.about.founderStoryEyebrow}
+                                    </p>
+                                    <h2 className="site-heading mt-4">{copy.about.founderTitle}</h2>
+
+                                    <div className="mt-8 rounded-xl border border-hive-blue/20 bg-hive-blue/5 p-5">
+                                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-blue">
+                                            {copy.about.founderNarrativeLabel}
+                                        </p>
+                                        <p className="mt-3 text-sm leading-7 text-gray-600">
+                                            {copy.about.founderNarrativeParagraphs.join(" ")}
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-8 grid gap-5 sm:grid-cols-2">
+                                        <div className="rounded-xl bg-gray-50 p-5">
+                                            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
+                                                {copy.about.founderSparkTitle}
+                                            </p>
+                                            <p className="mt-3 text-sm leading-7 text-gray-600">
+                                                {copy.about.founderSparkBody}
+                                            </p>
+                                        </div>
+                                        <div className="rounded-xl bg-gray-50 p-5">
+                                            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
+                                                {copy.about.founderVisionTitle}
+                                            </p>
+                                            <p className="mt-3 text-sm leading-7 text-gray-600">
+                                                {copy.about.founderVisionBody}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <aside className="site-card p-6 text-center sm:p-8">
+                                    <div className="relative mx-auto h-[18rem] max-w-sm overflow-hidden rounded-xl border border-gray-200 bg-gray-50 sm:h-[22rem]">
+                                        <Image
+                                            src="/member-images/Ashley2.png"
+                                            alt="Ashley Olayinka"
+                                            fill
+                                            className="object-contain object-center p-4"
+                                        />
+                                    </div>
+                                    <div className="mx-auto mt-6 max-w-sm text-center">
+                                        <h3 className="text-2xl font-bold text-hive-blue">
+                                            {copy.about.founderName}
+                                        </h3>
+                                        <p className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-gray-500">
+                                            {copy.about.founderRole}
+                                        </p>
+                                        <p className="mt-4 text-sm leading-7 text-gray-600">
+                                            {copy.about.founderProfileBody}
+                                        </p>
+                                    </div>
+                                </aside>
+                            </section>
+                        ) : null}
+
+                        {activeTab === "team" ? (
+                            <MemberGrid
+                                eyebrow={copy.about.teamEyebrow}
+                                title={copy.about.teamTitle}
+                                members={localizedTeamMembers}
+                            />
+                        ) : null}
+
+                        {activeTab === "board" ? (
+                            <MemberGrid
+                                eyebrow={copy.about.boardEyebrow}
+                                title={copy.about.boardTitle}
+                                members={localizedBoardMembers}
+                            />
+                        ) : null}
+                    </div>
+                </section>
+
+                <section className="site-surface px-6 py-2 pb-20 text-center sm:px-10 lg:px-14">
+                    <p className="text-sm font-semibold uppercase tracking-[0.26em] text-hive-orange">
+                        {copy.about.joinEyebrow}
                     </p>
-                    <p className="mt-4 text-sm leading-7 text-slate-600">
-                      {copy.about.founderProfileBody}
+                    <h2 className="site-heading mt-4">{copy.about.joinTitle}</h2>
+                    <p className="site-copy mx-auto mt-4 max-w-2xl">
+                        {copy.about.joinBodyPrefix}{" "}
+                        <a href="mailto:hello@thehivecc.org" className="site-link">
+                            hello@thehivecc.org
+                        </a>
+                        .
                     </p>
-                  </div>
-                </aside>
-              </section>
-            ) : null}
-
-            {activeTab === "team" ? (
-              <MemberGrid
-                eyebrow={copy.about.teamEyebrow}
-                title={copy.about.teamTitle}
-                description=""
-                members={localizedTeamMembers}
-              />
-            ) : null}
-
-            {activeTab === "board" ? (
-              <MemberGrid
-                eyebrow={copy.about.boardEyebrow}
-                title={copy.about.boardTitle}
-                description=""
-                members={localizedBoardMembers}
-              />
-            ) : null}
-          </div>
-
-          <section className="mt-14">
-            <div className="relative overflow-hidden rounded-[2rem] border border-[#1d979c]/18 bg-[linear-gradient(135deg,rgba(255,240,198,0.92),rgba(255,255,255,0.96),rgba(208,238,230,0.92))] px-6 py-7 text-center shadow-[0_18px_60px_rgba(29,151,156,0.12)] sm:px-8">
-              <div className="absolute -left-8 top-0 h-24 w-24 rounded-full bg-[#f7c766]/35 blur-2xl" />
-              <div className="absolute -right-6 bottom-0 h-24 w-24 rounded-full bg-[#7ab7c4]/30 blur-2xl" />
-              <div className="relative">
-                <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[#d8794a]">
-                  {copy.about.joinEyebrow}
-                </p>
-                <p className="mx-auto mt-3 max-w-3xl font-[var(--font-heading)] text-2xl leading-tight text-slate-900 sm:text-3xl">
-                  {copy.about.joinTitle}
-                </p>
-                <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-700">
-                  {copy.about.joinBodyPrefix}{" "}
-                  <a
-                    href="mailto:hello@thehivecc.org"
-                    className="font-semibold text-[#1d979c] underline decoration-[#1d979c]/35 underline-offset-4 transition hover:text-[#187d81] hover:decoration-[#187d81]"
-                  >
-                    hello@thehivecc.org
-                  </a>
-                  .
-                </p>
-              </div>
+                </section>
             </div>
-          </section>
-        </section>
-      </div>
-    </main>
-  );
+        </main>
+    );
 }

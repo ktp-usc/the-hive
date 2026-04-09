@@ -31,24 +31,42 @@ const categories: Category[] = [
     partners: [
       { src: "/partner-images/JLC.png", alt: "Junior League of Columbia" },
       { src: "/partner-images/Allstate.webp", alt: "Allstate Foundation" },
-      { src: "/partner-images/BCBS.png", alt: "Bluecross Blueshield of South Carolina" },
-      { src: "/partner-images/CCCF.png", alt: "Central Carolina Community Foundation" },
+      {
+        src: "/partner-images/BCBS.png",
+        alt: "Bluecross Blueshield of South Carolina",
+      },
+      {
+        src: "/partner-images/CCCF.png",
+        alt: "Central Carolina Community Foundation",
+      },
       { src: "/partner-images/CUL.png", alt: "Columbia Urban League Inc." },
       { src: "/partner-images/CypressFund.png", alt: "Cypress Fund" },
       { src: "/partner-images/EF.jfif", alt: "Emergent Fund" },
       { src: "/partner-images/FF.png", alt: "Fact Forward" },
       { src: "/partner-images/GGC.png", alt: "Grantmakers for Girls of Color" },
       { src: "/partner-images/images.png", alt: "WREN" },
-      { src: "/partner-images/JBC.png", alt: "Just Beginnings Collaborative" },
+      {
+        src: "/partner-images/JBC.png",
+        alt: "Just Beginnings Collaborative",
+      },
       { src: "/partner-images/Kolibri.png", alt: "Kolibri" },
       { src: "/partner-images/LFF.png", alt: "Lipscomb Family Foundation" },
       { src: "/partner-images/LL.png", alt: "Lululemon" },
       { src: "/partner-images/Molina.png", alt: "Molina" },
       { src: "/partner-images/MsFoundation.png", alt: "Ms. Foundation" },
-      { src: "/partner-images/NNEDV.webp", alt: "National Network To End Domestic Violence" },
+      {
+        src: "/partner-images/NNEDV.webp",
+        alt: "National Network To End Domestic Violence",
+      },
       { src: "/partner-images/PMC.png", alt: "Pearl Milling Company" },
-      { src: "/partner-images/SBG.webp", alt: "Southern Black Girls and Women's Consortium" },
-      { src: "/partner-images/SCF.png", alt: "Sisters of Charity Foundation of South Carolina" },
+      {
+        src: "/partner-images/SBG.webp",
+        alt: "Southern Black Girls and Women's Consortium",
+      },
+      {
+        src: "/partner-images/SCF.png",
+        alt: "Sisters of Charity Foundation of South Carolina",
+      },
       { src: "/partner-images/solidaire.png", alt: "Solidaire" },
       { src: "/partner-images/Synovus.png", alt: "Synovus" },
       { src: "/partner-images/unum.png", alt: "Unum" },
@@ -58,19 +76,31 @@ const categories: Category[] = [
   {
     key: "nonprofit",
     partners: [
-      { src: "/partner-images/CT.webp", alt: "Children's Trust of South Carolina" },
+      {
+        src: "/partner-images/CT.webp",
+        alt: "Children's Trust of South Carolina",
+      },
       { src: "/partner-images/Prisma.webp", alt: "Prisma" },
-      { src: "/partner-images/DSS.jpg", alt: "South Carolina Department of Social Services" },
+      {
+        src: "/partner-images/DSS.jpg",
+        alt: "South Carolina Department of Social Services",
+      },
       { src: "/partner-images/DHEC.jpg", alt: "DHEC" },
       { src: "/partner-images/SS.webp", alt: "Sowing Seeds Into The Midlands" },
       { src: "/partner-images/STS.png", alt: "Sexual Trauma Services" },
-      { src: "/partner-images/SCCADVASA.png", alt: "South Carolina Coalition Against Domestic Violence and Sexual Assault" },
+      {
+        src: "/partner-images/SCCADVASA.png",
+        alt: "South Carolina Coalition Against Domestic Violence and Sexual Assault",
+      },
       { src: "/partner-images/LFL.png", alt: "Lighthouse for Life" },
       { src: "/partner-images/SASS.png", alt: "Surviving Assault Standing Strong" },
       { src: "/partner-images/PHAC.png", alt: "Peace at Home Advocacy Center" },
       { src: "/partner-images/HFH.png", alt: "Habitat for Humanity" },
       { src: "/partner-images/Sistercare.png", alt: "Sistercare" },
-      { src: "/partner-images/SCVAN.webp", alt: "South Carolina Victim Assistance Network" },
+      {
+        src: "/partner-images/SCVAN.webp",
+        alt: "South Carolina Victim Assistance Network",
+      },
       { src: "/partner-images/PP.png", alt: "Palmetto Place" },
       { src: "/partner-images/E24.webp", alt: "eleven24" },
       { src: "/partner-images/Epworth.png", alt: "Epworth Children's Home" },
@@ -80,9 +110,18 @@ const categories: Category[] = [
   {
     key: "lawEnforcement",
     partners: [
-      { src: "/partner-images/Richland.jpg", alt: "Richland County Sheriff Department" },
-      { src: "/partner-images/LaborOfficer.jpg", alt: "Richland County Inmate Labor Officer" },
-      { src: "/partner-images/Kershaw.webp", alt: "Kershaw County Sheriff Department" },
+      {
+        src: "/partner-images/Richland.jpg",
+        alt: "Richland County Sheriff Department",
+      },
+      {
+        src: "/partner-images/LaborOfficer.jpg",
+        alt: "Richland County Inmate Labor Officer",
+      },
+      {
+        src: "/partner-images/Kershaw.webp",
+        alt: "Kershaw County Sheriff Department",
+      },
       { src: "/partner-images/Benedict.jfif", alt: "Benedict College Police" },
       { src: "/partner-images/Rock Hill.webp", alt: "Rock Hill Police" },
     ],
@@ -94,7 +133,10 @@ const categories: Category[] = [
       { src: "/partner-images/CC.png", alt: "Columbia College" },
       { src: "/partner-images/USC.jpg", alt: "University of South Carolina" },
       { src: "/partner-images/LD4.png", alt: "Lexington District Four" },
-      { src: "/partner-images/richland2.jfif", alt: "Richland School District Two" },
+      {
+        src: "/partner-images/richland2.jfif",
+        alt: "Richland School District Two",
+      },
     ],
   },
   {
@@ -116,7 +158,10 @@ const categories: Category[] = [
       { src: "/partner-images/Merchant3.jpg", alt: "BJ's" },
       { src: "/partner-images/Merchant4.png", alt: "Cinnamon Roll Deli" },
       { src: "/partner-images/Merchant5.webp", alt: "PDQ" },
-      { src: "/partner-images/Merchant6.jpg", alt: "Kiki's Chicken and Waffles" },
+      {
+        src: "/partner-images/Merchant6.jpg",
+        alt: "Kiki's Chicken and Waffles",
+      },
       { src: "/partner-images/Merchant7.jpg", alt: "Hungry Howie's" },
       { src: "/partner-images/Merchant8.jpg", alt: "Urban Cookhouse" },
       { src: "/partner-images/Merchant9.jpg", alt: "Panera Bread" },
@@ -139,13 +184,25 @@ const categories: Category[] = [
       { src: "/partner-images/Comm8.avif", alt: "Carolina on a Dime" },
       { src: "/partner-images/Comm9.avif", alt: "The Lexico Group" },
       { src: "/partner-images/Comm10.avif", alt: "Recise Services, LLC" },
-      { src: "/partner-images/Comm11.avif", alt: "Blake Insurance and Financial Group" },
+      {
+        src: "/partner-images/Comm11.avif",
+        alt: "Blake Insurance and Financial Group",
+      },
       { src: "/partner-images/Comm12.avif", alt: "HelloSEO" },
       { src: "/partner-images/Comm13.avif", alt: "Elite Lawn and Landscape" },
-      { src: "/partner-images/Comm14.avif", alt: "Gadgetboy Retil and Repair" },
+      {
+        src: "/partner-images/Comm14.avif",
+        alt: "Gadgetboy Retil and Repair",
+      },
       { src: "/partner-images/Comm15.avif", alt: "S & E Flooring" },
-      { src: "/partner-images/Comm16.avif", alt: "Tidy Tiffany's Organization" },
-      { src: "/partner-images/Comm17.avif", alt: "Blackwell video Marketing" },
+      {
+        src: "/partner-images/Comm16.avif",
+        alt: "Tidy Tiffany's Organization",
+      },
+      {
+        src: "/partner-images/Comm17.avif",
+        alt: "Blackwell video Marketing",
+      },
       { src: "/partner-images/Comm18.avif", alt: "WECO Candle Company" },
     ],
   },
@@ -157,7 +214,7 @@ function PartnerGrid({ partners }: { partners: Partner[] }) {
       {partners.map((partner) => (
         <div
           key={partner.alt}
-          className="flex items-center justify-center rounded-xl border bg-background p-4 shadow-sm transition hover:shadow-md"
+          className="flex items-center justify-center rounded-xl border border-gray-200 bg-background p-4 shadow-sm"
         >
           <div className="relative h-16 w-full">
             <Image
@@ -178,49 +235,57 @@ export default function OurPartnersPage() {
   const copy = useSiteCopy();
 
   return (
-    <main className="min-h-screen bg-background">
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-            {copy.partners.heroTitle}
-          </h1>
-          <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-            {copy.partners.heroBody}
-          </p>
-          <h2 className="mt-3 text-center text-4xl font-bold tracking-tight sm:text-5xl">
-            {copy.partners.opportunitiesTitle}
-          </h2>
-        </div>
-
-        <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
-          <div className="relative h-72 w-full sm:h-96 md:h-full">
-            <Image
-              src="/partner-images/TheBeeBox.avif"
-              alt="The Bee Box"
-              fill
-              className="object-contain"
-              priority
-            />
+    <main className="site-page">
+      <div className="site-page--narrow space-y-10">
+        <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-center text-white sm:px-10 sm:py-12 lg:py-14">
+          <div className="mx-auto max-w-7xl">
+            <p className="site-eyebrow text-white/90">{copy.partners.heroEyebrow}</p>
+            <h1 className="site-title mt-4">{copy.partners.heroTitle}</h1>
           </div>
-          <div>
-            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-              {copy.partners.beeBoxBody}
+        </section>
+
+        <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="site-heading">{copy.partners.opportunitiesTitle}</h2>
+            <p className="site-copy mt-4">
+              {copy.partners.heroBody}
             </p>
           </div>
-        </div>
 
-        <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
-          <p className="mx-auto max-w-2xl text-center text-base leading-relaxed text-muted-foreground sm:text-lg">
-            {copy.partners.beeBoxPartnerPrefix}{" "}
-            <a href="mailto:volunteer@thehivecc.org">volunteer@thehivecc.org</a>
-          </p>
-        </div>
+          <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
+            <div className="relative h-72 w-full sm:h-96 md:h-full">
+              <Image
+                src="/partner-images/TheBeeBox.avif"
+                alt="The Bee Box"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
 
-        <div className="mt-12 space-y-8">
+            <div>
+              <p className="site-copy">
+                {copy.partners.beeBoxBody}
+              </p>
+            </div>
+          </div>
+
+          <div className="mx-auto mt-16 max-w-2xl text-center">
+            <p className="site-copy text-center">
+              {copy.partners.beeBoxPartnerPrefix}{" "}
+              <a href="mailto:volunteer@thehivecc.org">volunteer@thehivecc.org</a>
+            </p>
+          </div>
+        </section>
+
+        <div className="mt-12 space-y-8 pb-12">
           {categories.map((category, index) => (
-            <Card key={category.key} className="overflow-hidden">
+            <Card
+              key={category.key}
+              className="overflow-hidden border border-gray-200 shadow-sm"
+            >
               <CardHeader className="pb-4">
-                <CardTitle className="text-2xl">
+                <CardTitle className="text-2xl text-hive-blue">
                   {copy.partners.categoryTitles[category.key]}
                 </CardTitle>
               </CardHeader>
@@ -231,7 +296,7 @@ export default function OurPartnersPage() {
             </Card>
           ))}
         </div>
-      </section>
+      </div>
     </main>
   );
 }

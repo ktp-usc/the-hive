@@ -10,8 +10,11 @@ import {
 } from "@/lib/site-copy";
 
 export const metadata: Metadata = {
-    title: "Future KTP Web App",
-    description: "KTP SP26"
+    title: "The Hive Community Circle",
+    description: "The Hive is a survivor-led organization providing support, advocacy, and resources to help women and girls in South Carolina heal from sexual assault, intimate partner violence, and stalking.",
+    icons: {
+        icon: "/hive-favicon.png",
+    },
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
