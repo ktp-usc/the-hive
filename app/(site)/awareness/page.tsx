@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { useSiteCopy } from "@/components/language-provider";
@@ -53,27 +54,66 @@ export default function AwarenessPage() {
                         </p>
                     </div>
 
-                    <div className="mt-10 grid gap-6 md:grid-cols-3">
-                        {copy.awareness.signaturePrograms.map((program) => (
-                            <div
-                                key={program.title}
-                                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
-                            >
-                                <p className="text-lg font-semibold text-center text-hive-blue">
-                                    {program.title}
-                                </p>
-                                {program.badge ? (
-                                    <div className="mt-2 text-center">
-                    <span className="inline-block rounded-full bg-hive-orange/10 px-3 py-1 text-sm font-bold text-hive-orange">
-                      {program.badge}
-                    </span>
+                    <div className="mt-10 space-y-6">
+                        {/* BuzzPak — featured card with images */}
+                        {(() => {
+                            const buzzpak = copy.awareness.signaturePrograms[0];
+                            return (
+                                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                                    <div className="grid gap-6 md:grid-cols-2 md:items-center">
+                                        <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                                            <Image
+                                                src="/member-images/BeeEmpowered.avif"
+                                                alt="BuzzPak program"
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                        <div>
+                                            <p className="text-lg font-semibold text-hive-blue">
+                                                {buzzpak.title}
+                                            </p>
+                                            <div className="mt-2 flex flex-wrap gap-2">
+                                                <span className="inline-block rounded-full bg-hive-blue/10 px-3 py-1 text-sm font-semibold text-hive-blue">
+                                                    {buzzpak.languages}
+                                                </span>
+                                                {buzzpak.badge ? (
+                                                    <span className="inline-block rounded-full bg-hive-orange/10 px-3 py-1 text-sm font-bold text-hive-orange">
+                                                        {buzzpak.badge}
+                                                    </span>
+                                                ) : null}
+                                            </div>
+                                            <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                                                {buzzpak.body}
+                                            </p>
+                                        </div>
                                     </div>
-                                ) : null}
-                                <p className="mt-3 text-sm leading-relaxed text-center text-gray-600">
-                                    {program.body}
-                                </p>
-                            </div>
-                        ))}
+                                </div>
+                            );
+                        })()}
+                        {/* Other signature programs */}
+                        <div className="grid gap-6 md:grid-cols-2">
+                            {copy.awareness.signaturePrograms.slice(1).map((program) => (
+                                <div
+                                    key={program.title}
+                                    className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+                                >
+                                    <p className="text-lg font-semibold text-center text-hive-blue">
+                                        {program.title}
+                                    </p>
+                                    {program.badge ? (
+                                        <div className="mt-2 text-center">
+                                            <span className="inline-block rounded-full bg-hive-orange/10 px-3 py-1 text-sm font-bold text-hive-orange">
+                                                {program.badge}
+                                            </span>
+                                        </div>
+                                    ) : null}
+                                    <p className="mt-3 text-sm leading-relaxed text-center text-gray-600">
+                                        {program.body}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
@@ -93,32 +133,28 @@ export default function AwarenessPage() {
                         </p>
                     </div>
 
-                    <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                        {copy.awareness.trainingSeries.map(({ title, body, badge, tailored }) => (
-                            <div
-                                key={title}
-                                className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
-                            >
-                                <p className="text-lg font-semibold text-center text-hive-blue">
-                                    {title}
-                                </p>
-                                {badge ? (
-                                    <div className="mt-2 text-center">
-                    <span className="inline-block rounded-full bg-hive-orange/10 px-3 py-1 text-sm font-bold text-hive-orange">
-                      {badge}
-                    </span>
+                    <div className="mt-10">
+                        <ul className="grid gap-3 md:grid-cols-2">
+                            {copy.awareness.trainingSeries.map(({ title, badge }) => (
+                                <li
+                                    key={title}
+                                    className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+                                >
+                                    <div className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-hive-yellow" />
+                                    <div>
+                                        <p className="text-base font-semibold text-hive-blue">{title}</p>
+                                        {badge ? (
+                                            <span className="mt-1 inline-block rounded-full bg-hive-orange/10 px-3 py-1 text-xs font-bold text-hive-orange">
+                                                {badge}
+                                            </span>
+                                        ) : null}
                                     </div>
-                                ) : null}
-                                <p className="mt-3 text-sm leading-relaxed text-center text-gray-600">
-                                    {body}
-                                </p>
-                                {tailored ? (
-                                    <p className="mt-2 text-sm text-center italic text-gray-500">
-                                        {copy.awareness.tailoredNote}
-                                    </p>
-                                ) : null}
-                            </div>
-                        ))}
+                                </li>
+                            ))}
+                        </ul>
+                        <p className="mt-8 text-center text-base text-gray-600">
+                            {copy.awareness.trainingContactNote}
+                        </p>
                     </div>
                 </div>
 
@@ -176,15 +212,6 @@ export default function AwarenessPage() {
                     >
                         <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer">
                             {copy.awareness.bookCall}
-                        </Link>
-                    </Button>
-                    <Button
-                        asChild
-                        variant="outline"
-                        className="h-auto rounded-full border-hive-orange px-8 py-4 text-base font-bold text-hive-orange transition-colors hover:bg-hive-orange/5"
-                    >
-                        <Link href="/training-catalog.pdf" target="_blank" rel="noopener noreferrer">
-                            {copy.awareness.downloadCatalog}
                         </Link>
                     </Button>
                     <Button
