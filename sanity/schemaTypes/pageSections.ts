@@ -6,13 +6,26 @@ export const sectionRichText = defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'eyebrow',
+      title: 'Eyebrow',
+      type: 'string',
+      description: 'Small label above the heading (e.g. "Join The Hive").',
+    }),
+    defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
     }),
     defineField({
+      name: 'body',
+      title: 'Body text',
+      type: 'text',
+      rows: 4,
+      description: 'Plain text body. Used instead of (or alongside) the rich-text content field.',
+    }),
+    defineField({
       name: 'content',
-      title: 'Content',
+      title: 'Rich text content',
       type: 'array',
       of: [{type: 'block'}],
     }),
@@ -270,8 +283,14 @@ export const sectionTeam = defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'eyebrow',
+      title: 'Eyebrow',
+      type: 'string',
+      description: 'Small label above the section heading (e.g. "Team", "Leadership").',
+    }),
+    defineField({
       name: 'groupLabel',
-      title: 'Group label',
+      title: 'Group label / heading',
       type: 'string',
       description:
         'Heading for this block (e.g. Founder/CEO, Team Members, Board of Directors). Each team member has a Section field — keep this label aligned with that grouping.',

@@ -1,356 +1,656 @@
-import { Button } from '@/components/ui/button';
-import { sanityFetch } from '@/sanity/lib/live';
-import Image from 'next/image';
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { Sparkles, Star } from "lucide-react";
+
+import { useSiteCopy } from "@/components/language-provider";
+import { Button } from "@/components/ui/button";
+import { sanityFetch } from "@/sanity/lib/live";
 
 type VolunteerCard = {
-    _key?: string;
-    title: string;
-    description: string;
+  _key?: string;
+  title: string;
+  description: string;
 };
 
 type DonationsPageData = {
-    title?: string;
-    description?: string;
-    volunteerSection?: {
-        sectionTitle?: string;
-        intro?: string;
-        cards?: VolunteerCard[];
-        ctaLabel?: string;
-        ctaHref?: string;
-    };
-    donationSection?: {
-        sectionTitle?: string;
-        body?: string;
-        ctaLabel?: string;
-        ctaHref?: string;
-    };
+  title?: string;
+  description?: string;
+  volunteerSection?: {
+    sectionTitle?: string;
+    intro?: string;
+    cards?: VolunteerCard[];
+    ctaLabel?: string;
+    ctaHref?: string;
+  };
+  donationSection?: {
+    sectionTitle?: string;
+    body?: string;
+    ctaLabel?: string;
+    ctaHref?: string;
+  };
 };
 
-type DonationsPageContent = {
-    title: string;
-    description: string;
-    volunteerSection: {
-        sectionTitle: string;
-        intro: string;
-        cards: VolunteerCard[];
-        ctaLabel: string;
-        ctaHref: string;
-    };
-    donationSection: {
-        sectionTitle: string;
-        body: string;
-        ctaLabel: string;
-        ctaHref: string;
-    };
+type DonationTabId = "casita" | "keepers";
+
+type KeeperTier = {
+  amount: string;
+  yearly: string;
+  name: string;
+  description: string;
 };
 
-const FALLBACK_CONTENT: DonationsPageContent = {
-    title: 'Impact the Hive',
-    description: 'Choose how you want to support our community through volunteering or donating.',
-    volunteerSection: {
-        sectionTitle: 'Volunteer Opportunities',
-        intro: '',
-        cards: [
-            {
-                title: "The Voices of Washindi-Speaker's Bureau",
-                description:
-                    'A community and platform for survivors of sexual assault and intimate partner violence to share their stories of resiliency and courage through the incorporation of the arts and craft of storytelling. Additional training is required.',
-            },
-            {
-                title: 'Hive Ambassadors',
-                description:
-                    'If you love sharing The Hive, then tabling and general outreach may interest you. In this role you will have the opportunity to connect with the community and share about The Hive at community based events.',
-            },
-            {
-                title: 'Hive Hostesses/Hosts',
-                description:
-                    'Hive Hostesses/Hosts are special event volunteers who may not have the capacity to volunteer regularly but desire to support our work. As a volunteer in this area you will be contacted to volunteer when we have Hive hosted events such as our Annual SC Survivors Summit or fundraisers.',
-            },
-            {
-                title: 'Volunteer Groups',
-                description:
-                    'We have opportunities available for groups looking to volunteer together. These opportunities for groups of 5 or more include packing Bee Boxes of support for survivors or assembling BuzzPaks for our prevention education programming for youth.',
-            },
-        ],
-        ctaLabel: 'Sign Up to Volunteer',
-        ctaHref: 'https://pointapp.org/orgs/7916',
-    },
-    donationSection: {
-        sectionTitle: 'Donation Opportunities',
-        body:
-            "Become a Steward of Hope today! Donate to The Hive and support survivors of domestic and sexual abuse who are seeking a safe community. Either donate to the Survivor's pantry or Peer Advocacy/Outreach to directly help our survivors, or sign up and become a member of the Keeper's Club and donate monthly. If you want to directly donate to the organization donate to the Hope Is Fund which helps in all day-to-day operating activities.",
-        ctaLabel: 'Donate Now',
-        ctaHref: 'https://thehivecc.networkforgood.com/projects/204053-what-is-hope',
-    },
+type TierStyle = {
+  accent: string;
 };
+
+type ImpactAreaMedia = {
+  src: string;
+};
+
+const tierStyles: TierStyle[] = [
+  { accent: "#fff0de" },
+  { accent: "#ffd9b3" },
+  { accent: "#ffc083" },
+  { accent: "#f3a351" },
+];
+
+const impactAreaMedia: ImpactAreaMedia[] = [
+  { src: "/donations/keepersclub2.avif" },
+  { src: "/donations/keepersclub3.avif" },
+  { src: "/donations/keepersclub4.avif" },
+  { src: "/donations/keepersclub5.avif" },
+];
+
+const cmsQuery = `*[_type == "page" && slug.current == "donations"][0]{
+  title,
+  description,
+  "volunteerSection": sections[_type == "sectionVolunteerCards"][0]{
+    sectionTitle,
+    intro,
+    cards[]{
+      _key,
+      title,
+      description
+    },
+    ctaLabel,
+    ctaHref
+  },
+  "donationSection": sections[_type == "sectionDonationOpportunity"][0]{
+    sectionTitle,
+    body,
+    ctaLabel,
+    ctaHref
+  }
+}`;
 
 function ActionButton({
-    href,
-    label,
-    className,
+  href,
+  label,
+  className,
 }: {
-    href: string;
-    label: string;
-    className?: string;
+  href: string;
+  label: string;
+  className?: string;
 }) {
-    const isExternal = /^https?:\/\//.test(href);
+  const isExternal = /^https?:\/\//.test(href);
 
-    return (
-        <Button asChild className={className}>
-            <a
-                href={href}
-                target={isExternal ? '_blank' : undefined}
-                rel={isExternal ? 'noopener noreferrer' : undefined}
-            >
-                {label}
-            </a>
-        </Button>
-    );
+  return (
+    <Button asChild className={className}>
+      <a
+        href={href}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+      >
+        {label}
+      </a>
+    </Button>
+  );
 }
 
-export default async function DonationsPage() {
-    const query = `*[_type == "page" && slug.current == "donations"][0]{
-        title,
-        description,
-        "volunteerSection": sections[_type == "sectionVolunteerCards"][0]{
-            sectionTitle,
-            intro,
-            cards[]{
-                _key,
-                title,
-                description
-            },
-            ctaLabel,
-            ctaHref
-        },
-        "donationSection": sections[_type == "sectionDonationOpportunity"][0]{
-            sectionTitle,
-            body,
-            ctaLabel,
-            ctaHref
+function FeatureImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="site-card overflow-hidden p-3">
+      <div className="flex w-full items-center justify-center rounded-xl bg-gray-50">
+        <Image
+          src={src}
+          alt={alt}
+          width={1200}
+          height={1500}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="h-auto max-h-[32rem] w-full rounded-xl object-contain"
+        />
+      </div>
+    </div>
+  );
+}
+
+export default function DonationsPage() {
+  const copy = useSiteCopy();
+  const pageCopy = copy.donations.page;
+  const [activeTab, setActiveTab] = useState<DonationTabId>("casita");
+  const [cmsContent, setCmsContent] = useState<DonationsPageData | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadCms = async () => {
+      try {
+        const { data } = await sanityFetch({ query: cmsQuery });
+        if (isMounted) {
+          setCmsContent((data ?? null) as DonationsPageData | null);
         }
-    }` as const;
-
-    const { data } = await sanityFetch({ query });
-    const cmsContent = (data ?? {}) as DonationsPageData;
-
-    const volunteerSection = {
-        ...FALLBACK_CONTENT.volunteerSection,
-        ...cmsContent.volunteerSection,
-        cards:
-            cmsContent.volunteerSection?.cards && cmsContent.volunteerSection.cards.length > 0
-                ? cmsContent.volunteerSection.cards
-                : FALLBACK_CONTENT.volunteerSection.cards,
+      } catch {
+        if (isMounted) {
+          setCmsContent(null);
+        }
+      }
     };
 
-    const donationSection = {
-        ...FALLBACK_CONTENT.donationSection,
-        ...cmsContent.donationSection,
-    };
+    void loadCms();
 
-    const content = {
-        title: cmsContent.title ?? FALLBACK_CONTENT.title,
-        description: cmsContent.description ?? FALLBACK_CONTENT.description,
-        volunteerSection,
-        donationSection,
+    return () => {
+      isMounted = false;
     };
+  }, []);
 
-    return (
-        <main className='min-h-screen bg-gray-50 pt-24 pb-12 px-6 lg:px-20'>
-            <header className='max-w-4xl mx-auto text-center mb-12'>
-                <h1 className='text-4xl font-extrabold tracking-tight text-gray-900'>
-                    {content.title}
-                </h1>
-                <p className='mt-4 text-lg text-gray-600'>
-                    {content.description}
+  const tabs: Array<{ id: DonationTabId; label: string }> = [
+    { id: "casita", label: pageCopy.tabs.casita },
+    { id: "keepers", label: pageCopy.tabs.keepers },
+  ];
+
+  const volunteerCards =
+    cmsContent?.volunteerSection?.cards && cmsContent.volunteerSection.cards.length > 0
+      ? cmsContent.volunteerSection.cards
+      : pageCopy.volunteerOpportunities;
+
+  return (
+    <main className="site-page">
+      <div className="site-page--narrow space-y-10">
+        <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14">
+          <div className="mx-auto max-w-7xl">
+            <p className="site-eyebrow text-white/90">{pageCopy.heroEyebrow}</p>
+            <h1 className="site-title mt-4">
+              {cmsContent?.title ?? pageCopy.heroTitle}
+            </h1>
+            <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
+              {cmsContent?.description ?? pageCopy.heroBody}
+            </p>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Button
+                asChild
+                className="h-auto rounded-full bg-hive-orange px-6 py-4 text-sm font-semibold text-white hover:bg-hive-orange/90"
+              >
+                <a
+                  href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {pageCopy.primaryCta}
+                </a>
+              </Button>
+              <Button
+                asChild
+                className="h-auto rounded-full border border-white bg-transparent px-6 py-4 text-sm font-semibold text-white hover:bg-white/10"
+              >
+                <a
+                  href="https://pointapp.org/orgs/7916"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {pageCopy.secondaryCta}
+                </a>
+              </Button>
+            </div>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-xl bg-white/95 p-5 text-left">
+                <Sparkles className="h-5 w-5 text-hive-blue" />
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-gray-500">
+                  {pageCopy.highlights[0].title}
                 </p>
-            </header>
+                <p className="mt-2 text-sm leading-6 text-gray-600">
+                  {pageCopy.highlights[0].body}
+                </p>
+              </div>
 
-            <section className='max-w-5xl mx-auto space-y-12'>
-                <article className='bg-white shadow-md rounded-2xl p-8'>
-                    <div className='flex items-start gap-6'>
-                        <div className='shrink-0'>
-                            <div className='h-16 w-16 rounded-full bg-yellow-400 flex items-center justify-center text-2xl font-bold text-white'>
-                                V
-                            </div>
-                        </div>
+              <div className="rounded-xl bg-white/95 p-5 text-left">
+                <Sparkles className="h-5 w-5 text-hive-orange" />
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-gray-500">
+                  {pageCopy.highlights[1].title}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-gray-600">
+                  {pageCopy.highlights[1].body}
+                </p>
+              </div>
 
-                        <div className='flex-1'>
-                            <h2 className='text-2xl font-semibold text-gray-900'>
-                                {content.volunteerSection.sectionTitle}
-                            </h2>
+              <div className="rounded-xl bg-white/95 p-5 text-left">
+                <Sparkles className="h-5 w-5 text-hive-orange" />
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-gray-500">
+                  {pageCopy.highlights[2].title}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-gray-600">
+                  {pageCopy.highlights[2].body}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                            {content.volunteerSection.intro ? (
-                                <p className='mt-4 text-gray-600'>
-                                    {content.volunteerSection.intro}
-                                </p>
-                            ) : null}
+        <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
+          <h2 className="site-heading">{cmsContent?.volunteerSection?.sectionTitle ?? pageCopy.volunteerTitle}</h2>
 
-                            <div className='mt-6 grid grid-cols-1 md:grid-cols-2 gap-4'>
-                                {content.volunteerSection.cards.map((card, index) => (
-                                    <div
-                                        key={card._key ?? `${card.title}-${index}`}
-                                        className='border rounded-lg p-4'
-                                    >
-                                        <h3 className='font-medium'>{card.title}</h3>
-                                        <p className='mt-2 text-sm text-gray-500'>
-                                            {card.description}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
+          <div className="mt-8 grid gap-5 lg:grid-cols-2 xl:grid-cols-4">
+            {volunteerCards.map((opportunity: VolunteerCard) => (
+              <article key={opportunity._key ?? opportunity.title} className="site-card p-5">
+                <h3 className="text-[1.15rem] font-semibold leading-tight text-hive-blue">
+                  {opportunity.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-gray-600">
+                  {opportunity.description}
+                </p>
+              </article>
+            ))}
+          </div>
 
-                            <div className='mt-8'>
-                                <ActionButton
-                                    href={content.volunteerSection.ctaHref}
-                                    label={content.volunteerSection.ctaLabel}
-                                    className='inline-flex items-center px-6 py-3 border rounded-md text-sm font-medium hover:shadow'
-                                />
-                            </div>
-                        </div>
+          {cmsContent?.volunteerSection?.ctaHref && cmsContent?.volunteerSection?.ctaLabel ? (
+            <div className="mt-8">
+              <ActionButton
+                href={cmsContent.volunteerSection.ctaHref}
+                label={cmsContent.volunteerSection.ctaLabel}
+                className="h-auto rounded-full bg-hive-orange px-6 py-3 text-sm font-semibold text-white hover:bg-hive-orange/90"
+              />
+            </div>
+          ) : null}
+        </section>
+
+        {cmsContent?.donationSection ? (
+          <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-hive-orange">
+                Support the Hive
+              </p>
+              <h2 className="site-heading mt-4">
+                {cmsContent.donationSection.sectionTitle}
+              </h2>
+              {cmsContent.donationSection.body ? (
+                <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-gray-600">
+                  {cmsContent.donationSection.body}
+                </p>
+              ) : null}
+              {cmsContent.donationSection.ctaHref && cmsContent.donationSection.ctaLabel ? (
+                <div className="mt-8">
+                  <ActionButton
+                    href={cmsContent.donationSection.ctaHref}
+                    label={cmsContent.donationSection.ctaLabel}
+                    className="h-auto rounded-full bg-hive-blue px-6 py-3 text-sm font-semibold text-white hover:bg-hive-blue/90"
+                  />
+                </div>
+              ) : null}
+            </div>
+          </section>
+        ) : null}
+
+        <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-hive-orange">
+              {pageCopy.givingSectionsEyebrow}
+            </p>
+            <h2 className="site-heading mt-4">
+              {pageCopy.givingSectionsTitle}
+            </h2>
+          </div>
+
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            {tabs.map((tab) => {
+              const isActive = tab.id === activeTab;
+
+              return (
+                <Button
+                  key={tab.id}
+                  type="button"
+                  variant="ghost"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`rounded-full border px-5 py-3 text-sm font-semibold transition ${
+                    isActive
+                      ? "border-hive-blue bg-hive-blue text-white"
+                      : "border-hive-blue text-hive-blue hover:bg-hive-blue hover:text-white"
+                  }`}
+                >
+                  {tab.label}
+                </Button>
+              );
+            })}
+          </div>
+
+          <div className="mt-12">
+            {activeTab === "casita" ? (
+              <section className="space-y-10">
+                <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+                  <article className="px-2 sm:px-4">
+                    <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-orange">
+                      {pageCopy.casita.eyebrow}
+                    </p>
+                    <h3 className="mt-4 text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
+                      {pageCopy.casita.title}
+                    </h3>
+                    <div className="mt-6 space-y-6 text-lg leading-9 text-gray-600">
+                      <p>{pageCopy.casita.paragraphs[0]}</p>
+                      <p>{pageCopy.casita.paragraphs[1]}</p>
                     </div>
-                </article>
 
-                <article className='bg-white shadow-md rounded-2xl p-8'>
-                    <div className='flex items-start gap-6'>
-                        <div className='shrink-0'>
-                            <div className='h-16 w-16 rounded-full bg-indigo-500 flex items-center justify-center text-2xl font-bold text-white'>
-                                D
-                            </div>
+                    <div className="mt-8 flex flex-wrap gap-3">
+                      <Button
+                        asChild
+                        className="h-auto rounded-full bg-hive-blue px-8 py-4 text-base font-medium text-white hover:bg-hive-blue/90"
+                      >
+                        <a
+                          href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {pageCopy.casita.cta}
+                        </a>
+                      </Button>
+                    </div>
+                  </article>
+
+                  <FeatureImage
+                    src="/donations/casitaofcare3.avif"
+                    alt={pageCopy.casita.mainAlt}
+                  />
+                </div>
+
+                <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+                  <FeatureImage
+                    src="/donations/casitaofcare2.avif"
+                    alt={pageCopy.casita.detailAlt}
+                  />
+
+                  <article className="px-2 sm:px-4">
+                    <h4 className="text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
+                      {pageCopy.casita.refugeTitle}
+                    </h4>
+                    <div className="mt-6 space-y-6 text-lg leading-9 text-gray-600">
+                      {pageCopy.casita.refugeParagraphs.map((paragraph: string) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+                  </article>
+                </div>
+
+                <div className="site-card p-6 text-center sm:p-8 lg:p-12">
+                  <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-blue">
+                    {pageCopy.casita.communityEyebrow}
+                  </p>
+                  <h4 className="mx-auto mt-4 max-w-5xl text-3xl font-bold leading-tight text-hive-blue sm:text-4xl">
+                    {pageCopy.casita.communityTitle}
+                  </h4>
+                  <p className="mx-auto mt-6 max-w-4xl text-xl leading-10 text-gray-500">
+                    {pageCopy.casita.communityLead}
+                  </p>
+
+                  <div className="mx-auto mt-10 max-w-5xl space-y-8 text-lg leading-10 text-gray-800">
+                    {pageCopy.casita.communityParagraphs.map((paragraph: string) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="site-card p-6 sm:p-8">
+                  <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-orange">
+                        {pageCopy.casita.waysEyebrow}
+                      </p>
+                      <h4 className="mt-3 text-3xl font-bold text-hive-blue">
+                        {pageCopy.casita.waysTitle}
+                      </h4>
+                      <p className="mt-4 text-base leading-8 text-gray-600">
+                        {pageCopy.casita.waysBody}
+                      </p>
+                      <div className="mt-6">
+                        <div className="flex flex-wrap gap-3">
+                          <Button
+                            asChild
+                            className="h-auto rounded-full border border-hive-blue bg-white px-6 py-4 text-base text-hive-blue hover:bg-hive-blue/5"
+                          >
+                            <a
+                              href="https://pointapp.org/orgs/7916"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {pageCopy.casita.volunteerCta}
+                            </a>
+                          </Button>
+                          <Button
+                            asChild
+                            className="h-auto rounded-full bg-hive-orange px-6 py-4 text-base font-medium text-white hover:bg-hive-orange/90"
+                          >
+                            <a
+                              href="https://www.amazon.com/hz/wishlist/ls/OIKGIA7FGP0W?ref_=wl_share"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {pageCopy.casita.wishlistCta}
+                            </a>
+                          </Button>
                         </div>
+                        <p className="mt-4 max-w-xl text-sm leading-7 text-gray-600">
+                          {pageCopy.casita.wishlistNote}
+                        </p>
+                      </div>
+                    </div>
 
-                        <div className='flex-1'>
-                            <h2 className='text-2xl font-semibold text-gray-900'>
-                                {content.donationSection.sectionTitle}
-                            </h2>
-
-                            <p className='mt-4 text-gray-600'>
-                                {content.donationSection.body}
+                    <div className="grid gap-4 sm:grid-cols-3">
+                      {pageCopy.casita.waysToGive.map(
+                        (item: { title: string; description: string }) => (
+                          <div key={item.title} className="rounded-xl bg-gray-50 p-5">
+                            <Sparkles className="h-4 w-4 text-hive-blue" />
+                            <p className="mt-3 text-base font-semibold text-hive-blue">
+                              {item.title}
                             </p>
+                            <p className="mt-3 text-sm leading-7 text-gray-600">
+                              {item.description}
+                            </p>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </div>
 
-                            <div className='mt-6'>
-                                <ActionButton
-                                    href={content.donationSection.ctaHref}
-                                    label={content.donationSection.ctaLabel}
-                                    className='px-6 py-3 bg-indigo-600 hover:opacity-95'
-                                />
-                            </div>
+                <section className="space-y-8 text-center">
+                  <div className="site-card px-6 py-10 sm:px-10 sm:py-12">
+                    <h4 className="text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
+                      {pageCopy.casita.dedicationTitle}
+                    </h4>
+                    <div className="mx-auto mt-6 max-w-4xl space-y-6 text-lg leading-10 text-gray-800">
+                      {pageCopy.casita.dedicationParagraphs.map((paragraph: string) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="site-card px-6 py-10 sm:px-10 sm:py-12">
+                    <h4 className="text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
+                      {pageCopy.casita.thanksTitle}
+                    </h4>
+                    <p className="mx-auto mt-6 max-w-4xl text-lg leading-10 text-gray-800">
+                      {pageCopy.casita.thanksBody}
+                    </p>
+                  </div>
+                </section>
+              </section>
+            ) : null}
+
+            {activeTab === "keepers" ? (
+              <section className="space-y-10">
+                <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+                  <article className="px-2 sm:px-4">
+                    <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-blue">
+                      {pageCopy.keepers.eyebrow}
+                    </p>
+                    <h3 className="mt-4 text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
+                      {pageCopy.keepers.title}
+                    </h3>
+                    <div className="mt-6 space-y-6 text-lg leading-9 text-gray-600">
+                      {pageCopy.keepers.paragraphs.map((paragraph: string) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+
+                    <div className="mt-8 flex flex-wrap gap-3">
+                      <Button
+                        asChild
+                        className="h-auto rounded-full bg-hive-blue px-8 py-4 text-base font-medium text-white hover:bg-hive-blue/90"
+                      >
+                        <a
+                          href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {pageCopy.keepers.cta}
+                        </a>
+                      </Button>
+                    </div>
+                  </article>
+
+                  <FeatureImage
+                    src="/donations/keepersclub1.avif"
+                    alt={pageCopy.keepers.mainAlt}
+                  />
+                </div>
+
+                <div className="mx-auto max-w-4xl">
+                  <article className="site-card px-6 py-8 text-center sm:px-8">
+                    <div className="flex items-center justify-center gap-3">
+                      <Star className="h-5 w-5 text-hive-orange" />
+                      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-orange">
+                        {pageCopy.keepers.benefitsEyebrow}
+                      </p>
+                    </div>
+                    <h4 className="mt-4 text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
+                      {pageCopy.keepers.benefitsTitle}
+                    </h4>
+
+                    <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                      {pageCopy.keepers.benefits.map((benefit: string) => (
+                        <div key={benefit} className="rounded-xl bg-gray-50 p-4">
+                          <p className="text-sm leading-7 text-gray-600">
+                            {benefit}
+                          </p>
                         </div>
+                      ))}
                     </div>
-                </article>
-            </section>
 
-            <section className='mt-20 max-w-7xl mx-auto'>
-                <h2 className='text-3xl font-bold text-center mb-12'>
-                    Our Partners
-                </h2>
-
-                <div className='mb-12'>
-                    <h3 className='text-xl font-semibold mb-6'>Philanthropic</h3>
-                    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
-                        <Image src='/partner-images/JLC.png' alt='Junior League of Columbia' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Allstate.webp' alt='Allstate Foundation' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/BCBS.png' alt='Bluecross Blueshield of South Carolina' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/CCCF.png' alt='central Carolina Community Foundation' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/CUL.png' alt='Columbia Urban League Inc.' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/CypressFund.png' alt='Cypress Fund' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/EF.jfif' alt='Emergent Fund' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/FF.png' alt='Fact Forward' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/GGC.png' alt='Grantmakers for Girls of Color' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/images.png' alt='WREN' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/JBC.png' alt='Just Beginnings Collaborative' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Kolibri.png' alt='Kolibri' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/LFF.png' alt='Lipscomb Family Foundation' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/LL.png' alt='Lulu Lemon' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Molina.png' alt='Molina' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/MsFoundation.png' alt='Ms. Foundation' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/NNEDV.webp' alt='National Network To End Domestic Violence' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/PMC.png' alt='Pearl Milling Company' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/SBG.webp' alt='Southern Blacks Girls and Women&apos;s Consortium' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/SCF.png' alt='Sisters of Charity Foundation of South Carolina' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/solidaire.png' alt='Solidaire' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Synovus.png' alt='Synovus' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/unum.png' alt='Unum' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Walmart.png' alt='Walmart' width={120} height={60} className='mx-auto object-contain' />
+                    <div className="mt-6 rounded-xl border border-hive-orange/20 bg-[#fff7ea] p-5 text-left">
+                      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-hive-orange">
+                        {pageCopy.keepers.contactLabel}
+                      </p>
+                      <p className="mt-2 text-sm leading-7 text-gray-600">
+                        {pageCopy.keepers.contactPrefix}{" "}
+                        <a className="site-link" href="mailto:chio@thehivecc.org">
+                          chio@thehivecc.org
+                        </a>
+                        .
+                      </p>
                     </div>
+                  </article>
                 </div>
 
-                <div className='mb-12'>
-                    <h3 className='text-xl font-semibold mb-6'>Non-Profit Organizations</h3>
-                    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
-                        <Image src='/partner-images/CT.webp' alt='Children&apos;s Trust of South Carolina' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Prisma.webp' alt='Prisma' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/DSS.jpg' alt='South Carolina Department of Social Services' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/DHEC.jpg' alt='DHEC' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/SS.webp' alt='Sowing Seeds Into The Midlands' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/STS.png' alt='Sexual trauma Services' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/SCCADVASA.png' alt='South Carolina Coalition Against Domestic Violence and Sexual Assault' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/LFL.png' alt='Lighthouse for Life' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/SASS.png' alt='Surviving Assault Standing Strong' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/PHAC.png' alt='Peace at Home Advocacy Center' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/HFH.png' alt='Habitat for Humanity' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Sistercare.png' alt='Sistercare' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/SCVAN.webp' alt='South Carolina Victim Assistance Network' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/PP.png' alt='Palmetto Place' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/E24.webp' alt='eleven24' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Epworth.png' alt='Epworth Children&apos;s Home' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/YMCA.png' alt='The YMCA' width={120} height={60} className='mx-auto object-contain' />
+                <div className="site-card p-8 sm:p-10">
+                  <div className="grid gap-8 lg:min-h-[44rem] lg:grid-cols-[0.85fr_1.15fr] lg:p-4">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-blue">
+                        {pageCopy.keepers.monthlyEyebrow}
+                      </p>
+                      <h4 className="mt-3 text-3xl font-bold text-hive-blue">
+                        {pageCopy.keepers.monthlyTitle}
+                      </h4>
+                      <p className="mt-4 text-base leading-8 text-gray-600">
+                        {pageCopy.keepers.monthlyBody}
+                      </p>
+                      <div className="mt-6 rounded-xl border border-hive-blue/20 bg-hive-blue/5 p-5">
+                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-blue">
+                          {pageCopy.keepers.focusedImpactTitle}
+                        </p>
+                        <p className="mt-3 text-sm leading-7 text-gray-600">
+                          {pageCopy.keepers.focusedImpactBody}
+                        </p>
+                      </div>
                     </div>
+
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      {pageCopy.keepers.tiers.map((tier: KeeperTier, index: number) => (
+                        <div
+                          key={tier.name}
+                          className="rounded-xl p-5 shadow-sm"
+                          style={{
+                            backgroundColor: tierStyles[index]?.accent ?? "#fff0de",
+                          }}
+                        >
+                          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-gray-500">
+                            {tier.amount}
+                          </p>
+                          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-gray-500/85">
+                            {tier.yearly}
+                          </p>
+                          <p className="mt-2 text-xl font-semibold text-gray-900">
+                            {tier.name}
+                          </p>
+                          <p className="mt-3 text-sm leading-7 text-gray-600">
+                            {tier.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className='mb-12'>
-                    <h3 className='text-xl font-semibold mb-6'>Law Enforcement</h3>
-                    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
-                        <Image src='/partner-images/Richland.jpg' alt='Richland County Sheriff Department' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/LaborOfficer.jpg' alt='Richland County Inmate Labor Officer' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Kershaw.webp' alt='Kershaw County Sheriff Department' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Benedict.jfif' alt='Benedict College Police' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Rock Hill.webp' alt='Rock Hill Police' width={120} height={60} className='mx-auto object-contain' />
-                    </div>
-                </div>
+                <section className="site-card p-6 sm:p-8">
+                  <div className="mx-auto max-w-3xl text-center">
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-orange">
+                      {pageCopy.keepers.supportedEyebrow}
+                    </p>
+                    <h4 className="mt-3 text-3xl font-bold text-hive-blue sm:text-4xl">
+                      {pageCopy.keepers.supportedTitle}
+                    </h4>
+                  </div>
 
-                <div className='mb-12'>
-                    <h3 className='text-xl font-semibold mb-6'>Education</h3>
-                    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
-                        <Image src='/partner-images/BC.png' alt='Benedict College' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/CC.png' alt='Columbia College' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/USC.jpg' alt='University of South Carolina' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/LD4.png' alt='Lexington District Four' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/richland2.jfif' alt='Richland School District Two' width={120} height={60} className='mx-auto object-contain' />
-                    </div>
-                </div>
-
-                <div className='mb-12'>
-                    <h3 className='text-xl font-semibold mb-6'>Faith Based</h3>
-                    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
-                        <Image src='/partner-images/Church1.jfif' alt='Mt. Olive AME Church' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Church2.png' alt='International Praise' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Church3.png' alt='Journey Church' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Church4.png' alt='Trinity Baptist Church' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Church5.jpg' alt='Ephesus' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Church6.png' alt='Sandhills Community Church' width={120} height={60} className='mx-auto object-contain' />
-                    </div>
-                </div>
-
-                <div>
-                    <h3 className='text-xl font-semibold mb-6'>Merchant Based</h3>
-                    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6'>
-                        <Image src='/partner-images/Merchant1.jpg' alt='Painting With a Twist' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant2.svg' alt='The Fresh Market' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant3.jpg' alt='BJ&apos;s' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant4.png' alt='Cinnamon Roll Deli' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant5.webp' alt='PDQ' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant6.jpg' alt='Kiki&apos;s Chicken and Waffles' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant7.jpg' alt='Hungry Howie&apos;s' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant8.jpg' alt='Urban Cookhouse' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant9.jpg' alt='Panera Bread' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant10.webp' alt='Blum' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant11.jpg' alt='Kendra Scott' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant12.jpg' alt='Hampton St Vineyard' width={120} height={60} className='mx-auto object-contain' />
-                        <Image src='/partner-images/Merchant13.jpg' alt='Whole Foods' width={120} height={60} className='mx-auto object-contain' />
-                    </div>
-                </div>
-            </section>
-        </main>
-    );
+                  <div className="mt-8 flex gap-4 overflow-x-auto pb-2 lg:overflow-visible">
+                    {pageCopy.keepers.impactAreas.map(
+                      (area: { title: string; alt: string }, index: number) => (
+                        <article
+                          key={area.title}
+                          className="min-w-[240px] flex-1 overflow-hidden rounded-xl bg-white shadow-[0_12px_36px_rgba(32,42,69,0.08)]"
+                        >
+                          <div className="relative aspect-[4/4.6] w-full">
+                            <Image
+                              src={impactAreaMedia[index]?.src ?? "/donations/keepersclub2.avif"}
+                              alt={area.alt}
+                              fill
+                              sizes="(max-width: 1024px) 240px, 25vw"
+                              className="object-cover"
+                            />
+                          </div>
+                          <div className="p-4">
+                            <h5 className="text-lg font-semibold leading-tight text-gray-900 xl:text-xl">
+                              {area.title}
+                            </h5>
+                          </div>
+                        </article>
+                      )
+                    )}
+                  </div>
+                </section>
+              </section>
+            ) : null}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
