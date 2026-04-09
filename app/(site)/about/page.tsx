@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -16,12 +17,6 @@ type MemberRecord = {
   extension?: string;
   image?: string;
 };
-
-const tabs: Array<{ id: MemberTabId; label: string }> = [
-  { id: "founder", label: "Founder/CEO" },
-  { id: "team", label: "Team Members" },
-  { id: "board", label: "Board of Directors" },
-];
 
 const teamMembers: MemberRecord[] = [
   {
@@ -134,7 +129,10 @@ function MemberCard({ member }: { member: MemberRecord }) {
         {member.role}
       </p>
       {member.email ? (
-        <a href={`mailto:${member.email}`} className="site-link mt-3 inline-block text-sm">
+        <a
+          href={`mailto:${member.email}`}
+          className="site-link mt-3 inline-block text-sm"
+        >
           {member.email}
         </a>
       ) : null}
@@ -181,44 +179,55 @@ function MemberGrid({
 }
 
 export default function AboutPage() {
+  const copy = useSiteCopy();
   const [activeTab, setActiveTab] = useState<MemberTabId>("founder");
+
+  const tabs: Array<{ id: MemberTabId; label: string }> = [
+    { id: "founder", label: copy.about.tabs.founder },
+    { id: "team", label: copy.about.tabs.team },
+    { id: "board", label: copy.about.tabs.board },
+  ];
+
+  const localizedTeamMembers = teamMembers.map((member, index) => ({
+    ...member,
+    ...(copy.about.teamMembers[index] ?? {}),
+  }));
+
+  const localizedBoardMembers = boardMembers.map((member, index) => ({
+    ...member,
+    ...(copy.about.boardMembers[index] ?? {}),
+  }));
 
   return (
     <main className="site-page">
       <div className="site-page--narrow space-y-10">
         <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14">
           <div className="mx-auto max-w-7xl">
-            <p className="site-eyebrow">About Us</p>
-            <h1 className="site-title mt-4">About The Hive</h1>
+            <p className="site-eyebrow">{copy.about.heroEyebrow}</p>
+            <h1 className="site-title mt-4">{copy.about.heroTitle}</h1>
           </div>
         </section>
 
-          <section className="px-6 py-6 sm:px-10 sm:py-8 lg:px-14">
-              <div className="mx-auto max-w-4xl">
-                  <Image
-                      src="/member-images/BeeEmpowered.avif"
-                      alt="Two members of The Hive sitting together"
-                      width={1200}
-                      height={1500}
-                      className="mx-auto h-auto w-full max-w-md rounded-2xl object-contain"
-                      priority
-                  />
-              </div>
-          </section>
+        <section className="px-6 py-6 sm:px-10 sm:py-8 lg:px-14">
+          <div className="mx-auto max-w-4xl">
+            <Image
+              src="/member-images/BeeEmpowered.avif"
+              alt="Two members of The Hive sitting together"
+              width={1200}
+              height={1500}
+              className="mx-auto h-auto w-full max-w-md rounded-2xl object-contain"
+              priority
+            />
+          </div>
+        </section>
 
         <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
           <div className="mx-auto max-w-4xl">
-            <h2 className="site-heading text-center">Why We Were Founded</h2>
-            <p className="site-copy text-center mt-5 text-xl">
-                We were founded in 2015 with a visionary spirit and urgent
-              objective: to help prevent violence against some of our nation&apos;s
-              most vulnerable populations of women and girls. As a survivor-led,
-              survivor-driven peer advocacy organization, we bring a
-              culturally-competent approach to preventing and educating
-              survivors and their surrounding communities about sexual assault,
-              intimate partner violence, and stalking. We exist to enhance
-              support services and prevention for women and girls of color and
-              those experiencing economic instability.
+            <h2 className="site-heading text-center">
+              {copy.about.founderSectionTitle}
+            </h2>
+            <p className="site-copy mt-5 text-center text-xl">
+              {copy.about.founderSectionBody}
             </p>
           </div>
         </section>
@@ -226,9 +235,9 @@ export default function AboutPage() {
         <section className="site-surface px-6 py-2 sm:px-10 sm:py-10 lg:px-14">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-md font-semibold uppercase tracking-[0.3em] text-hive-orange">
-              Members
+              {copy.about.membersEyebrow}
             </p>
-            <h2 className="site-heading mt-6">Meet the people shaping The Hive.</h2>
+            <h2 className="site-heading mt-6">{copy.about.membersTitle}</h2>
           </div>
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -259,72 +268,34 @@ export default function AboutPage() {
               <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
                 <article className="site-card p-6 sm:p-8">
                   <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-orange">
-                    Founder Story
+                    {copy.about.founderStoryEyebrow}
                   </p>
-                  <h2 className="site-heading mt-4">Founder/CEO</h2>
+                  <h2 className="site-heading mt-4">{copy.about.founderTitle}</h2>
 
                   <div className="mt-8 rounded-xl border border-hive-blue/20 bg-hive-blue/5 p-5">
                     <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-blue">
-                      Narrative
+                      {copy.about.founderNarrativeLabel}
                     </p>
                     <p className="mt-3 text-sm leading-7 text-gray-600">
-                      A lifelong advocate, Ashley draws from both lived
-                      experience and a strong academic foundation, holding a
-                      B.A. in Psychology from Columbia College and a Master of
-                      Social Work from the University of Washington. She is
-                      known for her ability to mobilize people, resources, and
-                      ideas to drive meaningful social change. Ashley has served
-                      in numerous philanthropic and leadership roles, including
-                      Board Member of Prisma Health Hospital Foundation, member
-                      of the Central Carolina Community Foundation African
-                      American Philanthropy Committee, and Chair of the
-                      Richland County Domestic Violence Coordinating Community
-                      Council. She currently serves on the South Carolina
-                      Victim Services Coordinating Council. Her impact has been
-                      nationally recognized. Ashley is a 2022 Aspen SOAR Fellow
-                      and recipient of honors including The State&apos;s 20 Under 40
-                      and a Jefferson Award. She is a sought-after speaker and
-                      facilitator, having presented at the Essence Festival and
-                      been featured in outlets such as Black Enterprise. Her
-                      work focuses on social and racial justice, gender-based
-                      violence, and leadership. Above all, Ashley is a mother to
-                      three children, Corinne Elizabeth, Caleb Josiah, and
-                      Collin Noah, who inspire her continued commitment to
-                      building safer, more equitable communities.
+                      {copy.about.founderNarrativeParagraphs.join(" ")}
                     </p>
                   </div>
 
                   <div className="mt-8 grid gap-5 sm:grid-cols-2">
                     <div className="rounded-xl bg-gray-50 p-5">
                       <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
-                        Founding Spark
+                        {copy.about.founderSparkTitle}
                       </p>
                       <p className="mt-3 text-sm leading-7 text-gray-600">
-                        As a survivor of sexual abuse and a native of South
-                        Carolina, Ashley Olayinka recognized the critical gaps
-                        in culturally responsive support for Black and Brown
-                        women and girls impacted by gender-based violence. Her
-                        lived experience, combined with her professional
-                        training, inspired her to create a space where survivors
-                        could access care that affirms their identities,
-                        addresses systemic barriers, and fosters true healing.
-                        This vision became The Hive.
+                        {copy.about.founderSparkBody}
                       </p>
                     </div>
                     <div className="rounded-xl bg-gray-50 p-5">
                       <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
-                        Vision Today
+                        {copy.about.founderVisionTitle}
                       </p>
                       <p className="mt-3 text-sm leading-7 text-gray-600">
-                        Today, Ashley leads The Hive alongside fellow
-                        survivors, working to decrease barriers and expand
-                        access to equitable, trauma-informed, and economically
-                        empowering services. Her leadership is rooted in
-                        healing justice, ensuring that survivors are not only
-                        supported, but also equipped to reclaim their autonomy,
-                        mental health, and economic mobility. She continues to
-                        advocate for systems change so that women and girls of
-                        color are safe, seen, and supported.
+                        {copy.about.founderVisionBody}
                       </p>
                     </div>
                   </div>
@@ -341,17 +312,13 @@ export default function AboutPage() {
                   </div>
                   <div className="mx-auto mt-6 max-w-sm text-center">
                     <h3 className="text-2xl font-bold text-hive-blue">
-                      Ashley Olayinka
+                      {copy.about.founderName}
                     </h3>
                     <p className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-gray-500">
-                      Founder &amp; Chief Executive Officer
+                      {copy.about.founderRole}
                     </p>
                     <p className="mt-4 text-sm leading-7 text-gray-600">
-                      Ashley Olayinka is a transformative leader, healing
-                      justice advocate, and founder of The Hive, a culturally
-                      specific peer advocacy organization serving Black and
-                      Brown survivors of gender-based violence in South
-                      Carolina.
+                      {copy.about.founderProfileBody}
                     </p>
                   </div>
                 </aside>
@@ -360,19 +327,19 @@ export default function AboutPage() {
 
             {activeTab === "team" ? (
               <MemberGrid
-                eyebrow="Team"
-                title="Team Members"
+                eyebrow={copy.about.teamEyebrow}
+                title={copy.about.teamTitle}
                 description=""
-                members={teamMembers}
+                members={localizedTeamMembers}
               />
             ) : null}
 
             {activeTab === "board" ? (
               <MemberGrid
-                eyebrow="Leadership"
-                title="Board of Directors"
+                eyebrow={copy.about.boardEyebrow}
+                title={copy.about.boardTitle}
                 description=""
-                members={boardMembers}
+                members={localizedBoardMembers}
               />
             ) : null}
           </div>
@@ -380,11 +347,11 @@ export default function AboutPage() {
 
         <section className="site-surface px-6 py-2 pb-20 text-center sm:px-10 lg:px-14">
           <p className="text-sm font-semibold uppercase tracking-[0.26em] text-hive-orange">
-            Join The Hive
+            {copy.about.joinEyebrow}
           </p>
-          <h2 className="site-heading mt-4">Looking to join our team?</h2>
+          <h2 className="site-heading mt-4">{copy.about.joinTitle}</h2>
           <p className="site-copy mx-auto mt-4 max-w-2xl">
-            Send your resume and a cover letter to{" "}
+            {copy.about.joinBodyPrefix}{" "}
             <a href="mailto:hello@thehivecc.org" className="site-link">
               hello@thehivecc.org
             </a>

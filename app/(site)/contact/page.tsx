@@ -1,6 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -10,12 +15,11 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import Link from "next/link";
-import Image from "next/image";
 import { sendEmail } from "@/lib/resend";
-import { useState } from "react";
 
 export default function Contact() {
+  const copy = useSiteCopy();
+
   type FormData = {
     name: string;
     email: string;
@@ -23,7 +27,7 @@ export default function Contact() {
     comment: string;
   };
 
-  const [, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
@@ -34,12 +38,12 @@ export default function Contact() {
     e.preventDefault();
 
     const form = e.currentTarget;
-    const nextData = {
+
+    const nextData: FormData = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
-      comment: (form.elements.namedItem("comment") as HTMLTextAreaElement)
-        .value,
+      comment: (form.elements.namedItem("comment") as HTMLTextAreaElement).value,
     };
 
     setFormData(nextData);
@@ -48,21 +52,20 @@ export default function Contact() {
 
   return (
     <main className="min-h-screen bg-white pt-16 text-gray-800">
-        <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-center text-white sm:px-10 sm:py-12 lg:py-14">
-            <div className="mx-auto max-w-7xl">
-                <p className="site-eyebrow text-white/90">Contact Us</p>
-                <h1 className="site-title mt-4">Get in Touch</h1>
-                <p className="mt-7 mx-auto max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
-                    We&apos;re here for you. Reach out and a member of our team will get
-                    back with you shortly.
-                </p>
-            </div>
-        </section>
+      <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-center text-white sm:px-10 sm:py-12 lg:py-14">
+        <div className="mx-auto max-w-7xl">
+          <p className="site-eyebrow text-white/90">Contact Us</p>
+          <h1 className="site-title mt-4">{copy.contact.heroTitle}</h1>
+          <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
+            {copy.contact.heroBody}
+          </p>
+        </div>
+      </section>
 
       <section className="mx-auto grid max-w-5xl grid-cols-1 items-start gap-16 px-6 py-20 md:grid-cols-2">
         <div>
           <h2 className="mb-8 text-3xl font-bold text-hive-blue">
-            Send Us a Message
+            {copy.contact.formTitle}
           </h2>
 
           <form onSubmit={handleSubmit}>
@@ -70,20 +73,20 @@ export default function Contact() {
               <FieldGroup>
                 <Field>
                   <FieldLabel htmlFor="name" className="text-xl text-gray-200">
-                    Name
+                    {copy.contact.fields.name}
                   </FieldLabel>
                   <Input
                     id="name"
                     name="name"
                     autoComplete="off"
                     required
-                    placeholder="Jane Doe"
+                    placeholder={copy.contact.fields.placeholders.name}
                     className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                   />
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="email" className="text-xl text-gray-200">
-                    Email
+                    {copy.contact.fields.email}
                   </FieldLabel>
                   <Input
                     id="email"
@@ -91,36 +94,33 @@ export default function Contact() {
                     type="email"
                     required
                     autoComplete="off"
-                    placeholder="example@gmail.com"
+                    placeholder={copy.contact.fields.placeholders.email}
                     className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                   />
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="phone" className="text-xl text-gray-200">
-                    Phone
+                    {copy.contact.fields.phone}
                   </FieldLabel>
                   <Input
                     id="phone"
                     name="phone"
                     type="phone"
                     autoComplete="off"
-                    placeholder="(XXX) XXX-XXXX"
+                    placeholder={copy.contact.fields.placeholders.phone}
                     className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                   />
                 </Field>
                 <Field>
-                  <FieldLabel
-                    htmlFor="comment"
-                    className="text-xl text-gray-200"
-                  >
-                    Comments
+                  <FieldLabel htmlFor="comment" className="text-xl text-gray-200">
+                    {copy.contact.fields.comment}
                   </FieldLabel>
                   <Textarea
                     id="comment"
                     name="comment"
                     required
                     autoComplete="off"
-                    placeholder="Enter message here"
+                    placeholder={copy.contact.fields.placeholders.comment}
                     className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                   />
                 </Field>
@@ -128,7 +128,7 @@ export default function Contact() {
                   type="submit"
                   className="bg-hive-orange text-xl text-white hover:bg-hive-orange/90"
                 >
-                  Submit
+                  {copy.contact.fields.submit}
                 </Button>
               </FieldGroup>
             </FieldSet>
@@ -137,7 +137,7 @@ export default function Contact() {
 
         <div>
           <h2 className="mb-8 text-3xl font-bold text-hive-blue">
-            Contact Information
+            {copy.contact.infoTitle}
           </h2>
 
           <div className="flex flex-col gap-6">
@@ -147,7 +147,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                  Email
+                  {copy.contact.info.email}
                 </p>
                 <Link
                   href="mailto:hello@thehivecc.org"
@@ -164,7 +164,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                  Phone
+                  {copy.contact.info.phone}
                 </p>
                 <Link
                   href="tel:+18038887725"
@@ -181,7 +181,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                  Address
+                  {copy.contact.info.address}
                 </p>
                 <Link
                   href="https://www.google.com/maps/place/The+Hive+Community+Circle/@34.044254,-81.0319489,17z/data=!3m1!4b1!4m6!3m5!1s0x88f8bb73a2107003:0x3018e4f7f747e058!8m2!3d34.044254!4d-81.029374!16s%2Fg%2F11h0mwc9st?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D"
@@ -201,7 +201,7 @@ export default function Contact() {
             <Link href="https://www.instagram.com/thehivecc/">
               <Image
                 src="/socials-images/Instagram_logo_2016.svg"
-                alt="Instagram link and logo"
+                alt={copy.contact.socials.instagram}
                 width={50}
                 height={50}
               />
@@ -210,7 +210,7 @@ export default function Contact() {
             <Link href="https://www.facebook.com/hivecc/">
               <Image
                 src="/socials-images/2023_Facebook_icon.svg"
-                alt="Facebook link and logo"
+                alt={copy.contact.socials.facebook}
                 width={50}
                 height={50}
               />
@@ -219,7 +219,7 @@ export default function Contact() {
             <Link href="https://www.linkedin.com/company/thehivecc/">
               <Image
                 src="/socials-images/LinkedIn_icon.svg"
-                alt="LinkedIn link and logo"
+                alt={copy.contact.socials.linkedin}
                 width={50}
                 height={50}
               />
@@ -228,7 +228,7 @@ export default function Contact() {
             <Link href="https://x.com/thehive_cc">
               <Image
                 src="/socials-images/X_logo_2023.svg"
-                alt="Twitter link and logo"
+                alt={copy.contact.socials.x}
                 width={50}
                 height={50}
               />

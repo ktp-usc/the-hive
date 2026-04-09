@@ -1,133 +1,62 @@
 "use client";
 
 import Link from "next/link";
+import { useSiteCopy } from "@/components/language-provider";
 
-type Card = {
+type CardMeta = {
+  id: string;
+  href?: string;
+};
+
+type SupportCard = {
   id: string;
   title: string;
   subtitle?: string;
   summary: string;
   details?: string[];
-  cta?: { label: string; href?: string };
-  badge?: string;
+  ctaLabel?: string;
 };
 
-const CARDS: Card[] = [
-  {
-    id: "peer-advocacy",
-    title: "Peer Advocacy",
-    subtitle: "Emotional support & navigation",
-    summary:
-      "Trained peer advocates provide confidential support, help you understand rights and options, and connect you to resources.",
-    details: [
-      "Ensure survivors understand their rights and options",
-      "Social-emotional support and safety planning",
-      "For primary and secondary survivors ages 11+",
-      "Services at no cost to the survivor",
-    ],
-    cta: { label: "Call 803-888-7725", href: "tel:8038887725" },
-    badge: "Confidential",
-  },
-  {
-    id: "economic-relief",
-    title: "Economic Relief",
-    subtitle: "Immediate financial support",
-    summary:
-      "Wrap-around financial support for urgent needs — housing, food, utility help, relocation, and transportation support.",
-    details: [
-      "Transitional housing",
-      "Utility support and gas vouchers",
-      "Food security and hotel accommodations",
-    ],
-    cta: { label: "Request help", href: "/contact" },
-    badge: "No cost",
-  },
-  {
-    id: "individual-counseling",
-    title: "Individual Counseling",
-    subtitle: "Licensed trauma-trained therapists",
-    summary:
-      "Professional counseling for survivors. Services are provided by licensed therapists trained in trauma treatment.",
-    details: [
-      "For survivors of sexual assault, IPV, or stalking (ages 11+)",
-      "Provided at no cost to the survivor",
-    ],
-    cta: { label: "Groups & Counseling: 803-766-8067", href: "tel:8037668067" },
-  },
-  {
-    id: "healing-circles",
-    title: "Peer Support Healing Circles",
-    subtitle: "Peer-led group healing",
-    summary:
-      "Confidential healing circles using psycho-educational and wellness-based curriculum for community and recovery.",
-    details: [
-      "Queens Gather — Women 18+",
-      "Bloom — Girls 11–18",
-      "Held in a safe and affirming space",
-    ],
-    cta: { label: "Learn about circles", href: "/support/healing-circles" },
-    badge: "Groups",
-  },
-  {
-    id: "holistic-support",
-    title: "Holistic Support",
-    subtitle: "Wrap-around support",
-    summary:
-      "Support that goes beyond one service and helps address the survivor’s full situation.",
-    details: [
-      "Goal and intervention case planning",
-      "Financial planning",
-      "Employment support",
-      "Assist in applying for additional services",
-    ],
-    badge: "Case Planning",
-  },
-  {
-    id: "refer-survivor",
-    title: "How to Refer a Survivor",
-    subtitle: "Quick contact info",
-    summary:
-      "Use these contact options to connect a survivor with General Support, Counseling, or Advocacy.",
-    details: [
-      "General Support / Advocacy: 803-888-7725",
-      "Groups and Counseling: 803-766-8067",
-      "Services are confidential",
-      "We are mandated reporters",
-    ],
-    cta: { label: "Go to Contact", href: "/contact" },
-    badge: "Referrals",
-  },
-  {
-    id: "training-prevention",
-    title: "Request Training / Prevention Programming",
-    subtitle: "Outreach events",
-    summary:
-      "Request training, prevention programming, or outreach events for your organization or community.",
-    details: [
-      "Email: hello@thehivecc.org",
-      "Call: 803-888-7725",
-      "We can coordinate outreach events",
-    ],
-    cta: { label: "Email Us", href: "mailto:hello@thehivecc.org" },
-    badge: "Outreach",
-  },
+const CARD_META: CardMeta[] = [
+  { id: "peer-advocacy", href: "tel:8038887725" },
+  { id: "economic-relief", href: "/contact" },
+  { id: "individual-counseling", href: "tel:8037668067" },
+  { id: "healing-circles", href: "/support/healing-circles" },
+  { id: "holistic-support" },
+  { id: "refer-survivor", href: "/contact" },
+  { id: "training-prevention", href: "mailto:hello@thehivecc.org" },
 ];
 
 const cardLinkClassName =
   "inline-flex items-center rounded-full border border-hive-blue px-4 py-2 text-sm font-semibold text-hive-blue transition hover:bg-hive-blue hover:text-white";
 
 export default function SupportPage() {
+  const copy = useSiteCopy();
+
+  const cards: SupportCard[] = CARD_META.map((card) => {
+    const content = copy.support.cards.find((entry) => entry.id === card.id);
+    return {
+      id: card.id,
+      href: card.href,
+      title: content?.title ?? "",
+      subtitle: content?.subtitle,
+      summary: content?.summary ?? "",
+      details: content?.details,
+      ctaLabel: content?.ctaLabel,
+    };
+  });
+
   return (
     <main className="bg-white text-gray-900">
-        <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 mt-16 text-center text-white sm:px-10 sm:py-12 lg:py-14">
-            <div className="mx-auto max-w-7xl">
-                <p className="site-eyebrow text-white/90">Support &amp; Care</p>
-                <h1 className="site-title mt-4">Support Services</h1>
-                <p className="mx-auto mt-4 max-w-3xl text-lg leading-7 mt-7 text-white/85 sm:text-xl">
-                    Compassionate support and practical resources, here when you need them.
-                </p>
-            </div>
-        </section>
+      <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 mt-16 text-center text-white sm:px-10 sm:py-12 lg:py-14">
+        <div className="mx-auto max-w-7xl">
+          <p className="site-eyebrow text-white/90">{copy.support.heroEyebrow}</p>
+          <h1 className="site-title mt-4">{copy.support.heroTitle}</h1>
+          <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
+            {copy.support.heroBody}
+          </p>
+        </div>
+      </section>
 
       <section
         aria-labelledby="services-heading"
@@ -138,11 +67,11 @@ export default function SupportPage() {
             id="services-heading"
             className="text-3xl font-bold tracking-tight text-hive-blue md:text-4xl"
           >
-            Explore Support Options
+            {copy.support.servicesHeading}
           </h2>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {CARDS.map((card) => (
+            {cards.map((card) => (
               <article
                 key={card.id}
                 tabIndex={0}
@@ -152,24 +81,19 @@ export default function SupportPage() {
                   <h3 className="text-xl font-bold text-hive-blue">
                     {card.title}
                   </h3>
-                  {card.badge && (
-                    <span className="rounded-full bg-hive-yellow/25 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-hive-blue">
-                      {card.badge}
-                    </span>
-                  )}
                 </div>
 
-                {card.subtitle && (
+                {card.subtitle ? (
                   <p className="mt-2 text-sm font-medium uppercase tracking-wide text-gray-500">
                     {card.subtitle}
                   </p>
-                )}
+                ) : null}
 
                 <p className="mt-4 text-base leading-7 text-gray-600">
                   {card.summary}
                 </p>
 
-                {card.details && (
+                {card.details ? (
                   <ul className="mt-5 space-y-2 text-sm leading-6 text-gray-700">
                     {card.details.map((detail) => (
                       <li key={detail} className="flex gap-2">
@@ -178,21 +102,21 @@ export default function SupportPage() {
                       </li>
                     ))}
                   </ul>
-                )}
+                ) : null}
 
-                {card.cta && (
+                {card.ctaLabel && card.href ? (
                   <div className="mt-6">
-                    {card.cta.href?.startsWith("/") ? (
-                      <Link href={card.cta.href} className={cardLinkClassName}>
-                        {card.cta.label}
+                    {card.href.startsWith("/") ? (
+                      <Link href={card.href} className={cardLinkClassName}>
+                        {card.ctaLabel}
                       </Link>
                     ) : (
-                      <a href={card.cta.href ?? "#"} className={cardLinkClassName}>
-                        {card.cta.label}
+                      <a href={card.href} className={cardLinkClassName}>
+                        {card.ctaLabel}
                       </a>
                     )}
                   </div>
-                )}
+                ) : null}
               </article>
             ))}
           </div>
@@ -202,7 +126,7 @@ export default function SupportPage() {
       <section className="bg-hive-blue/5 px-6 py-24 text-center">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-8">
           <h2 className="text-3xl font-bold text-hive-blue md:text-5xl">
-            Emotional Safety Plan Resource
+            {copy.support.safetyPlanTitle}
           </h2>
 
           <a
@@ -211,13 +135,11 @@ export default function SupportPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center rounded-full bg-hive-yellow px-12 py-5 text-xl font-bold text-gray-900 transition hover:bg-yellow-400"
           >
-            Click Here
+            {copy.support.safetyPlanButton}
           </a>
 
           <p className="text-lg leading-8 text-gray-600 md:text-xl">
-            If you need help filling out this form or creating a plan that meets
-            your needs, you can always contact The Hive. One of our advocates
-            can assist you. You do not have to go through this alone.
+            {copy.support.safetyPlanBody}
           </p>
         </div>
       </section>
