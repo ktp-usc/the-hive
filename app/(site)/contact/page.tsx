@@ -84,6 +84,7 @@ export default function Contact() {
                     className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                   />
                 </Field>
+
                 <Field>
                   <FieldLabel htmlFor="email" className="text-xl text-gray-200">
                     {copy.contact.fields.email}
@@ -98,6 +99,7 @@ export default function Contact() {
                     className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                   />
                 </Field>
+
                 <Field>
                   <FieldLabel htmlFor="phone" className="text-xl text-gray-200">
                     {copy.contact.fields.phone}
@@ -105,12 +107,13 @@ export default function Contact() {
                   <Input
                     id="phone"
                     name="phone"
-                    type="phone"
+                    type="tel"
                     autoComplete="off"
                     placeholder={copy.contact.fields.placeholders.phone}
                     className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                   />
                 </Field>
+
                 <Field>
                   <FieldLabel htmlFor="comment" className="text-xl text-gray-200">
                     {copy.contact.fields.comment}
@@ -124,6 +127,7 @@ export default function Contact() {
                     className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                   />
                 </Field>
+
                 <Button
                   type="submit"
                   className="bg-hive-orange text-xl text-white hover:bg-hive-orange/90"
@@ -259,7 +263,7 @@ export default function Contact() {
                     <strong>{copy.contact.newsletterFormTitle}</strong>
                   </h1>
                   <FieldLabel htmlFor="email" className="text-xl text-gray-200">
-                      {copy.contact.newsletterEmail}
+                    {copy.contact.newsletterEmail}
                   </FieldLabel>
                   <Input
                     id="email"
