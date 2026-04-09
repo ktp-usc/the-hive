@@ -233,6 +233,16 @@ export default function Contact() {
                 height={50}
               />
             </Link>
+
+            <Link
+                href="https://www.youtube.com/@thehivecommunitycircle93">
+              <Image
+                src="/socials-images/YouTube_full-color_icon_(2017).svg"
+                alt={copy.contact.socials.youtube}
+                width={60}
+                height={60}
+              />
+            </Link>
           </div>
         </div>
       </section>
