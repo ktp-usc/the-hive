@@ -20,15 +20,16 @@ export const teamMember = defineType({
     }),
     defineField({
       name: 'role',
-      title: 'Role',
+      title: 'Role / Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'bio',
-      title: 'Bio',
+      title: 'Bio / Organization note',
+      description: 'For board members: organization and title (e.g. "Ignite Leadership Solutions\\nCEO"). For the founder: a short profile summary.',
       type: 'text',
-      rows: 8,
+      rows: 4,
     }),
     defineField({
       name: 'image',
@@ -41,13 +42,72 @@ export const teamMember = defineType({
       name: 'group',
       title: 'Section',
       type: 'string',
-      description:
-        'Which About tab this person belongs to. Use Founder/CEO for the leader profile; Team Members and Board of Directors match the other two tabs. If you use a Team block on a page, align its group label with this.',
-      options: {
-        list: [...GROUP_OPTIONS],
-        layout: 'radio',
-      },
+      options: {list: [...GROUP_OPTIONS], layout: 'radio'},
       validation: (Rule) => Rule.required(),
+    }),
+
+    // ── Team member contact ────────────────────────────────────────────────
+    defineField({
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+      description: 'Displayed as a mailto link on the card (team members).',
+    }),
+    defineField({
+      name: 'extension',
+      title: 'Phone extension',
+      type: 'string',
+      description: 'e.g. ext 104',
+    }),
+
+    // ── Founder-only fields ────────────────────────────────────────────────
+    defineField({
+      name: 'storyEyebrow',
+      title: 'Story eyebrow',
+      type: 'string',
+      description: 'Founder only — small label above the story heading (e.g. "Founder Story").',
+    }),
+    defineField({
+      name: 'narrativeLabel',
+      title: 'Narrative label',
+      type: 'string',
+      description: 'Founder only — label inside the narrative box (e.g. "Narrative").',
+    }),
+    defineField({
+      name: 'narrativeParagraphs',
+      title: 'Narrative paragraphs',
+      type: 'array',
+      of: [{type: 'text'}],
+      description: 'Founder only — each item is one paragraph of the founder narrative.',
+    }),
+    defineField({
+      name: 'sparkTitle',
+      title: 'Founding spark title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'sparkBody',
+      title: 'Founding spark body',
+      type: 'text',
+      rows: 6,
+    }),
+    defineField({
+      name: 'visionTitle',
+      title: 'Vision today title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'visionBody',
+      title: 'Vision today body',
+      type: 'text',
+      rows: 6,
+    }),
+    defineField({
+      name: 'profileBody',
+      title: 'Profile summary',
+      type: 'text',
+      rows: 3,
+      description: 'Founder only — short paragraph shown beneath the photo in the aside.',
     }),
   ],
   preview: {
