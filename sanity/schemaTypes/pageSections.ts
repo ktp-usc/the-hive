@@ -148,6 +148,109 @@ export const sectionCardGrid = defineType({
   },
 })
 
+export const sectionVolunteerCards = defineType({
+  name: 'sectionVolunteerCards',
+  title: 'Volunteer cards',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'sectionTitle',
+      title: 'Section title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'intro',
+      title: 'Intro',
+      type: 'text',
+      rows: 4,
+    }),
+    defineField({
+      name: 'cards',
+      title: 'Cards',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 5,
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {title: 'title'},
+            prepare({title}) {
+              return {title: title || 'Volunteer card'}
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: 'ctaLabel',
+      title: 'Button label',
+      type: 'string',
+    }),
+    defineField({
+      name: 'ctaHref',
+      title: 'Button link',
+      type: 'string',
+      description: '/path, https://..., etc.',
+    }),
+  ],
+  preview: {
+    select: {title: 'sectionTitle'},
+    prepare({title}) {
+      return {title: title || 'Volunteer cards'}
+    },
+  },
+})
+
+export const sectionDonationOpportunity = defineType({
+  name: 'sectionDonationOpportunity',
+  title: 'Donation opportunity',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'sectionTitle',
+      title: 'Section title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'text',
+      rows: 6,
+    }),
+    defineField({
+      name: 'ctaLabel',
+      title: 'Button label',
+      type: 'string',
+    }),
+    defineField({
+      name: 'ctaHref',
+      title: 'Button link',
+      type: 'string',
+      description: '/path, https://..., etc.',
+    }),
+  ],
+  preview: {
+    select: {title: 'sectionTitle'},
+    prepare({title}) {
+      return {title: title || 'Donation opportunity'}
+    },
+  },
+})
+
 export const sectionPartnerLogos = defineType({
   name: 'sectionPartnerLogos',
   title: 'Partner logos',
@@ -237,6 +340,8 @@ export const pageSectionTypes = [
   sectionImageText,
   sectionHero,
   sectionCardGrid,
+  sectionVolunteerCards,
+  sectionDonationOpportunity,
   sectionPartnerLogos,
   sectionTeam,
   sectionGallery,
