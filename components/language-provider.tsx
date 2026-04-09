@@ -110,5 +110,5 @@ export function useLanguage() {
 export function useSiteCopy() {
   const { language } = useLanguage();
 
-  return siteCopy[language];
+  return siteCopy[language] ?? siteCopy[defaultLanguage];
 }

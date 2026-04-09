@@ -28,23 +28,13 @@ export default function LanguageToggle() {
             aria-pressed={selected}
             onClick={() => setLanguage(option.code)}
             className={cn(
-              "h-8 rounded-full px-2.5 text-[11px] font-medium sm:px-3 sm:text-xs",
+              "h-8 rounded-full px-3 text-xs font-medium sm:px-4",
               selected
                 ? "bg-hive-blue text-white hover:bg-hive-blue/90 hover:text-white"
                 : "text-gray-600 hover:text-hive-blue"
             )}
           >
-            <span aria-hidden="true" className="text-sm leading-none">
-              {option.flag}
-            </span>
-            <span className="hidden sm:inline">{option.label}</span>
-            <span className="sm:hidden">
-              {option.code === "en"
-                ? "EN"
-                : option.code === "es-CO"
-                  ? "CO"
-                  : "MX"}
-            </span>
+            <span>{option.label}</span>
           </Button>
         );
       })}
