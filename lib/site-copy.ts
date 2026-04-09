@@ -23,6 +23,7 @@ type DeepWiden<T> = T extends string
             : T;
 
 const enPartners = {
+    heroEyebrow: "Partnerships",
     heroTitle: "Our Partners",
     heroBody:
         "We are grateful for the organizations, businesses, and community leaders who support this work.",
@@ -43,6 +44,7 @@ const enPartners = {
 };
 
 const esPartners = {
+    heroEyebrow: "Alianzas",
     heroTitle: "Nuestras Personas Aliadas",
     heroBody:
         "Agradecemos a las organizaciones, negocios y líderes comunitarios que apoyan este trabajo.",
@@ -63,6 +65,7 @@ const esPartners = {
 };
 
 const enAwareness = {
+    heroEyebrow: "Prevention &amp; Awareness",
     heroTitle: "Training & Education at The Hive",
     heroBody:
         "Healing centered learning rooted in culture, care, and connection.",
@@ -83,14 +86,11 @@ const enAwareness = {
             title: "BuzzPak multiseries",
             body:
                 "Explore the foundations of healthy relationships and violence prevention. Engage real-world scenarios that address boundaries, consent, communication, and respect. Build skills to recognize harm, support peers, and create safer school and campus communities. Designed to spark dialogue, foster empathy, and equip young people to lead with awareness and accountability.",
-            details: [
-                "BuzzPak 2.0",
-                "Technical Assistance",
-                "Course: Prevention & Awareness — Start at 101, range to 300+ level (technical assistance)",
-                "TA offerings",
-                "Implement culturally specific training into your program",
-                "Train the trainer facilitator model",
-            ],
+        },
+        {
+            title: "Prevention & Awareness Course",
+            body:
+                "Our prevention and awareness courses are designed to meet organizations at every stage, from foundational 101-level learning to advanced 300+ trainings with opportunities for technical assistance. We provide tailored support to help integrate culturally specific approaches into your programs, and through our train-the-trainer model, we equip facilitators to carry this work forward in their own communities.",
         },
         {
             title: "Bee Real: Healthy Relationships & Boundaries",
@@ -180,6 +180,7 @@ const enAwareness = {
 };
 
 const esAwareness = {
+    heroEyebrow: "Prevención y Concientización",
     heroTitle: "Capacitación y Educación en The Hive",
     heroBody:
         "Aprendizaje centrado en la sanación, arraigado en la cultura, el cuidado y la conexión.",
@@ -200,14 +201,11 @@ const esAwareness = {
             title: "Serie múltiple BuzzPak",
             body:
                 "Explora los fundamentos de las relaciones saludables y la prevención de la violencia. Trabaja con escenarios reales sobre límites, consentimiento, comunicación y respeto. Desarrolla habilidades para reconocer el daño, apoyar a tus pares y crear comunidades escolares y universitarias más seguras. Diseñado para abrir diálogo, fomentar empatía y equipar a la juventud para liderar con conciencia y responsabilidad.",
-            details: [
-                "BuzzPak 2.0",
-                "Asistencia técnica",
-                "Curso: Prevención y Concientización — inicia en nivel 101 y puede llegar a 300+ (asistencia técnica)",
-                "Opciones de asistencia técnica",
-                "Implementa formación culturalmente específica en tu programa",
-                "Modelo de capacitación para facilitadoras",
-            ],
+        },
+        {
+            title: "Curso de Prevención y Concientización",
+            body:
+                "Nuestros cursos de prevención y concientización están diseñados para adaptarse a organizaciones en todas las etapas, desde aprendizaje inicial de nivel 101 hasta capacitaciones avanzadas de nivel 300+ con oportunidades de asistencia técnica. Ofrecemos apoyo personalizado para integrar enfoques culturalmente específicos en tus programas y, mediante nuestro modelo de formación de facilitadoras, fortalecemos la continuidad del trabajo en las comunidades.",
         },
         {
             title: "Bee Real: Relaciones Saludables y Límites",
@@ -298,6 +296,9 @@ const esAwareness = {
 
 const esMxAwareness = {
     ...esAwareness,
+    heroEyebrow: "Prevención y Concientización",
+    heroTitle: "Capacitación y Educación en The Hive",
+    heroBody: "Aprendizaje centrado en la sanación, arraigado en la cultura, el cuidado y la conexión.",
 
     trainingSeries: [
         {
@@ -759,6 +760,9 @@ const en = {
         safeExitAriaLabel: "Safe exit",
     },
     footer: {
+        brand: "The Hive",
+        tagline:
+            "Survivor-led support, prevention education, and practical care for women and girls across South Carolina.",
         quickLinks: "Quick Links",
         home: "Home",
         about: "About",
@@ -914,6 +918,7 @@ const en = {
         ],
     },
     support: {
+        heroEyebrow: "Support &amp; Care",
         heroTitle: "Support Services",
         heroBody: "Compassionate support and practical resources, here when you need them.",
         servicesHeading: "Explore Support Options",
@@ -1018,6 +1023,7 @@ const en = {
             "If you need help filling out this form or creating a plan that meets your needs, you can always contact The Hive. One of our advocates can assist you. You do not have to go through this alone.",
     },
     contact: {
+        heroEyebrow: "Contact Us",
         heroTitle: "Get in Touch",
         heroBody:
             "We're here for you. Reach out and a member of our team will get back with you shortly.",
@@ -1047,6 +1053,10 @@ const en = {
             linkedin: "LinkedIn link and logo",
             x: "X link and logo",
         },
+        newsletterTitle: "Check Out Our Newsletter!",
+        newsletterFormTitle: "Subscribe to Our Newsletter",
+        newsletterEmail: "Email",
+        newsletterSubmit: "Submit",
     },
     donations: {
         title: "Impact the Hive",
@@ -1089,7 +1099,7 @@ const en = {
     },
     partners: enPartners,
     awareness: enAwareness,
-    events: enEvents,
+    events: enEvents, heroEyebrow: "Community Calendar",
 } as const;
 
 export const siteCopy = {
@@ -1117,6 +1127,9 @@ export const siteCopy = {
             safeExitAriaLabel: "Salida segura",
         },
         footer: {
+            brand: "The Hive",
+            tagline:
+                "Apoyo liderado por sobrevivientes, educación en prevención y cuidado práctico para mujeres y niñas en Carolina del Sur.",
             quickLinks: "Enlaces rápidos",
             home: "Inicio",
             about: "Acerca de",
@@ -1272,6 +1285,7 @@ export const siteCopy = {
             ],
         },
         support: {
+            heroEyebrow: "Apoyo y Cuidado",
             heroTitle: "Servicios de Apoyo",
             heroBody: "Acompañamiento compasivo y recursos prácticos, aquí cuando los necesites.",
             servicesHeading: "Explora las Opciones de Apoyo",
@@ -1376,6 +1390,7 @@ export const siteCopy = {
                 "Si necesitas ayuda para completar este formulario o crear un plan que se ajuste a tus necesidades, siempre puedes comunicarte con The Hive. Una de nuestras defensoras puede ayudarte. No tienes que pasar por esto sola.",
         },
         contact: {
+            heroEyebrow: "Contáctanos",
             heroTitle: "Ponte en Contacto",
             heroBody:
                 "Estamos aquí para ti. Comunícate y una persona de nuestro equipo te responderá en breve.",
@@ -1405,6 +1420,10 @@ export const siteCopy = {
                 linkedin: "Enlace y logo de LinkedIn",
                 x: "Enlace y logo de X",
             },
+            newsletterTitle: "¡Mira Nuestro Boletín!",
+            newsletterFormTitle: "Suscríbete a Nuestro Boletín",
+            newsletterEmail: "Correo",
+            newsletterSubmit: "Enviar",
         },
         donations: {
             title: "Impulsa a The Hive",
@@ -1447,7 +1466,7 @@ export const siteCopy = {
         },
         partners: esPartners,
         awareness: esAwareness,
-        events: esEvents,
+        events: esEvents, heroEyebrow: "Calendario Comunitario",
     },
     "es-MX": {
         nav: {
@@ -1472,6 +1491,9 @@ export const siteCopy = {
             safeExitAriaLabel: "Salida segura",
         },
         footer: {
+            brand: "The Hive",
+            tagline:
+                "Apoyo liderado por sobrevivientes, educación en prevención y cuidado práctico para mujeres y niñas en Carolina del Sur.",
             quickLinks: "Enlaces rápidos",
             home: "Inicio",
             about: "Sobre nosotros",
@@ -1630,6 +1652,7 @@ export const siteCopy = {
             ],
         },
         support: {
+            heroEyebrow: "Apoyo y Cuidado",
             heroTitle: "Servicios de Apoyo",
             heroBody: "Acompañamiento compasivo y recursos prácticos, aquí cuando los necesites.",
             servicesHeading: "Explora las Opciones de Apoyo",
@@ -1734,6 +1757,7 @@ export const siteCopy = {
                 "Si necesitas ayuda para llenar este formulario o crear un plan que se ajuste a tus necesidades, siempre puedes comunicarte con The Hive. Una de nuestras defensoras puede ayudarte. No tienes que pasar por esto sola.",
         },
         contact: {
+            heroEyebrow: "Contáctanos",
             heroTitle: "Ponte en Contacto",
             heroBody:
                 "Estamos aquí para ti. Comunícate y alguien de nuestro equipo te responderá pronto.",
@@ -1763,6 +1787,10 @@ export const siteCopy = {
                 linkedin: "Enlace y logo de LinkedIn",
                 x: "Enlace y logo de X",
             },
+            newsletterTitle: "¡Consulta Nuestro Boletín!",
+            newsletterFormTitle: "Suscríbete a Nuestro Boletín",
+            newsletterEmail: "Correo",
+            newsletterSubmit: "Enviar",
         },
         donations: {
             title: "Impulsa a The Hive",
@@ -1805,6 +1833,6 @@ export const siteCopy = {
         },
         partners: esPartners,
         awareness: esMxAwareness,
-        events: esEvents,
+        events: esEvents, heroEyebrow: "Calendario Comunitario",
     },
 } satisfies Record<LanguageCode, DeepWiden<typeof en>>;

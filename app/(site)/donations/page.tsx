@@ -179,8 +179,7 @@ export default function DonationsPage() {
                   type="button"
                   variant="ghost"
                   onClick={() => setActiveTab(tab.id)}
-                  className="rounded-full border px-5 py-3 text-sm font-semibold transition"
-                >
+                  className="rounded-full border border-hive-blue px-5 py-3 text-sm font-semibold text-hive-blue transition hover:bg-hive-blue hover:text-white"                >
                   {tab.label}
                 </Button>
               );
