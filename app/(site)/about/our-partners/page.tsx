@@ -1,9 +1,12 @@
 import Image from "next/image";
 
-import { sanityFetch } from "@/sanity/lib/live";
-import { partnersPageQuery } from "@/sanity/queries/partnersPage";
+import PartnershipCarousel, {
+  type PartnershipCarouselSlide,
+} from "@/components/partnership-carousel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { sanityFetch } from "@/sanity/lib/live";
+import { partnersPageQuery } from "@/sanity/queries/partnersPage";
 
 export const dynamic = "force-dynamic";
 
@@ -11,10 +14,76 @@ export const metadata = {
   title: "Our Partners | The Hive",
 };
 
-// ── static fallback (used until Sanity content is published) ──────────────
-
 type StaticPartner = { src: string; alt: string };
 type StaticCategory = { key: string; label: string; partners: StaticPartner[] };
+type ImageTextSection = {
+  heading?: string;
+  body?: string;
+  imageUrl?: string | null;
+};
+type CarouselSection = {
+  heading?: string;
+  body?: string;
+  slides?: Array<{
+    _key?: string;
+    imageUrl?: string | null;
+    alt?: string | null;
+    title?: string;
+    caption?: string;
+  }>;
+};
+type PartnerLogoSection = {
+  _key: string;
+  groupLabel: string;
+  partners?: Array<{ name: string; logoUrl: string | null }>;
+};
+
+const DEFAULT_CAROUSEL_HEADING = "What partnering with us could look like";
+const DEFAULT_CAROUSEL_BODY =
+  "From short-term residencies to survivor-centered resource placements, we shape partnerships around the spaces and communities you already serve.";
+
+const DEFAULT_HOST_THE_HIVE = {
+  heading: "Host the Hive",
+  body:
+    "Invite The Hive into your business, workplace, or community space for a short-term residency, typically around a month or tailored to your schedule. We work alongside your team to create visible, approachable moments of support through outreach, education, and resource-sharing that meet people where they are.",
+  imageUrl: "/images/TheHive_12.06.2025_87.jpg",
+  alt: "The Hive team members and supporters gathered together at an event",
+};
+
+const DEFAULT_BEE_BOX = {
+  heading: "The Bee Box",
+  body:
+    "Sitting in a cold waiting room, trembling with fear as one contemplates disclosing their abuse is never a vision one would desire to have, but this is often the reality for survivors of abuse and violence. The Bee Box was designed to support survivors who disclose in public settings such as healthcare settings, police stations, schools, or churches. The Bee Box has been uniquely designed to provide aid and support as a survivor embarks on their journey of healing, consisting of a grounding tool, tea for care and wellness, powerful affirmations written by fellow survivors, and an all-natural room enhancer spray.",
+  imageUrl: "/partner-images/TheBeeBox.avif",
+  alt: "The Bee Box",
+};
+
+const STATIC_PARTNERSHIP_SLIDES: PartnershipCarouselSlide[] = [
+  {
+    key: "host-the-hive",
+    imageUrl: "/images/TheHive_12.06.2025_135.jpg",
+    alt: "The Hive team and community members at an event",
+    title: "A month-long community presence",
+    caption:
+      "Host The Hive in your business or workplace for a short residency that keeps survivor-centered resources visible and accessible all month long.",
+  },
+  {
+    key: "bee-box",
+    imageUrl: "/partner-images/TheBeeBox.avif",
+    alt: "The Bee Box support package for survivors",
+    title: "Support at the point of disclosure",
+    caption:
+      "Partner sites can place Bee Boxes in public-facing spaces so survivors receive grounding items, care tools, and affirming support in the moment they need it.",
+  },
+  {
+    key: "community-activation",
+    imageUrl: "/images/TheHive_12.06.2025_87.jpg",
+    alt: "The Hive staff and supporters gathered together indoors",
+    title: "A partnership tailored to your audience",
+    caption:
+      "Residencies can combine outreach, awareness moments, and educational touchpoints designed to fit the rhythm of your team, customers, or community.",
+  },
+];
 
 const STATIC_CATEGORIES: StaticCategory[] = [
   {
@@ -149,8 +218,6 @@ const STATIC_CATEGORIES: StaticCategory[] = [
   },
 ];
 
-// ── shared UI ─────────────────────────────────────────────────────────────
-
 function PartnerGrid({ partners }: { partners: { src: string; alt: string }[] }) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
@@ -174,18 +241,192 @@ function PartnerGrid({ partners }: { partners: { src: string; alt: string }[] })
   );
 }
 
-// ── page ──────────────────────────────────────────────────────────────────
+function normalizeCarouselSlides(
+  slides?: CarouselSection["slides"]
+): PartnershipCarouselSlide[] {
+  return (
+    slides
+      ?.filter(
+        (slide): slide is NonNullable<CarouselSection["slides"]>[number] & {
+          imageUrl: string;
+          title: string;
+          caption: string;
+        } => Boolean(slide?.imageUrl && slide?.title && slide?.caption)
+      )
+      .map((slide, index) => ({
+        key: slide._key ?? `cms-slide-${index}`,
+        imageUrl: slide.imageUrl,
+        alt: slide.alt || slide.title,
+        title: slide.title,
+        caption: slide.caption,
+      })) ?? []
+  );
+}
+
+function PartnershipExamplesSection({
+  heading,
+  body,
+  slides,
+}: {
+  heading: string;
+  body: string;
+  slides: PartnershipCarouselSlide[];
+}) {
+  return (
+    <section className="site-surface px-6 pt-2 sm:px-10 lg:px-14">
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="site-subheading">Partnership in Practice</p>
+        <h2 className="site-heading mt-3">{heading}</h2>
+        <p className="site-copy mt-4">{body}</p>
+      </div>
+
+      <div className="mx-auto mt-10 max-w-6xl">
+        <PartnershipCarousel slides={slides} />
+      </div>
+    </section>
+  );
+}
+
+function PartnershipOpportunitiesSection({
+  hostTheHive,
+  beeBox,
+}: {
+  hostTheHive: {
+    heading: string;
+    body: string;
+    imageUrl: string;
+    alt: string;
+  };
+  beeBox: {
+    heading: string;
+    body: string;
+    imageUrl: string;
+    alt: string;
+  };
+}) {
+  return (
+    <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
+      <div className="mx-auto max-w-3xl text-center">
+        <h2 className="site-heading">Partnership Opportunities</h2>
+        <p className="site-copy mt-4">
+          We are grateful for the organizations, businesses, and community leaders who support this work.
+        </p>
+      </div>
+
+      <div className="mx-auto mt-12 max-w-6xl space-y-8">
+        <div className="site-panel overflow-hidden">
+          <div className="grid items-stretch md:grid-cols-[1.05fr_0.95fr]">
+            <div className="p-6 sm:p-8 lg:p-10">
+              <p className="site-subheading">Residency Partnership</p>
+              <h3 className="mt-3 text-3xl font-semibold text-hive-blue">{hostTheHive.heading}</h3>
+              <p className="site-copy mt-4">{hostTheHive.body}</p>
+            </div>
+            <div className="relative min-h-72 bg-hive-blue/5">
+              <Image
+                src={hostTheHive.imageUrl}
+                alt={hostTheHive.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="site-panel overflow-hidden p-6 sm:p-8">
+          <div className="grid items-center gap-8 md:grid-cols-2">
+            <div className="relative h-72 w-full sm:h-96 md:h-full">
+              <Image
+                src={beeBox.imageUrl}
+                alt={beeBox.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div>
+              <p className="site-subheading">Resource Partnership</p>
+              <h3 className="mt-3 text-3xl font-semibold text-hive-blue">{beeBox.heading}</h3>
+              <p className="site-copy mt-4 whitespace-pre-line">{beeBox.body}</p>
+              <p className="site-copy mt-6">
+                If you are interested in becoming a partner site for the Bee Box, please reach out to{" "}
+                <a className="site-link font-medium" href="mailto:volunteer@thehivecc.org">
+                  volunteer@thehivecc.org
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PartnerCategoriesSection({
+  sections,
+}: {
+  sections: Array<{ key: string; label: string; partners: { src: string; alt: string }[] }>;
+}) {
+  return (
+    <div className="mt-12 space-y-8 pb-12">
+      {sections.map((section, index) => (
+        <Card key={section.key} className="overflow-hidden border border-gray-200 shadow-sm">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-2xl text-hive-blue">{section.label}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <PartnerGrid partners={section.partners} />
+          </CardContent>
+          {index < sections.length - 1 ? <Separator /> : null}
+        </Card>
+      ))}
+    </div>
+  );
+}
 
 export default async function OurPartnersPage() {
   const { data: page } = await sanityFetch({ query: partnersPageQuery });
 
-  // CMS version — once Sanity content is published
   if (page?.sections?.length) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const sections = page.sections as any[];
-    const hero = sections.find((s) => s._type === "sectionHero");
-    const beeBox = sections.find((s) => s._type === "sectionImageText");
-    const partnerSections = sections.filter((s) => s._type === "sectionPartnerLogos");
+    const sections = page.sections as Array<
+      | ({ _type: "sectionHero"; headline?: string } & Record<string, unknown>)
+      | ({ _type: "sectionImageText" } & ImageTextSection)
+      | ({ _type: "sectionImageCarousel" } & CarouselSection)
+      | ({ _type: "sectionPartnerLogos"; _key: string } & PartnerLogoSection)
+    >;
+
+    const hero = sections.find((section) => section._type === "sectionHero");
+    const carouselSection = sections.find(
+      (section) => section._type === "sectionImageCarousel"
+    ) as ({ _type: "sectionImageCarousel" } & CarouselSection) | undefined;
+    const imageTextSections = sections.filter(
+      (section): section is { _type: "sectionImageText" } & ImageTextSection =>
+        section._type === "sectionImageText"
+    );
+    const hostTheHiveSection = imageTextSections.find((section) =>
+      /host the hive/i.test(section.heading ?? "")
+    );
+    const beeBoxSection =
+      imageTextSections.find((section) => /bee box/i.test(section.heading ?? "")) ??
+      imageTextSections[0];
+    const partnerSections = sections.filter(
+      (section): section is { _type: "sectionPartnerLogos"; _key: string } & PartnerLogoSection =>
+        section._type === "sectionPartnerLogos"
+    );
+
+    const carouselSlides = normalizeCarouselSlides(carouselSection?.slides);
+    const partnerCategories = partnerSections.map((section) => ({
+      key: section._key,
+      label: section.groupLabel,
+      partners:
+        section.partners
+          ?.map((partner) => ({
+            src: partner.logoUrl ?? "",
+            alt: partner.name,
+          }))
+          .filter((partner) => partner.src) ?? [],
+    }));
 
     return (
       <main className="site-page">
@@ -198,58 +439,33 @@ export default async function OurPartnersPage() {
             </section>
           )}
 
-          {beeBox && (
-            <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="site-heading">{beeBox.heading}</h2>
-              </div>
-              <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
-                {beeBox.imageUrl && (
-                  <div className="relative h-72 w-full sm:h-96 md:h-full">
-                    <Image
-                      src={beeBox.imageUrl}
-                      alt="The Bee Box"
-                      fill
-                      className="object-contain"
-                      priority
-                    />
-                  </div>
-                )}
-                <div>
-                  <p className="site-copy whitespace-pre-line">{beeBox.body}</p>
-                </div>
-              </div>
-            </section>
-          )}
+          <PartnershipExamplesSection
+            heading={carouselSection?.heading ?? DEFAULT_CAROUSEL_HEADING}
+            body={carouselSection?.body ?? DEFAULT_CAROUSEL_BODY}
+            slides={carouselSlides.length ? carouselSlides : STATIC_PARTNERSHIP_SLIDES}
+          />
 
-          <div className="mt-12 space-y-8 pb-12">
-            {partnerSections.map((section, index) => {
-              const partners = (section.partners ?? []).map(
-                (p: { name: string; logoUrl: string | null }) => ({
-                  src: p.logoUrl ?? "",
-                  alt: p.name,
-                })
-              ).filter((p: { src: string }) => p.src);
+          <PartnershipOpportunitiesSection
+            hostTheHive={{
+              heading: hostTheHiveSection?.heading ?? DEFAULT_HOST_THE_HIVE.heading,
+              body: hostTheHiveSection?.body ?? DEFAULT_HOST_THE_HIVE.body,
+              imageUrl: hostTheHiveSection?.imageUrl ?? DEFAULT_HOST_THE_HIVE.imageUrl,
+              alt: DEFAULT_HOST_THE_HIVE.alt,
+            }}
+            beeBox={{
+              heading: beeBoxSection?.heading ?? DEFAULT_BEE_BOX.heading,
+              body: beeBoxSection?.body ?? DEFAULT_BEE_BOX.body,
+              imageUrl: beeBoxSection?.imageUrl ?? DEFAULT_BEE_BOX.imageUrl,
+              alt: DEFAULT_BEE_BOX.alt,
+            }}
+          />
 
-              return (
-                <Card key={section._key} className="overflow-hidden border border-gray-200 shadow-sm">
-                  <CardHeader className="pb-4">
-                    <CardTitle className="text-2xl text-hive-blue">{section.groupLabel}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <PartnerGrid partners={partners} />
-                  </CardContent>
-                  {index < partnerSections.length - 1 ? <Separator /> : null}
-                </Card>
-              );
-            })}
-          </div>
+          <PartnerCategoriesSection sections={partnerCategories} />
         </div>
       </main>
     );
   }
 
-  // Static fallback — renders immediately before Sanity content is published
   return (
     <main className="site-page">
       <div className="site-page--narrow space-y-10">
@@ -260,59 +476,24 @@ export default async function OurPartnersPage() {
           </div>
         </section>
 
-        <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="site-heading">Partnership Opportunities</h2>
-            <p className="site-copy mt-4">
-              We are grateful for the organizations, businesses, and community leaders who support this work.
-            </p>
-          </div>
+        <PartnershipExamplesSection
+          heading={DEFAULT_CAROUSEL_HEADING}
+          body={DEFAULT_CAROUSEL_BODY}
+          slides={STATIC_PARTNERSHIP_SLIDES}
+        />
 
-          <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
-            <div className="relative h-72 w-full sm:h-96 md:h-full">
-              <Image
-                src="/partner-images/TheBeeBox.avif"
-                alt="The Bee Box"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-            <div>
-              <p className="site-copy">
-                Sitting in a cold waiting room, trembling with fear as one contemplates disclosing their
-                abuse is never a vision one would desire to have, but this is often the reality for
-                survivors of abuse and violence. The Bee Box was designed to support survivors who
-                disclose in public settings such as healthcare settings, police stations, schools, or
-                churches. The Bee Box has been uniquely designed to provide aid and support as a survivor
-                embarks on their journey of healing, consisting of a grounding tool, tea for care and
-                wellness, powerful affirmations written by fellow survivors, and an all-natural room
-                enhancer spray.
-              </p>
-            </div>
-          </div>
+        <PartnershipOpportunitiesSection
+          hostTheHive={DEFAULT_HOST_THE_HIVE}
+          beeBox={DEFAULT_BEE_BOX}
+        />
 
-          <div className="mx-auto mt-16 max-w-2xl text-center">
-            <p className="site-copy text-center">
-              If you are interested in becoming a partner site for the Bee Box, please reach out to{" "}
-              <a href="mailto:volunteer@thehivecc.org">volunteer@thehivecc.org</a>
-            </p>
-          </div>
-        </section>
-
-        <div className="mt-12 space-y-8 pb-12">
-          {STATIC_CATEGORIES.map((category, index) => (
-            <Card key={category.key} className="overflow-hidden border border-gray-200 shadow-sm">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-2xl text-hive-blue">{category.label}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <PartnerGrid partners={category.partners} />
-              </CardContent>
-              {index < STATIC_CATEGORIES.length - 1 ? <Separator /> : null}
-            </Card>
-          ))}
-        </div>
+        <PartnerCategoriesSection
+          sections={STATIC_CATEGORIES.map((category) => ({
+            key: category.key,
+            label: category.label,
+            partners: category.partners,
+          }))}
+        />
       </div>
     </main>
   );
