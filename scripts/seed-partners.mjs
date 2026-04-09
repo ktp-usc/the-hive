@@ -1,9 +1,6 @@
 /**
- * Seeds the Sanity dataset with all Our Partners page content.
- * Run once with:  node scripts/seed-partners.mjs
- *
- * Requires SANITY_API_WRITE_TOKEN in .env.local (Editor role).
- * Uploads partner logo images from public/partner-images/ into Sanity assets.
+ * run once with:  node scripts/seed-partners.mjs
+ * oploads partner logo images from public/partner-images/ into sanity
  */
 
 import { createClient } from "@sanity/client";
