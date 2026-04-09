@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,13 +26,6 @@ export default function Contact() {
     comment: string;
   };
 
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    phone: "",
-    comment: "",
-  });
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -46,7 +38,6 @@ export default function Contact() {
       comment: (form.elements.namedItem("comment") as HTMLTextAreaElement).value,
     };
 
-    setFormData(nextData);
     sendEmail(nextData);
   };
 
@@ -271,7 +262,7 @@ export default function Contact() {
                     type="email"
                     required
                     autoComplete="off"
-                    placeholder="example@gmail.com"
+                    placeholder={copy.contact.fields.placeholders.email}
                     className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                   />
                 </Field>
@@ -279,7 +270,7 @@ export default function Contact() {
                   type="submit"
                   className="bg-hive-orange text-xl text-white hover:bg-hive-orange/90"
                 >
-                  Submit
+                  {copy.contact.newsletterSubmit}
                 </Button>
               </FieldGroup>
             </FieldSet>

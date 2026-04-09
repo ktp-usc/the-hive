@@ -15,7 +15,7 @@ export type FounderMember = {
   imageUrl: string | null;
   storyEyebrow?: string | null;
   narrativeLabel?: string | null;
-  narrativeParagraphs?: string[] | null;
+  narrativeParagraphs?: readonly string[] | null;
   sparkTitle?: string | null;
   sparkBody?: string | null;
   visionTitle?: string | null;
@@ -65,14 +65,14 @@ function FounderCard({ member }: { member: FounderMember }) {
     <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
       <article className="site-card p-6 sm:p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-orange">
-          {member.storyEyebrow ?? "Founder Story"}
+          {member.storyEyebrow}
         </p>
         <h2 className="site-heading mt-4">{member.role}</h2>
 
         {member.narrativeParagraphs?.length ? (
           <div className="mt-8 rounded-xl border border-hive-blue/20 bg-hive-blue/5 p-5">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-blue">
-              {member.narrativeLabel ?? "Narrative"}
+              {member.narrativeLabel}
             </p>
             <p className="mt-3 text-sm leading-7 text-gray-600">
               {member.narrativeParagraphs.join(" ")}

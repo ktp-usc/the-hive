@@ -1,13 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/components/language-provider";
+import { useLanguage, useSiteCopy } from "@/components/language-provider";
 import { cn } from "@/lib/utils";
-import { languageOptions, siteCopy } from "@/lib/site-copy";
+import { languageOptions } from "@/lib/site-copy";
 
 export default function LanguageToggle() {
   const { language, setLanguage } = useLanguage();
-  const copy = siteCopy[language];
+  const copy = useSiteCopy();
 
   return (
     <div

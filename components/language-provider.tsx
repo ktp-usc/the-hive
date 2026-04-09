@@ -11,10 +11,10 @@ import {
 
 import {
   defaultLanguage,
+  getSiteCopy,
   isLanguageCode,
   languageCookieKey,
   languageStorageKey,
-  siteCopy,
   type LanguageCode,
 } from "@/lib/site-copy";
 
@@ -110,5 +110,5 @@ export function useLanguage() {
 export function useSiteCopy() {
   const { language } = useLanguage();
 
-  return siteCopy[language] ?? siteCopy[defaultLanguage];
+  return getSiteCopy(language ?? defaultLanguage);
 }
