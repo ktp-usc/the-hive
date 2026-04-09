@@ -362,7 +362,7 @@ const enDonationsPage = {
         casita: "Casita of Care",
         keepers: "The Keepers Club",
     },
-    heroEyebrow: "Impact the Hive",
+    heroEyebrow: "Invest in the Hive",
     heroTitle:
         "Support survivors through spaces of care and sustaining generosity.",
     primaryCta: "Donate Now",
@@ -766,7 +766,7 @@ const en = {
         quickLinks: "Quick Links",
         home: "Home",
         about: "About",
-        impact: "Impact the Hive",
+        impact: "Invest in the Hive",
         partners: "Our Partners",
         support: "Support",
         awareness: "Awareness",
@@ -1059,7 +1059,7 @@ const en = {
         newsletterSubmit: "Submit",
     },
     donations: {
-        title: "Impact the Hive",
+        title: "Invest in the Hive",
         subtitle:
             "Choose how you want to support our community - through volunteering or donating.",
         volunteerTitle: "Volunteer Opportunities",
@@ -1426,7 +1426,7 @@ export const siteCopy = {
             newsletterSubmit: "Enviar",
         },
         donations: {
-            title: "Impulsa a The Hive",
+            title: "Invierta en Hive",
             subtitle:
                 "Elige cómo quieres apoyar a nuestra comunidad: a través del voluntariado o una donación.",
             volunteerTitle: "Oportunidades de Voluntariado",
@@ -1793,7 +1793,7 @@ export const siteCopy = {
             newsletterSubmit: "Enviar",
         },
         donations: {
-            title: "Impulsa a The Hive",
+            title: "Invierta en Hive",
             subtitle:
                 "Elige cómo quieres apoyar a nuestra comunidad: por medio del voluntariado o una donación.",
             volunteerTitle: "Oportunidades de Voluntariado",
