@@ -986,7 +986,7 @@ const en = {
                     "Employment support",
                     "Assist in applying for additional services",
                 ],
-                ctaLabel: "",
+                ctaLabel: "Contact",
                 badge: "Case Planning",
             },
             {
@@ -1353,7 +1353,7 @@ export const siteCopy = {
                         "Apoyo laboral",
                         "Ayuda para solicitar servicios adicionales",
                     ],
-                    ctaLabel: "",
+                    ctaLabel: "Contacto",
                     badge: "Planificación",
                 },
                 {
@@ -1720,7 +1720,7 @@ export const siteCopy = {
                         "Apoyo laboral",
                         "Ayuda para solicitar servicios adicionales",
                     ],
-                    ctaLabel: "",
+                    ctaLabel: "Contacto",
                     badge: "Planeación",
                 },
                 {
