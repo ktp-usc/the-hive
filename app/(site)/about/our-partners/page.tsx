@@ -225,7 +225,7 @@ export default function OurPartnersPage() {
                 <section
                     className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-center text-white sm:px-10 sm:py-12 lg:py-14">
                     <div className="mx-auto max-w-7xl">
-                        <p className="site-eyebrow text-white/90">Our Partners</p>
+                        <p className="site-eyebrow text-white/90">Partnerships</p>
                         <h1 className="site-title mt-4">Our Partners</h1>
                     </div>
                 </section>

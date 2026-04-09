@@ -119,17 +119,15 @@ const cardLinkClassName =
 export default function SupportPage() {
   return (
     <main className="bg-white text-gray-900">
-      <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-[#1D979C] px-6 py-28 text-center text-white">
-        <div className="mx-auto w-full max-w-5xl">
-          <h1 className="text-5xl font-bold leading-none md:text-6xl xl:text-7xl">
-            Support Services
-          </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/85 md:text-2xl">
-            Compassionate support and practical resources, here when you need
-            them.
-          </p>
-        </div>
-      </section>
+        <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 mt-16 text-center text-white sm:px-10 sm:py-12 lg:py-14">
+            <div className="mx-auto max-w-7xl">
+                <p className="site-eyebrow text-white/90">Support &amp; Care</p>
+                <h1 className="site-title mt-4">Support Services</h1>
+                <p className="mx-auto mt-4 max-w-3xl text-lg leading-7 mt-7 text-white/85 sm:text-xl">
+                    Compassionate support and practical resources, here when you need them.
+                </p>
+            </div>
+        </section>
 
       <section
         aria-labelledby="services-heading"

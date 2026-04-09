@@ -48,15 +48,16 @@ export default function Contact() {
 
   return (
     <main className="min-h-screen bg-white pt-16 text-gray-800">
-      <section className="flex flex-col items-center justify-center bg-hive-blue px-6 py-24 text-center text-white">
-        <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight md:text-6xl">
-          Get in Touch
-        </h1>
-        <p className="mt-4 max-w-xl text-lg text-white/70 md:text-xl">
-          We&apos;re here for you. Reach out and a member of our team will get
-          back with you shortly.
-        </p>
-      </section>
+        <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-center text-white sm:px-10 sm:py-12 lg:py-14">
+            <div className="mx-auto max-w-7xl">
+                <p className="site-eyebrow text-white/90">Contact Us</p>
+                <h1 className="site-title mt-4">Get in Touch</h1>
+                <p className="mt-7 mx-auto max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
+                    We&apos;re here for you. Reach out and a member of our team will get
+                    back with you shortly.
+                </p>
+            </div>
+        </section>
 
       <section className="mx-auto grid max-w-5xl grid-cols-1 items-start gap-16 px-6 py-20 md:grid-cols-2">
         <div>

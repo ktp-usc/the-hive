@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -116,7 +116,7 @@ export default function Navbar() {
           />
         </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-1 lg:ml-auto lg:flex">
           {navItems.map((item) => {
             if (item.dropdown) {
               const active = item.dropdown.some((entry) => pathname === entry.href);
@@ -141,10 +141,10 @@ export default function Navbar() {
                     type="button"
                     aria-expanded={expanded}
                     className={cn(
-                      "inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition",
+                      "inline-flex items-center gap-2 rounded-md px-4 py-2 text-md font-medium transition",
                       active
                         ? "text-hive-blue"
-                        : "text-gray-700 hover:text-hive-blue"
+                        : "text-gray-600 hover:text-hive-blue"
                     )}
                     onClick={() =>
                       setPinnedMenu((current) => {
@@ -155,9 +155,9 @@ export default function Navbar() {
                     }
                   >
                     {item.label}
-                    <span className={cn("text-xs transition", expanded && "rotate-180")}>
-                      v
-                    </span>
+                      <ChevronDown
+                          className={cn("h-4 w-4 transition-transform", expanded && "rotate-180")}
+                      />
                   </button>
 
                   {expanded ? (
@@ -181,10 +181,10 @@ export default function Navbar() {
                 href={item.href}
                 onClick={closeMenus}
                 className={cn(
-                  "rounded-md px-4 py-2 text-sm font-medium transition",
+                  "rounded-md px-4 py-2 text-md font-medium transition",
                   active
                     ? "text-hive-blue"
-                    : "text-gray-700 hover:text-hive-blue"
+                    : "text-gray-600 hover:text-hive-blue"
                 )}
               >
                 {item.label}
@@ -235,10 +235,10 @@ export default function Navbar() {
                             href={entry.href}
                             onClick={closeMenus}
                             className={cn(
-                              "block rounded-md px-3 py-2 text-sm font-medium transition",
+                              "block rounded-md px-3 py-2 text-md font-medium transition",
                               active
                                 ? "bg-hive-blue text-white"
-                                : "text-gray-700 hover:bg-white hover:text-hive-blue"
+                                : "text-gray-600 hover:bg-white hover:text-hive-blue"
                             )}
                           >
                             {entry.label}
@@ -258,10 +258,10 @@ export default function Navbar() {
                   href={item.href}
                   onClick={closeMenus}
                   className={cn(
-                    "block rounded-md px-3 py-2 text-sm font-medium transition",
+                    "block rounded-md px-3 py-2 text-md font-medium transition",
                     active
                       ? "bg-hive-blue text-white"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-hive-blue"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-hive-blue"
                   )}
                 >
                   {item.label}

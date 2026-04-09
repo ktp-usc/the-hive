@@ -164,7 +164,7 @@ export default function DonationsPage() {
           <div className="mx-auto max-w-7xl">
             <p className="site-eyebrow">Impact the Hive</p>
             <h1 className="site-title mt-4">
-              Support survivors through spaces of care and sustaining generosity.
+              Support survivors through spaces of care and sustaining generosity
             </h1>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button asChild className="h-auto rounded-full bg-hive-orange px-6 py-4 text-sm font-semibold text-white hover:bg-hive-orange/90">
