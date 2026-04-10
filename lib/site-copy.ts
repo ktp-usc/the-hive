@@ -1419,12 +1419,23 @@ export const siteCopy = {
                 name: "Nombre",
                 email: "Correo",
                 phone: "Teléfono",
+                subject: "Asunto",
                 comment: "Comentarios",
                 submit: "Enviar",
+                subjectOptions: [
+                    { value: "consulta-general", label: "Consulta General" },
+                    { value: "voluntariado", label: "Voluntariado" },
+                    { value: "alianzas", label: "Alianzas" },
+                    { value: "programas-y-servicios", label: "Programas y Servicios" },
+                    { value: "eventos-y-talleres", label: "Eventos y Talleres" },
+                    { value: "donaciones-y-patrocinios", label: "Donaciones y Patrocinios" },
+                    { value: "medios-y-prensa", label: "Medios y Prensa" },
+                ],
                 placeholders: {
                     name: "Jane Doe",
                     email: "example@gmail.com",
                     phone: "(XXX) XXX-XXXX",
+                    subject: "Selecciona un tema",
                     comment: "Escribe tu mensaje aquí",
                 },
             },
@@ -1778,6 +1789,10 @@ export const siteCopy = {
             safetyPlanButton: "Haz Clic Aquí",
             safetyPlanBody:
                 "Si necesitas ayuda para llenar este formulario o crear un plan que se ajuste a tus necesidades, siempre puedes comunicarte con The Hive. Una de nuestras defensoras puede ayudarte. No tienes que pasar por esto sola.",
+            participateTitle: "Quieres participar?",
+            participateBody:
+                "Si te interesa participar en programas o servicios con The Hive, contáctanos y te ayudaremos a encontrar la mejor opción.",
+            participateButton: "Contáctanos",
         },
         contact: {
             heroEyebrow: "Contáctanos",
