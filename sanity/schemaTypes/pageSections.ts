@@ -69,6 +69,79 @@ export const sectionImageText = defineType({
   },
 })
 
+export const carouselSlide = defineType({
+  name: 'carouselSlide',
+  title: 'Carousel slide',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {hotspot: true},
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'title',
+      title: 'Slide title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'caption',
+      title: 'Caption',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'alt',
+      title: 'Alt text',
+      type: 'string',
+      description: 'Describe the image for screen readers.',
+    }),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {
+      return {title: title || 'Carousel slide', media}
+    },
+  },
+})
+
+export const sectionImageCarousel = defineType({
+  name: 'sectionImageCarousel',
+  title: 'Image carousel',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'heading',
+      title: 'Heading',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'body',
+      title: 'Intro text',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'slides',
+      title: 'Slides',
+      type: 'array',
+      of: [{type: 'carouselSlide'}],
+      validation: (Rule) => Rule.min(1),
+    }),
+  ],
+  preview: {
+    select: {heading: 'heading'},
+    prepare({heading}) {
+      return {title: heading || 'Image carousel'}
+    },
+  },
+})
+
 export const sectionHero = defineType({
   name: 'sectionHero',
   title: 'Hero',
@@ -338,6 +411,8 @@ export const sectionGallery = defineType({
 export const pageSectionTypes = [
   sectionRichText,
   sectionImageText,
+  carouselSlide,
+  sectionImageCarousel,
   sectionHero,
   sectionCardGrid,
   sectionVolunteerCards,
