@@ -6,13 +6,26 @@ export const sectionRichText = defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'eyebrow',
+      title: 'Eyebrow',
+      type: 'string',
+      description: 'Small label above the heading (e.g. "Join The Hive").',
+    }),
+    defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
     }),
     defineField({
+      name: 'body',
+      title: 'Body text',
+      type: 'text',
+      rows: 4,
+      description: 'Plain text body. Used instead of (or alongside) the rich-text content field.',
+    }),
+    defineField({
       name: 'content',
-      title: 'Content',
+      title: 'Rich text content',
       type: 'array',
       of: [{type: 'block'}],
     }),
@@ -135,6 +148,109 @@ export const sectionCardGrid = defineType({
   },
 })
 
+export const sectionVolunteerCards = defineType({
+  name: 'sectionVolunteerCards',
+  title: 'Volunteer cards',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'sectionTitle',
+      title: 'Section title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'intro',
+      title: 'Intro',
+      type: 'text',
+      rows: 4,
+    }),
+    defineField({
+      name: 'cards',
+      title: 'Cards',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 5,
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {title: 'title'},
+            prepare({title}) {
+              return {title: title || 'Volunteer card'}
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: 'ctaLabel',
+      title: 'Button label',
+      type: 'string',
+    }),
+    defineField({
+      name: 'ctaHref',
+      title: 'Button link',
+      type: 'string',
+      description: '/path, https://..., etc.',
+    }),
+  ],
+  preview: {
+    select: {title: 'sectionTitle'},
+    prepare({title}) {
+      return {title: title || 'Volunteer cards'}
+    },
+  },
+})
+
+export const sectionDonationOpportunity = defineType({
+  name: 'sectionDonationOpportunity',
+  title: 'Donation opportunity',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'sectionTitle',
+      title: 'Section title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'text',
+      rows: 6,
+    }),
+    defineField({
+      name: 'ctaLabel',
+      title: 'Button label',
+      type: 'string',
+    }),
+    defineField({
+      name: 'ctaHref',
+      title: 'Button link',
+      type: 'string',
+      description: '/path, https://..., etc.',
+    }),
+  ],
+  preview: {
+    select: {title: 'sectionTitle'},
+    prepare({title}) {
+      return {title: title || 'Donation opportunity'}
+    },
+  },
+})
+
 export const sectionPartnerLogos = defineType({
   name: 'sectionPartnerLogos',
   title: 'Partner logos',
@@ -167,8 +283,14 @@ export const sectionTeam = defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'eyebrow',
+      title: 'Eyebrow',
+      type: 'string',
+      description: 'Small label above the section heading (e.g. "Team", "Leadership").',
+    }),
+    defineField({
       name: 'groupLabel',
-      title: 'Group label',
+      title: 'Group label / heading',
       type: 'string',
       description:
         'Heading for this block (e.g. Founder/CEO, Team Members, Board of Directors). Each team member has a Section field — keep this label aligned with that grouping.',
@@ -218,6 +340,8 @@ export const pageSectionTypes = [
   sectionImageText,
   sectionHero,
   sectionCardGrid,
+  sectionVolunteerCards,
+  sectionDonationOpportunity,
   sectionPartnerLogos,
   sectionTeam,
   sectionGallery,
