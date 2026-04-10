@@ -14,15 +14,18 @@ export default function OurImpactPage() {
     return (
         <main className="min-h-screen bg-white text-gray-800">
             {/* Hero */}
-            <section className="site-hero relative left-1/2 right-1/2 mt-16 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-white sm:px-10 sm:py-12 lg:py-14">
-                <div className="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2">
-                    <div className="text-center md:text-left">
+                <section className="site-hero relative left-1/2 right-1/2 mt-16 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-white sm:px-10 sm:py-12 lg:py-14">
+                    <div className="mx-auto max-w-4xl text-center">
                         <h1 className="site-title">{heroEyebrow}</h1>
-                        <p className="mt-7 text-lg leading-7 text-white/85 sm:text-xl">
+                        <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
                             {heroBody}
                         </p>
                     </div>
-                    <div className="mx-auto w-full max-w-xs md:max-w-sm">
+                </section>
+
+                {/* Image between hero and content */}
+                <section className="px-6 py-10 sm:px-10 lg:px-12">
+                    <div className="mx-auto w-full max-w-sm">
                         <Image
                             src="/images/hive-community.png"
                             alt="Hive community member"
@@ -31,8 +34,7 @@ export default function OurImpactPage() {
                             className="w-full rounded-2xl object-cover shadow-xl"
                         />
                     </div>
-                </div>
-            </section>
+                </section>
 
             <div className="mx-auto max-w-6xl space-y-20 px-6 py-18">
 
