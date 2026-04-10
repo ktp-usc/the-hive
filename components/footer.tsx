@@ -9,7 +9,7 @@ export default function Footer() {
     const quickLinks = [
         { label: copy.footer.home, href: "/" },
         { label: copy.footer.about, href: "/about" },
-        { label: copy.footer.impact, href: "/donations" },
+        { label: copy.footer.investInTheHive, href: "/donations" },
         { label: copy.footer.partners, href: "/about/our-partners" },
         { label: copy.footer.support, href: "/support" },
         { label: copy.footer.awareness, href: "/awareness" },

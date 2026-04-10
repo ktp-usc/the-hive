@@ -69,7 +69,7 @@ export default function Navbar() {
             label: copy.nav.about,
             dropdown: [
                 { label: copy.nav.aboutUs, href: "/about" },
-                { label: copy.nav.impact, href: "/donations" },
+                { label: copy.nav.investInTheHive, href: "/donations" },
                 { label: copy.nav.partners, href: "/about/our-partners" },
             ],
         },
@@ -114,7 +114,7 @@ export default function Navbar() {
                         alt="The Hive"
                         width={120}
                         height={40}
-                        className="h-auto w-[120px] object-contain"
+                        className="h-auto w-30 object-contain"
                         priority
                     />
                 </Link>
