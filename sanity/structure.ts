@@ -13,6 +13,16 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title('Content')
     .items([
+      S.listItem()
+        .title('Support Services Page')
+        .child(
+          S.documentList()
+            .title('Support Services Page')
+            .schemaType('page')
+            .filter('_type == "page" && slug.current == $slug')
+            .params({slug: 'support'})
+        ),
+      S.divider(),
       S.documentTypeListItem('page').title('Pages'),
       S.divider(),
       S.documentTypeListItem('contentCard').title('Cards'),
