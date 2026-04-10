@@ -69,10 +69,10 @@ export default function Navbar() {
         {
             label: copy.nav.about,
             dropdown: [
-                { label: copy.nav.aboutUs, href: "/about" },
-                { label: copy.nav.ourImpact, href: "/about/our-impact" },
-                { label: copy.nav.impact, href: "/donations" },
-                { label: copy.nav.partners, href: "/about/our-partners" },
+              { label: copy.nav.aboutUs, href: "/about" },
+              { label: copy.nav.ourImpact, href: "/about/our-impact" },
+              { label: copy.nav.investInTheHive, href: "/donations" },
+              { label: copy.nav.partners, href: "/about/our-partners" },
             ],
         },
         {
@@ -116,7 +116,7 @@ export default function Navbar() {
                         alt={copy.nav.logoAlt}
                         width={120}
                         height={40}
-                        className="h-auto w-[120px] object-contain"
+                        className="h-auto w-30 object-contain"
                         priority
                     />
                 </Link>
