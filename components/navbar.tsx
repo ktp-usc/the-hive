@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import LanguageToggle from "@/components/language-toggle";
+import SearchModal from "@/components/search-modal";
 import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -111,7 +112,7 @@ export default function Navbar() {
                 <Link href="/" onClick={closeMenus}>
                     <Image
                         src="/the-hive-logo.png"
-                        alt="The Hive"
+                        alt={copy.nav.logoAlt}
                         width={120}
                         height={40}
                         className="h-auto w-[120px] object-contain"
@@ -199,7 +200,8 @@ export default function Navbar() {
                         );
                     })}
 
-                    <div className="ml-2">
+                    <div className="ml-2 flex items-center gap-1">
+                        <SearchModal />
                         <LanguageToggle />
                     </div>
                 </div>
@@ -221,7 +223,7 @@ export default function Navbar() {
 
                 <button
                     type="button"
-                    aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+                    aria-label={mobileOpen ? copy.nav.closeMenu : copy.nav.openMenu}
                     className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-black/8 text-gray-700 lg:hidden"
                     onClick={() => setMobileOpen((value) => !value)}
                 >

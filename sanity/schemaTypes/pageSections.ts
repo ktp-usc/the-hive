@@ -69,6 +69,79 @@ export const sectionImageText = defineType({
   },
 })
 
+export const carouselSlide = defineType({
+  name: 'carouselSlide',
+  title: 'Carousel slide',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {hotspot: true},
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'title',
+      title: 'Slide title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'caption',
+      title: 'Caption',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'alt',
+      title: 'Alt text',
+      type: 'string',
+      description: 'Describe the image for screen readers.',
+    }),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {
+      return {title: title || 'Carousel slide', media}
+    },
+  },
+})
+
+export const sectionImageCarousel = defineType({
+  name: 'sectionImageCarousel',
+  title: 'Image carousel',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'heading',
+      title: 'Heading',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'body',
+      title: 'Intro text',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'slides',
+      title: 'Slides',
+      type: 'array',
+      of: [{type: 'carouselSlide'}],
+      validation: (Rule) => Rule.min(1),
+    }),
+  ],
+  preview: {
+    select: {heading: 'heading'},
+    prepare({heading}) {
+      return {title: heading || 'Image carousel'}
+    },
+  },
+})
+
 export const sectionHero = defineType({
   name: 'sectionHero',
   title: 'Hero',
@@ -144,6 +217,109 @@ export const sectionCardGrid = defineType({
     select: {title: 'sectionTitle'},
     prepare({title}) {
       return {title: title || 'Card grid'}
+    },
+  },
+})
+
+export const sectionVolunteerCards = defineType({
+  name: 'sectionVolunteerCards',
+  title: 'Volunteer cards',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'sectionTitle',
+      title: 'Section title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'intro',
+      title: 'Intro',
+      type: 'text',
+      rows: 4,
+    }),
+    defineField({
+      name: 'cards',
+      title: 'Cards',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 5,
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {title: 'title'},
+            prepare({title}) {
+              return {title: title || 'Volunteer card'}
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: 'ctaLabel',
+      title: 'Button label',
+      type: 'string',
+    }),
+    defineField({
+      name: 'ctaHref',
+      title: 'Button link',
+      type: 'string',
+      description: '/path, https://..., etc.',
+    }),
+  ],
+  preview: {
+    select: {title: 'sectionTitle'},
+    prepare({title}) {
+      return {title: title || 'Volunteer cards'}
+    },
+  },
+})
+
+export const sectionDonationOpportunity = defineType({
+  name: 'sectionDonationOpportunity',
+  title: 'Donation opportunity',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'sectionTitle',
+      title: 'Section title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'text',
+      rows: 6,
+    }),
+    defineField({
+      name: 'ctaLabel',
+      title: 'Button label',
+      type: 'string',
+    }),
+    defineField({
+      name: 'ctaHref',
+      title: 'Button link',
+      type: 'string',
+      description: '/path, https://..., etc.',
+    }),
+  ],
+  preview: {
+    select: {title: 'sectionTitle'},
+    prepare({title}) {
+      return {title: title || 'Donation opportunity'}
     },
   },
 })
@@ -235,8 +411,12 @@ export const sectionGallery = defineType({
 export const pageSectionTypes = [
   sectionRichText,
   sectionImageText,
+  carouselSlide,
+  sectionImageCarousel,
   sectionHero,
   sectionCardGrid,
+  sectionVolunteerCards,
+  sectionDonationOpportunity,
   sectionPartnerLogos,
   sectionTeam,
   sectionGallery,

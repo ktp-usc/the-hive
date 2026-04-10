@@ -36,14 +36,25 @@ export const page = defineType({
         }),
     }),
     defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      rows: 3,
+      description:
+        'Optional short intro for pages that render a subtitle/intro paragraph below the title.',
+    }),
+    defineField({
       name: 'sections',
       title: 'Sections',
       type: 'array',
       of: [
         {type: 'sectionRichText'},
         {type: 'sectionImageText'},
+        {type: 'sectionImageCarousel'},
         {type: 'sectionHero'},
         {type: 'sectionCardGrid'},
+        {type: 'sectionVolunteerCards'},
+        {type: 'sectionDonationOpportunity'},
         {type: 'sectionPartnerLogos'},
         {type: 'sectionTeam'},
         {type: 'sectionGallery'},
