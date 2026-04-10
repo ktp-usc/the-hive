@@ -65,6 +65,86 @@ const esPartners = {
     },
 };
 
+const enOurImpact = {
+    heroEyebrow: "Our Impact",
+    heroTitle: "Recognized. Published. Making Waves.",
+    heroBody:
+        "From national media features to strategic milestones, explore The Hive's growing footprint in the movement to end gender-based violence.",
+
+    mediaEyebrow: "Press & Interviews",
+    mediaTitle: "In the Media",
+    mediaItems: [
+        {
+            outlet: "Black Enterprise",
+            headline: "Changing the Conversation on Gender-Based Violence",
+            description:
+                "Featured for a survivor-led approach to healing and community care for Black women and girls in South Carolina.",
+            href: "https://www.blackenterprise.com",
+        },
+        {
+            outlet: "Essence Festival",
+            headline: "Speaker & Facilitator",
+            description:
+                "Ashley Olayinka presented on social and racial justice, gender-based violence, and leadership at the Essence Festival.",
+            href: "https://www.essence.com/festival",
+        },
+        {
+            outlet: "The State Newspaper",
+            headline: "20 Under 40",
+            description:
+                "Recognized among South Carolina's most influential young leaders for building survivor-centered spaces.",
+            href: "https://www.thestate.com",
+        },
+    ],
+
+    awardsEyebrow: "Honors & Distinctions",
+    awardsTitle: "Awards & Recognition",
+    awards: [
+        {
+            name: "Aspen SOAR Fellow",
+            year: "2022",
+            issuer: "Aspen Institute",
+            description:
+                "A highly selective fellowship recognizing emerging leaders driving systemic change in their communities.",
+        },
+        {
+            name: "Jefferson Award",
+            year: "",
+            issuer: "Jefferson Awards Foundation",
+            description:
+                "Awarded for extraordinary public service and commitment to creating lasting community impact.",
+        },
+        {
+            name: "20 Under 40",
+            year: "",
+            issuer: "The State Newspaper",
+            description:
+                "Honored among South Carolina's top young professionals making a meaningful difference.",
+        },
+    ],
+
+    documentsEyebrow: "Strategic Documents",
+    documentsTitle: "Reports & Plans",
+    documents: [
+        {
+            title: "2025 Annual Report",
+            description:
+                "Our year in review — impact numbers, stories, and highlights from across The Hive's programs.",
+            href: "https://www.thehivecc.org/2025-annual-report",
+            cta: "View Report",
+            external: true,
+        },
+        {
+            title: "2021–2026 Strategic Plan",
+            description:
+                "The roadmap guiding our growth, programs, and community vision over five years.",
+            href: "/strategic-plan.pdf",
+            cta: "Download PDF",
+            external: false,
+        },
+    ],
+};
+
 const enAwareness = {
     heroEyebrow: "Prevention &amp; Awareness",
     heroTitle: "Training & Education at The Hive",
@@ -746,6 +826,7 @@ const en = {
         about: "About Us",
         aboutUs: "About Us",
         impact: "Impact",
+        ourImpact: "Our Impact",
         partners: "Our Partners",
         support: "Support",
         supportServices: "Support Services",
@@ -1107,6 +1188,7 @@ const en = {
     },
     partners: enPartners,
     awareness: enAwareness,
+    ourImpact: enOurImpact,
     events: enEvents, heroEyebrow: "Community Calendar",
 } as const;
 
@@ -1120,6 +1202,7 @@ export const siteCopy = {
             about: "Sobre Nosotras",
             aboutUs: "Sobre Nosotras",
             impact: "Impacto",
+            ourImpact: "Nuestro Impacto",
             partners: "Nuestras Personas Aliadas",
             support: "Apoyo",
             supportServices: "Servicios de Apoyo",
@@ -1484,6 +1567,82 @@ export const siteCopy = {
         },
         partners: esPartners,
         awareness: esMxAwareness,
+        ourImpact: {
+            heroEyebrow: "Nuestro Impacto",
+            heroTitle: "Reconocidas. Publicadas. Marcando la Diferencia.",
+            heroBody:
+                "Desde apariciones en medios nacionales hasta hitos estratégicos, explora la huella creciente de The Hive en el movimiento para erradicar la violencia de género.",
+            mediaEyebrow: "Prensa y Entrevistas",
+            mediaTitle: "En los Medios",
+            mediaItems: [
+                {
+                    outlet: "Black Enterprise",
+                    headline: "Cambiando la Conversación sobre la Violencia de Género",
+                    description:
+                        "Destacada por un enfoque de sanación liderado por sobrevivientes y cuidado comunitario para mujeres y niñas negras en Carolina del Sur.",
+                    href: "https://www.blackenterprise.com",
+                },
+                {
+                    outlet: "Essence Festival",
+                    headline: "Conferencista y Facilitadora",
+                    description:
+                        "Ashley Olayinka presentó sobre justicia social y racial, violencia de género y liderazgo en el Essence Festival.",
+                    href: "https://www.essence.com/festival",
+                },
+                {
+                    outlet: "The State Newspaper",
+                    headline: "20 Menores de 40",
+                    description:
+                        "Reconocida entre los líderes jóvenes más influyentes de Carolina del Sur por construir espacios centrados en sobrevivientes.",
+                    href: "https://www.thestate.com",
+                },
+            ],
+            awardsEyebrow: "Honores y Distinciones",
+            awardsTitle: "Reconocimientos y Premios",
+            awards: [
+                {
+                    name: "Aspen SOAR Fellow",
+                    year: "2022",
+                    issuer: "Aspen Institute",
+                    description:
+                        "Una beca altamente selectiva que reconoce a líderes emergentes que impulsan cambios sistémicos en sus comunidades.",
+                },
+                {
+                    name: "Jefferson Award",
+                    year: "",
+                    issuer: "Jefferson Awards Foundation",
+                    description:
+                        "Otorgado por servicio público extraordinario y compromiso con la creación de impacto comunitario duradero.",
+                },
+                {
+                    name: "20 Menores de 40",
+                    year: "",
+                    issuer: "The State Newspaper",
+                    description:
+                        "Reconocida entre los mejores jóvenes profesionales de Carolina del Sur que generan una diferencia significativa.",
+                },
+            ],
+            documentsEyebrow: "Documentos Estratégicos",
+            documentsTitle: "Informes y Planes",
+            documents: [
+                {
+                    title: "Informe Anual 2025",
+                    description:
+                        "Nuestro año en resumen: cifras de impacto, historias y momentos destacados de los programas de The Hive.",
+                    href: "https://www.thehivecc.org/2025-annual-report",
+                    cta: "Ver Informe",
+                    external: true,
+                },
+                {
+                    title: "Plan Estratégico 2021–2026",
+                    description:
+                        "La hoja de ruta que guía nuestro crecimiento, programas y visión comunitaria durante cinco años.",
+                    href: "/strategic-plan.pdf",
+                    cta: "Descargar PDF",
+                    external: false,
+                },
+            ],
+        },
         events: esEvents, heroEyebrow: "Calendario Comunitario",
     },
 } satisfies Record<LanguageCode, DeepWiden<typeof en>>;
