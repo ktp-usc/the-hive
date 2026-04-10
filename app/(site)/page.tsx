@@ -1,41 +1,54 @@
 import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import {
+  homePageQuery,
+  type HomePageQueryResult,
+} from "@/sanity/queries/homePage";
 import HomeClient from "./home-client";
 
-type HomeImageData = {
-  heroImage?: SanityImageSource;
-  missionImage?: SanityImageSource;
-  missionDims?: {
-    width: number;
-    height: number;
-    aspectRatio: number;
-  };
-};
-
 export default async function Home() {
-  const query = `*[_type == "page" && slug.current == "landing"][0]{
-    "heroImage": sections[_type == "sectionHero"][0].images[0],
-    "missionImage": sections[_type == "sectionImageText"][0].image,
-    "missionDims": sections[_type == "sectionImageText"][0].image.asset->metadata.dimensions
-  }` as const;
+  const { data } = await sanityFetch({ query: homePageQuery });
+  const home = data as HomePageQueryResult;
 
-  const { data } = await sanityFetch({ query });
-  const homeImages = data as HomeImageData;
-
-  const heroBackgroundImageUrl = homeImages?.heroImage
-    ? urlFor(homeImages.heroImage).width(2000).height(1200).url()
+  const heroBackgroundImageUrl = home?.heroImage
+    ? urlFor(home.heroImage).width(2000).height(1200).url()
     : "/images/TheHive_12.06.2025_135.jpg";
 
-  const missionImageUrl = homeImages?.missionImage
-    ? urlFor(homeImages.missionImage).width(1200).url()
+  const missionImageUrl = home?.missionImage
+    ? urlFor(home.missionImage).width(1200).url()
     : "/images/TheHive_12.06.2025_87.jpg";
+
+  const lp = home?.landingPopup;
+  const popupReady = Boolean(
+    lp?.enabled && lp?.image && lp?.popupDims?.width && lp?.popupDims?.height,
+  );
+
+  const landingPopup =
+    popupReady && lp?.image && lp?.popupDims
+      ? (() => {
+          const maxW = 1800;
+          const w = Math.min(lp.popupDims.width, maxW);
+          const ar =
+            lp.popupDims.aspectRatio && lp.popupDims.aspectRatio > 0
+              ? lp.popupDims.aspectRatio
+              : lp.popupDims.width / lp.popupDims.height;
+          const h = Math.max(1, Math.round(w / ar));
+          return {
+            imageUrl: urlFor(lp.image).width(maxW).url(),
+            imageWidth: w,
+            imageHeight: h,
+            ctaLabel: lp.ctaLabel ?? undefined,
+            ctaHref: lp.ctaHref ?? undefined,
+          };
+        })()
+      : null;
 
   return (
     <HomeClient
       heroBackgroundImageUrl={heroBackgroundImageUrl}
       missionImageUrl={missionImageUrl}
-      missionDims={homeImages?.missionDims}
+      missionDims={home?.missionDims}
+      landingPopup={landingPopup}
     />
   );
 }

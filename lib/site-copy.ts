@@ -1,7 +1,6 @@
 export const languageOptions = [
-    { code: "en", label: "English", flag: "🇺🇸" },
-    { code: "es-CO", label: "Español (Colombia)", flag: "🇨🇴" },
-    { code: "es-MX", label: "Español (México)", flag: "🇲🇽" },
+    { code: "en", label: "English" },
+    { code: "es-MX", label: "Español" },
 ] as const;
 
 export type LanguageCode = (typeof languageOptions)[number]["code"];
@@ -28,6 +27,7 @@ const enPartners = {
     heroBody:
         "We are grateful for the organizations, businesses, and community leaders who support this work.",
     opportunitiesTitle: "Partnership Opportunities",
+    beeBoxTitle: "The Bee Box",
     beeBoxBody:
         "Sitting in a cold waiting room, trembling with fear as one contemplates disclosing their abuse is never a vision one would desire to have, but this is often the reality for survivors of abuse and violence. The Bee Box was designed to support survivors who disclose in public settings such as healthcare settings, police stations, schools, or churches. The Bee Box has been uniquely designed to provide aid and support as a survivor embarks on their journey of healing, consisting of a grounding tool, tea for care and wellness, powerful affirmations written by fellow survivors, and an all-natural room enhancer spray.",
     beeBoxPartnerPrefix:
@@ -49,6 +49,7 @@ const esPartners = {
     heroBody:
         "Agradecemos a las organizaciones, negocios y líderes comunitarios que apoyan este trabajo.",
     opportunitiesTitle: "Oportunidades de Alianza",
+    beeBoxTitle: "La Bee Box",
     beeBoxBody:
         "Estar sentada en una sala de espera fría, temblando de miedo mientras una persona contempla revelar el abuso que ha vivido, nunca es una escena que alguien quisiera imaginar, pero con frecuencia esa es la realidad para sobrevivientes de abuso y violencia. La Bee Box fue diseñada para apoyar a sobrevivientes que revelan su experiencia en espacios públicos como entornos de salud, estaciones de policía, escuelas o iglesias. La Bee Box fue creada de forma única para brindar ayuda y apoyo mientras una sobreviviente inicia su camino de sanación; incluye una herramienta de regulación, té para el cuidado y el bienestar, afirmaciones poderosas escritas por otras sobrevivientes y un spray natural para armonizar el espacio.",
     beeBoxPartnerPrefix:
@@ -342,6 +343,16 @@ const enEvents = {
     title: "Stay up to date with Hive events.",
     body:
         "This calendar is connected directly to The Hive's Google Calendar, so new events and updates appear here automatically.",
+    upcomingEyebrow: "Coming Up",
+    upcomingTitle: "A quick look at what's next.",
+    upcomingBody:
+        "These upcoming event cards sync automatically with the same Google Calendar shown below.",
+    upcomingPrivacyNote:
+        "Some entries may appear as Busy because Google Calendar is hiding public event details.",
+    upcomingLoading: "Loading upcoming events...",
+    upcomingEmpty: "No upcoming events are listed right now. Check back soon or open the full calendar.",
+    upcomingCta: "View calendar day",
+    allDayLabel: "All day",
     openCalendar: "Open Full Calendar",
     askAboutEvent: "Ask About an Event",
     iframeTitle: "The Hive events calendar",
@@ -352,6 +363,17 @@ const esEvents = {
     title: "Mantente al día con los eventos de The Hive.",
     body:
         "Este calendario está conectado directamente con el Google Calendar de The Hive, así que los nuevos eventos y actualizaciones aparecen aquí automáticamente.",
+    upcomingEyebrow: "Pr\u00f3ximamente",
+    upcomingTitle: "Un vistazo r\u00e1pido a lo que sigue.",
+    upcomingBody:
+        "Estas tarjetas de pr\u00f3ximos eventos se sincronizan autom\u00e1ticamente con el mismo Google Calendar que aparece abajo.",
+    upcomingPrivacyNote:
+        "Algunas entradas pueden aparecer como Busy porque Google Calendar est\u00e1 ocultando los detalles p\u00fablicos del evento.",
+    upcomingLoading: "Cargando pr\u00f3ximos eventos...",
+    upcomingEmpty:
+        "No hay eventos pr\u00f3ximos en este momento. Vuelve pronto o abre el calendario completo.",
+    upcomingCta: "Ver d\u00eda en el calendario",
+    allDayLabel: "Todo el d\u00eda",
     openCalendar: "Abrir Calendario Completo",
     askAboutEvent: "Preguntar por un Evento",
     iframeTitle: "Calendario de eventos de The Hive",
@@ -740,6 +762,7 @@ const esDonationsPage = {
 const en = {
     nav: {
         brand: "The Hive",
+        logoAlt: "The Hive",
         home: "Home",
         about: "About Us",
         aboutUs: "About Us",
@@ -754,6 +777,8 @@ const en = {
         keepUpdated: "Keep Updated",
         donate: "Donate",
         languageToggleLabel: "Select language",
+        openMenu: "Open navigation menu",
+        closeMenu: "Close navigation menu",
     },
     common: {
         safeExit: "Safe Exit",
@@ -808,6 +833,7 @@ const en = {
             "Your contribution helps us reach more survivors and provide the care they deserve. Every dollar makes a difference.",
         donateNow: "Donate Now",
         missionImageAlt: "Mission",
+        popupModalImageAlt: "Promotional announcement",
     },
     about: {
         tabs: {
@@ -839,6 +865,7 @@ const en = {
         founderRole: "Founder & Chief Executive Officer",
         founderProfileBody:
             "Ashley Olayinka is a transformative leader, healing justice advocate, and founder of The Hive, a culturally specific peer advocacy organization serving Black and Brown survivors of gender-based violence in South Carolina.",
+        featureImageAlt: "Two members of The Hive sitting together",
         teamEyebrow: "Team",
         teamTitle: "Team Members",
         boardEyebrow: "Leadership",
@@ -986,7 +1013,7 @@ const en = {
                     "Employment support",
                     "Assist in applying for additional services",
                 ],
-                ctaLabel: "",
+                ctaLabel: "Contact",
                 badge: "Case Planning",
             },
             {
@@ -1033,12 +1060,23 @@ const en = {
             name: "Name",
             email: "Email",
             phone: "Phone",
+            subject: "Subject",
             comment: "Comments",
             submit: "Submit",
+            subjectOptions: [
+                { value: "general-inquiry", label: "General Inquiry" },
+                { value: "volunteering", label: "Volunteering" },
+                { value: "partnerships", label: "Partnerships" },
+                { value: "programs-and-services", label: "Programs and Services" },
+                { value: "events-and-workshops", label: "Events and Workshops" },
+                { value: "donations-and-sponsorships", label: "Donations and Sponsorships" },
+                { value: "media-and-press", label: "Media and Press" },
+            ],
             placeholders: {
                 name: "Jane Doe",
                 email: "example@gmail.com",
                 phone: "(XXX) XXX-XXXX",
+                subject: "Select a topic",
                 comment: "Enter message here",
             },
         },
@@ -1052,11 +1090,15 @@ const en = {
             facebook: "Facebook link and logo",
             linkedin: "LinkedIn link and logo",
             x: "X link and logo",
+            youtube: "Youtube link and logo",
         },
         newsletterTitle: "Check Out Our Newsletter!",
         newsletterFormTitle: "Subscribe to Our Newsletter",
         newsletterEmail: "Email",
         newsletterSubmit: "Submit",
+    },
+    beeInTheKnow: {
+        title: "Bee in the Know",
     },
     donations: {
         title: "Impact the Hive",
@@ -1353,7 +1395,7 @@ export const siteCopy = {
                         "Apoyo laboral",
                         "Ayuda para solicitar servicios adicionales",
                     ],
-                    ctaLabel: "",
+                    ctaLabel: "Contacto",
                     badge: "Planificación",
                 },
                 {
@@ -1419,6 +1461,7 @@ export const siteCopy = {
                 facebook: "Enlace y logo de Facebook",
                 linkedin: "Enlace y logo de LinkedIn",
                 x: "Enlace y logo de X",
+                youtube: "Enlace y logo de Youtube",
             },
             newsletterTitle: "¡Mira Nuestro Boletín!",
             newsletterFormTitle: "Suscríbete a Nuestro Boletín",
@@ -1471,6 +1514,7 @@ export const siteCopy = {
     "es-MX": {
         nav: {
             brand: "The Hive",
+            logoAlt: "The Hive",
             home: "Inicio",
             about: "Sobre Nosotras",
             aboutUs: "Sobre Nosotras",
@@ -1485,6 +1529,8 @@ export const siteCopy = {
             keepUpdated: "Mantente al Día",
             donate: "Donar",
             languageToggleLabel: "Seleccionar idioma",
+            openMenu: "Abrir menú de navegación",
+            closeMenu: "Cerrar menú de navegación",
         },
         common: {
             safeExit: "Salida Segura",
@@ -1542,6 +1588,7 @@ export const siteCopy = {
                 "Tu contribución nos ayuda a llegar a más sobrevivientes y brindarles el cuidado que merecen. Cada dólar hace la diferencia.",
             donateNow: "Dona Ahora",
             missionImageAlt: "Misión",
+            popupModalImageAlt: "Anuncio promocional",
         },
         about: {
             tabs: {
@@ -1573,6 +1620,7 @@ export const siteCopy = {
             founderRole: "Fundadora y Directora Ejecutiva",
             founderProfileBody:
                 "Ashley Olayinka es una líder transformadora, defensora de la justicia sanadora y fundadora de The Hive, una organización de defensa entre pares culturalmente específica que acompaña a sobrevivientes negras y morenas de violencia de género en Carolina del Sur.",
+            featureImageAlt: "Dos integrantes de The Hive sentadas juntas",
             teamEyebrow: "Equipo",
             teamTitle: "Equipo",
             boardEyebrow: "Liderazgo",
@@ -1720,7 +1768,7 @@ export const siteCopy = {
                         "Apoyo laboral",
                         "Ayuda para solicitar servicios adicionales",
                     ],
-                    ctaLabel: "",
+                    ctaLabel: "Contacto",
                     badge: "Planeación",
                 },
                 {
@@ -1767,12 +1815,23 @@ export const siteCopy = {
                 name: "Nombre",
                 email: "Correo",
                 phone: "Teléfono",
+                subject: "Asunto",
                 comment: "Comentarios",
                 submit: "Enviar",
+                subjectOptions: [
+                    { value: "consulta-general", label: "Consulta General" },
+                    { value: "voluntariado", label: "Voluntariado" },
+                    { value: "alianzas", label: "Alianzas" },
+                    { value: "programas-y-servicios", label: "Programas y Servicios" },
+                    { value: "eventos-y-talleres", label: "Eventos y Talleres" },
+                    { value: "donaciones-y-patrocinios", label: "Donaciones y Patrocinios" },
+                    { value: "medios-y-prensa", label: "Medios y Prensa" },
+                ],
                 placeholders: {
                     name: "Jane Doe",
                     email: "example@gmail.com",
                     phone: "(XXX) XXX-XXXX",
+                    subject: "Selecciona un tema",
                     comment: "Escribe tu mensaje aquí",
                 },
             },
@@ -1786,11 +1845,15 @@ export const siteCopy = {
                 facebook: "Enlace y logo de Facebook",
                 linkedin: "Enlace y logo de LinkedIn",
                 x: "Enlace y logo de X",
+                youtube: "Enlace y logo de Youtube",
             },
             newsletterTitle: "¡Consulta Nuestro Boletín!",
             newsletterFormTitle: "Suscríbete a Nuestro Boletín",
             newsletterEmail: "Correo",
             newsletterSubmit: "Enviar",
+        },
+        beeInTheKnow: {
+            title: "Entérate con Bee",
         },
         donations: {
             title: "Impulsa a The Hive",
@@ -1836,3 +1899,37 @@ export const siteCopy = {
         events: esEvents, heroEyebrow: "Calendario Comunitario",
     },
 } satisfies Record<LanguageCode, DeepWiden<typeof en>>;
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+    return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function mergeLocaleCopy<T>(base: T, override: unknown): T {
+    if (override === undefined) {
+        return base;
+    }
+
+    if (Array.isArray(base)) {
+        return (Array.isArray(override) ? override : base) as T;
+    }
+
+    if (isPlainObject(base) && isPlainObject(override)) {
+        const mergedEntries = Object.keys(base).map((key) => [
+            key,
+            mergeLocaleCopy(base[key], override[key]),
+        ]);
+
+        return Object.fromEntries(mergedEntries) as T;
+    }
+
+    return override as T;
+}
+
+const resolvedSiteCopy = {
+    en,
+    "es-MX": mergeLocaleCopy(en, siteCopy["es-MX"]),
+} satisfies Record<LanguageCode, DeepWiden<typeof en>>;
+
+export function getSiteCopy(language: LanguageCode) {
+    return resolvedSiteCopy[language] ?? resolvedSiteCopy[defaultLanguage];
+}

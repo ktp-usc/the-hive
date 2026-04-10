@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Sparkles, Star } from "lucide-react";
 
-import { useSiteCopy } from "@/components/language-provider";
+import { useLanguage, useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 
 type VolunteerCard = {
@@ -109,6 +109,8 @@ export default function DonationsClient({
     cmsContent: DonationsPageData | null;
 }) {
     const copy = useSiteCopy();
+    const { language } = useLanguage();
+    const useCmsText = language === "en";
     const pageCopy = copy.donations.page;
     const [activeTab, setActiveTab] = useState<DonationTabId>("casita");
 
@@ -117,10 +119,41 @@ export default function DonationsClient({
         { id: "keepers", label: pageCopy.tabs.keepers },
     ];
 
+    const heroTitle = useCmsText && cmsContent?.title ? cmsContent.title : pageCopy.heroTitle;
+    const heroBody =
+        useCmsText && cmsContent?.description
+            ? cmsContent.description
+            : copy.donations.subtitle;
     const volunteerCards =
-        cmsContent?.volunteerSection?.cards && cmsContent.volunteerSection.cards.length > 0
+        useCmsText && cmsContent?.volunteerSection?.cards && cmsContent.volunteerSection.cards.length > 0
             ? cmsContent.volunteerSection.cards
             : pageCopy.volunteerOpportunities;
+    const volunteerTitle =
+        useCmsText && cmsContent?.volunteerSection?.sectionTitle
+            ? cmsContent.volunteerSection.sectionTitle
+            : pageCopy.volunteerTitle;
+    const volunteerCtaHref = cmsContent?.volunteerSection?.ctaHref;
+    const volunteerCtaLabel =
+        useCmsText && cmsContent?.volunteerSection?.ctaLabel
+            ? cmsContent.volunteerSection.ctaLabel
+            : volunteerCtaHref
+                ? copy.donations.volunteerButton
+                : undefined;
+    const donationSection = cmsContent?.donationSection;
+    const donationTitle =
+        useCmsText && donationSection?.sectionTitle
+            ? donationSection.sectionTitle
+            : copy.donations.donationTitle;
+    const donationBody =
+        useCmsText && donationSection?.body
+            ? donationSection.body
+            : copy.donations.donationBody;
+    const donationCtaLabel =
+        useCmsText && donationSection?.ctaLabel
+            ? donationSection.ctaLabel
+            : donationSection?.ctaHref
+                ? copy.donations.donationButton
+                : undefined;
 
     return (
         <main className="site-page">
@@ -128,11 +161,9 @@ export default function DonationsClient({
                 <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14">
                     <div className="mx-auto max-w-7xl">
                         <p className="site-eyebrow text-white/90">{pageCopy.heroEyebrow}</p>
-                        <h1 className="site-title mt-4">
-                            {cmsContent?.title ?? pageCopy.heroTitle}
-                        </h1>
+                        <h1 className="site-title mt-4">{heroTitle}</h1>
                         <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
-                            {cmsContent?.description ?? copy.donations.subtitle}
+                            {heroBody}
                         </p>
                         <div className="mt-8 flex flex-wrap justify-center gap-3">
                             <Button
@@ -196,9 +227,7 @@ export default function DonationsClient({
                 </section>
 
                 <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
-                    <h2 className="site-heading">
-                        {cmsContent?.volunteerSection?.sectionTitle ?? pageCopy.volunteerTitle}
-                    </h2>
+                    <h2 className="site-heading">{volunteerTitle}</h2>
 
                     <div className="mt-8 grid gap-5 lg:grid-cols-2 xl:grid-cols-4">
                         {volunteerCards.map((opportunity: VolunteerCard) => (
@@ -213,36 +242,34 @@ export default function DonationsClient({
                         ))}
                     </div>
 
-                    {cmsContent?.volunteerSection?.ctaHref && cmsContent?.volunteerSection?.ctaLabel ? (
+                    {volunteerCtaHref && volunteerCtaLabel ? (
                         <div className="mt-8 flex justify-center">
                             <ActionButton
-                                href={cmsContent.volunteerSection.ctaHref}
-                                label={cmsContent.volunteerSection.ctaLabel}
+                                href={volunteerCtaHref}
+                                label={volunteerCtaLabel}
                                 className="h-auto rounded-full bg-hive-orange px-6 py-3 text-sm font-semibold text-white hover:bg-hive-orange/90"
                             />
                         </div>
                     ) : null}
                 </section>
 
-                {cmsContent?.donationSection ? (
+                {donationSection ? (
                     <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
                         <div className="mx-auto max-w-4xl text-center">
                             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-hive-orange">
-                                Support the Hive
+                                {copy.donations.title}
                             </p>
-                            <h2 className="site-heading mt-4">
-                                {cmsContent.donationSection.sectionTitle}
-                            </h2>
-                            {cmsContent.donationSection.body ? (
+                            <h2 className="site-heading mt-4">{donationTitle}</h2>
+                            {donationBody ? (
                                 <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-gray-600">
-                                    {cmsContent.donationSection.body}
+                                    {donationBody}
                                 </p>
                             ) : null}
-                            {cmsContent.donationSection.ctaHref && cmsContent.donationSection.ctaLabel ? (
+                            {donationSection.ctaHref && donationCtaLabel ? (
                                 <div className="mt-8">
                                     <ActionButton
-                                        href={cmsContent.donationSection.ctaHref}
-                                        label={cmsContent.donationSection.ctaLabel}
+                                        href={donationSection.ctaHref}
+                                        label={donationCtaLabel}
                                         className="h-auto rounded-full bg-hive-blue px-6 py-3 text-sm font-semibold text-white hover:bg-hive-blue/90"
                                     />
                                 </div>
