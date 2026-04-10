@@ -229,26 +229,47 @@ export default function Contact() {
               />
             </Link>
           </div>
+
         </div>
       </section>
 
       <section className="px-6 py-6 pb-16">
-        <Link
-          href="https://thehivecc.dm.networkforgood.com/emails/first_name-hope-is-growing-in-south-carolina-thanks-to-you-9bd6cd6f-d221-4744-a983-fa7ee063e49a"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <div className="mx-auto mt-10 flex max-w-md justify-center rounded-2xl bg-hive-orange py-10 text-white hover:bg-hive-orange/90">
-            <h1 className="text-3xl">
-              <strong>{copy.contact.newsletterTitle}</strong>
-            </h1>
+        <div className="mx-auto grid max-w-6xl gap-8 py-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(360px,1fr)] lg:items-stretch">
+          <div className="relative min-h-[24rem] overflow-hidden rounded-2xl bg-hive-yellow/15 lg:min-h-[32rem]">
+            <Image
+              src="/images/TheHive_12.06.2025_87.jpg"
+              alt="The Hive community members smiling together"
+              fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-hive-blue/70 via-hive-blue/20 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-hive-yellow">
+                The Hive
+              </p>
+              <p className="mt-2 max-w-xs text-lg font-semibold leading-snug">
+                Stories, updates, and community moments delivered to your inbox.
+              </p>
+            </div>
           </div>
-        </Link>
 
-        <div className="mx-auto flex max-w-2xl justify-center py-10">
-          <form className="w-full max-w-md">
-            <FieldSet className="rounded-xl bg-hive-blue p-5">
-              <FieldGroup>
+          <form className="w-full">
+            <FieldSet className="h-full rounded-xl bg-hive-blue p-5 sm:p-6">
+              <FieldGroup className="h-full justify-center">
+                <Field>
+                  <Link
+                    href="https://thehivecc.dm.networkforgood.com/emails/first_name-hope-is-growing-in-south-carolina-thanks-to-you-9bd6cd6f-d221-4744-a983-fa7ee063e49a"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className="block rounded-2xl bg-hive-orange px-6 py-6 text-center text-white transition-colors hover:bg-hive-orange/90"
+                  >
+                    <strong className="text-2xl sm:text-3xl">
+                      {copy.contact.newsletterTitle}
+                    </strong>
+                  </Link>
+                </Field>
+
                 <Field>
                   <h1 className="text-center text-3xl text-white">
                     <strong>{copy.contact.newsletterFormTitle}</strong>
