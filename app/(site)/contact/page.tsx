@@ -1,101 +1,105 @@
 "use client";
 
-import Footer from "@/components/footer";
-import {Mail, MapPin, Phone} from "lucide-react";
-import { Button } from "@/components/ui/button"
+import { Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { useSiteCopy } from "@/components/language-provider";
+import { Button } from "@/components/ui/button";
 import {
     Field,
     FieldGroup,
     FieldLabel,
     FieldSet,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import Link from "next/link";
-import Image from "next/image";
-import {sendEmail} from "@/lib/resend";
-import {useState} from "react";
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { sendEmail } from "@/lib/resend";
 
 export default function Contact() {
+    const copy = useSiteCopy();
 
-    // Defines the shape of the form data
     type FormData = {
         name: string;
         email: string;
         phone: string;
+        subject: string;
         comment: string;
     };
 
-    // Holds the current value of each form field
-    const [formData, setFormData] = useState<FormData>({
-        name: '',
-        email: '',
-        phone: '',
-        comment: '',
-    });
-
-    // Handles submission of the form
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // prevents page reload on submit
+        e.preventDefault();
 
         const form = e.currentTarget;
 
-        setFormData({
-            name:    (form.elements.namedItem('name')    as HTMLInputElement).value,
-            email:   (form.elements.namedItem('email')   as HTMLInputElement).value,
-            phone:   (form.elements.namedItem('phone')   as HTMLInputElement).value,
-            comment: (form.elements.namedItem('comment') as HTMLTextAreaElement).value,
-        });
-        sendEmail(formData);
+        const nextData: FormData = {
+            name: (form.elements.namedItem("name") as HTMLInputElement).value,
+            email: (form.elements.namedItem("email") as HTMLInputElement).value,
+            phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+            subject: (form.elements.namedItem("subject") as HTMLInputElement).value,
+            comment: (form.elements.namedItem("comment") as HTMLTextAreaElement).value,
+        };
+
+        sendEmail(nextData);
     };
 
     return (
-        <main className="min-h-screen bg-white text-gray-800">
-
-            {/* Hero */}
-            <section className="flex flex-col items-center justify-center bg-hive-blue text-white py-24 px-6 text-center">
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight max-w-3xl mx-auto">
-                    Get in Touch
-                </h1>
-                <p className="mt-4 text-lg md:text-xl text-white/70 max-w-xl">
-                    We&apos;re here for you. Reach out and a member of our team will get back with you shortly.
-                </p>
+        <main className="min-h-screen bg-white pt-16 text-gray-800">
+            <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-center text-white sm:px-10 sm:py-12 lg:py-14">
+                <div className="mx-auto max-w-7xl">
+                    <p className="site-eyebrow text-white/90">{copy.contact.heroEyebrow}</p>
+                    <h1 className="site-title mt-4">{copy.contact.heroTitle}</h1>
+                    <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
+                        {copy.contact.heroBody}
+                    </p>
+                </div>
             </section>
 
-            {/* Two-column content */}
-            <section className="py-20 px-6 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-
-                {/* Contact Form */}
+            <section className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-6 py-16 md:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)] lg:gap-14 lg:px-8 lg:py-20">
                 <div>
-                    <h2 className="text-3xl font-bold text-hive-blue mb-8">
-                        Send Us a Message
-                    </h2>
+                    <div className="mb-6">
+                        <h2 className="text-3xl font-bold text-hive-blue sm:text-4xl">
+                            {copy.contact.formTitle}
+                        </h2>
+                        <p className="mt-3 max-w-xl text-base leading-7 text-slate-600">
+                            Choose the topic that best matches your message so we can route it
+                            to the right member of the team faster.
+                        </p>
+                    </div>
 
                     <form onSubmit={handleSubmit}>
-                        <FieldSet className=" bg-hive-blue p-5 rounded-xl">
-                            <FieldGroup >
+                        <FieldSet className="rounded-[2rem] border border-hive-blue/10 bg-gradient-to-br from-hive-blue via-cyan-700 to-teal-600 p-6 shadow-[0_24px_60px_-24px_rgba(7,89,133,0.75)] sm:p-8">
+                            <FieldGroup className="gap-6">
                                 <Field>
                                     <FieldLabel
                                         htmlFor="name"
-                                        className="text-xl text-gray-200">
-
-                                        Name
+                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
+                                    >
+                                        {copy.contact.fields.name}
                                     </FieldLabel>
                                     <Input
                                         id="name"
                                         name="name"
                                         autoComplete="off"
                                         required
-                                        placeholder="Jane Doe"
-                                        className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
+                                        placeholder={copy.contact.fields.placeholders.name}
+                                        className="h-12 rounded-2xl border-white/15 bg-white/96 px-4 text-base text-slate-900 placeholder:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
                                     />
                                 </Field>
+
                                 <Field>
                                     <FieldLabel
                                         htmlFor="email"
-                                        className="text-xl text-gray-200">
-
-                                        Email
+                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
+                                    >
+                                        {copy.contact.fields.email}
                                     </FieldLabel>
                                     <Input
                                         id="email"
@@ -103,182 +107,245 @@ export default function Contact() {
                                         type="email"
                                         required
                                         autoComplete="off"
-                                        placeholder="example@gmail.com"
-                                        className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
+                                        placeholder={copy.contact.fields.placeholders.email}
+                                        className="h-12 rounded-2xl border-white/15 bg-white/96 px-4 text-base text-slate-900 placeholder:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
                                     />
                                 </Field>
+
                                 <Field>
                                     <FieldLabel
                                         htmlFor="phone"
-                                        className="text-xl text-gray-200">
-
-                                        Phone
+                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
+                                    >
+                                        {copy.contact.fields.phone}
                                     </FieldLabel>
                                     <Input
                                         id="phone"
                                         name="phone"
-                                        type="phone"
+                                        type="tel"
                                         autoComplete="off"
-                                        placeholder="(XXX) XXX-XXXX"
-                                        className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
+                                        placeholder={copy.contact.fields.placeholders.phone}
+                                        className="h-12 rounded-2xl border-white/15 bg-white/96 px-4 text-base text-slate-900 placeholder:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
                                     />
                                 </Field>
+
+                                <Field>
+                                    <FieldLabel
+                                        htmlFor="subject"
+                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
+                                    >
+                                        {copy.contact.fields.subject}
+                                    </FieldLabel>
+                                    <Select name="subject" required>
+                                        <SelectTrigger
+                                            id="subject"
+                                            className="h-12 w-full rounded-2xl border-white/15 bg-white/96 px-4 text-left text-base text-slate-900 shadow-none data-[placeholder]:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
+                                        >
+                                            <SelectValue
+                                                placeholder={copy.contact.fields.placeholders.subject}
+                                            />
+                                        </SelectTrigger>
+                                        <SelectContent
+                                            position="popper"
+                                            className="z-50 rounded-2xl border border-slate-200 bg-white p-1 text-slate-900 shadow-2xl"
+                                        >
+                                            {copy.contact.fields.subjectOptions.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </Field>
+
                                 <Field>
                                     <FieldLabel
                                         htmlFor="comment"
-                                        className="text-xl text-gray-200">
-
-                                        Comments
+                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
+                                    >
+                                        {copy.contact.fields.comment}
                                     </FieldLabel>
                                     <Textarea
                                         id="comment"
                                         name="comment"
                                         required
                                         autoComplete="off"
-                                        placeholder="Enter message here"
-                                        className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
+                                        placeholder={copy.contact.fields.placeholders.comment}
+                                        className="min-h-36 rounded-2xl border-white/15 bg-white/96 px-4 py-3 text-base text-slate-900 placeholder:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
                                     />
                                 </Field>
+
                                 <Button
                                     type="submit"
-                                    className="bg-hive-orange hover:bg-hive-orange/90 text-white text-xl">
-
-                                    Submit
+                                    className="h-13 rounded-2xl bg-hive-orange text-lg font-semibold text-white shadow-[0_14px_28px_-14px_rgba(249,115,22,0.9)] transition-transform hover:-translate-y-0.5 hover:bg-hive-orange/90"
+                                >
+                                    {copy.contact.fields.submit}
                                 </Button>
                             </FieldGroup>
                         </FieldSet>
                     </form>
-
                 </div>
 
-                {/* Contact Info */}
                 <div>
-                    <h2 className="text-3xl font-bold text-hive-blue mb-8">
-                        Contact Information
-                    </h2>
+                    <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_22px_55px_-30px_rgba(15,23,42,0.35)] sm:p-8">
+                        <h2 className="text-3xl font-bold text-hive-blue sm:text-4xl">
+                            {copy.contact.infoTitle}
+                        </h2>
+                        <p className="mt-3 text-base leading-7 text-slate-600">
+                            Prefer to reach out directly? You can call, email, or connect with
+                            us on social media.
+                        </p>
 
-                    <div className="flex flex-col gap-6">
-
-                        {/* Email */}
-                        <div className="flex items-start gap-4">
-                            <div className="w-11 h-11 rounded-full bg-hive-blue/10 flex items-center justify-center shrink-0">
-                                <Mail className="text-hive-blue"/>
+                        <div className="mt-8 flex flex-col gap-6">
+                            <div className="flex items-start gap-4 rounded-2xl bg-slate-50 p-4">
+                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-hive-blue/10">
+                                    <Mail className="text-hive-blue" />
+                                </div>
+                                <div>
+                                    <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+                                        {copy.contact.info.email}
+                                    </p>
+                                    <Link
+                                        href="mailto:hello@thehivecc.org"
+                                        className="text-lg font-semibold text-slate-800 transition-colors hover:text-hive-blue"
+                                    >
+                                        hello@thehivecc.org
+                                    </Link>
+                                </div>
                             </div>
-                            <div>
-                                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Email</p>
-                                <Link
-                                    href="mailto:hello@thehivecc.org"
-                                    className="text-gray-700 font-medium">
 
-                                    hello@thehivecc.org
-                                </Link>
+                            <div className="flex items-start gap-4 rounded-2xl bg-slate-50 p-4">
+                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-hive-orange/10">
+                                    <Phone className="text-hive-orange" />
+                                </div>
+                                <div>
+                                    <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+                                        {copy.contact.info.phone}
+                                    </p>
+                                    <Link
+                                        href="tel:+18038887725"
+                                        className="text-lg font-semibold text-slate-800 transition-colors hover:text-hive-orange"
+                                    >
+                                        (803) 888-7725
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <div className="flex items-start gap-4 rounded-2xl bg-slate-50 p-4">
+                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-hive-yellow/20">
+                                    <MapPin className="text-hive-yellow" />
+                                </div>
+                                <div>
+                                    <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+                                        {copy.contact.info.address}
+                                    </p>
+                                    <Link
+                                        href="https://www.google.com/maps/place/The+Hive+Community+Circle/@34.044254,-81.0319489,17z/data=!3m1!4b1!4m6!3m5!1s0x88f8bb73a2107003:0x3018e4f7f747e058!8m2!3d34.044254!4d-81.029374!16s%2Fg%2F11h0mwc9st?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-lg font-semibold leading-8 text-slate-800 transition-colors hover:text-hive-yellow"
+                                    >
+                                        4704 Colonial Drive
+                                        <br />
+                                        Columbia, SC 29203
+                                    </Link>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Phone */}
-                        <div className="flex items-start gap-4">
-                            <div className="w-11 h-11 rounded-full bg-hive-orange/10 flex items-center justify-center shrink-0">
-                                <Phone className="text-hive-orange"/>
-                            </div>
-                            <div>
-                                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Phone</p>
+                        <div className="mt-8 border-t border-slate-200 pt-6">
+                            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+                                Stay Connected
+                            </p>
+                            <div className="mt-4 flex items-start gap-4">
                                 <Link
-                                    href="tel:+18038887725"
-                                    className="text-gray-700 font-medium">
+                                    href="https://www.instagram.com/thehivecc/"
+                                    className="rounded-2xl bg-white p-1 transition-transform hover:-translate-y-1"
+                                >
+                                    <Image
+                                        src="/socials-images/Instagram_logo_2016.svg"
+                                        alt={copy.contact.socials.instagram}
+                                        width={50}
+                                        height={50}
+                                    />
+                                </Link>
 
-                                    (803) 888-7725
+                                <Link
+                                    href="https://www.facebook.com/hivecc/"
+                                    className="rounded-2xl bg-white p-1 transition-transform hover:-translate-y-1"
+                                >
+                                    <Image
+                                        src="/socials-images/2023_Facebook_icon.svg"
+                                        alt={copy.contact.socials.facebook}
+                                        width={50}
+                                        height={50}
+                                    />
+                                </Link>
+
+                                <Link
+                                    href="https://www.linkedin.com/company/thehivecc/"
+                                    className="rounded-2xl bg-white p-1 transition-transform hover:-translate-y-1"
+                                >
+                                    <Image
+                                        src="/socials-images/LinkedIn_icon.svg"
+                                        alt={copy.contact.socials.linkedin}
+                                        width={50}
+                                        height={50}
+                                    />
+                                </Link>
+
+                                <Link
+                                    href="https://x.com/thehive_cc"
+                                    className="rounded-2xl bg-white p-1 transition-transform hover:-translate-y-1"
+                                >
+                                    <Image
+                                        src="/socials-images/X_logo_2023.svg"
+                                        alt={copy.contact.socials.x}
+                                        width={50}
+                                        height={50}
+                                    />
+                                </Link>
+
+                                <Link
+                                    href="https://www.youtube.com/@thehivecommunitycircle93"
+                                    className="rounded-2xl bg-white p-1 transition-transform hover:-translate-y-1"
+                                >
+                                    <Image
+                                        src="/socials-images/YouTube_full-color_icon_(2017).svg"
+                                        alt={copy.contact.socials.youtube}
+                                        width={60}
+                                        height={60}
+                                    />
                                 </Link>
                             </div>
                         </div>
-
-                        {/* Address */}
-                        <div className="flex items-start gap-4">
-                            <div className="w-11 h-11 rounded-full bg-hive-yellow/20 flex items-center justify-center shrink-0">
-                                    <MapPin className="text-hive-yellow"/>
-                            </div>
-                            <div>
-                                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Address</p>
-                                <Link
-                                    href="https://www.google.com/maps/place/The+Hive+Community+Circle/@34.044254,-81.0319489,17z/data=!3m1!4b1!4m6!3m5!1s0x88f8bb73a2107003:0x3018e4f7f747e058!8m2!3d34.044254!4d-81.029374!16s%2Fg%2F11h0mwc9st?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-gray-700 font-medium">
-
-                                    4704 Colonial Drive<br />Columbia, SC 29203
-                                </Link>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    {/* Socials */}
-                    <div className="flex items-start gap-4 py-4">
-                        {/* Instagram */}
-                        <Link href="https://www.instagram.com/thehivecc/">
-                            <Image
-                                src="/socials-images/Instagram_logo_2016.svg"
-                                alt="Instagram link and logo"
-                                width={50}
-                                height={50}
-                            />
-                        </Link>
-
-                        {/* Facebook */}
-                        <Link href="https://www.facebook.com/hivecc/">
-                            <Image
-                                src="/socials-images/2023_Facebook_icon.svg"
-                                alt="Facebook link and logo"
-                                width={50}
-                                height={50}
-                            />
-                        </Link>
-
-                        {/* LinkedIn */}
-                        <Link href="https://www.linkedin.com/company/thehivecc/">
-                            <Image
-                                src="/socials-images/LinkedIn_icon.svg"
-                                alt="LinkedIn link and logo"
-                                width={50}
-                                height={50}
-                            />
-                        </Link>
-
-                        {/* Twitter */}
-                        <Link href="https://x.com/thehive_cc">
-                            <Image
-                                src="/socials-images/X_logo_2023.svg"
-                                alt="Twitter link and logo"
-                                width={50}
-                                height={50}
-                            />
-                        </Link>
                     </div>
                 </div>
             </section>
 
-            {/* Newsletter */}
-            <section>
+            <section className="px-6 py-6 pb-16">
                 <Link
                     href="https://thehivecc.dm.networkforgood.com/emails/first_name-hope-is-growing-in-south-carolina-thanks-to-you-9bd6cd6f-d221-4744-a983-fa7ee063e49a"
                     rel="noopener noreferrer"
-                    target="_blank">
-                    <div className="flex justify-center bg-hive-orange text-white py-10 rounded-2xl max-w-md mx-auto mt-10
-                    hover:bg-hive-orange/90">
-                        <h1 className="text-3xl"><strong>Check Out Our Newsletter!</strong></h1>
+                    target="_blank"
+                >
+                    <div className="mx-auto mt-10 flex max-w-md justify-center rounded-2xl bg-hive-orange py-10 text-white hover:bg-hive-orange/90">
+                        <h1 className="text-3xl">
+                            <strong>{copy.contact.newsletterTitle}</strong>
+                        </h1>
                     </div>
                 </Link>
 
-                <div className="py-10 px-6 max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-                    <form>
-                        <FieldSet className=" bg-hive-blue p-5 rounded-xl">
+                <div className="mx-auto flex max-w-2xl justify-center py-10">
+                    <form className="w-full max-w-md">
+                        <FieldSet className="rounded-xl bg-hive-blue p-5">
                             <FieldGroup>
                                 <Field>
-                                    <h1 className="text-white text-center text-3xl"><strong>Subscribe to Our Newsletter</strong></h1>
-                                    <FieldLabel
-                                        htmlFor="email"
-                                        className="text-xl text-gray-200">
-
-                                        Email
+                                    <h1 className="text-center text-3xl text-white">
+                                        <strong>{copy.contact.newsletterFormTitle}</strong>
+                                    </h1>
+                                    <FieldLabel htmlFor="email" className="text-xl text-gray-200">
+                                        {copy.contact.newsletterEmail}
                                     </FieldLabel>
                                     <Input
                                         id="email"
@@ -286,27 +353,21 @@ export default function Contact() {
                                         type="email"
                                         required
                                         autoComplete="off"
-                                        placeholder="example@gmail.com"
-                                        className="focus-visible:ring-hive-blue/90  placeholder:text-black bg-gray-200"
+                                        placeholder={copy.contact.fields.placeholders.email}
+                                        className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90"
                                     />
                                 </Field>
                                 <Button
                                     type="submit"
-                                    className="bg-hive-orange hover:bg-hive-orange/90 text-xl text-white">
-
-                                    Submit
+                                    className="bg-hive-orange text-xl text-white hover:bg-hive-orange/90"
+                                >
+                                    {copy.contact.newsletterSubmit}
                                 </Button>
                             </FieldGroup>
                         </FieldSet>
                     </form>
                 </div>
-
-
             </section>
-
-            <footer>
-                <Footer/>
-            </footer>
         </main>
     );
 }
