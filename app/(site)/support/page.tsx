@@ -22,8 +22,8 @@ const CARD_META: CardMeta[] = [
     { id: "peer-advocacy", href: "tel:8038887725" },
     { id: "economic-relief", href: "/contact" },
     { id: "individual-counseling", href: "tel:8037668067" },
-    { id: "healing-circles", href: "/support/healing-circles" },
-    { id: "holistic-support" },
+    { id: "healing-circles", href: "/contact" },
+    { id: "holistic-support", href: "/contact" },
     { id: "refer-survivor", href: "/contact" },
     { id: "training-prevention", href: "mailto:hello@thehivecc.org" },
 ];
@@ -132,7 +132,7 @@ export default function SupportPage() {
                     </h2>
 
                     <a
-                        href="https://www.thehivecc.org/_files/ugd/8a8511_175f07e5966d4276b783f3ce90ea902f.pdf"
+                        href="/support/emotional-safety-plan-template.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center rounded-full bg-hive-yellow px-12 py-5 text-xl font-bold text-gray-900 transition hover:bg-yellow-400"
