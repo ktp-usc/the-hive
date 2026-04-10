@@ -812,6 +812,7 @@ const en = {
             "Your contribution helps us reach more survivors and provide the care they deserve. Every dollar makes a difference.",
         donateNow: "Donate Now",
         missionImageAlt: "Mission",
+        popupModalImageAlt: "Promotional announcement",
     },
     about: {
         tabs: {
@@ -1566,6 +1567,7 @@ export const siteCopy = {
                 "Tu contribución nos ayuda a llegar a más sobrevivientes y brindarles el cuidado que merecen. Cada dólar hace la diferencia.",
             donateNow: "Dona Ahora",
             missionImageAlt: "Misión",
+            popupModalImageAlt: "Anuncio promocional",
         },
         about: {
             tabs: {
