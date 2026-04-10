@@ -50,6 +50,7 @@ export const page = defineType({
       of: [
         {type: 'sectionRichText'},
         {type: 'sectionImageText'},
+        {type: 'sectionImageCarousel'},
         {type: 'sectionHero'},
         {type: 'sectionCardGrid'},
         {type: 'sectionVolunteerCards'},
