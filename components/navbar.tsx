@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import LanguageToggle from "@/components/language-toggle";
+import SearchModal from "@/components/search-modal";
 import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -200,7 +201,8 @@ export default function Navbar() {
                         );
                     })}
 
-                    <div className="ml-2">
+                    <div className="ml-2 flex items-center gap-1">
+                        <SearchModal />
                         <LanguageToggle />
                     </div>
                 </div>
