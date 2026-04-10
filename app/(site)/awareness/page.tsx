@@ -2,11 +2,16 @@
 
 import Link from "next/link";
 
-import { useSiteCopy } from "@/components/language-provider";
+import { useLanguage, useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 
 export default function AwarenessPage() {
     const copy = useSiteCopy();
+    const { language } = useLanguage();
+    const valuesListParts = new Intl.ListFormat(language, {
+        style: "long",
+        type: "conjunction",
+    }).formatToParts(copy.awareness.valuesPillars);
 
     return (
         <main className="min-h-screen bg-white text-gray-800">
@@ -26,13 +31,15 @@ export default function AwarenessPage() {
                 </h2>
                 <p className="text-lg leading-relaxed text-gray-600">
                     {copy.awareness.valuesIntro}{" "}
-                    {copy.awareness.valuesPillars.map((pillar, index) => (
-                        <span key={pillar}>
-              <span className="font-semibold text-hive-blue">{pillar}</span>
-                            {index < copy.awareness.valuesPillars.length - 2 ? ", " : null}
-                            {index === copy.awareness.valuesPillars.length - 2 ? ", and " : null}
-            </span>
-                    ))}{" "}
+                    {valuesListParts.map((part, index) =>
+                        part.type === "element" ? (
+                            <span key={`${part.type}-${part.value}-${index}`} className="font-semibold text-hive-blue">
+                                {part.value}
+                            </span>
+                        ) : (
+                            <span key={`${part.type}-${index}`}>{part.value}</span>
+                        )
+                    )}{" "}
                     {copy.awareness.valuesOutro}
                 </p>
             </section>
