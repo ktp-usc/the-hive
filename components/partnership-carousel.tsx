@@ -102,14 +102,16 @@ export default function PartnershipCarousel({
           );
         })}
 
-        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-5 p-5 text-white sm:p-8">
-          <div className="max-w-2xl rounded-3xl bg-slate-950/45 p-5 backdrop-blur-sm">
-            <p className="site-subheading !text-white/80">Partnership Example</p>
-            <h3 className="mt-3 text-2xl font-semibold sm:text-3xl">{slides[activeIndex].title}</h3>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-white/85 sm:text-base">
-              {slides[activeIndex].caption}
-            </p>
-          </div>
+          <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-5 p-4 text-gray-900 sm:p-6">
+              <div className="max-w-xl rounded-3xl bg-hive-blue/60 p-4 backdrop-blur-sm shadow-lg">
+                  <p className="site-subheading !text-hive-orange">Partnership Example</p>
+                  <h3 className="mt-2 text-2xl font-semibold text-white sm:text-3xl">
+                      {slides[activeIndex].title}
+                  </h3>
+                  <p className="mt-3 max-w-xl text-sm leading-7 text-gray-100 sm:text-base">
+                      {slides[activeIndex].caption}
+                  </p>
+              </div>
 
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-2">
