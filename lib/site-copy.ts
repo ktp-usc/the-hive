@@ -65,6 +65,86 @@ const esPartners = {
     },
 };
 
+const enOurImpact = {
+    heroEyebrow: "Our Impact",
+    heroTitle: "Recognized. Published. Making Waves.",
+    heroBody:
+        "From national media features to strategic milestones, explore The Hive's growing footprint in the movement to end gender-based violence.",
+
+    mediaEyebrow: "Press & Interviews",
+    mediaTitle: "In the Media",
+    mediaItems: [
+        {
+            outlet: "Black Enterprise",
+            headline: "Changing the Conversation on Gender-Based Violence",
+            description:
+                "Featured for a survivor-led approach to healing and community care for Black women and girls in South Carolina.",
+            href: "https://www.blackenterprise.com",
+        },
+        {
+            outlet: "Essence Festival",
+            headline: "Speaker & Facilitator",
+            description:
+                "Ashley Olayinka presented on social and racial justice, gender-based violence, and leadership at the Essence Festival.",
+            href: "https://www.essence.com/festival",
+        },
+        {
+            outlet: "The State Newspaper",
+            headline: "20 Under 40",
+            description:
+                "Recognized among South Carolina's most influential young leaders for building survivor-centered spaces.",
+            href: "https://www.thestate.com",
+        },
+    ],
+
+    awardsEyebrow: "Honors & Distinctions",
+    awardsTitle: "Awards & Recognition",
+    awards: [
+        {
+            name: "Aspen SOAR Fellow",
+            year: "2022",
+            issuer: "Aspen Institute",
+            description:
+                "A highly selective fellowship recognizing emerging leaders driving systemic change in their communities.",
+        },
+        {
+            name: "Jefferson Award",
+            year: "",
+            issuer: "Jefferson Awards Foundation",
+            description:
+                "Awarded for extraordinary public service and commitment to creating lasting community impact.",
+        },
+        {
+            name: "20 Under 40",
+            year: "",
+            issuer: "The State Newspaper",
+            description:
+                "Honored among South Carolina's top young professionals making a meaningful difference.",
+        },
+    ],
+
+    documentsEyebrow: "Strategic Documents",
+    documentsTitle: "Reports & Plans",
+    documents: [
+        {
+            title: "2025 Annual Report",
+            description:
+                "Our year in review — impact numbers, stories, and highlights from across The Hive's programs.",
+            href: "https://www.thehivecc.org/2025-annual-report",
+            cta: "View Report",
+            external: true,
+        },
+        {
+            title: "2021–2026 Strategic Plan",
+            description:
+                "The roadmap guiding our growth, programs, and community vision over five years.",
+            href: "/strategic-plan.pdf",
+            cta: "Download PDF",
+            external: false,
+        },
+    ],
+};
+
 const enAwareness = {
     heroEyebrow: "Prevention &amp; Awareness",
     heroTitle: "Training & Education at The Hive",
@@ -343,6 +423,16 @@ const enEvents = {
     title: "Stay up to date with Hive events.",
     body:
         "This calendar is connected directly to The Hive's Google Calendar, so new events and updates appear here automatically.",
+    upcomingEyebrow: "Coming Up",
+    upcomingTitle: "A quick look at what's next.",
+    upcomingBody:
+        "These upcoming event cards sync automatically with the same Google Calendar shown below.",
+    upcomingPrivacyNote:
+        "Some entries may appear as Busy because Google Calendar is hiding public event details.",
+    upcomingLoading: "Loading upcoming events...",
+    upcomingEmpty: "No upcoming events are listed right now. Check back soon or open the full calendar.",
+    upcomingCta: "View calendar day",
+    allDayLabel: "All day",
     openCalendar: "Open Full Calendar",
     askAboutEvent: "Ask About an Event",
     iframeTitle: "The Hive events calendar",
@@ -353,6 +443,17 @@ const esEvents = {
     title: "Mantente al día con los eventos de The Hive.",
     body:
         "Este calendario está conectado directamente con el Google Calendar de The Hive, así que los nuevos eventos y actualizaciones aparecen aquí automáticamente.",
+    upcomingEyebrow: "Pr\u00f3ximamente",
+    upcomingTitle: "Un vistazo r\u00e1pido a lo que sigue.",
+    upcomingBody:
+        "Estas tarjetas de pr\u00f3ximos eventos se sincronizan autom\u00e1ticamente con el mismo Google Calendar que aparece abajo.",
+    upcomingPrivacyNote:
+        "Algunas entradas pueden aparecer como Busy porque Google Calendar est\u00e1 ocultando los detalles p\u00fablicos del evento.",
+    upcomingLoading: "Cargando pr\u00f3ximos eventos...",
+    upcomingEmpty:
+        "No hay eventos pr\u00f3ximos en este momento. Vuelve pronto o abre el calendario completo.",
+    upcomingCta: "Ver d\u00eda en el calendario",
+    allDayLabel: "Todo el d\u00eda",
     openCalendar: "Abrir Calendario Completo",
     askAboutEvent: "Preguntar por un Evento",
     iframeTitle: "Calendario de eventos de The Hive",
@@ -746,6 +847,7 @@ const en = {
         about: "About Us",
         aboutUs: "About Us",
         impact: "Impact",
+        ourImpact: "Our Impact",
         partners: "Our Partners",
         support: "Support",
         supportServices: "Support Services",
@@ -812,6 +914,7 @@ const en = {
             "Your contribution helps us reach more survivors and provide the care they deserve. Every dollar makes a difference.",
         donateNow: "Donate Now",
         missionImageAlt: "Mission",
+        popupModalImageAlt: "Promotional announcement",
     },
     about: {
         tabs: {
@@ -1072,6 +1175,7 @@ const en = {
             facebook: "Facebook link and logo",
             linkedin: "LinkedIn link and logo",
             x: "X link and logo",
+            youtube: "Youtube link and logo",
         },
         newsletterTitle: "Check Out Our Newsletter!",
         newsletterFormTitle: "Subscribe to Our Newsletter",
@@ -1122,6 +1226,7 @@ const en = {
     },
     partners: enPartners,
     awareness: enAwareness,
+    ourImpact: enOurImpact,
     events: enEvents, heroEyebrow: "Community Calendar",
 } as const;
 
@@ -1446,6 +1551,7 @@ export const siteCopy = {
                 facebook: "Enlace y logo de Facebook",
                 linkedin: "Enlace y logo de LinkedIn",
                 x: "Enlace y logo de X",
+                youtube: "Enlace y logo de Youtube",
             },
             newsletterTitle: "¡Mira Nuestro Boletín!",
             newsletterFormTitle: "Suscríbete a Nuestro Boletín",
@@ -1503,6 +1609,7 @@ export const siteCopy = {
             about: "Sobre Nosotras",
             aboutUs: "Sobre Nosotras",
             impact: "Impacto",
+            ourImpact: "Nuestro Impacto",
             partners: "Nuestras Personas Aliadas",
             support: "Apoyo",
             supportServices: "Servicios de Apoyo",
@@ -1572,6 +1679,7 @@ export const siteCopy = {
                 "Tu contribución nos ayuda a llegar a más sobrevivientes y brindarles el cuidado que merecen. Cada dólar hace la diferencia.",
             donateNow: "Dona Ahora",
             missionImageAlt: "Misión",
+            popupModalImageAlt: "Anuncio promocional",
         },
         about: {
             tabs: {
@@ -1828,6 +1936,7 @@ export const siteCopy = {
                 facebook: "Enlace y logo de Facebook",
                 linkedin: "Enlace y logo de LinkedIn",
                 x: "Enlace y logo de X",
+                youtube: "Enlace y logo de Youtube",
             },
             newsletterTitle: "¡Consulta Nuestro Boletín!",
             newsletterFormTitle: "Suscríbete a Nuestro Boletín",
@@ -1878,6 +1987,82 @@ export const siteCopy = {
         },
         partners: esPartners,
         awareness: esMxAwareness,
+        ourImpact: {
+            heroEyebrow: "Nuestro Impacto",
+            heroTitle: "Reconocidas. Publicadas. Marcando la Diferencia.",
+            heroBody:
+                "Desde apariciones en medios nacionales hasta hitos estratégicos, explora la huella creciente de The Hive en el movimiento para erradicar la violencia de género.",
+            mediaEyebrow: "Prensa y Entrevistas",
+            mediaTitle: "En los Medios",
+            mediaItems: [
+                {
+                    outlet: "Black Enterprise",
+                    headline: "Cambiando la Conversación sobre la Violencia de Género",
+                    description:
+                        "Destacada por un enfoque de sanación liderado por sobrevivientes y cuidado comunitario para mujeres y niñas negras en Carolina del Sur.",
+                    href: "https://www.blackenterprise.com",
+                },
+                {
+                    outlet: "Essence Festival",
+                    headline: "Conferencista y Facilitadora",
+                    description:
+                        "Ashley Olayinka presentó sobre justicia social y racial, violencia de género y liderazgo en el Essence Festival.",
+                    href: "https://www.essence.com/festival",
+                },
+                {
+                    outlet: "The State Newspaper",
+                    headline: "20 Menores de 40",
+                    description:
+                        "Reconocida entre los líderes jóvenes más influyentes de Carolina del Sur por construir espacios centrados en sobrevivientes.",
+                    href: "https://www.thestate.com",
+                },
+            ],
+            awardsEyebrow: "Honores y Distinciones",
+            awardsTitle: "Reconocimientos y Premios",
+            awards: [
+                {
+                    name: "Aspen SOAR Fellow",
+                    year: "2022",
+                    issuer: "Aspen Institute",
+                    description:
+                        "Una beca altamente selectiva que reconoce a líderes emergentes que impulsan cambios sistémicos en sus comunidades.",
+                },
+                {
+                    name: "Jefferson Award",
+                    year: "",
+                    issuer: "Jefferson Awards Foundation",
+                    description:
+                        "Otorgado por servicio público extraordinario y compromiso con la creación de impacto comunitario duradero.",
+                },
+                {
+                    name: "20 Menores de 40",
+                    year: "",
+                    issuer: "The State Newspaper",
+                    description:
+                        "Reconocida entre los mejores jóvenes profesionales de Carolina del Sur que generan una diferencia significativa.",
+                },
+            ],
+            documentsEyebrow: "Documentos Estratégicos",
+            documentsTitle: "Informes y Planes",
+            documents: [
+                {
+                    title: "Informe Anual 2025",
+                    description:
+                        "Nuestro año en resumen: cifras de impacto, historias y momentos destacados de los programas de The Hive.",
+                    href: "https://www.thehivecc.org/2025-annual-report",
+                    cta: "Ver Informe",
+                    external: true,
+                },
+                {
+                    title: "Plan Estratégico 2021–2026",
+                    description:
+                        "La hoja de ruta que guía nuestro crecimiento, programas y visión comunitaria durante cinco años.",
+                    href: "/strategic-plan.pdf",
+                    cta: "Descargar PDF",
+                    external: false,
+                },
+            ],
+        },
         events: esEvents, heroEyebrow: "Calendario Comunitario",
     },
 } satisfies Record<LanguageCode, DeepWiden<typeof en>>;
