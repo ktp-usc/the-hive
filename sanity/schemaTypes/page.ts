@@ -44,6 +44,13 @@ export const page = defineType({
         'Optional short intro for pages that render a subtitle/intro paragraph below the title.',
     }),
     defineField({
+      name: 'landingPopup',
+      title: 'Homepage popup',
+      type: 'landingPopup',
+      description:
+        'Shown only on the site homepage when enabled and an image is set. Does not affect other pages.',
+    }),
+    defineField({
       name: 'sections',
       title: 'Sections',
       type: 'array',
