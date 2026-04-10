@@ -6,6 +6,7 @@ const PRIMARY_TYPE_IDS = new Set([
   'partnerLogo',
   'teamMember',
   'galleryEvent',
+  'navbarSettings',
 ])
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
@@ -13,6 +14,13 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title('Content')
     .items([
+      S.listItem()
+        .title('Navigation')
+        .id('navbarSettings')
+        .child(
+          S.document().schemaType('navbarSettings').documentId('navbarSettings').title('Navigation')
+        ),
+      S.divider(),
       S.documentTypeListItem('page').title('Pages'),
       S.divider(),
       S.documentTypeListItem('contentCard').title('Cards'),
