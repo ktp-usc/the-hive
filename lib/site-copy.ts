@@ -1129,6 +1129,10 @@ const en = {
         safetyPlanButton: "Click Here",
         safetyPlanBody:
             "If you need help filling out this form or creating a plan that meets your needs, you can always contact The Hive. One of our advocates can assist you. You do not have to go through this alone.",
+        participateTitle: "Want to participate?",
+        participateBody:
+            "If you are interested in participating in programs or services with The Hive, contact us and we will point you in the right direction.",
+        participateButton: "Contact Us",
     },
     contact: {
         heroEyebrow: "Contact Us",
@@ -1512,6 +1516,10 @@ export const siteCopy = {
             safetyPlanButton: "Haz Clic Aquí",
             safetyPlanBody:
                 "Si necesitas ayuda para completar este formulario o crear un plan que se ajuste a tus necesidades, siempre puedes comunicarte con The Hive. Una de nuestras defensoras puede ayudarte. No tienes que pasar por esto sola.",
+            participateTitle: "Quieres participar?",
+            participateBody:
+                "Si te interesa participar en programas o servicios con The Hive, contactanos y te ayudaremos a encontrar la mejor opcion.",
+            participateButton: "Contactanos",
         },
         contact: {
             heroEyebrow: "Contáctanos",

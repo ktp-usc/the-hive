@@ -4,14 +4,14 @@ import { sanityFetch } from "@/sanity/lib/live";
 import SupportPageClient from "./support-page-client";
 
 type Card = {
-    id: string;
-    title: string;
-    subtitle?: string;
-    summary: string;
-    details?: readonly string[];
-    ctaLabel?: string;
-    href?: string;
-    badge?: string;
+  id: string;
+  title: string;
+  subtitle?: string;
+  summary: string;
+  details?: readonly string[];
+  ctaLabel?: string;
+  href?: string;
+  badge?: string;
 };
 
 const SUPPORT_PAGE_QUERY = groq`
@@ -38,57 +38,57 @@ const SUPPORT_PAGE_QUERY = groq`
 `;
 
 type SupportPageQueryResult = {
-    sections?: Array<{
-        _type: string;
-        _key?: string;
-        sectionTitle?: string;
-        intro?: string;
-        cards?: Array<
-            | {
-            _id: string;
-            key?: string;
-            title?: string;
-            subtitle?: string;
-            summary?: string;
-            details?: string[];
-            cta?: { label?: string; href?: string };
-            badge?: string;
+  sections?: Array<{
+    _type: string;
+    _key?: string;
+    sectionTitle?: string;
+    intro?: string;
+    cards?: Array<
+      | {
+          _id: string;
+          key?: string;
+          title?: string;
+          subtitle?: string;
+          summary?: string;
+          details?: string[];
+          cta?: { label?: string; href?: string };
+          badge?: string;
         }
-            | null
-        >;
-    }>;
+      | null
+    >;
+  }>;
 };
 
 export default async function SupportPage() {
-    const { data: supportPage } = await sanityFetch({
-        query: SUPPORT_PAGE_QUERY,
-    });
+  const { data: supportPage } = await sanityFetch({
+    query: SUPPORT_PAGE_QUERY,
+  });
 
-    const supportCardSection = (supportPage as SupportPageQueryResult | null)?.sections?.find(
-        (section) => section._type === "sectionCardGrid",
-    );
+  const supportCardSection = (supportPage as SupportPageQueryResult | null)?.sections?.find(
+    (section) => section._type === "sectionCardGrid",
+  );
 
-    const cmsCards: Card[] =
-        supportCardSection?.cards
-            ?.filter((card): card is NonNullable<typeof card> => Boolean(card?._id))
-            .map((card) => ({
-                id: card.key || card._id,
-                title: card.title?.trim() || "Support service",
-                subtitle: card.subtitle,
-                summary:
-                    card.summary?.trim() ||
-                    "Support service details will be available here soon.",
-                details: card.details?.filter(Boolean),
-                ctaLabel: card.cta?.label,
-                href: card.cta?.href,
-                badge: card.badge,
-            })) ?? [];
+  const cmsCards: Card[] =
+    supportCardSection?.cards
+      ?.filter((card): card is NonNullable<typeof card> => Boolean(card?._id))
+      .map((card) => ({
+        id: card.key || card._id,
+        title: card.title?.trim() || "Support service",
+        subtitle: card.subtitle,
+        summary:
+          card.summary?.trim() ||
+          "Support service details will be available here soon.",
+        details: card.details?.filter(Boolean),
+        ctaLabel: card.cta?.label,
+        href: card.cta?.href,
+        badge: card.badge,
+      })) ?? [];
 
-    return (
-        <SupportPageClient
-            cmsCards={cmsCards}
-            sectionTitle={supportCardSection?.sectionTitle?.trim()}
-            intro={supportCardSection?.intro?.trim()}
-        />
-    );
+  return (
+    <SupportPageClient
+      cmsCards={cmsCards}
+      sectionTitle={supportCardSection?.sectionTitle?.trim()}
+      intro={supportCardSection?.intro?.trim()}
+    />
+  );
 }
