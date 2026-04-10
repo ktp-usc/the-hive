@@ -2,11 +2,16 @@
 
 import Link from "next/link";
 
-import { useSiteCopy } from "@/components/language-provider";
+import { useLanguage, useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 
 export default function AwarenessPage() {
     const copy = useSiteCopy();
+    const { language } = useLanguage();
+    const valuesListParts = new Intl.ListFormat(language, {
+        style: "long",
+        type: "conjunction",
+    }).formatToParts(copy.awareness.valuesPillars);
 
     return (
         <main className="min-h-screen bg-white text-gray-800">
@@ -26,13 +31,15 @@ export default function AwarenessPage() {
                 </h2>
                 <p className="text-lg leading-relaxed text-gray-600">
                     {copy.awareness.valuesIntro}{" "}
-                    {copy.awareness.valuesPillars.map((pillar, index) => (
-                        <span key={pillar}>
-              <span className="font-semibold text-hive-blue">{pillar}</span>
-                            {index < copy.awareness.valuesPillars.length - 2 ? ", " : null}
-                            {index === copy.awareness.valuesPillars.length - 2 ? ", and " : null}
-            </span>
-                    ))}{" "}
+                    {valuesListParts.map((part, index) =>
+                            part.type === "element" ? (
+                                <span key={`${part.type}-${part.value}-${index}`} className="font-semibold text-hive-blue">
+                {part.value}
+              </span>
+                            ) : (
+                                <span key={`${part.type}-${index}`}>{part.value}</span>
+                            )
+                    )}{" "}
                     {copy.awareness.valuesOutro}
                 </p>
             </section>
@@ -120,6 +127,18 @@ export default function AwarenessPage() {
                             </div>
                         ))}
                     </div>
+
+                    {/* ✅ NEW BUTTON */}
+                    <div className="mt-10 flex justify-center">
+                        <Button
+                            asChild
+                            className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white transition-colors hover:bg-hive-orange/90"
+                        >
+                            <Link href="/contact?subject=programs-and-services#contact-form">
+                                Learn more about our training programs
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 <div>
@@ -164,38 +183,17 @@ export default function AwarenessPage() {
                     {copy.awareness.ctaBody}
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                    <Button
-                        asChild
-                        className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white transition-colors hover:bg-hive-orange/90"
-                    >
+                    <Button asChild className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90">
                         <Link href="/contact">{copy.awareness.requestTraining}</Link>
                     </Button>
-                    <Button
-                        asChild
-                        className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white transition-colors hover:bg-hive-orange/90"
-                    >
-                        <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer">
-                            {copy.awareness.bookCall}
-                        </Link>
+                    <Button asChild className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90">
+                        <Link href="https://calendly.com" target="_blank">{copy.awareness.bookCall}</Link>
                     </Button>
-                    <Button
-                        asChild
-                        variant="outline"
-                        className="h-auto rounded-full border-hive-orange px-8 py-4 text-base font-bold text-hive-orange transition-colors hover:bg-hive-orange/5"
-                    >
-                        <Link href="/training-catalog.pdf" target="_blank" rel="noopener noreferrer">
-                            {copy.awareness.downloadCatalog}
-                        </Link>
+                    <Button asChild variant="outline" className="h-auto rounded-full border-hive-orange px-8 py-4 text-base font-bold text-hive-orange hover:bg-hive-orange/5">
+                        <Link href="/training-catalog.pdf" target="_blank">{copy.awareness.downloadCatalog}</Link>
                     </Button>
-                    <Button
-                        asChild
-                        className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white transition-colors hover:bg-hive-orange/90"
-                    >
-                        <a
-                            href="https://mail.google.com/mail/?view=cm&fs=1&to=kinnethia@thehivecc.org"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
+                    <Button asChild className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kinnethia@thehivecc.org" target="_blank">
                             {copy.awareness.contactTeam}
                         </a>
                     </Button>
