@@ -343,6 +343,16 @@ const enEvents = {
     title: "Stay up to date with Hive events.",
     body:
         "This calendar is connected directly to The Hive's Google Calendar, so new events and updates appear here automatically.",
+    upcomingEyebrow: "Coming Up",
+    upcomingTitle: "A quick look at what's next.",
+    upcomingBody:
+        "These upcoming event cards sync automatically with the same Google Calendar shown below.",
+    upcomingPrivacyNote:
+        "Some entries may appear as Busy because Google Calendar is hiding public event details.",
+    upcomingLoading: "Loading upcoming events...",
+    upcomingEmpty: "No upcoming events are listed right now. Check back soon or open the full calendar.",
+    upcomingCta: "View calendar day",
+    allDayLabel: "All day",
     openCalendar: "Open Full Calendar",
     askAboutEvent: "Ask About an Event",
     iframeTitle: "The Hive events calendar",
@@ -353,6 +363,17 @@ const esEvents = {
     title: "Mantente al día con los eventos de The Hive.",
     body:
         "Este calendario está conectado directamente con el Google Calendar de The Hive, así que los nuevos eventos y actualizaciones aparecen aquí automáticamente.",
+    upcomingEyebrow: "Pr\u00f3ximamente",
+    upcomingTitle: "Un vistazo r\u00e1pido a lo que sigue.",
+    upcomingBody:
+        "Estas tarjetas de pr\u00f3ximos eventos se sincronizan autom\u00e1ticamente con el mismo Google Calendar que aparece abajo.",
+    upcomingPrivacyNote:
+        "Algunas entradas pueden aparecer como Busy porque Google Calendar est\u00e1 ocultando los detalles p\u00fablicos del evento.",
+    upcomingLoading: "Cargando pr\u00f3ximos eventos...",
+    upcomingEmpty:
+        "No hay eventos pr\u00f3ximos en este momento. Vuelve pronto o abre el calendario completo.",
+    upcomingCta: "Ver d\u00eda en el calendario",
+    allDayLabel: "Todo el d\u00eda",
     openCalendar: "Abrir Calendario Completo",
     askAboutEvent: "Preguntar por un Evento",
     iframeTitle: "Calendario de eventos de The Hive",
