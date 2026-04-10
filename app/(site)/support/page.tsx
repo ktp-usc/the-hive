@@ -145,6 +145,25 @@ export default function SupportPage() {
                     </p>
                 </div>
             </section>
+
+            <section className="bg-white px-6 py-20 text-center">
+                <div className="mx-auto max-w-3xl rounded-[2rem] border border-hive-blue/10 bg-hive-blue px-8 py-12 text-white shadow-sm">
+                    <h2 className="text-3xl font-bold md:text-4xl">
+                        {copy.support.participateTitle}
+                    </h2>
+                    <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/85">
+                        {copy.support.participateBody}
+                    </p>
+                    <div className="mt-8">
+                        <Link
+                            href="/contact?subject=programs-and-services#contact-form"
+                            className="inline-flex items-center rounded-full bg-hive-yellow px-8 py-4 text-base font-bold text-gray-900 transition hover:bg-yellow-400"
+                        >
+                            {copy.support.participateButton}
+                        </Link>
+                    </div>
+                </div>
+            </section>
         </main>
     );
 }

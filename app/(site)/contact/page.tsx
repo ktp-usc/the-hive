@@ -3,6 +3,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
@@ -23,8 +24,22 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { sendEmail } from "@/lib/resend";
 
+const subjectAliases: Record<string, string[]> = {
+  "general-inquiry": ["general-inquiry", "consulta-general"],
+  volunteering: ["volunteering", "voluntariado"],
+  partnerships: ["partnerships", "alianzas"],
+  "programs-and-services": ["programs-and-services", "programas-y-servicios"],
+  "events-and-workshops": ["events-and-workshops", "eventos-y-talleres"],
+  "donations-and-sponsorships": [
+    "donations-and-sponsorships",
+    "donaciones-y-patrocinios",
+  ],
+  "media-and-press": ["media-and-press", "medios-y-prensa"],
+};
+
 export default function Contact() {
   const copy = useSiteCopy();
+  const searchParams = useSearchParams();
 
   type FormData = {
     name: string;
@@ -33,6 +48,17 @@ export default function Contact() {
     subject: string;
     comment: string;
   };
+
+  const requestedSubject = searchParams.get("subject");
+
+  const defaultSubject =
+    copy.contact.fields.subjectOptions.find((option) =>
+      requestedSubject
+        ? (subjectAliases[requestedSubject] ?? [requestedSubject]).includes(
+            option.value,
+          )
+        : false,
+    )?.value ?? copy.contact.fields.subjectOptions[0]?.value;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,7 +91,7 @@ export default function Contact() {
       <section className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-6 py-16 md:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)] lg:gap-14 lg:px-8 lg:py-20">
         <div>
           <div className="mb-6">
-            <h2 className="text-3xl font-bold text-hive-blue sm:text-4xl">
+            <h2 id="contact-form" className="text-3xl font-bold text-hive-blue sm:text-4xl">
               {copy.contact.formTitle}
             </h2>
             <p className="mt-3 max-w-xl text-base leading-7 text-slate-600">
@@ -136,7 +162,7 @@ export default function Contact() {
                   >
                     {copy.contact.fields.subject}
                   </FieldLabel>
-                  <Select name="subject" required>
+                  <Select name="subject" required defaultValue={defaultSubject}>
                     <SelectTrigger
                       id="subject"
                       className="h-12 w-full rounded-2xl border-white/15 bg-white/96 px-4 text-left text-base text-slate-900 shadow-none data-[placeholder]:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
