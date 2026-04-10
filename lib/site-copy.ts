@@ -65,6 +65,86 @@ const esPartners = {
     },
 };
 
+const enOurImpact = {
+    heroEyebrow: "Our Impact",
+    heroTitle: "Recognized. Published. Making Waves.",
+    heroBody:
+        "From national media features to strategic milestones, explore The Hive's growing footprint in the movement to end gender-based violence.",
+
+    mediaEyebrow: "Press & Interviews",
+    mediaTitle: "In the Media",
+    mediaItems: [
+        {
+            outlet: "Black Enterprise",
+            headline: "Changing the Conversation on Gender-Based Violence",
+            description:
+                "Featured for a survivor-led approach to healing and community care for Black women and girls in South Carolina.",
+            href: "https://www.blackenterprise.com",
+        },
+        {
+            outlet: "Essence Festival",
+            headline: "Speaker & Facilitator",
+            description:
+                "Ashley Olayinka presented on social and racial justice, gender-based violence, and leadership at the Essence Festival.",
+            href: "https://www.essence.com/festival",
+        },
+        {
+            outlet: "The State Newspaper",
+            headline: "20 Under 40",
+            description:
+                "Recognized among South Carolina's most influential young leaders for building survivor-centered spaces.",
+            href: "https://www.thestate.com",
+        },
+    ],
+
+    awardsEyebrow: "Honors & Distinctions",
+    awardsTitle: "Awards & Recognition",
+    awards: [
+        {
+            name: "Aspen SOAR Fellow",
+            year: "2022",
+            issuer: "Aspen Institute",
+            description:
+                "A highly selective fellowship recognizing emerging leaders driving systemic change in their communities.",
+        },
+        {
+            name: "Jefferson Award",
+            year: "",
+            issuer: "Jefferson Awards Foundation",
+            description:
+                "Awarded for extraordinary public service and commitment to creating lasting community impact.",
+        },
+        {
+            name: "20 Under 40",
+            year: "",
+            issuer: "The State Newspaper",
+            description:
+                "Honored among South Carolina's top young professionals making a meaningful difference.",
+        },
+    ],
+
+    documentsEyebrow: "Strategic Documents",
+    documentsTitle: "Reports & Plans",
+    documents: [
+        {
+            title: "2025 Annual Report",
+            description:
+                "Our year in review — impact numbers, stories, and highlights from across The Hive's programs.",
+            href: "https://www.thehivecc.org/2025-annual-report",
+            cta: "View Report",
+            external: true,
+        },
+        {
+            title: "2021–2026 Strategic Plan",
+            description:
+                "The roadmap guiding our growth, programs, and community vision over five years.",
+            href: "/strategic-plan.pdf",
+            cta: "Download PDF",
+            external: false,
+        },
+    ],
+};
+
 const enAwareness = {
     heroEyebrow: "Prevention &amp; Awareness",
     heroTitle: "Training & Education at The Hive",
@@ -343,6 +423,16 @@ const enEvents = {
     title: "Stay up to date with Hive events.",
     body:
         "This calendar is connected directly to The Hive's Google Calendar, so new events and updates appear here automatically.",
+    upcomingEyebrow: "Coming Up",
+    upcomingTitle: "A quick look at what's next.",
+    upcomingBody:
+        "These upcoming event cards sync automatically with the same Google Calendar shown below.",
+    upcomingPrivacyNote:
+        "Some entries may appear as Busy because Google Calendar is hiding public event details.",
+    upcomingLoading: "Loading upcoming events...",
+    upcomingEmpty: "No upcoming events are listed right now. Check back soon or open the full calendar.",
+    upcomingCta: "View calendar day",
+    allDayLabel: "All day",
     openCalendar: "Open Full Calendar",
     askAboutEvent: "Ask About an Event",
     iframeTitle: "The Hive events calendar",
@@ -353,6 +443,17 @@ const esEvents = {
     title: "Mantente al día con los eventos de The Hive.",
     body:
         "Este calendario está conectado directamente con el Google Calendar de The Hive, así que los nuevos eventos y actualizaciones aparecen aquí automáticamente.",
+    upcomingEyebrow: "Pr\u00f3ximamente",
+    upcomingTitle: "Un vistazo r\u00e1pido a lo que sigue.",
+    upcomingBody:
+        "Estas tarjetas de pr\u00f3ximos eventos se sincronizan autom\u00e1ticamente con el mismo Google Calendar que aparece abajo.",
+    upcomingPrivacyNote:
+        "Algunas entradas pueden aparecer como Busy porque Google Calendar est\u00e1 ocultando los detalles p\u00fablicos del evento.",
+    upcomingLoading: "Cargando pr\u00f3ximos eventos...",
+    upcomingEmpty:
+        "No hay eventos pr\u00f3ximos en este momento. Vuelve pronto o abre el calendario completo.",
+    upcomingCta: "Ver d\u00eda en el calendario",
+    allDayLabel: "Todo el d\u00eda",
     openCalendar: "Abrir Calendario Completo",
     askAboutEvent: "Preguntar por un Evento",
     iframeTitle: "Calendario de eventos de The Hive",
@@ -746,6 +847,7 @@ const en = {
         about: "About Us",
         aboutUs: "About Us",
         impact: "Impact",
+        ourImpact: "Our Impact",
         partners: "Our Partners",
         support: "Support",
         supportServices: "Support Services",
@@ -812,6 +914,7 @@ const en = {
             "Your contribution helps us reach more survivors and provide the care they deserve. Every dollar makes a difference.",
         donateNow: "Donate Now",
         missionImageAlt: "Mission",
+        popupModalImageAlt: "Promotional announcement",
     },
     about: {
         tabs: {
@@ -991,7 +1094,7 @@ const en = {
                     "Employment support",
                     "Assist in applying for additional services",
                 ],
-                ctaLabel: "",
+                ctaLabel: "Contact",
                 badge: "Case Planning",
             },
             {
@@ -1038,12 +1141,23 @@ const en = {
             name: "Name",
             email: "Email",
             phone: "Phone",
+            subject: "Subject",
             comment: "Comments",
             submit: "Submit",
+            subjectOptions: [
+                { value: "general-inquiry", label: "General Inquiry" },
+                { value: "volunteering", label: "Volunteering" },
+                { value: "partnerships", label: "Partnerships" },
+                { value: "programs-and-services", label: "Programs and Services" },
+                { value: "events-and-workshops", label: "Events and Workshops" },
+                { value: "donations-and-sponsorships", label: "Donations and Sponsorships" },
+                { value: "media-and-press", label: "Media and Press" },
+            ],
             placeholders: {
                 name: "Jane Doe",
                 email: "example@gmail.com",
                 phone: "(XXX) XXX-XXXX",
+                subject: "Select a topic",
                 comment: "Enter message here",
             },
         },
@@ -1057,6 +1171,7 @@ const en = {
             facebook: "Facebook link and logo",
             linkedin: "LinkedIn link and logo",
             x: "X link and logo",
+            youtube: "Youtube link and logo",
         },
         newsletterTitle: "Check Out Our Newsletter!",
         newsletterFormTitle: "Subscribe to Our Newsletter",
@@ -1107,11 +1222,377 @@ const en = {
     },
     partners: enPartners,
     awareness: enAwareness,
+    ourImpact: enOurImpact,
     events: enEvents, heroEyebrow: "Community Calendar",
 } as const;
 
 export const siteCopy = {
     en,
+    "es-CO": {
+        nav: {
+            brand: "The Hive",
+            home: "Inicio",
+            about: "Sobre Nosotras",
+            aboutUs: "Sobre Nosotras",
+            impact: "Impacto",
+            partners: "Nuestras Aliadas",
+            support: "Apoyo",
+            supportServices: "Servicios de Apoyo",
+            prevention: "Prevención",
+            awareness: "Concientización",
+            events: "Eventos",
+            contact: "Contacto",
+            keepUpdated: "Mantente Informada",
+            donate: "Donar",
+            languageToggleLabel: "Seleccionar idioma",
+        },
+        common: {
+            safeExit: "Salida Segura",
+            safeExitAriaLabel: "Salida segura",
+        },
+        footer: {
+            brand: "The Hive",
+            tagline:
+                "Apoyo liderado por sobrevivientes, educación en prevención y cuidado práctico para mujeres y niñas en Carolina del Sur.",
+            quickLinks: "Enlaces rápidos",
+            home: "Inicio",
+            about: "Acerca de",
+            impact: "Apoya a Hive",
+            partners: "Nuestros socios",
+            support: "Apoyo",
+            awareness: "Concientización",
+            events: "Eventos",
+            contact: "Contacto",
+            keepUpdated: "Mantente al tanto",
+            email: "Correo:",
+            phone: "Teléfono:",
+            address: "Dirección:",
+            supportMission: "Apoya nuestra misión",
+            donationLink: "Donar aquí",
+            copyright: "© 2026 The Hive Community Circle",
+        },
+        home: {
+            heroTitleLine1: "Creer en ti misma es el",
+            heroTitleLine2: "Primer Paso para Sanar",
+            donateToday: "Dona Hoy",
+            missionTitle: "Nuestra Misión",
+            missionBody:
+                "The Hive Community Circle es una organización de apoyo liderada por sobrevivientes que acompaña a mujeres y niñas en Carolina del Sur a superar el trauma de la agresión sexual, la violencia de pareja y el acoso. Nuestra misión es brindar apoyo inquebrantable y compasión a las sobrevivientes más afectadas y menos atendidas del estado.",
+            whatWeDoTitle: "Lo Que Hacemos",
+            whatWeDoCards: [
+                {
+                    title: "Defensa y Apoyo",
+                    body: "Hemos acompañado a más de 470 sobrevivientes y a sus familias mediante defensa directa y servicios integrales de apoyo.",
+                },
+                {
+                    title: "Prevención y Alcance",
+                    body: "Nuestros programas de prevención han llegado a más de 367 personas de la comunidad, creando espacios más seguros y promoviendo la concientización en toda Carolina del Sur.",
+                },
+                {
+                    title: "Restauración",
+                    body: "Caminamos junto a las sobrevivientes mientras reconstruyen sus vidas y celebramos cada logro y cada historia de esperanza en el camino.",
+                },
+            ],
+            followInstagram: "Síguenos en Instagram",
+            supportTitle: "Apoya Nuestro Trabajo",
+            supportBody:
+                "Tu contribución nos ayuda a llegar a más sobrevivientes y brindarles el cuidado que merecen. Cada dólar hace la diferencia.",
+            donateNow: "Donar Ahora",
+            missionImageAlt: "Misión",
+        },
+        about: {
+            tabs: {
+                founder: "Fundadora/CEO",
+                team: "Equipo",
+                board: "Junta Directiva",
+            },
+            heroEyebrow: "Miembros",
+            heroTitle: "Conoce a las personas que dan forma a The Hive.",
+            whyFoundedTitle: "Por Qué Fuimos Fundadas",
+            whyFoundedBody:
+                "Fuimos fundadas en 2015 con un espíritu visionario y un objetivo urgente: ayudar a prevenir la violencia contra algunas de las poblaciones de mujeres y niñas más vulnerables de nuestro país. Como una organización de defensa entre pares dirigida por y para sobrevivientes, aportamos un enfoque culturalmente pertinente para prevenir y educar a sobrevivientes y a las comunidades que las rodean sobre agresión sexual, violencia de pareja y acoso. Existimos para fortalecer los servicios de apoyo y la prevención para mujeres y niñas racializadas y para quienes enfrentan inestabilidad económica.",
+            founderStoryEyebrow: "Historia de la Fundadora",
+            founderTitle: "Fundadora/CEO",
+            founderNarrativeLabel: "Narrativa",
+            founderNarrativeParagraphs: [
+                "Defensora de toda la vida, Ashley combina su experiencia vivida con una sólida formación académica, con una licenciatura en Psicología de Columbia College y una Maestría en Trabajo Social de la Universidad de Washington. Se distingue por su capacidad de movilizar personas, recursos e ideas para impulsar cambios sociales significativos.",
+                "Ashley ha servido en numerosos espacios filantrópicos y de liderazgo, incluyendo su participación en la junta de Prisma Health Hospital Foundation, el comité de filantropía afroamericana de Central Carolina Community Foundation y la presidencia del Richland County Domestic Violence Coordinating Community Council. Actualmente integra el South Carolina Victim Services Coordinating Council.",
+                "Su impacto ha sido reconocido a nivel nacional. Ashley es Aspen SOAR Fellow de la cohorte 2022 y ha recibido reconocimientos como The State's 20 Under 40 y un Jefferson Award. Es una conferencista y facilitadora muy solicitada, con presentaciones en Essence Festival y apariciones en medios como Black Enterprise. Su trabajo se enfoca en la justicia social y racial, la violencia de género y el liderazgo.",
+                "Por encima de todo, Ashley es madre de tres hijos, Corinne Elizabeth, Caleb Josiah y Collin Noah, quienes inspiran su compromiso continuo con la construcción de comunidades más seguras y equitativas.",
+            ],
+            founderSparkTitle: "Chispa Inicial",
+            founderSparkBody:
+                "Como sobreviviente de abuso sexual y mujer nacida en Carolina del Sur, Ashley Olayinka identificó vacíos críticos en el apoyo culturalmente pertinente para mujeres y niñas negras y morenas afectadas por la violencia de género. Su experiencia vivida, combinada con su formación profesional, la impulsó a crear un espacio donde las sobrevivientes pudieran acceder a un cuidado que afirmara sus identidades, enfrentara las barreras sistémicas y promoviera una sanación real. Esa visión se convirtió en The Hive.",
+            founderVisionTitle: "Visión Hoy",
+            founderVisionBody:
+                "Hoy Ashley lidera The Hive junto a otras sobrevivientes, trabajando para reducir barreras y ampliar el acceso a servicios equitativos, informados por el trauma y con enfoque en el fortalecimiento económico. Su liderazgo está arraigado en la justicia sanadora, para que las sobrevivientes no solo reciban apoyo, sino que también recuperen su autonomía, su salud mental y su movilidad económica. Continúa impulsando cambios sistémicos para que las mujeres y niñas racializadas estén seguras, visibles y acompañadas.",
+            founderName: "Ashley Olayinka",
+            founderRole: "Fundadora y Directora Ejecutiva",
+            founderProfileBody:
+                "Ashley Olayinka es una líder transformadora, defensora de la justicia sanadora y fundadora de The Hive, una organización de defensa entre pares culturalmente específica que sirve a sobrevivientes negras y morenas de violencia de género en Carolina del Sur.",
+            teamEyebrow: "Equipo",
+            teamTitle: "Equipo",
+            boardEyebrow: "Liderazgo",
+            boardTitle: "Junta Directiva",
+            joinEyebrow: "Únete a The Hive",
+            joinTitle: "¿Quieres unirte a nuestro equipo?",
+            joinBodyPrefix: "Envía tu hoja de vida y una carta de presentación a",
+            teamMembers: [
+                {
+                    name: "Alyson Berry",
+                    role: "Administradora Ejecutiva",
+                },
+                {
+                    name: "Jalona Webb",
+                    role: "Defensora de Alcance Legal",
+                },
+                {
+                    name: "Kinnethia Tolson",
+                    role: "Coordinadora de Educación y Voluntariado",
+                },
+                {
+                    name: "Beatrice Hernandez-Morales",
+                    role: "Defensora de Alcance Bilingüe",
+                },
+            ],
+            boardMembers: [
+                {
+                    name: "Dr. Stephanie Kirkland",
+                    role: "Presidenta de la Junta",
+                    note: "Identity Dynamics\nCEO",
+                },
+                {
+                    name: "Jordan Crapps",
+                    role: "Vicepresidencia",
+                    note: "Gallivan, White, Boyd\nSocio",
+                },
+                {
+                    name: "Andrea Lee",
+                    role: "Tesorería",
+                    note: "Center for Community Health Alignment\nDirectora Asociada de Operaciones",
+                },
+                {
+                    name: "Ann Turner",
+                    role: "AVP",
+                    note: "Operaciones de Suscripción",
+                },
+                {
+                    name: "Anthony Bryant",
+                    role: "Miembro de la Junta",
+                    note: "Estratega de Liderazgo, Conferencista, Autor",
+                },
+                {
+                    name: "Bency Beals",
+                    role: "Miembro de la Junta",
+                    note: "Ignite Leadership Solutions\nCEO",
+                },
+                {
+                    name: "Ebone Ivory",
+                    role: "Miembro de la Junta",
+                    note: "SC Department of Employment and Workforce\nOficial de Audiencias Administrativas",
+                },
+                {
+                    name: "Naomi Walton",
+                    role: "Miembro de la Junta",
+                    note: "",
+                },
+                {
+                    name: "Nicki Woodson",
+                    role: "Miembro de la Junta",
+                    note: "Starbucks\nGerente de Recursos para Partners (HR)",
+                },
+                {
+                    name: "Terry Judy",
+                    role: "Miembro de la Junta",
+                    note: "Ignite Leadership Solutions\nDirectora de Impacto y Alianzas",
+                },
+            ],
+        },
+        support: {
+            heroEyebrow: "Apoyo y Cuidado",
+            heroTitle: "Servicios de Apoyo",
+            heroBody: "Acompañamiento compasivo y recursos prácticos, aquí cuando los necesites.",
+            servicesHeading: "Explora las Opciones de Apoyo",
+            cards: [
+                {
+                    title: "Defensa Entre Pares",
+                    subtitle: "Apoyo emocional y orientación",
+                    summary:
+                        "Defensoras capacitadas brindan apoyo confidencial, te ayudan a comprender tus derechos y opciones, y te conectan con recursos.",
+                    details: [
+                        "Asegurar que las sobrevivientes comprendan sus derechos y opciones",
+                        "Apoyo socioemocional y planificación de seguridad",
+                        "Para sobrevivientes primarias y secundarias de 11 años en adelante",
+                        "Servicios sin costo para la sobreviviente",
+                    ],
+                    ctaLabel: "Llama al 803-888-7725",
+                    badge: "Confidencial",
+                },
+                {
+                    title: "Alivio Económico",
+                    subtitle: "Apoyo financiero inmediato",
+                    summary:
+                        "Apoyo financiero integral para necesidades urgentes: vivienda, alimentos, ayuda con servicios, reubicación y transporte.",
+                    details: [
+                        "Vivienda transicional",
+                        "Apoyo con servicios públicos y vales de gasolina",
+                        "Seguridad alimentaria y hospedaje en hotel",
+                    ],
+                    ctaLabel: "Solicitar ayuda",
+                    badge: "Sin costo",
+                },
+                {
+                    title: "Consejería Individual",
+                    subtitle: "Terapeutas con formación en trauma",
+                    summary:
+                        "Consejería profesional para sobrevivientes. Los servicios son brindados por terapeutas con licencia y formación en tratamiento del trauma.",
+                    details: [
+                        "Para sobrevivientes de agresión sexual, violencia de pareja o acoso (11 años en adelante)",
+                        "Sin costo para la sobreviviente",
+                    ],
+                    ctaLabel: "Grupos y Consejería: 803-766-8067",
+                    badge: "",
+                },
+                {
+                    title: "Círculos de Sanación y Apoyo Entre Pares",
+                    subtitle: "Sanación grupal guiada por pares",
+                    summary:
+                        "Círculos confidenciales de sanación con currículo psicoeducativo y de bienestar para la comunidad y la recuperación.",
+                    details: [
+                        "Queens Gather - Mujeres de 18 años en adelante",
+                        "Bloom - Niñas de 11 a 18 años",
+                        "Se realizan en un espacio seguro y afirmativo",
+                    ],
+                    ctaLabel: "Conoce los círculos",
+                    badge: "Grupos",
+                },
+                {
+                    title: "Apoyo Integral",
+                    subtitle: "Acompañamiento completo",
+                    summary:
+                        "Apoyo que va más allá de un solo servicio y ayuda a abordar la situación completa de la sobreviviente.",
+                    details: [
+                        "Planificación de metas e intervenciones",
+                        "Planeación financiera",
+                        "Apoyo laboral",
+                        "Ayuda para solicitar servicios adicionales",
+                    ],
+                    ctaLabel: "Contacto",
+                    badge: "Planificación",
+                },
+                {
+                    title: "Cómo Referir a una Sobreviviente",
+                    subtitle: "Información de contacto rápida",
+                    summary:
+                        "Usa estas opciones de contacto para conectar a una sobreviviente con apoyo general, consejería o defensa.",
+                    details: [
+                        "Apoyo General / Defensa: 803-888-7725",
+                        "Grupos y Consejería: 803-766-8067",
+                        "Los servicios son confidenciales",
+                        "Somos personas reportantes obligatorias",
+                    ],
+                    ctaLabel: "Ir a Contacto",
+                    badge: "Referencias",
+                },
+                {
+                    title: "Solicita Capacitación / Programación de Prevención",
+                    subtitle: "Eventos de alcance",
+                    summary:
+                        "Solicita capacitaciones, programación de prevención o eventos de alcance para tu organización o comunidad.",
+                    details: [
+                        "Correo: hello@thehivecc.org",
+                        "Llama: 803-888-7725",
+                        "Podemos coordinar eventos de alcance",
+                    ],
+                    ctaLabel: "Escríbenos",
+                    badge: "Alcance",
+                },
+            ],
+            safetyPlanTitle: "Recurso de Plan de Seguridad Emocional",
+            safetyPlanButton: "Haz Clic Aquí",
+            safetyPlanBody:
+                "Si necesitas ayuda para completar este formulario o crear un plan que se ajuste a tus necesidades, siempre puedes comunicarte con The Hive. Una de nuestras defensoras puede ayudarte. No tienes que pasar por esto sola.",
+        },
+        contact: {
+            heroEyebrow: "Contáctanos",
+            heroTitle: "Ponte en Contacto",
+            heroBody:
+                "Estamos aquí para ti. Comunícate y una persona de nuestro equipo te responderá en breve.",
+            formTitle: "Envíanos un Mensaje",
+            infoTitle: "Información de Contacto",
+            fields: {
+                name: "Nombre",
+                email: "Correo",
+                phone: "Teléfono",
+                comment: "Comentarios",
+                submit: "Enviar",
+                placeholders: {
+                    name: "Jane Doe",
+                    email: "example@gmail.com",
+                    phone: "(XXX) XXX-XXXX",
+                    comment: "Escribe tu mensaje aquí",
+                },
+            },
+            info: {
+                email: "Correo",
+                phone: "Teléfono",
+                address: "Dirección",
+            },
+            socials: {
+                instagram: "Enlace y logo de Instagram",
+                facebook: "Enlace y logo de Facebook",
+                linkedin: "Enlace y logo de LinkedIn",
+                x: "Enlace y logo de X",
+                youtube: "Enlace y logo de Youtube",
+            },
+            newsletterTitle: "¡Mira Nuestro Boletín!",
+            newsletterFormTitle: "Suscríbete a Nuestro Boletín",
+            newsletterEmail: "Correo",
+            newsletterSubmit: "Enviar",
+        },
+        donations: {
+            title: "Impulsa a The Hive",
+            subtitle:
+                "Elige cómo quieres apoyar a nuestra comunidad: a través del voluntariado o una donación.",
+            volunteerTitle: "Oportunidades de Voluntariado",
+            volunteerButton: "Inscríbete para Hacer Voluntariado",
+            volunteerItems: [
+                {
+                    title: "The Voices of Washindi-Speaker's Bureau",
+                    body: "Una comunidad y plataforma para sobrevivientes de agresión sexual y violencia de pareja para compartir sus historias de resiliencia y valentía mediante el arte y la narración. Se requiere capacitación adicional.",
+                },
+                {
+                    title: "Embajadoras de Hive",
+                    body: "Si te encanta compartir The Hive, el trabajo en mesas informativas y el alcance comunitario puede interesarte. En este rol tendrás la oportunidad de conectar con la comunidad y compartir sobre The Hive en eventos comunitarios.",
+                },
+                {
+                    title: "Anfitrionas y Anfitriones de Hive",
+                    body: "Las anfitrionas y anfitriones de Hive son personas voluntarias para eventos especiales que tal vez no puedan participar regularmente, pero desean apoyar nuestro trabajo. En esta área te contactaremos cuando tengamos eventos organizados por Hive, como nuestra Cumbre Anual de Sobrevivientes de SC o recaudaciones de fondos.",
+                },
+                {
+                    title: "Grupos de Voluntariado",
+                    body: "Tenemos oportunidades para grupos que quieran hacer voluntariado en conjunto. Estas oportunidades para grupos de 5 o más incluyen empacar Bee Boxes de apoyo para sobrevivientes o armar BuzzPaks para nuestra programación de prevención para jóvenes.",
+                },
+            ],
+            donationTitle: "Oportunidades de Donación",
+            donationBody:
+                "Conviértete hoy en Guardiana de la Esperanza. Dona a The Hive y apoya a sobrevivientes de violencia doméstica y sexual que buscan una comunidad segura. Puedes donar a la despensa para sobrevivientes o a Peer Advocacy/Outreach para ayudar directamente a nuestras sobrevivientes, o unirte al Keeper's Club y donar cada mes. Si deseas donar directamente a la organización, dona al Hope Is Fund, que apoya las actividades operativas del día a día.",
+            donationButton: "Donar Ahora",
+            partnersTitle: "Nuestras Personas Aliadas",
+            partnerCategories: {
+                philanthropic: "Filantrópicas",
+                nonprofit: "Organizaciones sin Fines de Lucro",
+                lawEnforcement: "Fuerza Pública",
+                education: "Educación",
+                faithBased: "Comunidades de Fe",
+                merchant: "Comercios",
+            },
+            page: esDonationsPage,
+        },
+        partners: esPartners,
+        awareness: esAwareness,
+        events: esEvents, heroEyebrow: "Calendario Comunitario",
+    },
     "es-MX": {
         nav: {
             brand: "The Hive",
@@ -1120,6 +1601,7 @@ export const siteCopy = {
             about: "Sobre Nosotras",
             aboutUs: "Sobre Nosotras",
             impact: "Impacto",
+            ourImpact: "Nuestro Impacto",
             partners: "Nuestras Personas Aliadas",
             support: "Apoyo",
             supportServices: "Servicios de Apoyo",
@@ -1189,6 +1671,7 @@ export const siteCopy = {
                 "Tu contribución nos ayuda a llegar a más sobrevivientes y brindarles el cuidado que merecen. Cada dólar hace la diferencia.",
             donateNow: "Dona Ahora",
             missionImageAlt: "Misión",
+            popupModalImageAlt: "Anuncio promocional",
         },
         about: {
             tabs: {
@@ -1368,7 +1851,7 @@ export const siteCopy = {
                         "Apoyo laboral",
                         "Ayuda para solicitar servicios adicionales",
                     ],
-                    ctaLabel: "",
+                    ctaLabel: "Contacto",
                     badge: "Planeación",
                 },
                 {
@@ -1415,12 +1898,23 @@ export const siteCopy = {
                 name: "Nombre",
                 email: "Correo",
                 phone: "Teléfono",
+                subject: "Asunto",
                 comment: "Comentarios",
                 submit: "Enviar",
+                subjectOptions: [
+                    { value: "consulta-general", label: "Consulta General" },
+                    { value: "voluntariado", label: "Voluntariado" },
+                    { value: "alianzas", label: "Alianzas" },
+                    { value: "programas-y-servicios", label: "Programas y Servicios" },
+                    { value: "eventos-y-talleres", label: "Eventos y Talleres" },
+                    { value: "donaciones-y-patrocinios", label: "Donaciones y Patrocinios" },
+                    { value: "medios-y-prensa", label: "Medios y Prensa" },
+                ],
                 placeholders: {
                     name: "Jane Doe",
                     email: "example@gmail.com",
                     phone: "(XXX) XXX-XXXX",
+                    subject: "Selecciona un tema",
                     comment: "Escribe tu mensaje aquí",
                 },
             },
@@ -1434,6 +1928,7 @@ export const siteCopy = {
                 facebook: "Enlace y logo de Facebook",
                 linkedin: "Enlace y logo de LinkedIn",
                 x: "Enlace y logo de X",
+                youtube: "Enlace y logo de Youtube",
             },
             newsletterTitle: "¡Consulta Nuestro Boletín!",
             newsletterFormTitle: "Suscríbete a Nuestro Boletín",
@@ -1484,6 +1979,82 @@ export const siteCopy = {
         },
         partners: esPartners,
         awareness: esMxAwareness,
+        ourImpact: {
+            heroEyebrow: "Nuestro Impacto",
+            heroTitle: "Reconocidas. Publicadas. Marcando la Diferencia.",
+            heroBody:
+                "Desde apariciones en medios nacionales hasta hitos estratégicos, explora la huella creciente de The Hive en el movimiento para erradicar la violencia de género.",
+            mediaEyebrow: "Prensa y Entrevistas",
+            mediaTitle: "En los Medios",
+            mediaItems: [
+                {
+                    outlet: "Black Enterprise",
+                    headline: "Cambiando la Conversación sobre la Violencia de Género",
+                    description:
+                        "Destacada por un enfoque de sanación liderado por sobrevivientes y cuidado comunitario para mujeres y niñas negras en Carolina del Sur.",
+                    href: "https://www.blackenterprise.com",
+                },
+                {
+                    outlet: "Essence Festival",
+                    headline: "Conferencista y Facilitadora",
+                    description:
+                        "Ashley Olayinka presentó sobre justicia social y racial, violencia de género y liderazgo en el Essence Festival.",
+                    href: "https://www.essence.com/festival",
+                },
+                {
+                    outlet: "The State Newspaper",
+                    headline: "20 Menores de 40",
+                    description:
+                        "Reconocida entre los líderes jóvenes más influyentes de Carolina del Sur por construir espacios centrados en sobrevivientes.",
+                    href: "https://www.thestate.com",
+                },
+            ],
+            awardsEyebrow: "Honores y Distinciones",
+            awardsTitle: "Reconocimientos y Premios",
+            awards: [
+                {
+                    name: "Aspen SOAR Fellow",
+                    year: "2022",
+                    issuer: "Aspen Institute",
+                    description:
+                        "Una beca altamente selectiva que reconoce a líderes emergentes que impulsan cambios sistémicos en sus comunidades.",
+                },
+                {
+                    name: "Jefferson Award",
+                    year: "",
+                    issuer: "Jefferson Awards Foundation",
+                    description:
+                        "Otorgado por servicio público extraordinario y compromiso con la creación de impacto comunitario duradero.",
+                },
+                {
+                    name: "20 Menores de 40",
+                    year: "",
+                    issuer: "The State Newspaper",
+                    description:
+                        "Reconocida entre los mejores jóvenes profesionales de Carolina del Sur que generan una diferencia significativa.",
+                },
+            ],
+            documentsEyebrow: "Documentos Estratégicos",
+            documentsTitle: "Informes y Planes",
+            documents: [
+                {
+                    title: "Informe Anual 2025",
+                    description:
+                        "Nuestro año en resumen: cifras de impacto, historias y momentos destacados de los programas de The Hive.",
+                    href: "https://www.thehivecc.org/2025-annual-report",
+                    cta: "Ver Informe",
+                    external: true,
+                },
+                {
+                    title: "Plan Estratégico 2021–2026",
+                    description:
+                        "La hoja de ruta que guía nuestro crecimiento, programas y visión comunitaria durante cinco años.",
+                    href: "/strategic-plan.pdf",
+                    cta: "Descargar PDF",
+                    external: false,
+                },
+            ],
+        },
         events: esEvents, heroEyebrow: "Calendario Comunitario",
     },
 } satisfies Record<LanguageCode, DeepWiden<typeof en>>;

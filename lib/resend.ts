@@ -8,6 +8,7 @@ type FormData = {
     name: string;
     email: string;
     phone: string;
+    subject: string;
     comment: string;
 };
 
@@ -16,11 +17,12 @@ export const sendEmail = async (formData: FormData) => {
     await resend.emails.send({
         to: "noahack22@gmail.com",
         from: "HIVE Contact <onboarding@resend.dev>",
-        subject: "New Message from HIVE User",
+        subject: `New Message from HIVE User: ${formData.subject}`,
         html: `
             <p><strong>Name:</strong> ${formData.name}</p>
             <p><strong>Email:</strong> ${formData.email}</p>
             <p><strong>Phone:</strong> ${formData.phone}</p>
+            <p><strong>Subject:</strong> ${formData.subject}</p>
             <p><strong>Comment:</strong> ${formData.comment}</p>
         `
     });
