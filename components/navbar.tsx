@@ -105,7 +105,7 @@ export default function Navbar() {
     return (
         <header
             ref={navRef}
-            className="fixed inset-x-0 top-0 z-50 border-b border-black/8 bg-white shadow-sm"
+            className="fixed inset-x-0 top-0 z-50 bg-white shadow-sm"
         >
             <nav className="flex h-16 w-full items-center justify-between px-4 sm:px-6">
                 <Link href="/" onClick={closeMenus}>
@@ -302,6 +302,7 @@ export default function Navbar() {
                     </div>
                 </div>
             ) : null}
+            <div className="h-1 w-full" style={{ backgroundColor: "#f3c506" }} />
         </header>
     );
 }
