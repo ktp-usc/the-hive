@@ -557,6 +557,30 @@ export const sectionDonationsCasitaWays = defineType({
   },
 })
 
+export const sectionDonationsCasitaBeeBox = defineType({
+  name: 'sectionDonationsCasitaBeeBox',
+  title: 'Casita Bee Box',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 6}),
+    defineField({name: 'imageAlt', title: 'Image alt text', type: 'string'}),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {hotspot: true},
+    }),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {
+      return {title: title || 'Casita Bee Box', media}
+    },
+  },
+})
+
 export const sectionDonationsCasitaClosing = defineType({
   name: 'sectionDonationsCasitaClosing',
   title: 'Casita closing',
@@ -784,6 +808,7 @@ export const pageSectionTypes = [
   sectionDonationsCasitaRefuge,
   sectionDonationsCasitaCommunity,
   sectionDonationsCasitaWays,
+  sectionDonationsCasitaBeeBox,
   sectionDonationsCasitaClosing,
   sectionDonationsKeepersOverview,
   sectionDonationsKeepersBenefits,

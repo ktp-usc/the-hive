@@ -39,6 +39,7 @@ const fallbackSections: DonationsPageSection[] = [
   { _key: "cr", _type: "sectionDonationsCasitaRefuge" },
   { _key: "cc", _type: "sectionDonationsCasitaCommunity" },
   { _key: "cw", _type: "sectionDonationsCasitaWays" },
+  { _key: "cbb", _type: "sectionDonationsCasitaBeeBox" },
   { _key: "ccl", _type: "sectionDonationsCasitaClosing" },
   { _key: "ko", _type: "sectionDonationsKeepersOverview" },
   { _key: "kb", _type: "sectionDonationsKeepersBenefits" },
@@ -253,6 +254,36 @@ export default function DonationsClient({ cmsContent }: { cmsContent: DonationsP
             </section>
         );
       }
+        // Casita Bee Box section with image on the left and text on the right.
+      case "sectionDonationsCasitaBeeBox":
+        if (activeTab !== "casita") return null;
+        return (
+            <section key={section._key} className="site-card p-6 sm:p-8">
+              <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+                <FeatureImage
+                    src={section.imageUrl ?? "/partner-images/TheBeeBox.avif"}
+                    alt={section.imageAlt ?? (section.title ?? "Bee Box image")}
+                />
+                <article className="px-2 sm:px-4">
+                  {section.eyebrow ? (
+                      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-orange">
+                        {section.eyebrow}
+                      </p>
+                  ) : null}
+                  {section.title ? (
+                      <h4 className="mt-3 text-3xl font-bold text-hive-blue sm:text-4xl">
+                        {section.title}
+                      </h4>
+                  ) : null}
+                  {section.body ? (
+                      <p className="mt-4 whitespace-pre-line text-base leading-8 text-gray-600">
+                        {section.body}
+                      </p>
+                  ) : null}
+                </article>
+              </div>
+            </section>
+        );
         // Casita dedication and thanks closing blocks.
       case "sectionDonationsCasitaClosing": {
         if (activeTab !== "casita") return null;

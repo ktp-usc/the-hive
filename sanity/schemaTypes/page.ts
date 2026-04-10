@@ -60,6 +60,7 @@ export const page = defineType({
         {type: 'sectionDonationsCasitaRefuge'},
         {type: 'sectionDonationsCasitaCommunity'},
         {type: 'sectionDonationsCasitaWays'},
+        {type: 'sectionDonationsCasitaBeeBox'},
         {type: 'sectionDonationsCasitaClosing'},
         {type: 'sectionDonationsKeepersOverview'},
         {type: 'sectionDonationsKeepersBenefits'},

@@ -114,6 +114,15 @@ export type DonationsCasitaWaysSection = DonationsBaseSection & {
   waysToGive?: DonationsInfoCard[];
 };
 
+export type DonationsCasitaBeeBoxSection = DonationsBaseSection & {
+  _type: "sectionDonationsCasitaBeeBox";
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+  imageAlt?: string;
+  imageUrl?: string;
+};
+
 export type DonationsCasitaClosingSection = DonationsBaseSection & {
   _type: "sectionDonationsCasitaClosing";
   dedicationTitle?: string;
@@ -182,6 +191,7 @@ export type DonationsPageSection =
     | DonationsCasitaRefugeSection
     | DonationsCasitaCommunitySection
     | DonationsCasitaWaysSection
+    | DonationsCasitaBeeBoxSection
     | DonationsCasitaClosingSection
     | DonationsKeepersOverviewSection
     | DonationsKeepersBenefitsSection
@@ -278,6 +288,14 @@ export const donationsPageQuery = defineQuery(`
           title,
           description
         }
+      },
+      // Casita tab: Bee Box image-left text-right section.
+      _type == "sectionDonationsCasitaBeeBox" => {
+        eyebrow,
+        title,
+        body,
+        imageAlt,
+        "imageUrl": image.asset->url
       },
       // Casita tab: dedication and thanks closing content.
       _type == "sectionDonationsCasitaClosing" => {
