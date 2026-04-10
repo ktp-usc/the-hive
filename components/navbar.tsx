@@ -70,6 +70,7 @@ export default function Navbar() {
             label: copy.nav.about,
             dropdown: [
                 { label: copy.nav.aboutUs, href: "/about" },
+                { label: copy.nav.ourImpact, href: "/about/our-impact" },
                 { label: copy.nav.impact, href: "/donations" },
                 { label: copy.nav.partners, href: "/about/our-partners" },
             ],
