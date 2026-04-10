@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import LanguageToggle from "@/components/language-toggle";
+import SearchModal from "@/components/search-modal";
 import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -69,6 +70,7 @@ export default function Navbar() {
             label: copy.nav.about,
             dropdown: [
                 { label: copy.nav.aboutUs, href: "/about" },
+                { label: copy.nav.ourImpact, href: "/about/our-impact" },
                 { label: copy.nav.impact, href: "/donations" },
                 { label: copy.nav.partners, href: "/about/our-partners" },
             ],
@@ -105,7 +107,7 @@ export default function Navbar() {
     return (
         <header
             ref={navRef}
-            className="fixed inset-x-0 top-0 z-50 border-b border-black/8 bg-white shadow-sm"
+            className="fixed inset-x-0 top-0 z-50 bg-white shadow-sm"
         >
             <nav className="flex h-16 w-full items-center justify-between px-4 sm:px-6">
                 <Link href="/" onClick={closeMenus}>
@@ -199,7 +201,8 @@ export default function Navbar() {
                         );
                     })}
 
-                    <div className="ml-2">
+                    <div className="ml-2 flex items-center gap-1">
+                        <SearchModal />
                         <LanguageToggle />
                     </div>
                 </div>
@@ -302,6 +305,7 @@ export default function Navbar() {
                     </div>
                 </div>
             ) : null}
+            <div className="h-1 w-full" style={{ backgroundColor: "#f3c506" }} />
         </header>
     );
 }
