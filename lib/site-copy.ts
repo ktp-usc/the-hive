@@ -1029,11 +1029,28 @@ const en = {
         heroEyebrow: "Support &amp; Care",
         heroTitle: "Support Services",
         heroBody: "Compassionate support and practical resources, here when you need them.",
-        servicesHeading: "Explore Support Options",
+        heroImage: {
+            src: "/images/TheHive_12.06.2025_87.jpg",
+            alt: "The Hive survivor support gathering",
+        },
+        introEyebrow: "Walking With Survivors",
+        introTitle: "Support rooted in voice, choice, and care",
+        introBody:
+            "The Hive works alongside survivors with culturally responsive, trauma-informed care that honors each person's pace, choices, and goals. Whether someone is seeking emotional support, advocacy, wellness coaching, or practical resources, our team helps survivors identify what they need, navigate options, and move toward healing with dignity and community.",
+        introImage: {
+            src: "/images/TheHive_12.06.2025_135.jpg",
+            alt: "The Hive team and community members in conversation",
+        },
+        servicesHeading: "Explore Support Services",
+        servicesLanguageNote: "All services are offered in English and Spanish.",
         cards: [
             {
                 title: "Peer Advocacy",
                 subtitle: "Emotional support & navigation",
+                image: {
+                    src: "/images/TheHive_12.06.2025_135.jpg",
+                    alt: "Peer advocacy support session",
+                },
                 summary:
                     "Trained peer advocates provide confidential support, help you understand rights and options, and connect you to resources.",
                 details: [
@@ -1048,31 +1065,42 @@ const en = {
             {
                 title: "Economic Relief",
                 subtitle: "Immediate financial support",
+                image: {
+                    src: "/donations/casitaofcare1.avif",
+                    alt: "Casita of Care resources prepared for survivors",
+                },
                 summary:
                     "Wrap-around financial support for urgent needs - housing, food, utility help, relocation, and transportation support.",
-                details: [
-                    "Transitional housing",
-                    "Utility support and gas vouchers",
-                    "Food security and hotel accommodations",
-                ],
+                details: [],
+                note: "This resource is provided by Casita of Care. Learn more and support it through",
+                noteLinkLabel: "Invest in the Hive",
+                noteLinkHref: "/donations",
                 ctaLabel: "Request help",
                 badge: "No cost",
             },
             {
-                title: "Individual Counseling",
-                subtitle: "Licensed trauma-trained therapists",
+                title: "Wellness Coaching",
+                subtitle: "Licensed trauma-trained support",
+                image: {
+                    src: "/donations/keepersclub2.avif",
+                    alt: "Wellness coaching support",
+                },
                 summary:
-                    "Professional counseling for survivors. Services are provided by licensed therapists trained in trauma treatment.",
+                    "Trauma-informed wellness coaching for survivors. Services are provided by licensed therapists trained in trauma treatment.",
                 details: [
                     "For survivors of sexual assault, IPV, or stalking (ages 11+)",
                     "Provided at no cost to the survivor",
                 ],
-                ctaLabel: "Groups & Counseling: 803-766-8067",
+                ctaLabel: "Groups & Wellness Coaching: 803-766-8067",
                 badge: "",
             },
             {
                 title: "Peer Support Healing Circles",
                 subtitle: "Peer-led group healing",
+                image: {
+                    src: "/images/TheHive_12.06.2025_87.jpg",
+                    alt: "Peer support healing circle gathering",
+                },
                 summary:
                     "Confidential healing circles using psycho-educational and wellness-based curriculum for community and recovery.",
                 details: [
@@ -1086,6 +1114,10 @@ const en = {
             {
                 title: "Holistic Support",
                 subtitle: "Wrap-around support",
+                image: {
+                    src: "/donations/keepersclub4.avif",
+                    alt: "Holistic support planning and care",
+                },
                 summary:
                     "Support that goes beyond one service and helps address the survivor's full situation.",
                 details: [
@@ -1100,11 +1132,15 @@ const en = {
             {
                 title: "How to Refer a Survivor",
                 subtitle: "Quick contact info",
+                image: {
+                    src: "/donations/casitaofcare3.avif",
+                    alt: "Resource and referral support information",
+                },
                 summary:
-                    "Use these contact options to connect a survivor with General Support, Counseling, or Advocacy.",
+                    "Use these contact options to connect a survivor with General Support, Wellness Coaching, or Advocacy.",
                 details: [
                     "General Support / Advocacy: 803-888-7725",
-                    "Groups and Counseling: 803-766-8067",
+                    "Groups and Wellness Coaching: 803-766-8067",
                     "Services are confidential",
                     "We are mandated reporters",
                 ],
@@ -1114,6 +1150,10 @@ const en = {
             {
                 title: "Request Training / Prevention Programming",
                 subtitle: "Outreach events",
+                image: {
+                    src: "/donations/keepersclub5.avif",
+                    alt: "Training and prevention programming session",
+                },
                 summary:
                     "Request training, prevention programming, or outreach events for your organization or community.",
                 details: [
@@ -1125,14 +1165,27 @@ const en = {
                 badge: "Outreach",
             },
         ],
-        safetyPlanTitle: "Emotional Safety Plan Resource",
-        safetyPlanButton: "Click Here",
-        safetyPlanBody:
-            "If you need help filling out this form or creating a plan that meets your needs, you can always contact The Hive. One of our advocates can assist you. You do not have to go through this alone.",
-        participateTitle: "Want to participate?",
-        participateBody:
-            "If you are interested in participating in programs or services with The Hive, contact us and we will point you in the right direction.",
-        participateButton: "Contact Us",
+        accessibilityEyebrow: "Accessibility",
+        accessibilityTitle: "Support that is accessible and inclusive",
+        accessibilityBody:
+            "We are committed to supporting blind and deaf survivors and reducing barriers to care. Linguists and interpreters are available, and those services are compensated so survivors can access support in ways that are clear, affirming, and inclusive.",
+        accessibilityImage: {
+            src: "/donations/casitaofcare4.png",
+            alt: "Welcoming and accessible support space at The Hive",
+        },
+        resourcesTitle: "Survivor Resources",
+        resourcesBody:
+            "These planning tools can support emotional and physical safety. If you would like help filling one out, The Hive can walk through it with you.",
+        resourceButtons: [
+            {
+                label: "Emotional Support Safety Plan",
+                href: "https://www.thehivecc.org/_files/ugd/8a8511_175f07e5966d4276b783f3ce90ea902f.pdf",
+            },
+            {
+                label: "Physical Safety Plan",
+                href: "/support/physical-safety-plan",
+            },
+        ],
     },
     contact: {
         heroEyebrow: "Contact Us",
@@ -1794,11 +1847,28 @@ export const siteCopy = {
             heroEyebrow: "Apoyo y Cuidado",
             heroTitle: "Servicios de Apoyo",
             heroBody: "Acompañamiento compasivo y recursos prácticos, aquí cuando los necesites.",
-            servicesHeading: "Explora las Opciones de Apoyo",
+            heroImage: {
+                src: "/images/TheHive_12.06.2025_87.jpg",
+                alt: "Encuentro de apoyo para sobrevivientes en The Hive",
+            },
+            introEyebrow: "Acompañando a Sobrevivientes",
+            introTitle: "Apoyo centrado en la voz, la elección y el cuidado",
+            introBody:
+                "The Hive camina junto a las sobrevivientes con un enfoque culturalmente sensible e informado por el trauma que honra el ritmo, las decisiones y las metas de cada persona. Ya sea que alguien busque apoyo emocional, defensa, acompañamiento de bienestar o recursos prácticos, nuestro equipo ayuda a identificar necesidades, explorar opciones y avanzar hacia la sanación con dignidad y comunidad.",
+            introImage: {
+                src: "/images/TheHive_12.06.2025_135.jpg",
+                alt: "Equipo y comunidad de The Hive en conversación",
+            },
+            servicesHeading: "Explora los Servicios de Apoyo",
+            servicesLanguageNote: "Todos los servicios se ofrecen en inglés y español.",
             cards: [
                 {
                     title: "Defensa Entre Pares",
                     subtitle: "Apoyo emocional y orientación",
+                    image: {
+                        src: "/images/TheHive_12.06.2025_135.jpg",
+                        alt: "Sesión de apoyo de defensa entre pares",
+                    },
                     summary:
                         "Defensoras capacitadas brindan apoyo confidencial, te ayudan a comprender tus derechos y opciones, y te conectan con recursos.",
                     details: [
@@ -1813,31 +1883,42 @@ export const siteCopy = {
                 {
                     title: "Alivio Económico",
                     subtitle: "Apoyo financiero inmediato",
+                    image: {
+                        src: "/donations/casitaofcare1.avif",
+                        alt: "Recursos de Casita of Care preparados para sobrevivientes",
+                    },
                     summary:
                         "Apoyo financiero integral para necesidades urgentes: vivienda, alimentos, ayuda con servicios, reubicación y transporte.",
-                    details: [
-                        "Vivienda transicional",
-                        "Apoyo con servicios y vales de gasolina",
-                        "Seguridad alimentaria y hospedaje en hotel",
-                    ],
+                    details: [],
+                    note: "Este recurso es provisto por Casita of Care. Conoce más y apóyalo en",
+                    noteLinkLabel: "Invest in the Hive",
+                    noteLinkHref: "/donations",
                     ctaLabel: "Solicitar ayuda",
                     badge: "Sin costo",
                 },
                 {
-                    title: "Consejería Individual",
-                    subtitle: "Terapeutas con formación en trauma",
+                    title: "Acompañamiento de Bienestar",
+                    subtitle: "Apoyo guiado e informado por el trauma",
+                    image: {
+                        src: "/donations/keepersclub2.avif",
+                        alt: "Apoyo de acompañamiento de bienestar",
+                    },
                     summary:
-                        "Consejería profesional para sobrevivientes. Los servicios son brindados por terapeutas con licencia y formación en tratamiento del trauma.",
+                        "Acompañamiento de bienestar para sobrevivientes. Los servicios son brindados por terapeutas con licencia y formación en tratamiento del trauma.",
                     details: [
                         "Para sobrevivientes de agresión sexual, violencia de pareja o acoso (11 años en adelante)",
                         "Sin costo para la sobreviviente",
                     ],
-                    ctaLabel: "Grupos y Consejería: 803-766-8067",
+                    ctaLabel: "Grupos y Acompañamiento de Bienestar: 803-766-8067",
                     badge: "",
                 },
                 {
                     title: "Círculos de Sanación y Apoyo Entre Pares",
                     subtitle: "Sanación grupal guiada por pares",
+                    image: {
+                        src: "/images/TheHive_12.06.2025_87.jpg",
+                        alt: "Encuentro de círculos de sanación y apoyo entre pares",
+                    },
                     summary:
                         "Círculos confidenciales de sanación con contenido psicoeducativo y de bienestar para la comunidad y la recuperación.",
                     details: [
@@ -1851,6 +1932,10 @@ export const siteCopy = {
                 {
                     title: "Apoyo Integral",
                     subtitle: "Acompañamiento completo",
+                    image: {
+                        src: "/donations/keepersclub4.avif",
+                        alt: "Planeación y apoyo integral",
+                    },
                     summary:
                         "Apoyo que va más allá de un solo servicio y ayuda a atender la situación completa de la sobreviviente.",
                     details: [
@@ -1865,11 +1950,15 @@ export const siteCopy = {
                 {
                     title: "Cómo Referir a una Sobreviviente",
                     subtitle: "Información de contacto rápida",
+                    image: {
+                        src: "/donations/casitaofcare3.avif",
+                        alt: "Información de recursos y referencias",
+                    },
                     summary:
-                        "Usa estas opciones de contacto para conectar a una sobreviviente con apoyo general, consejería o defensa.",
+                        "Usa estas opciones de contacto para conectar a una sobreviviente con apoyo general, acompañamiento de bienestar o defensa.",
                     details: [
                         "Apoyo General / Defensa: 803-888-7725",
-                        "Grupos y Consejería: 803-766-8067",
+                        "Grupos y Acompañamiento de Bienestar: 803-766-8067",
                         "Los servicios son confidenciales",
                         "Somos personas reportantes obligatorias",
                     ],
@@ -1879,6 +1968,10 @@ export const siteCopy = {
                 {
                     title: "Solicita Capacitación / Programación de Prevención",
                     subtitle: "Eventos de alcance",
+                    image: {
+                        src: "/donations/keepersclub5.avif",
+                        alt: "Sesión de capacitación y prevención",
+                    },
                     summary:
                         "Solicita capacitaciones, programación de prevención o eventos de alcance para tu organización o comunidad.",
                     details: [
@@ -1890,10 +1983,27 @@ export const siteCopy = {
                     badge: "Alcance",
                 },
             ],
-            safetyPlanTitle: "Recurso de Plan de Seguridad Emocional",
-            safetyPlanButton: "Haz Clic Aquí",
-            safetyPlanBody:
-                "Si necesitas ayuda para llenar este formulario o crear un plan que se ajuste a tus necesidades, siempre puedes comunicarte con The Hive. Una de nuestras defensoras puede ayudarte. No tienes que pasar por esto sola.",
+            accessibilityEyebrow: "Accesibilidad",
+            accessibilityTitle: "Apoyo accesible e inclusivo",
+            accessibilityBody:
+                "Estamos comprometidas con apoyar a sobrevivientes ciegas y sordas y con reducir barreras de acceso al cuidado. Hay lingüistas e intérpretes disponibles, y esos servicios son compensados para que cada persona pueda recibir apoyo de manera clara, afirmativa e inclusiva.",
+            accessibilityImage: {
+                src: "/donations/casitaofcare4.png",
+                alt: "Espacio de apoyo accesible y acogedor en The Hive",
+            },
+            resourcesTitle: "Recursos para Sobrevivientes",
+            resourcesBody:
+                "Estas herramientas pueden apoyar la seguridad emocional y física. Si quieres ayuda para completarlas, The Hive puede acompañarte en el proceso.",
+            resourceButtons: [
+                {
+                    label: "Plan de Seguridad de Apoyo Emocional",
+                    href: "https://www.thehivecc.org/_files/ugd/8a8511_175f07e5966d4276b783f3ce90ea902f.pdf",
+                },
+                {
+                    label: "Plan de Seguridad Física",
+                    href: "/support/physical-safety-plan",
+                },
+            ],
         },
         contact: {
             heroEyebrow: "Contáctanos",
