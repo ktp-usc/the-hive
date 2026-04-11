@@ -59,6 +59,7 @@ export default function SupportPageClient({
     });
 
     const cards = cmsCards.length > 0 ? cmsCards : fallbackCards;
+    const resourceButtons = copy.support.resourceButtons ?? [];
 
     return (
         <main className="bg-white text-gray-900">
@@ -153,20 +154,35 @@ export default function SupportPageClient({
             <section className="bg-hive-blue/5 px-6 py-24 text-center">
                 <div className="mx-auto flex max-w-3xl flex-col items-center gap-8">
                     <h2 className="text-3xl font-bold text-hive-blue md:text-5xl">
-                        {copy.support.safetyPlanTitle}
+                        {copy.support.resourcesTitle}
                     </h2>
 
-                    <a
-                        href="/support/emotional-safety-plan-template.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center rounded-full bg-hive-yellow px-12 py-5 text-xl font-bold text-gray-900 transition hover:bg-yellow-400"
-                    >
-                        {copy.support.safetyPlanButton}
-                    </a>
+                    <div className="flex flex-wrap justify-center gap-4">
+                        {resourceButtons.map((resource) =>
+                            isInternalHref(resource.href) ? (
+                                <Link
+                                    key={resource.label}
+                                    href={resource.href}
+                                    className="inline-flex items-center rounded-full bg-hive-yellow px-12 py-5 text-xl font-bold text-gray-900 transition hover:bg-yellow-400"
+                                >
+                                    {resource.label}
+                                </Link>
+                            ) : (
+                                <a
+                                    key={resource.label}
+                                    href={resource.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center rounded-full bg-hive-yellow px-12 py-5 text-xl font-bold text-gray-900 transition hover:bg-yellow-400"
+                                >
+                                    {resource.label}
+                                </a>
+                            )
+                        )}
+                    </div>
 
                     <p className="text-lg leading-8 text-gray-600 md:text-xl">
-                        {copy.support.safetyPlanBody}
+                        {copy.support.resourcesBody}
                     </p>
                 </div>
             </section>
