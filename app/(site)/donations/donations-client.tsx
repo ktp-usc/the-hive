@@ -191,7 +191,7 @@ export default function DonationsClient({
             className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14"
           >
             <div className="mx-auto max-w-7xl">
-              <p className="site-eyebrow text-white/90">{section.eyebrow ?? pageCopy.heroEyebrow}</p>
+              <p className="site-eyebrow">{section.eyebrow ?? pageCopy.heroEyebrow}</p>
               <h1 className="site-title mt-4">{cmsContent?.title ?? pageCopy.heroTitle}</h1>
               <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
                 {cmsContent?.description ?? copy.donations.subtitle}

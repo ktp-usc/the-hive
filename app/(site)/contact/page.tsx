@@ -77,10 +77,10 @@ export default function Contact() {
   };
 
   return (
-    <main className="min-h-screen bg-white pt-16 text-gray-800">
-      <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-center text-white sm:px-10 sm:py-12 lg:py-14">
+    <main className="site-page text-gray-800">
+      <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14">
         <div className="mx-auto max-w-7xl">
-          <p className="site-eyebrow text-white/90">{copy.contact.heroEyebrow}</p>
+          <p className="site-eyebrow">{copy.contact.heroEyebrow}</p>
           <h1 className="site-title mt-4">{copy.contact.heroTitle}</h1>
           <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
             {copy.contact.heroBody}

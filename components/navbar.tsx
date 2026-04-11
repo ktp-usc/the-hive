@@ -272,16 +272,16 @@ export default function Navbar() {
                             return (
                                 <Link
                                     key={item.href}
-                                    href={item.href}
-                                    onClick={closeMenus}
-                                    className={cn(
-                                        "block rounded-md px-3 py-2 text-sm font-medium transition",
-                                        active
-                                            ? "bg-hive-blue text-white"
-                                            : "text-gray-600 hover:bg-gray-50 hover:text-hive-blue"
-                                    )}
-                                >
-                                    {item.label}
+                                href={item.href}
+                                onClick={closeMenus}
+                                className={cn(
+                                    "block rounded-md px-3 py-2 text-sm font-medium transition",
+                                    active
+                                        ? "bg-hive-blue text-white"
+                                        : "text-gray-600 hover:bg-gray-50 hover:text-hive-blue"
+                                )}
+                            >
+                                {item.label}
                                 </Link>
                             );
                         })}

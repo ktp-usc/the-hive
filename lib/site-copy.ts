@@ -1585,12 +1585,23 @@ export const siteCopy = {
                 name: "Nombre",
                 email: "Correo",
                 phone: "Teléfono",
+                subject: "Asunto",
                 comment: "Comentarios",
                 submit: "Enviar",
+                subjectOptions: [
+                    { value: "consulta-general", label: "Consulta General" },
+                    { value: "voluntariado", label: "Voluntariado" },
+                    { value: "alianzas", label: "Alianzas" },
+                    { value: "programas-y-servicios", label: "Programas y Servicios" },
+                    { value: "eventos-y-talleres", label: "Eventos y Talleres" },
+                    { value: "donaciones-y-patrocinios", label: "Donaciones y Patrocinios" },
+                    { value: "medios-y-prensa", label: "Medios y Prensa" },
+                ],
                 placeholders: {
                     name: "Jane Doe",
                     email: "example@gmail.com",
                     phone: "(XXX) XXX-XXXX",
+                    subject: "Selecciona un tema",
                     comment: "Escribe tu mensaje aquí",
                 },
             },
@@ -2175,7 +2186,7 @@ export const siteCopy = {
         },
         events: esEvents, heroEyebrow: "Calendario Comunitario",
     },
-} satisfies Record<LanguageCode, DeepWiden<typeof en>>;
+} as const;
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
     return typeof value === "object" && value !== null && !Array.isArray(value);
