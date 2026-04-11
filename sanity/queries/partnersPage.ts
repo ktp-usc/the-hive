@@ -10,6 +10,17 @@ export const partnersPageQuery = defineQuery(`
         headline,
         subheadline
       },
+      _type == "sectionImageCarousel" => {
+        heading,
+        body,
+        slides[]{
+          _key,
+          title,
+          caption,
+          alt,
+          "imageUrl": image.asset->url
+        }
+      },
       _type == "sectionImageText" => {
         heading,
         body,

@@ -9,7 +9,7 @@ export default function Footer() {
     const quickLinks = [
         { label: copy.footer.home, href: "/" },
         { label: copy.footer.about, href: "/about" },
-        { label: copy.footer.impact, href: "/donations" },
+        { label: copy.footer.investInTheHive, href: "/donations" },
         { label: copy.footer.partners, href: "/about/our-partners" },
         { label: copy.footer.support, href: "/support" },
         { label: copy.footer.awareness, href: "/awareness" },
@@ -18,7 +18,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="bg-hive-blue px-6 pb-8 pt-12 text-white">
+        <footer className="bg-hive-blue px-6 pb-8 pt-12 text-white" style={{ borderTop: "4px solid #f3c506" }}>
             <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-3">
                 <div>
                     <h2 className="text-3xl font-bold">{copy.footer.brand}</h2>

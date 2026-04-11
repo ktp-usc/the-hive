@@ -69,9 +69,10 @@ export default function Navbar() {
         {
             label: copy.nav.about,
             dropdown: [
-                { label: copy.nav.aboutUs, href: "/about" },
-                { label: copy.nav.impact, href: "/donations" },
-                { label: copy.nav.partners, href: "/about/our-partners" },
+              { label: copy.nav.aboutUs, href: "/about" },
+              { label: copy.nav.ourImpact, href: "/about/our-impact" },
+              { label: copy.nav.investInTheHive, href: "/donations" },
+              { label: copy.nav.partners, href: "/about/our-partners" },
             ],
         },
         {
@@ -106,7 +107,7 @@ export default function Navbar() {
     return (
         <header
             ref={navRef}
-            className="fixed inset-x-0 top-0 z-50 border-b border-black/8 bg-white shadow-sm"
+            className="fixed inset-x-0 top-0 z-50 bg-white shadow-sm"
         >
             <nav className="flex h-16 w-full items-center justify-between px-4 sm:px-6">
                 <Link href="/" onClick={closeMenus}>
@@ -115,7 +116,7 @@ export default function Navbar() {
                         alt={copy.nav.logoAlt}
                         width={120}
                         height={40}
-                        className="h-auto w-[120px] object-contain"
+                        className="h-auto w-30 object-contain"
                         priority
                     />
                 </Link>
@@ -304,6 +305,7 @@ export default function Navbar() {
                     </div>
                 </div>
             ) : null}
+            <div className="h-1 w-full" style={{ backgroundColor: "#f3c506" }} />
         </header>
     );
 }
