@@ -1,30 +1,35 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
 import React from "react";
-
-const inter = Inter({
-    subsets: ["latin"],
-    variable: "--font-inter",
-    display: "swap",
-});
-
-const playfair = Playfair_Display({
-    subsets: ["latin"],
-    variable: "--font-playfair",
-    display: "swap",
-});
+import { LanguageProvider } from "@/components/language-provider";
+import {
+    defaultLanguage,
+    isLanguageCode,
+    languageCookieKey,
+} from "@/lib/site-copy";
 
 export const metadata: Metadata = {
-    title: "Future KTP Web App",
-    description: "KTP SP26"
+    title: "The Hive Community Circle",
+    description: "The Hive is a survivor-led organization providing support, advocacy, and resources to help women and girls in South Carolina heal from sexual assault, intimate partner violence, and stalking.",
+    icons: {
+        icon: "/hive-favicon.png",
+    },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+    const cookieStore = await cookies();
+    const storedLanguage = cookieStore.get(languageCookieKey)?.value;
+    const initialLanguage = storedLanguage && isLanguageCode(storedLanguage)
+        ? storedLanguage
+        : defaultLanguage;
+
     return (
-        <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+        <html lang={initialLanguage}>
         <body>
-        {children}
+        <LanguageProvider initialLanguage={initialLanguage}>
+            { children }
+        </LanguageProvider>
         </body>
         </html>
     );

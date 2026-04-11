@@ -1,228 +1,293 @@
 "use client";
 
-import Link from "next/link";
+import type { ReactNode } from "react";
 
-type Card = {
-  id: string;
-  title: string;
-  subtitle?: string;
-  summary: string;
-  details?: string[];
-  cta?: { label: string; href?: string };
-  badge?: string;
+import Image from "next/image";
+import Link from "next/link";
+import { useSiteCopy } from "@/components/language-provider";
+
+type CardMeta = {
+    id: string;
+    href?: string;
 };
 
-const CARDS: Card[] = [
-  {
-    id: "peer-advocacy",
-    title: "Peer Advocacy",
-    subtitle: "Emotional support & navigation",
-    summary:
-      "Trained peer advocates provide confidential support, help you understand rights and options, and connect you to resources.",
-    details: [
-      "Ensure survivors understand their rights and options",
-      "Social-emotional support and safety planning",
-      "For primary and secondary survivors ages 11+",
-      "Services at no cost to the survivor",
-    ],
-    cta: { label: "Call 803-888-7725", href: "tel:8038887725" },
-    badge: "Confidential",
-  },
-  {
-    id: "economic-relief",
-    title: "Economic Relief",
-    subtitle: "Immediate financial support",
-    summary:
-      "Wrap-around financial support for urgent needs — housing, food, utility help, relocation, and transportation support.",
-    details: [
-      "Transitional housing",
-      "Utility support and gas vouchers",
-      "Food security and hotel accommodations",
-    ],
-    cta: { label: "Request help", href: "/contact" },
-    badge: "No cost",
-  },
-  {
-    id: "individual-counseling",
-    title: "Individual Counseling",
-    subtitle: "Licensed trauma-trained therapists",
-    summary:
-      "Professional counseling for survivors. Services are provided by licensed therapists trained in trauma treatment.",
-    details: [
-      "For survivors of sexual assault, IPV, or stalking (ages 11+)",
-      "Provided at no cost to the survivor",
-    ],
-    cta: { label: "Groups & Counseling: 803-766-8067", href: "tel:8037668067" },
-  },
-  {
-    id: "healing-circles",
-    title: "Peer Support Healing Circles",
-    subtitle: "Peer-led group healing",
-    summary:
-      "Confidential healing circles using psycho-educational and wellness-based curriculum for community and recovery.",
-    details: [
-      "Queens Gather — Women 18+",
-      "Bloom — Girls 11–18",
-      "Held in a safe and affirming space",
-    ],
-    cta: { label: "Learn about circles", href: "/support/healing-circles" },
-    badge: "Groups",
-  },
-  {
-    id: "holistic-support",
-    title: "Holistic Support",
-    subtitle: "Wrap-around support",
-    summary:
-      "Support that goes beyond one service and helps address the survivor’s full situation.",
-    details: [
-      "Goal and intervention case planning",
-      "Financial planning",
-      "Employment support",
-      "Assist in applying for additional services",
-    ],
-    badge: "Case Planning",
-  },
-  {
-    id: "refer-survivor",
-    title: "How to Refer a Survivor",
-    subtitle: "Quick contact info",
-    summary:
-      "Use these contact options to connect a survivor with General Support, Counseling, or Advocacy.",
-    details: [
-      "General Support / Advocacy: 803-888-7725",
-      "Groups and Counseling: 803-766-8067",
-      "Services are confidential",
-      "We are mandated reporters",
-    ],
-    cta: { label: "Go to Contact", href: "/contact" },
-    badge: "Referrals",
-  },
-  {
-    id: "training-prevention",
-    title: "Request Training / Prevention Programming",
-    subtitle: "Outreach events",
-    summary:
-      "Request training, prevention programming, or outreach events for your organization or community.",
-    details: [
-      "Email: hello@thehivecc.org",
-      "Call: 803-888-7725",
-      "We can coordinate outreach events",
-    ],
-    cta: { label: "Email Us", href: "mailto:hello@thehivecc.org" },
-    badge: "Outreach",
-  },
+type SupportCard = {
+    id: string;
+    title: string;
+    subtitle?: string;
+    summary: string;
+    image?: {
+        src: string;
+        alt: string;
+    };
+    details?: readonly string[];
+    note?: string;
+    noteLinkLabel?: string;
+    noteLinkHref?: string;
+    ctaLabel?: string;
+    href?: string;
+};
+
+type ResourceButton = {
+    label: string;
+    href: string;
+};
+
+const CARD_META: CardMeta[] = [
+    { id: "peer-advocacy", href: "tel:8038887725" },
+    { id: "economic-relief", href: "/contact" },
+    { id: "wellness-coaching", href: "tel:8037668067" },
+    { id: "healing-circles" },
+    { id: "holistic-support" },
+    { id: "refer-survivor", href: "/contact" },
+    { id: "training-prevention", href: "mailto:hello@thehivecc.org" },
 ];
 
 const cardLinkClassName =
-  "inline-flex items-center rounded-full border border-hive-blue px-4 py-2 text-sm font-semibold text-hive-blue transition hover:bg-hive-blue hover:text-white";
+    "inline-flex items-center rounded-full border border-hive-blue px-4 py-2 text-sm font-semibold text-hive-blue transition hover:bg-hive-blue hover:text-white";
+const resourceButtonClassName =
+    "inline-flex items-center justify-center rounded-full bg-hive-orange px-6 py-3 text-base font-semibold text-white transition hover:bg-hive-orange/90";
+
+function ActionLink({
+    href,
+    className,
+    children,
+}: {
+    href: string;
+    className: string;
+    children: ReactNode;
+}) {
+    if (href.startsWith("/")) {
+        return (
+            <Link href={href} className={className}>
+                {children}
+            </Link>
+        );
+    }
+
+    const openInNewTab = /^https?:\/\//.test(href);
+
+    return (
+        <a
+            href={href}
+            className={className}
+            target={openInNewTab ? "_blank" : undefined}
+            rel={openInNewTab ? "noopener noreferrer" : undefined}
+        >
+            {children}
+        </a>
+    );
+}
 
 export default function SupportPage() {
-  return (
-    <main className="bg-white text-gray-900">
-      <section className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 bg-[#1D979C] px-6 py-28 text-center text-white">
-        <div className="mx-auto w-full max-w-5xl">
-          <h1 className="text-5xl font-bold leading-none md:text-6xl xl:text-7xl">
-            Support Services
-          </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/85 md:text-2xl">
-            Compassionate support and practical resources, here when you need
-            them.
-          </p>
-        </div>
-      </section>
+    const copy = useSiteCopy();
 
-      <section
-        aria-labelledby="services-heading"
-        className="bg-white px-6 py-20 md:py-24"
-      >
-        <div className="mx-auto max-w-6xl">
-          <h2
-            id="services-heading"
-            className="text-3xl font-bold tracking-tight text-hive-blue md:text-4xl"
-          >
-            Explore Support Options
-          </h2>
+    const cards: SupportCard[] = CARD_META.map((card, index) => {
+        const content = copy.support.cards[index];
+        const note = content && "note" in content ? content.note : undefined;
+        const noteLinkLabel =
+            content && "noteLinkLabel" in content ? content.noteLinkLabel : undefined;
+        const noteLinkHref =
+            content && "noteLinkHref" in content ? content.noteLinkHref : undefined;
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {CARDS.map((card) => (
-              <article
-                key={card.id}
-                tabIndex={0}
-                className="rounded-3xl border border-hive-blue/10 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-hive-blue/30"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="text-xl font-bold text-hive-blue">
-                    {card.title}
-                  </h3>
-                  {card.badge && (
-                    <span className="rounded-full bg-hive-yellow/25 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-hive-blue">
-                      {card.badge}
-                    </span>
-                  )}
+        return {
+            id: card.id,
+            href: card.href,
+            title: content?.title ?? "",
+            subtitle: content?.subtitle,
+            summary: content?.summary ?? "",
+            image: content?.image,
+            details: content?.details,
+            note,
+            noteLinkLabel,
+            noteLinkHref,
+            ctaLabel: content?.ctaLabel,
+        };
+    });
+    const resourceButtons: readonly ResourceButton[] = copy.support.resourceButtons ?? [];
+
+    return (
+        <main className="bg-white pt-16 text-gray-900">
+            <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden bg-hive-blue px-6 py-10 sm:px-10 sm:py-12 lg:py-16">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_32%)]" />
+                <div className="mx-auto max-w-6xl">
+                    <div className="relative z-10 text-center">
+                        <p className="site-eyebrow text-white/90">{copy.support.heroEyebrow}</p>
+                        <h1 className="site-title mt-4">{copy.support.heroTitle}</h1>
+                        <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
+                            {copy.support.heroBody}
+                        </p>
+                    </div>
                 </div>
+            </section>
 
-                {card.subtitle && (
-                  <p className="mt-2 text-sm font-medium uppercase tracking-wide text-gray-500">
-                    {card.subtitle}
-                  </p>
-                )}
+            <section className="bg-white px-6 py-16 md:py-20">
+                <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+                    <div>
+                        <p className="site-subheading text-hive-orange">
+                            {copy.support.introEyebrow}
+                        </p>
+                        <h2 className="mt-3 text-3xl font-bold tracking-tight text-hive-blue md:text-4xl">
+                            {copy.support.introTitle}
+                        </h2>
+                        <p className="mt-5 text-lg leading-8 text-gray-600">
+                            {copy.support.introBody}
+                        </p>
+                    </div>
 
-                <p className="mt-4 text-base leading-7 text-gray-600">
-                  {card.summary}
-                </p>
+                    <div className="relative overflow-hidden rounded-[2rem] border border-hive-blue/10 shadow-sm">
+                        <div className="relative aspect-[4/3] w-full">
+                            <Image
+                                src={copy.support.introImage.src}
+                                alt={copy.support.introImage.alt}
+                                fill
+                                sizes="(max-width: 1024px) 100vw, 40vw"
+                                className="object-cover"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                {card.details && (
-                  <ul className="mt-5 space-y-2 text-sm leading-6 text-gray-700">
-                    {card.details.map((detail) => (
-                      <li key={detail} className="flex gap-2">
-                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-hive-orange" />
-                        <span>{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+            <section
+                aria-labelledby="services-heading"
+                className="bg-white px-6 py-20 md:py-24"
+            >
+                <div className="mx-auto max-w-6xl">
+                    <h2
+                        id="services-heading"
+                        className="text-3xl font-bold tracking-tight text-hive-blue md:text-4xl"
+                    >
+                        {copy.support.servicesHeading}
+                    </h2>
+                    <p className="mt-3 text-base font-medium text-gray-600">
+                        {copy.support.servicesLanguageNote}
+                    </p>
 
-                {card.cta && (
-                  <div className="mt-6">
-                    {card.cta.href?.startsWith("/") ? (
-                      <Link href={card.cta.href} className={cardLinkClassName}>
-                        {card.cta.label}
-                      </Link>
-                    ) : (
-                      <a href={card.cta.href ?? "#"} className={cardLinkClassName}>
-                        {card.cta.label}
-                      </a>
-                    )}
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+                    <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        {cards.map((card) => (
+                            <article
+                                key={card.id}
+                                className="overflow-hidden rounded-3xl border border-hive-blue/10 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                            >
+                                {card.image ? (
+                                    <div className="relative aspect-[16/10] w-full">
+                                        <Image
+                                            src={card.image.src}
+                                            alt={card.image.alt}
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                ) : null}
 
-      <section className="bg-hive-blue/5 px-6 py-24 text-center">
-        <div className="mx-auto flex max-w-3xl flex-col items-center gap-8">
-          <h2 className="text-3xl font-bold text-hive-blue md:text-5xl">
-            Emotional Safety Plan Resource
-          </h2>
+                                <div className="p-6">
+                                    <div className="flex items-start justify-between gap-4">
+                                        <h3 className="text-xl font-bold text-hive-blue">
+                                            {card.title}
+                                        </h3>
+                                    </div>
 
-          <a
-            href="https://www.thehivecc.org/_files/ugd/8a8511_175f07e5966d4276b783f3ce90ea902f.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center rounded-full bg-hive-yellow px-12 py-5 text-xl font-bold text-gray-900 transition hover:bg-yellow-400"
-          >
-            Click Here
-          </a>
+                                    {card.subtitle ? (
+                                        <p className="mt-2 text-sm font-medium uppercase tracking-wide text-gray-500">
+                                            {card.subtitle}
+                                        </p>
+                                    ) : null}
 
-          <p className="text-lg leading-8 text-gray-600 md:text-xl">
-            If you need help filling out this form or creating a plan that meets
-            your needs, you can always contact The Hive. One of our advocates
-            can assist you. You do not have to go through this alone.
-          </p>
-        </div>
-      </section>
-    </main>
-  );
+                                    <p className="mt-4 text-base leading-7 text-gray-600">
+                                        {card.summary}
+                                    </p>
+
+                                    {card.details?.length ? (
+                                        <ul className="mt-5 space-y-2 text-sm leading-6 text-gray-700">
+                                            {card.details.map((detail) => (
+                                                <li key={detail} className="flex gap-2">
+                                                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-hive-orange" />
+                                                    <span>{detail}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : null}
+
+                                    {card.note ? (
+                                        <p className="mt-5 text-sm leading-7 text-gray-700">
+                                            {card.note}{" "}
+                                            {card.noteLinkHref && card.noteLinkLabel ? (
+                                                <Link
+                                                    href={card.noteLinkHref}
+                                                    className="font-semibold text-hive-blue underline decoration-hive-blue/40 underline-offset-4 hover:text-hive-orange"
+                                                >
+                                                    {card.noteLinkLabel}
+                                                </Link>
+                                            ) : null}
+                                        </p>
+                                    ) : null}
+
+                                    {card.ctaLabel && card.href ? (
+                                        <div className="mt-6">
+                                            <ActionLink href={card.href} className={cardLinkClassName}>
+                                                {card.ctaLabel}
+                                            </ActionLink>
+                                        </div>
+                                    ) : null}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="bg-hive-blue/5 px-6 py-20 md:py-24">
+                <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+                    <div className="relative overflow-hidden rounded-[2rem] border border-hive-blue/10 bg-white shadow-sm">
+                        <div className="relative aspect-[4/3] w-full">
+                            <Image
+                                src={copy.support.accessibilityImage.src}
+                                alt={copy.support.accessibilityImage.alt}
+                                fill
+                                sizes="(max-width: 1024px) 100vw, 40vw"
+                                className="object-cover"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <p className="site-subheading text-hive-orange">
+                            {copy.support.accessibilityEyebrow}
+                        </p>
+                        <h2 className="mt-3 text-3xl font-bold text-hive-blue md:text-4xl">
+                            {copy.support.accessibilityTitle}
+                        </h2>
+                        <p className="mt-5 text-lg leading-8 text-gray-600">
+                            {copy.support.accessibilityBody}
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section className="bg-white px-6 py-20 text-center md:py-24">
+                <div className="mx-auto flex max-w-4xl flex-col items-center">
+                    <h2 className="text-3xl font-bold text-hive-blue md:text-5xl">
+                        {copy.support.resourcesTitle}
+                    </h2>
+                    <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-600 md:text-xl">
+                        {copy.support.resourcesBody}
+                    </p>
+
+                    <div className="mt-10 flex flex-wrap justify-center gap-4">
+                        {resourceButtons.map((resource) => (
+                            <ActionLink
+                                key={resource.label}
+                                href={resource.href}
+                                className={resourceButtonClassName}
+                            >
+                                {resource.label}
+                            </ActionLink>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        </main>
+    );
 }

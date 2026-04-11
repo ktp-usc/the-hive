@@ -1,6 +1,10 @@
 "use client";
 
+import { useSiteCopy } from "@/components/language-provider";
+
 export default function SafeExit() {
+    const copy = useSiteCopy();
+
     const handleClick = () => {
         // clear any stored data
         localStorage.clear();
@@ -13,9 +17,10 @@ export default function SafeExit() {
     return (
         <button
             onClick={handleClick}
-            className="fixed bottom-6 right-6 z-50 bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 text-lg rounded-lg shadow-lg"
+            className="fixed bottom-6 right-6 z-50 bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 text-lg rounded-lg shadow-lg transition-colors"
+            aria-label={copy.common.safeExitAriaLabel}
         >
-            Safe Exit
+            {copy.common.safeExit}
         </button>
     );
 }
