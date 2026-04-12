@@ -52,6 +52,37 @@ export const page = defineType({
       hidden: ({document}) => (document?.slug as {current?: string} | undefined)?.current !== 'landing',
     }),
     defineField({
+      name: 'landingPopup',
+      title: 'Landing popup',
+      type: 'object',
+      description: 'Optional promotional popup shown on the home page. Only used on the "landing" page.',
+      fields: [
+        defineField({
+          name: 'enabled',
+          title: 'Show popup',
+          type: 'boolean',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'image',
+          title: 'Popup image',
+          type: 'image',
+          options: {hotspot: true},
+        }),
+        defineField({
+          name: 'ctaLabel',
+          title: 'Button label',
+          type: 'string',
+        }),
+        defineField({
+          name: 'ctaHref',
+          title: 'Button link',
+          type: 'string',
+          description: '/path or https://...',
+        }),
+      ],
+    }),
+    defineField({
       name: 'sections',
       title: 'Sections',
       type: 'array',

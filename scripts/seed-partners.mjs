@@ -57,18 +57,30 @@ function mimeType(filename) {
   return map[ext] ?? "application/octet-stream";
 }
 
-async function uploadImage(srcPath, filename) {
+async function uploadImage(srcPath, filename, retries = 3) {
   const fullPath = resolve(process.cwd(), "public", srcPath.replace(/^\//, ""));
   if (!existsSync(fullPath)) {
     console.warn(`    ⚠ image not found, skipping logo: ${fullPath}`);
     return null;
   }
-  const asset = await client.assets.upload(
-    "image",
-    createReadStream(fullPath),
-    { filename, contentType: mimeType(filename) }
-  );
-  return { _type: "image", asset: { _type: "reference", _ref: asset._id } };
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const asset = await client.assets.upload(
+        "image",
+        createReadStream(fullPath),
+        { filename, contentType: mimeType(filename) }
+      );
+      return { _type: "image", asset: { _type: "reference", _ref: asset._id } };
+    } catch (err) {
+      if (attempt < retries) {
+        const delay = attempt * 2000;
+        console.warn(`\n    ⚠ upload failed (attempt ${attempt}/${retries}), retrying in ${delay / 1000}s…`);
+        await new Promise((r) => setTimeout(r, delay));
+      } else {
+        throw err;
+      }
+    }
+  }
 }
 
 // ── partner data ───────────────────────────────────────────────────────────

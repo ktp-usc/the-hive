@@ -1,62 +1,49 @@
 import { defineQuery } from "next-sanity";
 
 export const siteSettingsQuery = defineQuery(`
-  coalesce(
-    *[_type == "siteSettings" && _id == "drafts.siteSettings"][0],
-    *[_type == "siteSettings" && _id == "siteSettings"][0]
-  ){
+  *[_type == "siteSettings" && _id == "site-settings"][0]{
+    footerTagline,
     contactEmail,
     contactPhone,
     contactAddress,
     googleMapsUrl,
+    donateUrl,
     instagramUrl,
     facebookUrl,
     linkedinUrl,
     twitterUrl,
-    youtubeUrl,
     newsletterUrl,
-    footerTagline,
-    footerBrand,
-    footerCopyright,
-    footerQuickLinksHeading,
-    footerContactHeading,
-    footerEmailLabel,
-    footerPhoneLabel,
-    footerAddressLabel,
-    calendarDirectUrl,
+    amazonWishlistUrl,
+    keepersContactEmail,
     calendarEmbedUrl,
-    missionTitle,
-    missionBody,
-    valuesTitle,
-    valuesIntro,
-    valuesPillars
+    calendarDirectUrl,
+    calendlyUrl,
+    trainingCatalogUrl,
+    trainingContactEmail,
+    safetyPlanUrl,
+    beeBoxContactEmail,
   }
 `);
 
 export type SiteSettingsData = {
+  footerTagline?: string | null;
   contactEmail?: string | null;
   contactPhone?: string | null;
   contactAddress?: string | null;
   googleMapsUrl?: string | null;
+  donateUrl?: string | null;
   instagramUrl?: string | null;
   facebookUrl?: string | null;
   linkedinUrl?: string | null;
   twitterUrl?: string | null;
-  youtubeUrl?: string | null;
   newsletterUrl?: string | null;
-  footerTagline?: string | null;
-  footerBrand?: string | null;
-  footerCopyright?: string | null;
-  footerQuickLinksHeading?: string | null;
-  footerContactHeading?: string | null;
-  footerEmailLabel?: string | null;
-  footerPhoneLabel?: string | null;
-  footerAddressLabel?: string | null;
-  calendarDirectUrl?: string | null;
+  amazonWishlistUrl?: string | null;
+  keepersContactEmail?: string | null;
   calendarEmbedUrl?: string | null;
-  missionTitle?: string | null;
-  missionBody?: string | null;
-  valuesTitle?: string | null;
-  valuesIntro?: string | null;
-  valuesPillars?: string[] | null;
+  calendarDirectUrl?: string | null;
+  calendlyUrl?: string | null;
+  trainingCatalogUrl?: string | null;
+  trainingContactEmail?: string | null;
+  safetyPlanUrl?: string | null;
+  beeBoxContactEmail?: string | null;
 } | null;

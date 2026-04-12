@@ -1,6 +1,8 @@
 /**
- * Seed the Bee In The Know page.
- * Run with:  node scripts/seed-bee-in-the-know.mjs
+ * Seeds the Bee In The Know page in Sanity (slug: "bee-in-the-know").
+ *
+ * Run once with:  node scripts/seed-bee-in-the-know.mjs
+ * Requires SANITY_API_WRITE_TOKEN in .env.local (Editor role).
  */
 
 import { createClient } from "@sanity/client";
@@ -10,10 +12,15 @@ import { resolve } from "path";
 config({ path: resolve(process.cwd(), ".env.local") });
 
 const token =
-  process.env.SANITY_API_WRITE_TOKEN || process.env.SANITY_API_READ_TOKEN;
+  process.env.SANITY_API_WRITE_TOKEN ||
+  process.env.SANITY_API_READ_TOKEN ||
+  process.env.SANITY_API_VIEWER_TOKEN;
 
 if (!token) {
-  console.error("\nNo token found. Add SANITY_API_WRITE_TOKEN to .env.local\n");
+  console.error(
+    "\nNo token found in .env.local.\n" +
+    "Add SANITY_API_WRITE_TOKEN=your_token (Editor role) and try again.\n"
+  );
   process.exit(1);
 }
 
@@ -25,33 +32,37 @@ const client = createClient({
   useCdn: false,
 });
 
-async function seed() {
-  console.log("\nSeeding Bee In The Know page…");
+// ── seed ───────────────────────────────────────────────────────────────────
 
-  const page = {
+async function seed() {
+  console.log("\nCreating Bee In The Know page…");
+
+  const beeInTheKnowPage = {
     _id: "page-bee-in-the-know",
     _type: "page",
-    title: "Bee In The Know",
+    title: "Bee in the Know",
     slug: { _type: "slug", current: "bee-in-the-know" },
     sections: [
       {
-        _key: "bitkow-hero",
+        _key: "section-hero",
         _type: "sectionHero",
-        headline: "Bee In The Know",
-        subheadline: "Stay connected with the latest news, stories, and updates from The Hive community.",
+        headline: "Bee in the Know",
+        subheadline:
+          "Stay informed about The Hive's work, events, and impact across South Carolina.",
       },
       {
-        _key: "bitkow-intro",
+        _key: "section-newsletter-cta",
         _type: "sectionRichText",
-        eyebrow: "Community Updates",
-        heading: "What's Happening at The Hive",
-        body: "From program highlights to community events, this is your space to stay informed and inspired by the work happening every day at The Hive.",
+        eyebrow: "Newsletter",
+        heading: "Subscribe to Our Newsletter",
+        body: "Get the latest news, updates, and stories from The Hive delivered directly to your inbox.",
       },
     ],
   };
 
-  await client.createOrReplace(page);
+  await client.createOrReplace(beeInTheKnowPage);
   console.log("  ✓ page-bee-in-the-know");
+
   console.log("\nDone! Visit http://localhost:3000/bee-in-the-know");
 }
 

@@ -1,66 +1,66 @@
-export const dynamic = "force-dynamic";
-
 import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
-import {
-  homePageQuery,
-  type HomePageQueryResult,
-} from "@/sanity/queries/homePage";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import HomeClient from "./home-client";
 
-export default async function Home() {
-  const { data } = await sanityFetch({ query: homePageQuery });
-  const home = data as HomePageQueryResult;
+type LandingPopupData = {
+  enabled?: boolean;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  image?: SanityImageSource | null;
+};
 
-  const heroBackgroundImageUrl = home?.heroImage
-    ? urlFor(home.heroImage).width(2000).height(1200).url()
+type HomePageData = {
+  heroImage?: SanityImageSource;
+  missionImage?: SanityImageSource;
+  missionDims?: {
+    width: number;
+    height: number;
+    aspectRatio: number;
+  };
+  landingPopup?: LandingPopupData | null;
+};
+
+export default async function Home() {
+  const query = `*[_type == "page" && slug.current == "landing"][0]{
+    "heroImage": sections[_type == "sectionHero"][0].images[0],
+    "missionImage": sections[_type == "sectionImageText"][0].image,
+    "missionDims": sections[_type == "sectionImageText"][0].image.asset->metadata.dimensions,
+    landingPopup
+  }` as const;
+
+  const { data } = await sanityFetch({ query });
+  const pageData = data as HomePageData;
+
+  const heroBackgroundImageUrl = pageData?.heroImage
+    ? urlFor(pageData.heroImage).width(2000).height(1200).url()
     : "/images/TheHive_12.06.2025_135.jpg";
 
-  const missionImageUrl = home?.missionImage
-    ? urlFor(home.missionImage).width(1200).url()
+  const missionImageUrl = pageData?.missionImage
+    ? urlFor(pageData.missionImage).width(1200).url()
     : "/images/TheHive_12.06.2025_87.jpg";
 
-  const lp = home?.landingPopup;
-  const popupReady = Boolean(
-    lp?.enabled && lp?.image && lp?.popupDims?.width && lp?.popupDims?.height,
-  );
-
-  const landingPopup =
-    popupReady && lp?.image && lp?.popupDims
-      ? (() => {
-          const maxW = 1800;
-          const w = Math.min(lp.popupDims.width, maxW);
-          const ar =
-            lp.popupDims.aspectRatio && lp.popupDims.aspectRatio > 0
-              ? lp.popupDims.aspectRatio
-              : lp.popupDims.width / lp.popupDims.height;
-          const h = Math.max(1, Math.round(w / ar));
-          return {
-            imageUrl: urlFor(lp.image).width(maxW).url(),
-            imageWidth: w,
-            imageHeight: h,
-            ctaLabel: lp.ctaLabel ?? undefined,
-            ctaHref: lp.ctaHref ?? undefined,
-          };
-        })()
+  const popup = pageData?.landingPopup;
+  const popupImageUrl =
+    popup?.enabled && popup.image
+      ? urlFor(popup.image).width(600).url()
       : null;
 
   return (
     <HomeClient
-      heroHeadline={home?.heroHeadline ?? null}
-      heroSubheadline={home?.heroSubheadline ?? null}
-      heroCtaLabel={home?.heroCtaLabel ?? null}
-      heroCtaHref={home?.heroCtaHref ?? null}
       heroBackgroundImageUrl={heroBackgroundImageUrl}
-      missionHeading={home?.missionHeading ?? null}
-      missionBody={home?.missionBody ?? null}
       missionImageUrl={missionImageUrl}
-      missionDims={home?.missionDims ?? undefined}
-      whatWeDoTitle={home?.whatWeDoTitle ?? null}
-      whatWeDoCards={home?.whatWeDoCards ?? null}
-      supportTitle={home?.supportTitle ?? null}
-      supportBody={home?.supportBody ?? null}
-      landingPopup={landingPopup}
+      missionDims={pageData?.missionDims}
+      popup={
+        popup?.enabled
+          ? {
+              enabled: true,
+              imageUrl: popupImageUrl,
+              ctaLabel: popup.ctaLabel ?? null,
+              ctaHref: popup.ctaHref ?? null,
+            }
+          : null
+      }
     />
   );
 }

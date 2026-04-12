@@ -7,100 +7,68 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Coffee, Search, Sun } from "lucide-react";
 import { useSiteCopy } from "@/components/language-provider";
-import { LandingPopupModal } from "@/components/landing-popup-modal";
-import type React from "react";
-import type { HomeWhatWeDoCard } from "@/sanity/queries/homePage";
+import LandingPopup from "@/components/landing-popup";
+
+type PopupProps = {
+    enabled: boolean;
+    imageUrl: string | null;
+    ctaLabel: string | null;
+    ctaHref: string | null;
+} | null;
 
 type HomeClientProps = {
-    heroHeadline?: string | null;
-    heroSubheadline?: string | null;
-    heroCtaLabel?: string | null;
-    heroCtaHref?: string | null;
     heroBackgroundImageUrl: string;
-    missionHeading?: string | null;
-    missionBody?: string | null;
     missionImageUrl: string;
-    missionDims?: { width: number; height: number; aspectRatio: number };
-    whatWeDoTitle?: string | null;
-    whatWeDoCards?: HomeWhatWeDoCard[] | null;
-    supportTitle?: string | null;
-    supportBody?: string | null;
-    landingPopup?: {
-        imageUrl: string;
-        imageWidth: number;
-        imageHeight: number;
-        ctaLabel?: string;
-        ctaHref?: string;
-    } | null;
+    missionDims?: {
+        width: number;
+        height: number;
+        aspectRatio: number;
+    };
+    popup?: PopupProps;
 };
 
-const CARD_ICONS = [
-    { icon: Coffee, bg: "bg-hive-blue/10",   color: "text-hive-blue",   titleClass: "text-hive-blue",   titleStyle: undefined as React.CSSProperties | undefined },
-    { icon: Search, bg: "bg-hive-orange/10", color: "text-hive-orange", titleClass: "text-hive-orange", titleStyle: undefined as React.CSSProperties | undefined },
-    { icon: Sun,    bg: "bg-hive-yellow/20", color: "text-hive-yellow", titleClass: "",                 titleStyle: { color: "#c9a000" } as React.CSSProperties },
-];
-
 export default function HomeClient({
-    heroHeadline,
-    heroSubheadline,
-    heroCtaLabel,
-    heroCtaHref,
-    heroBackgroundImageUrl,
-    missionHeading,
-    missionBody,
-    missionImageUrl,
-    missionDims,
-    whatWeDoTitle,
-    whatWeDoCards,
-    supportTitle,
-    supportBody,
-    landingPopup,
-}: HomeClientProps) {
+                                       heroBackgroundImageUrl,
+                                       missionImageUrl,
+                                       missionDims,
+                                       popup,
+                                   }: HomeClientProps) {
     const copy = useSiteCopy();
-
-    const resolvedWhatWeDoCards = whatWeDoCards?.length
-        ? whatWeDoCards
-        : copy.home.whatWeDoCards.map((c) => ({ _id: c.title, title: c.title, body: c.body }));
 
     return (
         <main className="min-h-screen bg-white text-gray-800">
-            {landingPopup ? (
-                <LandingPopupModal
-                    imageUrl={landingPopup.imageUrl}
-                    imageAlt={copy.home.popupModalImageAlt}
-                    imageWidth={landingPopup.imageWidth}
-                    imageHeight={landingPopup.imageHeight}
-                    ctaLabel={landingPopup.ctaLabel}
-                    ctaHref={landingPopup.ctaHref}
+            {popup && (
+                <LandingPopup
+                    enabled={popup.enabled}
+                    imageUrl={popup.imageUrl}
+                    ctaLabel={popup.ctaLabel}
+                    ctaHref={popup.ctaHref}
                 />
-            ) : null}
-
-            {/* Hero */}
+            )}
             <section
                 style={{ backgroundImage: `url("${heroBackgroundImageUrl}")` }}
                 className="relative flex min-h-[80vh] w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-24 text-center text-white"
             >
                 <div className="absolute inset-0 bg-hive-blue/70" />
+
                 <div className="relative z-10">
                     <h1 className="mx-auto max-w-5xl text-4xl font-medium leading-tight md:text-6xl">
-                        {heroHeadline ?? copy.home.heroTitleLine1}
+                        {copy.home.heroTitleLine1}
                         <span className="block text-8xl font-bold">
-                            {heroSubheadline ?? copy.home.heroTitleLine2}
-                        </span>
+              {copy.home.heroTitleLine2}
+            </span>
                     </h1>
+
                     <Button
                         asChild
                         size="lg"
                         className="mt-10 h-auto rounded-full bg-hive-yellow px-16 py-8 text-2xl font-bold tracking-widest text-gray-900 transition-colors hover:bg-hive-yellow/90"
                     >
-                        <Link href={heroCtaHref ?? "/donations"}>
-                            {heroCtaLabel ?? copy.home.donateToday}
-                        </Link>
+                        <Link href="/donations">{copy.home.donateToday}</Link>
                     </Button>
                 </div>
             </section>
 
-            {/* Mission */}
             <section className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-8 px-6 py-20 text-center md:flex-row">
                 <div>
                     <Image
@@ -111,44 +79,64 @@ export default function HomeClient({
                         className="max-w-md rounded-lg border-2 border-gray-200"
                     />
                 </div>
+
                 <div>
                     <h2 className="mb-6 text-left text-3xl font-bold text-hive-blue">
-                        {missionHeading ?? copy.home.missionTitle}
+                        {copy.home.missionTitle}
                     </h2>
                     <p className="text-left text-lg leading-relaxed text-gray-600">
-                        {missionBody ?? copy.home.missionBody}
+                        {copy.home.missionBody}
                     </p>
                 </div>
             </section>
 
             <div className="mx-auto max-w-4xl border-t border-gray-200" />
 
-            {/* What We Do */}
             <section className="mx-auto max-w-5xl px-6 py-20">
                 <h2 className="mb-14 text-center text-3xl font-bold text-hive-blue">
-                    {whatWeDoTitle ?? copy.home.whatWeDoTitle}
+                    {copy.home.whatWeDoTitle}
                 </h2>
                 <div className="grid gap-10 text-center md:grid-cols-3">
-                    {resolvedWhatWeDoCards.slice(0, 3).map((card, i) => {
-                        const { icon: Icon, bg, color, titleClass, titleStyle } = CARD_ICONS[i] ?? CARD_ICONS[0];
-                        return (
-                            <div key={card._id ?? i} className="flex flex-col items-center gap-4">
-                                <div className={`flex h-14 w-14 items-center justify-center rounded-full ${bg}`}>
-                                    <Icon className={color} />
-                                </div>
-                                <h3 className={`text-xl font-semibold ${titleClass}`} style={titleStyle}>
-                                    {card.title}
-                                </h3>
-                                <p className="leading-relaxed text-gray-500">{card.body}</p>
-                            </div>
-                        );
-                    })}
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-hive-blue/10">
+                            <Coffee className="text-hive-blue" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-hive-blue">
+                            {copy.home.whatWeDoCards[0].title}
+                        </h3>
+                        <p className="leading-relaxed text-gray-500">
+                            {copy.home.whatWeDoCards[0].body}
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-hive-orange/10">
+                            <Search className="text-hive-orange" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-hive-orange">
+                            {copy.home.whatWeDoCards[1].title}
+                        </h3>
+                        <p className="leading-relaxed text-gray-500">
+                            {copy.home.whatWeDoCards[1].body}
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-hive-yellow/20">
+                            <Sun className="text-hive-yellow" />
+                        </div>
+                        <h3 className="text-xl font-semibold" style={{ color: "#c9a000" }}>
+                            {copy.home.whatWeDoCards[2].title}
+                        </h3>
+                        <p className="leading-relaxed text-gray-500">
+                            {copy.home.whatWeDoCards[2].body}
+                        </p>
+                    </div>
                 </div>
             </section>
 
             <div className="mx-auto max-w-4xl border-t border-gray-200" />
 
-            {/* Instagram */}
             <div className="mx-auto mt-5 w-full max-w-lg">
                 <div className="mb-5 flex flex-col items-center gap-4">
                     <a
@@ -162,13 +150,12 @@ export default function HomeClient({
                 <Script async src="https://www.instagram.com/embed.js" />
             </div>
 
-            {/* Support / Donate */}
             <section id="donate" className="bg-gray-50 px-6 py-20 text-center">
                 <h2 className="mb-4 text-3xl font-bold text-hive-blue">
-                    {supportTitle ?? copy.home.supportTitle}
+                    {copy.home.supportTitle}
                 </h2>
                 <p className="mx-auto mb-10 max-w-xl text-lg text-gray-500">
-                    {supportBody ?? copy.home.supportBody}
+                    {copy.home.supportBody}
                 </p>
                 <Button
                     asChild

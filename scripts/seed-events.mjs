@@ -1,6 +1,10 @@
 /**
- * Seed the Events page document with default CMS-controlled text.
- * Run with:  node scripts/seed-events.mjs
+ * Seeds the Events page in Sanity (slug: "events").
+ * Calendar embed/direct URLs are stored in Site Settings — run
+ * seed-site-settings.mjs first to populate those values.
+ *
+ * Run once with:  node scripts/seed-events.mjs
+ * Requires SANITY_API_WRITE_TOKEN in .env.local (Editor role).
  */
 
 import { createClient } from "@sanity/client";
@@ -11,10 +15,14 @@ config({ path: resolve(process.cwd(), ".env.local") });
 
 const token =
   process.env.SANITY_API_WRITE_TOKEN ||
-  process.env.SANITY_API_READ_TOKEN;
+  process.env.SANITY_API_READ_TOKEN ||
+  process.env.SANITY_API_VIEWER_TOKEN;
 
 if (!token) {
-  console.error("\nNo token found. Add SANITY_API_WRITE_TOKEN to .env.local\n");
+  console.error(
+    "\nNo token found in .env.local.\n" +
+    "Add SANITY_API_WRITE_TOKEN=your_token (Editor role) and try again.\n"
+  );
   process.exit(1);
 }
 
@@ -26,44 +34,42 @@ const client = createClient({
   useCdn: false,
 });
 
-async function seed() {
-  console.log("\nSeeding Events page…");
+// ── seed ───────────────────────────────────────────────────────────────────
 
-  await client.createOrReplace({
+async function seed() {
+  console.log("\nCreating Events page…");
+
+  const eventsPage = {
     _id: "page-events",
     _type: "page",
     title: "Events",
     slug: { _type: "slug", current: "events" },
     sections: [
       {
-        _key: "eventsHero",
-        _type: "sectionEventsHero",
-        eyebrow: "Community Calendar",
-        title: "Stay up to date with Hive events.",
-        body: "This calendar is connected directly to The Hive's Google Calendar, so new events and updates appear here automatically.",
-        openCalendarLabel: "Open Full Calendar",
-        askAboutEventLabel: "Ask About an Event",
-        calendarIframeTitle: "The Hive events calendar",
+        _key: "section-hero",
+        _type: "sectionHero",
+        headline: "Community Events",
+        subheadline:
+          "Stay connected with what's happening at The Hive. Check our calendar for upcoming events, trainings, and community gatherings.",
       },
       {
-        _key: "eventsUpcoming",
-        _type: "sectionEventsUpcoming",
-        eyebrow: "Coming Up",
-        title: "A quick look at what's next.",
-        openCalendarLabel: "Open Full Calendar",
-        loadingLabel: "Loading upcoming events...",
-        emptyLabel:
-          "No upcoming events are listed right now. Check back soon or open the full calendar.",
-        privacyNote:
-          "Some entries may appear as Busy because Google Calendar is hiding public event details.",
-        ctaLabel: "View calendar day",
-        allDayLabel: "All day",
+        _key: "section-calendar-info",
+        _type: "sectionRichText",
+        eyebrow: "Community Calendar",
+        heading: "Upcoming Events",
+        body: "Browse our upcoming events below. The calendar embed and direct link are managed in Site Settings.",
       },
     ],
-  });
+  };
 
-  console.log("  ✓ Events page");
-  console.log("\nDone!");
+  await client.createOrReplace(eventsPage);
+  console.log("  ✓ page-events");
+
+  console.log(
+    "\nNote: Google Calendar embed/direct URLs are stored in Site Settings.\n" +
+    "Run seed-site-settings.mjs to populate those values.\n"
+  );
+  console.log("Done! Visit http://localhost:3000/events");
 }
 
 seed().catch((err) => {
