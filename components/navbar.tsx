@@ -55,7 +55,11 @@ function NavDropdown({
     );
 }
 
-export default function Navbar() {
+const FALLBACK_DONATE_URL =
+    "https://thehivecc.networkforgood.com/projects/204053-what-is-hope";
+
+export default function Navbar({ donateUrl }: { donateUrl?: string | null }) {
+    const resolvedDonateUrl = donateUrl ?? FALLBACK_DONATE_URL;
     const pathname = usePathname();
     const copy = useSiteCopy();
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -210,7 +214,7 @@ export default function Navbar() {
                         className="rounded-full bg-hive-orange px-5 py-2 text-sm font-semibold text-white hover:bg-hive-orange/90"
                     >
                         <a
-                            href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+                            href={resolvedDonateUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -292,7 +296,7 @@ export default function Navbar() {
                             className="mt-2 w-full rounded-full bg-hive-orange text-white hover:bg-hive-orange/90"
                         >
                             <a
-                                href="https://thehivecc.networkforgood.com/projects/204053-what-is-hope"
+                                href={resolvedDonateUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >

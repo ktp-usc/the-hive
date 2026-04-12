@@ -4,6 +4,7 @@ import {galleryEvent} from './galleryEvent'
 import {page} from './page'
 import {pageSectionTypes} from './pageSections'
 import {partnerLogo} from './partnerLogo'
+import {siteSettings} from './siteSettings'
 import {teamMember} from './teamMember'
 
 export const schema: {types: SchemaTypeDefinition[]} = {
@@ -14,5 +15,6 @@ export const schema: {types: SchemaTypeDefinition[]} = {
     teamMember,
     galleryEvent,
     page,
+    siteSettings,
   ],
 }

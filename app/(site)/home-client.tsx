@@ -7,6 +7,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Coffee, Search, Sun } from "lucide-react";
 import { useSiteCopy } from "@/components/language-provider";
+import LandingPopup from "@/components/landing-popup";
+
+type PopupProps = {
+    enabled: boolean;
+    imageUrl: string | null;
+    ctaLabel: string | null;
+    ctaHref: string | null;
+} | null;
 
 type HomeClientProps = {
     heroBackgroundImageUrl: string;
@@ -16,17 +24,27 @@ type HomeClientProps = {
         height: number;
         aspectRatio: number;
     };
+    popup?: PopupProps;
 };
 
 export default function HomeClient({
                                        heroBackgroundImageUrl,
                                        missionImageUrl,
                                        missionDims,
+                                       popup,
                                    }: HomeClientProps) {
     const copy = useSiteCopy();
 
     return (
         <main className="min-h-screen bg-white text-gray-800">
+            {popup && (
+                <LandingPopup
+                    enabled={popup.enabled}
+                    imageUrl={popup.imageUrl}
+                    ctaLabel={popup.ctaLabel}
+                    ctaHref={popup.ctaHref}
+                />
+            )}
             <section
                 style={{ backgroundImage: `url("${heroBackgroundImageUrl}")` }}
                 className="relative flex min-h-[80vh] w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-24 text-center text-white"

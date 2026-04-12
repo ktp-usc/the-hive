@@ -3,8 +3,26 @@
 import Link from "next/link";
 import { useSiteCopy } from "@/components/language-provider";
 
-export default function Footer() {
+type FooterProps = {
+    contactEmail?: string | null;
+    contactPhone?: string | null;
+    contactAddress?: string | null;
+    tagline?: string | null;
+};
+
+const FALLBACK_EMAIL = "hello@thehivecc.org";
+const FALLBACK_PHONE = "803-888-7725";
+const FALLBACK_PHONE_HREF = "8038887725";
+const FALLBACK_ADDRESS = "4704 Colonial Drive, Columbia, SC 29203";
+
+export default function Footer({ contactEmail, contactPhone, contactAddress, tagline }: FooterProps) {
     const copy = useSiteCopy();
+
+    const resolvedEmail = contactEmail ?? FALLBACK_EMAIL;
+    const resolvedPhone = contactPhone ?? FALLBACK_PHONE;
+    const resolvedPhoneHref = (contactPhone ?? FALLBACK_PHONE).replace(/\D/g, "");
+    const resolvedAddress = contactAddress ?? FALLBACK_ADDRESS;
+    const resolvedTagline = tagline ?? copy.footer.tagline;
 
     const quickLinks = [
         { label: copy.footer.home, href: "/" },
@@ -23,7 +41,7 @@ export default function Footer() {
                 <div>
                     <h2 className="text-3xl font-bold">{copy.footer.brand}</h2>
                     <p className="mt-4 max-w-md text-sm leading-7 text-white/80">
-                        {copy.footer.tagline}
+                        {resolvedTagline}
                     </p>
                 </div>
 
@@ -52,19 +70,19 @@ export default function Footer() {
                         <p>
                             {copy.footer.email}{" "}
                             <a
-                                href="mailto:hello@thehivecc.org"
+                                href={`mailto:${resolvedEmail}`}
                                 className="font-semibold text-white"
                             >
-                                hello@thehivecc.org
+                                {resolvedEmail}
                             </a>
                         </p>
                         <p>
                             {copy.footer.phone}{" "}
-                            <a href="tel:8038887725" className="font-semibold text-white">
-                                803-888-7725
+                            <a href={`tel:${resolvedPhoneHref}`} className="font-semibold text-white">
+                                {resolvedPhone}
                             </a>
                         </p>
-                        <p>{copy.footer.address} 4704 Colonial Drive, Columbia, SC 29203</p>
+                        <p>{copy.footer.address} {resolvedAddress}</p>
                     </div>
                 </div>
             </div>

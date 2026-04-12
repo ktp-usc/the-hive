@@ -2,16 +2,24 @@ import React from "react";
 import Navbar from "@/components/navbar";
 import SafeExit from "@/components/safe-exit";
 import Footer from "@/components/footer";
-import { SanityLive } from "@/sanity/lib/live";
+import { SanityLive, sanityFetch } from "@/sanity/lib/live";
+import { siteSettingsQuery } from "@/sanity/queries/siteSettings";
 
-export default function SiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function SiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+    const { data: siteSettings } = await sanityFetch({ query: siteSettingsQuery });
+
     return (
         <div className="site-shell">
-            <Navbar />
+            <Navbar donateUrl={siteSettings?.donateUrl} />
             {children}
             <SanityLive />
             <SafeExit />
-            <Footer />
+            <Footer
+                contactEmail={siteSettings?.contactEmail}
+                contactPhone={siteSettings?.contactPhone}
+                contactAddress={siteSettings?.contactAddress}
+                tagline={siteSettings?.footerTagline}
+            />
         </div>
     );
 }
