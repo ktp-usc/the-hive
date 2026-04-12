@@ -258,6 +258,7 @@ const enAwareness = {
         "Whether you're booking a training, exploring a partnership, or just getting started, we're here for it.",
     requestTraining: "Request a Training",
     bookCall: "Book a Discovery Call",
+    downloadCatalog: "Download Training Catalog",
     contactTeam: "Contact Our Team",
 };
 
@@ -374,6 +375,7 @@ const esAwareness = {
         "Ya sea que quieras agendar una capacitación, explorar una alianza o simplemente empezar, aquí estamos para acompañarte.",
     requestTraining: "Solicitar una Capacitación",
     bookCall: "Agendar una Llamada Inicial",
+    downloadCatalog: "Descargar el Catálogo de Capacitación",
     contactTeam: "Contactar a Nuestro Equipo",
 };
 
