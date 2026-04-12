@@ -116,9 +116,16 @@
   }
 
   .site-hero {
-    background: #1d979c;
+    background-color: var(--color-hive-yellow);
+    background-image:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.34), transparent 34%),
+      radial-gradient(circle at bottom right, rgba(236, 116, 36, 0.18), transparent 32%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='76' viewBox='0 0 88 76'%3E%3Cg fill='none' stroke='%23d19f00' stroke-width='2.5' stroke-opacity='0.55'%3E%3Cpath d='M22 1.5 43 13.5V37.5L22 49.5 1 37.5V13.5Z'/%3E%3Cpath d='M66 1.5 87 13.5V37.5L66 49.5 45 37.5V13.5Z'/%3E%3Cpath d='M44 38.5 65 50.5V74.5L44 86.5 23 74.5V50.5Z' transform='translate(0 -12)'/%3E%3C/g%3E%3C/svg%3E");
+    background-position: center, center, center;
+    background-size: auto, auto, 10.5rem auto;
     color: #ffffff;
   }
+
 
   .site-eyebrow {
     color: rgba(255, 255, 255, 0.82);

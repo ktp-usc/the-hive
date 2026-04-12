@@ -1,3 +1,9 @@
+/**
+ * run once with:  node scripts/seed-about-us.mjs
+ * uploads team/board member images from public/member-images/ into Sanity
+ * and creates teamMember documents + the About Us page document.
+ */
+
 import { createClient } from "@sanity/client";
 import { config } from "dotenv";
 import { resolve, extname } from "path";
@@ -7,7 +13,6 @@ config({ path: resolve(process.cwd(), ".env.local") });
 
 const token =
   process.env.SANITY_API_WRITE_TOKEN ||
-  
   process.env.SANITY_API_READ_TOKEN ||
   process.env.SANITY_API_VIEWER_TOKEN;
 
@@ -28,13 +33,6 @@ const client = createClient({
 });
 
 // ── helpers ────────────────────────────────────────────────────────────────
-
-function slugify(name) {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
 
 function mimeType(filename) {
   const ext = extname(filename).toLowerCase();
@@ -72,7 +70,22 @@ const founder = [
     name: "Ashley Olayinka",
     role: "Founder & Chief Executive Officer",
     group: "founder",
-    bio: "Ashley Olayinka is a transformative leader, healing justice advocate, and founder of The Hive, a culturally specific peer advocacy organization serving Black and Brown survivors of gender-based violence in South Carolina. A lifelong advocate, Ashley draws from both lived experience and a strong academic foundation, holding a B.A. in Psychology from Columbia College and a Master of Social Work from the University of Washington. She is known for her ability to mobilize people, resources, and ideas to drive meaningful social change.",
+    bio: "Ashley Olayinka is a transformative leader, healing justice advocate, and founder of The Hive, a culturally specific peer advocacy organization serving Black and Brown survivors of gender-based violence in South Carolina.",
+    profileBody: "Ashley Olayinka is a transformative leader, healing justice advocate, and founder of The Hive, a culturally specific peer advocacy organization serving Black and Brown survivors of gender-based violence in South Carolina.",
+    storyEyebrow: "Founder Story",
+    narrativeLabel: "Narrative",
+    narrativeParagraphs: [
+      "A lifelong advocate, Ashley draws from both lived experience and a strong academic foundation, holding a B.A. in Psychology from Columbia College and a Master of Social Work from the University of Washington. She is known for her ability to mobilize people, resources, and ideas to drive meaningful social change.",
+      "Ashley has served in numerous philanthropic and leadership roles, including Board Member of Prisma Health Hospital Foundation, member of the Central Carolina Community Foundation African American Philanthropy Committee, and Chair of the Richland County Domestic Violence Coordinating Community Council. She currently serves on the South Carolina Victim Services Coordinating Council.",
+      "Her impact has been nationally recognized. Ashley is a 2022 Aspen SOAR Fellow and recipient of honors including The State's 20 Under 40 and a Jefferson Award. She is a sought-after speaker and facilitator, having presented at the Essence Festival and been featured in outlets such as Black Enterprise. Her work focuses on social and racial justice, gender-based violence, and leadership.",
+      "Above all, Ashley is a mother to three children, Corinne Elizabeth, Caleb Josiah, and Collin Noah, who inspire her continued commitment to building safer, more equitable communities.",
+    ],
+    sparkTitle: "Founding Spark",
+    sparkBody:
+      "As a survivor of sexual abuse and a native of South Carolina, Ashley Olayinka recognized the critical gaps in culturally responsive support for Black and Brown women and girls impacted by gender-based violence. Her lived experience, combined with her professional training, inspired her to create a space where survivors could access care that affirms their identities, addresses systemic barriers, and fosters true healing. This vision became The Hive.",
+    visionTitle: "Vision Today",
+    visionBody:
+      "Today, Ashley leads The Hive alongside fellow survivors, working to decrease barriers and expand access to equitable, trauma-informed, and economically empowering services. Her leadership is rooted in healing justice, ensuring that survivors are not only supported, but also equipped to reclaim their autonomy, mental health, and economic mobility. She continues to advocate for systems change so that women and girls of color are safe, seen, and supported.",
     src: "/member-images/Ashley2.png",
   },
 ];
@@ -83,7 +96,8 @@ const teamMembers = [
     name: "Alyson Berry",
     role: "Executive Administrator",
     group: "team",
-    bio: "alyson@thehivecc.org · ext 104",
+    email: "alyson@thehivecc.org",
+    extension: "ext 104",
     src: "/member-images/AlysonBerry.avif",
   },
   {
@@ -91,7 +105,8 @@ const teamMembers = [
     name: "Jalona Webb",
     role: "Legal Outreach Advocate",
     group: "team",
-    bio: "jalona.webb@thehivecc.org · ext 108",
+    email: "jalona.webb@thehivecc.org",
+    extension: "ext 108",
     src: "/member-images/JalonaWebb.avif",
   },
   {
@@ -99,7 +114,8 @@ const teamMembers = [
     name: "Kinnethia Tolson",
     role: "Education and Volunteer Coordinator",
     group: "team",
-    bio: "kinnethia@thehivecc.org · ext. 109",
+    email: "kinnethia@thehivecc.org",
+    extension: "ext. 109",
     src: "/member-images/KinnethiaTolson.avif",
   },
   {
@@ -107,7 +123,8 @@ const teamMembers = [
     name: "Beatrice Hernandez-Morales",
     role: "Bilingual Outreach Advocate",
     group: "team",
-    bio: "beatrice@thehivecc.org · ext. 107",
+    email: "beatrice@thehivecc.org",
+    extension: "ext. 107",
     src: "/member-images/BeatriceHernandezMorales.avif",
   },
 ];
@@ -174,7 +191,6 @@ const boardMembers = [
     name: "Naomi Walton",
     role: "Board Member",
     group: "board",
-    bio: "",
     src: "/member-images/NaomiWalton.avif",
   },
   {
@@ -217,7 +233,17 @@ async function seed() {
       name: member.name,
       role: member.role,
       group: member.group,
-      ...(member.bio ? { bio: member.bio } : {}),
+      ...(member.bio        ? { bio: member.bio }                       : {}),
+      ...(member.email      ? { email: member.email }                   : {}),
+      ...(member.extension  ? { extension: member.extension }           : {}),
+      ...(member.profileBody       ? { profileBody: member.profileBody }             : {}),
+      ...(member.storyEyebrow      ? { storyEyebrow: member.storyEyebrow }           : {}),
+      ...(member.narrativeLabel    ? { narrativeLabel: member.narrativeLabel }       : {}),
+      ...(member.narrativeParagraphs ? { narrativeParagraphs: member.narrativeParagraphs } : {}),
+      ...(member.sparkTitle  ? { sparkTitle: member.sparkTitle }         : {}),
+      ...(member.sparkBody   ? { sparkBody: member.sparkBody }           : {}),
+      ...(member.visionTitle ? { visionTitle: member.visionTitle }       : {}),
+      ...(member.visionBody  ? { visionBody: member.visionBody }         : {}),
       ...(photo ? { image: photo } : {}),
     };
 
@@ -230,7 +256,7 @@ async function seed() {
     };
   }
 
-  // ── BeeEmpowered hero image ────────────────────────────────────────────
+  // ── BeeEmpowered image ─────────────────────────────────────────────────
   console.log("\nUploading BeeEmpowered image…");
   const beeEmpoweredImage = await uploadImage(
     "/member-images/BeeEmpowered.avif",
@@ -242,8 +268,8 @@ async function seed() {
   console.log("\nCreating About Us page…");
 
   const founderRefs = founder.map((m) => memberRefs[m.id]);
-  const teamRefs = teamMembers.map((m) => memberRefs[m.id]);
-  const boardRefs = boardMembers.map((m) => memberRefs[m.id]);
+  const teamRefs    = teamMembers.map((m) => memberRefs[m.id]);
+  const boardRefs   = boardMembers.map((m) => memberRefs[m.id]);
 
   const aboutPage = {
     _id: "page-about",
@@ -273,33 +299,23 @@ async function seed() {
       {
         _key: "section-team",
         _type: "sectionTeam",
+        eyebrow: "Team",
         groupLabel: "Team Members",
         members: teamRefs,
       },
       {
         _key: "section-board",
         _type: "sectionTeam",
+        eyebrow: "Leadership",
         groupLabel: "Board of Directors",
         members: boardRefs,
       },
       {
         _key: "section-join",
         _type: "sectionRichText",
+        eyebrow: "Join The Hive",
         heading: "Looking to join our team?",
-        content: [
-          {
-            _type: "block",
-            _key: "join-body",
-            style: "normal",
-            children: [
-              {
-                _type: "span",
-                _key: "join-span",
-                text: "Send your resume and a cover letter to hello@thehivecc.org.",
-              },
-            ],
-          },
-        ],
+        body: "Send your resume and a cover letter to hello@thehivecc.org.",
       },
     ],
   };
