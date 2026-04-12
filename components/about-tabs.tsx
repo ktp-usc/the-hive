@@ -81,6 +81,24 @@ function FounderCard({ member }: { member: FounderMember }) {
           </div>
         ) : null}
 
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          {member.sparkTitle ? (
+            <div className="rounded-xl bg-gray-50 p-5">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
+                {member.sparkTitle}
+              </p>
+              <p className="mt-3 text-sm leading-7 text-gray-600">{member.sparkBody}</p>
+            </div>
+          ) : null}
+          {member.visionTitle ? (
+            <div className="rounded-xl bg-gray-50 p-5">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
+                {member.visionTitle}
+              </p>
+              <p className="mt-3 text-sm leading-7 text-gray-600">{member.visionBody}</p>
+            </div>
+          ) : null}
+        </div>
       </article>
 
       <aside className="site-card p-6 text-center sm:p-8">
@@ -125,9 +143,7 @@ function TeamMemberCard({ member }: { member: TeamMemberSanity }) {
           {member.email}
         </a>
       ) : null}
-      {member.extension ? (
-        <p className="mt-2 text-sm text-gray-600">{member.extension}</p>
-      ) : null}
+      {member.extension ? <p className="mt-2 text-sm text-gray-600">{member.extension}</p> : null}
     </article>
   );
 }
@@ -168,8 +184,8 @@ export default function AboutTabs({
 
   const tabs = [
     { id: "founder" as const, label: founderSection.label },
-    { id: "team" as const,    label: teamSection.label },
-    { id: "board" as const,   label: boardSection.label },
+    { id: "team" as const, label: teamSection.label },
+    { id: "board" as const, label: boardSection.label },
   ];
 
   return (
@@ -197,9 +213,7 @@ export default function AboutTabs({
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-blue">
             {copy.awareness.valuesTitle}
           </p>
-          <p className="mt-3 text-sm leading-7 text-gray-600">
-            {copy.awareness.valuesIntro}
-          </p>
+          <p className="mt-3 text-sm leading-7 text-gray-600">{copy.awareness.valuesIntro}</p>
           <div className="mt-4 flex flex-wrap justify-center gap-3">
             {copy.awareness.valuesPillars.map((value) => (
               <span
@@ -233,7 +247,7 @@ export default function AboutTabs({
                 "rounded-full border px-5 py-3 text-sm font-semibold transition",
                 isActive
                   ? "border-hive-blue bg-hive-blue text-white hover:bg-hive-blue/90"
-                  : "border-hive-blue/20 bg-white text-hive-blue hover:bg-hive-blue/5"
+                  : "border-hive-blue/20 bg-white text-hive-blue hover:bg-hive-blue/5",
               )}
             >
               {tab.label}
@@ -258,7 +272,9 @@ export default function AboutTabs({
               <h2 className="site-heading mt-4">{teamSection.label}</h2>
             </div>
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {teamMembers.map((m) => <TeamMemberCard key={m._id} member={m} />)}
+              {teamMembers.map((m) => (
+                <TeamMemberCard key={m._id} member={m} />
+              ))}
             </div>
           </section>
         ) : null}
@@ -274,7 +290,9 @@ export default function AboutTabs({
               <h2 className="site-heading mt-4">{boardSection.label}</h2>
             </div>
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {boardMembers.map((m) => <BoardMemberCard key={m._id} member={m} />)}
+              {boardMembers.map((m) => (
+                <BoardMemberCard key={m._id} member={m} />
+              ))}
             </div>
           </section>
         ) : null}

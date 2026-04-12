@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { useLanguage, useSiteCopy } from "@/components/language-provider";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 export default function AwarenessPage() {
     const copy = useSiteCopy();
     const { language } = useLanguage();
+
     const valuesListParts = new Intl.ListFormat(language, {
         style: "long",
         type: "conjunction",
@@ -33,7 +35,10 @@ export default function AwarenessPage() {
                     {copy.awareness.valuesIntro}{" "}
                     {valuesListParts.map((part, index) =>
                             part.type === "element" ? (
-                                <span key={`${part.type}-${part.value}-${index}`} className="font-semibold text-hive-blue">
+                                <span
+                                    key={`${part.type}-${part.value}-${index}`}
+                                    className="font-semibold text-hive-blue"
+                                >
                 {part.value}
               </span>
                             ) : (
@@ -60,27 +65,57 @@ export default function AwarenessPage() {
                         </p>
                     </div>
 
-                    <div className="mt-10 grid gap-6 md:grid-cols-3">
-                        {copy.awareness.signaturePrograms.map((program) => (
-                            <div
-                                key={program.title}
-                                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
-                            >
-                                <p className="text-lg font-semibold text-center text-hive-blue">
-                                    {program.title}
-                                </p>
-                                {program.badge ? (
-                                    <div className="mt-2 text-center">
-                    <span className="inline-block rounded-full bg-hive-orange/10 px-3 py-1 text-sm font-bold text-hive-orange">
-                      {program.badge}
-                    </span>
+                    <div className="mt-10 space-y-6">
+                        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                            <div className="grid gap-6 md:grid-cols-2 md:items-center">
+                                <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                                    <Image
+                                        src="/member-images/BeeEmpowered.avif"
+                                        alt="BuzzPak program"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                                <div>
+                                    <p className="text-lg font-semibold text-hive-blue">
+                                        {copy.awareness.signaturePrograms[0].title}
+                                    </p>
+                                    <div className="mt-2 flex flex-wrap gap-2">
+                                        {copy.awareness.signaturePrograms[0].languages ? (
+                                            <span className="inline-block rounded-full bg-hive-blue/10 px-3 py-1 text-sm font-semibold text-hive-blue">
+                        {copy.awareness.signaturePrograms[0].languages}
+                      </span>
+                                        ) : null}
                                     </div>
-                                ) : null}
-                                <p className="mt-3 text-sm leading-relaxed text-center text-gray-600">
-                                    {program.body}
-                                </p>
+                                    <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                                        {copy.awareness.signaturePrograms[0].body}
+                                    </p>
+                                </div>
                             </div>
-                        ))}
+                        </div>
+
+                        <div className="grid gap-6 md:grid-cols-2">
+                            {copy.awareness.signaturePrograms.slice(1).map((program) => (
+                                <div
+                                    key={program.title}
+                                    className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+                                >
+                                    <p className="text-lg font-semibold text-center text-hive-blue">
+                                        {program.title}
+                                    </p>
+                                    {program.badge ? (
+                                        <div className="mt-2 text-center">
+                      <span className="inline-block rounded-full bg-hive-orange/10 px-3 py-1 text-sm font-bold text-hive-orange">
+                        {program.badge}
+                      </span>
+                                        </div>
+                                    ) : null}
+                                    <p className="mt-3 text-sm leading-relaxed text-center text-gray-600">
+                                        {program.body}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
@@ -100,42 +135,38 @@ export default function AwarenessPage() {
                         </p>
                     </div>
 
-                    <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                        {copy.awareness.trainingSeries.map(({ title, body, badge, tailored }) => (
-                            <div
-                                key={title}
-                                className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
-                            >
-                                <p className="text-lg font-semibold text-center text-hive-blue">
-                                    {title}
-                                </p>
-                                {badge ? (
-                                    <div className="mt-2 text-center">
-                    <span className="inline-block rounded-full bg-hive-orange/10 px-3 py-1 text-sm font-bold text-hive-orange">
-                      {badge}
-                    </span>
+                    <div className="mt-10">
+                        <ul className="grid gap-3 md:grid-cols-2">
+                            {copy.awareness.trainingSeries.map(({ title, badge }) => (
+                                <li
+                                    key={title}
+                                    className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+                                >
+                                    <div className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-hive-yellow" />
+                                    <div>
+                                        <p className="text-base font-semibold text-hive-blue">{title}</p>
+                                        {badge ? (
+                                            <span className="mt-1 inline-block rounded-full bg-hive-orange/10 px-3 py-1 text-xs font-bold text-hive-orange">
+                        {badge}
+                      </span>
+                                        ) : null}
                                     </div>
-                                ) : null}
-                                <p className="mt-3 text-sm leading-relaxed text-center text-gray-600">
-                                    {body}
-                                </p>
-                                {tailored ? (
-                                    <p className="mt-2 text-sm text-center italic text-gray-500">
-                                        {copy.awareness.tailoredNote}
-                                    </p>
-                                ) : null}
-                            </div>
-                        ))}
+                                </li>
+                            ))}
+                        </ul>
+
+                        <p className="mt-8 text-center text-base text-gray-600">
+                            {copy.awareness.trainingContactNote}
+                        </p>
                     </div>
 
-                    {/* ✅ NEW BUTTON */}
                     <div className="mt-10 flex justify-center">
                         <Button
                             asChild
-                            className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white transition-colors hover:bg-hive-orange/90"
+                            className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90"
                         >
                             <Link href="/contact?subject=programs-and-services#contact-form">
-                                Learn more about our training programs
+                                Contact Us
                             </Link>
                         </Button>
                     </div>
@@ -162,9 +193,7 @@ export default function AwarenessPage() {
                             >
                                 <div className="mt-1 h-3 w-3 shrink-0 rounded-full bg-hive-yellow" />
                                 <div>
-                                    <p className="text-lg font-semibold text-hive-blue">
-                                        {offering.title}
-                                    </p>
+                                    <p className="text-lg font-semibold text-hive-blue">{offering.title}</p>
                                     <p className="mt-2 text-md text-gray-600">{offering.body}</p>
                                 </div>
                             </div>
@@ -176,24 +205,32 @@ export default function AwarenessPage() {
             <div className="mx-auto max-w-5xl border-t border-gray-200" />
 
             <section className="bg-gray-50 px-6 py-20 text-center">
-                <h2 className="mb-3 text-3xl font-bold text-hive-blue">
-                    {copy.awareness.ctaTitle}
-                </h2>
-                <p className="mx-auto mb-10 max-w-xl text-lg text-gray-500">
-                    {copy.awareness.ctaBody}
-                </p>
+                <h2 className="mb-3 text-3xl font-bold text-hive-blue">{copy.awareness.ctaTitle}</h2>
+                <p className="mx-auto mb-10 max-w-xl text-lg text-gray-500">{copy.awareness.ctaBody}</p>
                 <div className="flex flex-wrap justify-center gap-4">
                     <Button asChild className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90">
                         <Link href="/contact">{copy.awareness.requestTraining}</Link>
                     </Button>
                     <Button asChild className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90">
-                        <Link href="https://calendly.com" target="_blank">{copy.awareness.bookCall}</Link>
+                        <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer">
+                            {copy.awareness.bookCall}
+                        </Link>
                     </Button>
-                    <Button asChild variant="outline" className="h-auto rounded-full border-hive-orange px-8 py-4 text-base font-bold text-hive-orange hover:bg-hive-orange/5">
-                        <Link href="/training-catalog.pdf" target="_blank">{copy.awareness.downloadCatalog}</Link>
+                    <Button
+                        asChild
+                        variant="outline"
+                        className="h-auto rounded-full border-hive-orange px-8 py-4 text-base font-bold text-hive-orange hover:bg-hive-orange/5"
+                    >
+                        <Link href="/training-catalog.pdf" target="_blank" rel="noopener noreferrer">
+                            {copy.awareness.downloadCatalog}
+                        </Link>
                     </Button>
                     <Button asChild className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90">
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kinnethia@thehivecc.org" target="_blank">
+                        <a
+                            href="https://mail.google.com/mail/?view=cm&fs=1&to=kinnethia@thehivecc.org"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             {copy.awareness.contactTeam}
                         </a>
                     </Button>

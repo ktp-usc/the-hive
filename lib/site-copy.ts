@@ -146,7 +146,7 @@ const enOurImpact = {
 };
 
 const enAwareness = {
-    heroEyebrow: "Prevention &amp; Awareness",
+    heroEyebrow: "Prevention and Awareness",
     heroTitle: "Training & Education at The Hive",
     heroBody:
         "Healing centered learning rooted in culture, care, and connection.",
@@ -165,6 +165,7 @@ const enAwareness = {
     signaturePrograms: [
         {
             title: "BuzzPak multiseries",
+            languages: "Available in English & Spanish",
             body:
                 "Explore the foundations of healthy relationships and violence prevention. Engage real-world scenarios that address boundaries, consent, communication, and respect. Build skills to recognize harm, support peers, and create safer school and campus communities. Designed to spark dialogue, foster empathy, and equip young people to lead with awareness and accountability.",
         },
@@ -185,6 +186,7 @@ const enAwareness = {
     trainingBody:
         "These trainings are designed for Parents/Guardians/Caregivers, Faith Organizations, Community Groups, Law Enforcement, Healthcare Professionals, Advocates, K–12 School Professionals, Colleges/Universities and Educators, and Social Service Organizations. Invite us to your conference, professional development, retreat, classroom, or community meeting.",
     trainingNote: "Some training can be tailored for youth groups (11+)",
+    trainingContactNote: "Interested in one of our trainings? Contact us for more info or to participate.",
     trainingSeries: [
         {
             title: "Healing is Work: Centering the Brain, Body & Culture in Trauma Care",
@@ -280,6 +282,7 @@ const esAwareness = {
     signaturePrograms: [
         {
             title: "Serie múltiple BuzzPak",
+            languages: "Disponible en inglés y español",
             body:
                 "Explora los fundamentos de las relaciones saludables y la prevención de la violencia. Trabaja con escenarios reales sobre límites, consentimiento, comunicación y respeto. Desarrolla habilidades para reconocer el daño, apoyar a tus pares y crear comunidades escolares y universitarias más seguras. Diseñado para abrir diálogo, fomentar empatía y equipar a la juventud para liderar con conciencia y responsabilidad.",
         },
@@ -300,6 +303,7 @@ const esAwareness = {
     trainingBody:
         "Estas capacitaciones están diseñadas para madres, padres y personas cuidadoras, organizaciones de fe, grupos comunitarios, fuerza pública, profesionales de la salud, personas defensoras, personal escolar de K–12, universidades y personas educadoras, así como organizaciones de servicios sociales. Invítanos a tu conferencia, desarrollo profesional, retiro, salón de clases o reunión comunitaria.",
     trainingNote: "Algunas capacitaciones pueden adaptarse para grupos juveniles (11+)",
+    trainingContactNote: "¿Te interesa alguna de nuestras capacitaciones? Contáctanos para más información o para participar.",
     trainingSeries: [
         {
             title: "Sanar es Trabajo: Enfocando el Cerebro, el Cuerpo y la Cultura en el Cuidado del Trauma",
