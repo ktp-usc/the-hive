@@ -84,12 +84,18 @@ export function defaultNavbarRows(): NavbarRow[] {
           openInNewTab: false,
           label: L(en.nav.aboutUs, es.nav.aboutUs),
         },
-        {
-          itemKey: "default-impact",
-          href: "/donations",
-          openInNewTab: false,
-          label: L(en.nav.impact, es.nav.impact),
-        },
+          {
+              itemKey: "default-invest-in-the-hive",
+              href: "/donations",
+              openInNewTab: false,
+              label: L(en.nav.investInTheHive, es.nav.investInTheHive),
+          },
+          {
+              itemKey: "default-our-impact",
+              href: "/about/our-impact",
+              openInNewTab: false,
+              label: L(en.nav.ourImpact, es.nav.ourImpact),
+          },
         {
           itemKey: "default-partners",
           href: "/about/our-partners",
@@ -246,12 +252,18 @@ export function defaultFooterQuickLinks(): FooterQuickLink[] {
       openInNewTab: false,
       label: L(en.footer.about, es.footer.about),
     },
-    {
-      linkKey: "default-footer-impact",
-      href: "/donations",
-      openInNewTab: false,
-      label: L(en.footer.impact, es.footer.impact),
-    },
+      {
+          linkKey: "default-footer-invest-in-the-hive",
+          href: "/donations",
+          openInNewTab: false,
+          label: L(en.footer.investInTheHive, es.footer.investInTheHive),
+      },
+      {
+          linkKey: "default-footer-impact",
+          href: "/our-impact",
+          openInNewTab: false,
+          label: L(en.footer.ourImpact, es.footer.ourImpact),
+      },
     {
       linkKey: "default-footer-partners",
       href: "/about/our-partners",
