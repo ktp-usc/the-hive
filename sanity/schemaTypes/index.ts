@@ -2,6 +2,7 @@ import {type SchemaTypeDefinition} from 'sanity'
 import {contentCard} from './contentCard'
 import {galleryEvent} from './galleryEvent'
 import {navDropdown, navLink, navbarSettings} from './navbarSettings'
+import {landingPopup} from './landingPopup'
 import {page} from './page'
 import {pageSectionTypes} from './pageSections'
 import {partnerLogo} from './partnerLogo'
@@ -12,6 +13,7 @@ export const schema: {types: SchemaTypeDefinition[]} = {
     ...pageSectionTypes,
     navLink,
     navDropdown,
+    landingPopup,
     contentCard,
     partnerLogo,
     teamMember,

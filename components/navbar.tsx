@@ -86,7 +86,7 @@ function NavDropdown({
                 "block px-4 py-2 text-sm font-medium transition",
                 active
                   ? "bg-hive-blue text-white"
-                  : "text-gray-700 hover:bg-gray-50 hover:text-hive-blue"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-hive-blue",
               )}
             >
               {label}
@@ -194,7 +194,7 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
                     aria-expanded={expanded}
                     className={cn(
                       "inline-flex items-center gap-0.5 rounded-md px-1.5 py-2 text-sm font-medium transition",
-                      active ? "text-hive-blue" : "text-gray-600 hover:text-hive-blue"
+                      active ? "text-hive-blue" : "text-gray-600 hover:text-hive-blue",
                     )}
                     onClick={() =>
                       setPinnedMenu((current) => {
@@ -237,7 +237,7 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
                 onClick={closeMenus}
                 className={cn(
                   "rounded-md px-3.5 py-2 text-sm font-medium transition",
-                  active ? "text-hive-blue" : "text-gray-600 hover:text-hive-blue"
+                  active ? "text-hive-blue" : "text-gray-600 hover:text-hive-blue",
                 )}
               >
                 {label}
@@ -296,7 +296,7 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
                               "block rounded-md px-3 py-2 text-sm font-medium transition",
                               active
                                 ? "bg-hive-blue text-white"
-                                : "text-gray-600 hover:bg-white hover:text-hive-blue"
+                                : "text-gray-600 hover:bg-white hover:text-hive-blue",
                             )}
                           >
                             {label}
@@ -321,7 +321,7 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
                     "block rounded-md px-3 py-2 text-sm font-medium transition",
                     active
                       ? "bg-hive-blue text-white"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-hive-blue"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-hive-blue",
                   )}
                 >
                   {label}

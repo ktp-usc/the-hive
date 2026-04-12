@@ -14,10 +14,10 @@ export default function AwarenessPage() {
     }).formatToParts(copy.awareness.valuesPillars);
 
     return (
-        <main className="min-h-screen bg-white text-gray-800">
-            <section className="site-hero relative left-1/2 right-1/2 mt-16 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-center text-white sm:px-10 sm:py-12 lg:py-14">
+        <main className="site-page text-gray-800">
+            <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14">
                 <div className="mx-auto max-w-7xl">
-                    <p className="site-eyebrow text-white/90">{copy.awareness.heroEyebrow}</p>
+                    <p className="site-eyebrow">{copy.awareness.heroEyebrow}</p>
                     <h1 className="site-title mt-4">{copy.awareness.heroTitle}</h1>
                     <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
                         {copy.awareness.heroBody}
@@ -32,13 +32,13 @@ export default function AwarenessPage() {
                 <p className="text-lg leading-relaxed text-gray-600">
                     {copy.awareness.valuesIntro}{" "}
                     {valuesListParts.map((part, index) =>
-                        part.type === "element" ? (
-                            <span key={`${part.type}-${part.value}-${index}`} className="font-semibold text-hive-blue">
-                                {part.value}
-                            </span>
-                        ) : (
-                            <span key={`${part.type}-${index}`}>{part.value}</span>
-                        )
+                            part.type === "element" ? (
+                                <span key={`${part.type}-${part.value}-${index}`} className="font-semibold text-hive-blue">
+                {part.value}
+              </span>
+                            ) : (
+                                <span key={`${part.type}-${index}`}>{part.value}</span>
+                            )
                     )}{" "}
                     {copy.awareness.valuesOutro}
                 </p>
@@ -127,6 +127,18 @@ export default function AwarenessPage() {
                             </div>
                         ))}
                     </div>
+
+                    {/* ✅ NEW BUTTON */}
+                    <div className="mt-10 flex justify-center">
+                        <Button
+                            asChild
+                            className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white transition-colors hover:bg-hive-orange/90"
+                        >
+                            <Link href="/contact?subject=programs-and-services#contact-form">
+                                Learn more about our training programs
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 <div>
@@ -171,38 +183,17 @@ export default function AwarenessPage() {
                     {copy.awareness.ctaBody}
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                    <Button
-                        asChild
-                        className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white transition-colors hover:bg-hive-orange/90"
-                    >
+                    <Button asChild className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90">
                         <Link href="/contact">{copy.awareness.requestTraining}</Link>
                     </Button>
-                    <Button
-                        asChild
-                        className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white transition-colors hover:bg-hive-orange/90"
-                    >
-                        <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer">
-                            {copy.awareness.bookCall}
-                        </Link>
+                    <Button asChild className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90">
+                        <Link href="https://calendly.com" target="_blank">{copy.awareness.bookCall}</Link>
                     </Button>
-                    <Button
-                        asChild
-                        variant="outline"
-                        className="h-auto rounded-full border-hive-orange px-8 py-4 text-base font-bold text-hive-orange transition-colors hover:bg-hive-orange/5"
-                    >
-                        <Link href="/training-catalog.pdf" target="_blank" rel="noopener noreferrer">
-                            {copy.awareness.downloadCatalog}
-                        </Link>
+                    <Button asChild variant="outline" className="h-auto rounded-full border-hive-orange px-8 py-4 text-base font-bold text-hive-orange hover:bg-hive-orange/5">
+                        <Link href="/training-catalog.pdf" target="_blank">{copy.awareness.downloadCatalog}</Link>
                     </Button>
-                    <Button
-                        asChild
-                        className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white transition-colors hover:bg-hive-orange/90"
-                    >
-                        <a
-                            href="https://mail.google.com/mail/?view=cm&fs=1&to=kinnethia@thehivecc.org"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
+                    <Button asChild className="h-auto rounded-full bg-hive-orange px-8 py-4 text-base font-bold text-white hover:bg-hive-orange/90">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kinnethia@thehivecc.org" target="_blank">
                             {copy.awareness.contactTeam}
                         </a>
                     </Button>

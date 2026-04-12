@@ -13,6 +13,8 @@ export default async function OurPartnersPage() {
   const { data: page } = await sanityFetch({ query: partnersPageQuery });
 
   return (
-    <PartnersClient page={(page ?? null) as Parameters<typeof PartnersClient>[0]["page"]} />
+    <PartnersClient
+      page={(page ?? null) as Parameters<typeof PartnersClient>[0]["page"]}
+    />
   );
 }

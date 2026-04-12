@@ -55,7 +55,9 @@ export default function Footer({ navSettings }: { navSettings: NavbarSettingsDat
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-3">
         <div>
           <h2 className="text-3xl font-bold">{copy.footer.brand}</h2>
-          <p className="mt-4 max-w-md text-sm leading-7 text-white/80">{copy.footer.tagline}</p>
+          <p className="mt-4 max-w-md text-sm leading-7 text-white/80">
+            {copy.footer.tagline}
+          </p>
         </div>
 
         <div>

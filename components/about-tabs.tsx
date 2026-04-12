@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import { useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -80,24 +81,6 @@ function FounderCard({ member }: { member: FounderMember }) {
           </div>
         ) : null}
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2">
-          {member.sparkTitle ? (
-            <div className="rounded-xl bg-gray-50 p-5">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
-                {member.sparkTitle}
-              </p>
-              <p className="mt-3 text-sm leading-7 text-gray-600">{member.sparkBody}</p>
-            </div>
-          ) : null}
-          {member.visionTitle ? (
-            <div className="rounded-xl bg-gray-50 p-5">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
-                {member.visionTitle}
-              </p>
-              <p className="mt-3 text-sm leading-7 text-gray-600">{member.visionBody}</p>
-            </div>
-          ) : null}
-        </div>
       </article>
 
       <aside className="site-card p-6 text-center sm:p-8">
@@ -180,6 +163,7 @@ export default function AboutTabs({
   teamMembers,
   boardMembers,
 }: Props) {
+  const copy = useSiteCopy();
   const [activeTab, setActiveTab] = useState<"founder" | "team" | "board">("founder");
 
   const tabs = [
@@ -190,6 +174,45 @@ export default function AboutTabs({
 
   return (
     <section className="site-surface px-6 py-2 sm:px-10 sm:py-10 lg:px-14">
+      <div className="mx-auto mb-12 max-w-5xl space-y-5">
+        <div className="rounded-2xl border border-hive-orange/10 bg-hive-orange/5 p-6 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-orange">
+            {copy.home.missionTitle}
+          </p>
+          <p className="mt-3 text-sm leading-7 text-gray-600">{copy.home.missionBody}</p>
+        </div>
+
+        {founderMembers[0]?.visionBody ? (
+          <div className="rounded-2xl border border-hive-yellow/20 bg-hive-yellow/10 p-6 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#9b7a00]">
+              {founderMembers[0].visionTitle ?? "Vision"}
+            </p>
+            <p className="mt-3 text-sm leading-7 text-gray-600">
+              {founderMembers[0].visionBody}
+            </p>
+          </div>
+        ) : null}
+
+        <div className="rounded-2xl border border-hive-blue/10 bg-white p-6 text-center shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-blue">
+            {copy.awareness.valuesTitle}
+          </p>
+          <p className="mt-3 text-sm leading-7 text-gray-600">
+            {copy.awareness.valuesIntro}
+          </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-3">
+            {copy.awareness.valuesPillars.map((value) => (
+              <span
+                key={value}
+                className="rounded-full bg-hive-blue/5 px-4 py-2 text-sm font-semibold text-hive-blue"
+              >
+                {value}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-md font-semibold uppercase tracking-[0.3em] text-hive-orange">
           {heroEyebrow}

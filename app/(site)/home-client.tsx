@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Coffee, Search, Sun } from "lucide-react";
 import { useSiteCopy } from "@/components/language-provider";
+import { LandingPopupModal } from "@/components/landing-popup-modal";
 
 type HomeClientProps = {
     heroBackgroundImageUrl: string;
@@ -16,17 +17,35 @@ type HomeClientProps = {
         height: number;
         aspectRatio: number;
     };
+    landingPopup?: {
+        imageUrl: string;
+        imageWidth: number;
+        imageHeight: number;
+        ctaLabel?: string;
+        ctaHref?: string;
+    } | null;
 };
 
 export default function HomeClient({
                                        heroBackgroundImageUrl,
                                        missionImageUrl,
                                        missionDims,
+                                       landingPopup,
                                    }: HomeClientProps) {
     const copy = useSiteCopy();
 
     return (
         <main className="min-h-screen bg-white text-gray-800">
+            {landingPopup ? (
+                <LandingPopupModal
+                    imageUrl={landingPopup.imageUrl}
+                    imageAlt={copy.home.popupModalImageAlt}
+                    imageWidth={landingPopup.imageWidth}
+                    imageHeight={landingPopup.imageHeight}
+                    ctaLabel={landingPopup.ctaLabel}
+                    ctaHref={landingPopup.ctaHref}
+                />
+            ) : null}
             <section
                 style={{ backgroundImage: `url("${heroBackgroundImageUrl}")` }}
                 className="relative flex min-h-[80vh] w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-24 text-center text-white"

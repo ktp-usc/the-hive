@@ -69,6 +69,79 @@ export const sectionImageText = defineType({
   },
 })
 
+export const carouselSlide = defineType({
+  name: 'carouselSlide',
+  title: 'Carousel slide',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {hotspot: true},
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'title',
+      title: 'Slide title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'caption',
+      title: 'Caption',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'alt',
+      title: 'Alt text',
+      type: 'string',
+      description: 'Describe the image for screen readers.',
+    }),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {
+      return {title: title || 'Carousel slide', media}
+    },
+  },
+})
+
+export const sectionImageCarousel = defineType({
+  name: 'sectionImageCarousel',
+  title: 'Image carousel',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'heading',
+      title: 'Heading',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'body',
+      title: 'Intro text',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'slides',
+      title: 'Slides',
+      type: 'array',
+      of: [{type: 'carouselSlide'}],
+      validation: (Rule) => Rule.min(1),
+    }),
+  ],
+  preview: {
+    select: {heading: 'heading'},
+    prepare({heading}) {
+      return {title: heading || 'Image carousel'}
+    },
+  },
+})
+
 export const sectionHero = defineType({
   name: 'sectionHero',
   title: 'Hero',
@@ -221,6 +294,11 @@ export const sectionDonationOpportunity = defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'eyebrow',
+      title: 'Eyebrow',
+      type: 'string',
+    }),
+    defineField({
       name: 'sectionTitle',
       title: 'Section title',
       type: 'string',
@@ -247,6 +325,456 @@ export const sectionDonationOpportunity = defineType({
     select: {title: 'sectionTitle'},
     prepare({title}) {
       return {title: title || 'Donation opportunity'}
+    },
+  },
+})
+
+export const donationsAction = defineType({
+  name: 'donationsAction',
+  title: 'Donations action',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'label',
+      title: 'Label',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'href',
+      title: 'Link',
+      type: 'string',
+      description: '/path, https://..., etc.',
+      validation: (Rule) => Rule.required(),
+    }),
+  ],
+  preview: {
+    select: {title: 'label', subtitle: 'href'},
+    prepare({title, subtitle}) {
+      return {title: title || 'Action', subtitle}
+    },
+  },
+})
+
+export const donationsHighlight = defineType({
+  name: 'donationsHighlight',
+  title: 'Donations highlight',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'text',
+      rows: 4,
+      validation: (Rule) => Rule.required(),
+    }),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {
+      return {title: title || 'Highlight'}
+    },
+  },
+})
+
+export const donationsInfoCard = defineType({
+  name: 'donationsInfoCard',
+  title: 'Donations info card',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      rows: 5,
+      validation: (Rule) => Rule.required(),
+    }),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {
+      return {title: title || 'Info card'}
+    },
+  },
+})
+
+export const donationsTier = defineType({
+  name: 'donationsTier',
+  title: 'Donations tier',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'amount',
+      title: 'Amount',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'yearly',
+      title: 'Yearly equivalent',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'name',
+      title: 'Tier name',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      rows: 4,
+      validation: (Rule) => Rule.required(),
+    }),
+  ],
+  preview: {
+    select: {title: 'name', subtitle: 'amount'},
+    prepare({title, subtitle}) {
+      return {title: title || 'Tier', subtitle}
+    },
+  },
+})
+
+export const donationsImpactArea = defineType({
+  name: 'donationsImpactArea',
+  title: 'Donations impact area',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'alt',
+      title: 'Image alt text',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {hotspot: true},
+      validation: (Rule) => Rule.required(),
+    }),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {
+      return {title: title || 'Impact area', media}
+    },
+  },
+})
+
+export const sectionDonationsHero = defineType({
+  name: 'sectionDonationsHero',
+  title: 'Donations hero',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'primaryCta', title: 'Primary CTA', type: 'donationsAction'}),
+    defineField({name: 'secondaryCta', title: 'Secondary CTA', type: 'donationsAction'}),
+    defineField({
+      name: 'highlights',
+      title: 'Highlights',
+      type: 'array',
+      of: [{type: 'donationsHighlight'}],
+    }),
+  ],
+  preview: {
+    select: {title: 'eyebrow'},
+    prepare({title}) {
+      return {title: title || 'Donations hero'}
+    },
+  },
+})
+
+export const sectionDonationsTabsIntro = defineType({
+  name: 'sectionDonationsTabsIntro',
+  title: 'Donations tabs intro',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'heading', title: 'Heading', type: 'string'}),
+    defineField({name: 'casitaTabLabel', title: 'Casita tab label', type: 'string'}),
+    defineField({name: 'keepersTabLabel', title: 'Keepers tab label', type: 'string'}),
+  ],
+  preview: {
+    select: {title: 'heading'},
+    prepare({title}) {
+      return {title: title || 'Donations tabs intro'}
+    },
+  },
+})
+
+export const sectionDonationsCasitaOverview = defineType({
+  name: 'sectionDonationsCasitaOverview',
+  title: 'Casita overview',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({
+      name: 'paragraphs',
+      title: 'Paragraphs',
+      type: 'array',
+      of: [{type: 'text'}],
+    }),
+    defineField({name: 'cta', title: 'CTA', type: 'donationsAction'}),
+    defineField({name: 'imageAlt', title: 'Image alt text', type: 'string'}),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {hotspot: true},
+    }),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {
+      return {title: title || 'Casita overview', media}
+    },
+  },
+})
+
+export const sectionDonationsCasitaRefuge = defineType({
+  name: 'sectionDonationsCasitaRefuge',
+  title: 'Casita refuge',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({
+      name: 'paragraphs',
+      title: 'Paragraphs',
+      type: 'array',
+      of: [{type: 'text'}],
+    }),
+    defineField({name: 'imageAlt', title: 'Image alt text', type: 'string'}),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {hotspot: true},
+    }),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {
+      return {title: title || 'Casita refuge', media}
+    },
+  },
+})
+
+export const sectionDonationsCasitaCommunity = defineType({
+  name: 'sectionDonationsCasitaCommunity',
+  title: 'Casita community story',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'lead', title: 'Lead', type: 'text', rows: 3}),
+    defineField({
+      name: 'paragraphs',
+      title: 'Paragraphs',
+      type: 'array',
+      of: [{type: 'text'}],
+    }),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {
+      return {title: title || 'Casita community story'}
+    },
+  },
+})
+
+export const sectionDonationsCasitaWays = defineType({
+  name: 'sectionDonationsCasitaWays',
+  title: 'Casita ways to help',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 5}),
+    defineField({name: 'volunteerCta', title: 'Volunteer CTA', type: 'donationsAction'}),
+    defineField({name: 'wishlistCta', title: 'Wishlist CTA', type: 'donationsAction'}),
+    defineField({name: 'wishlistNote', title: 'Wishlist note', type: 'text', rows: 4}),
+    defineField({
+      name: 'waysToGive',
+      title: 'Ways to give',
+      type: 'array',
+      of: [{type: 'donationsInfoCard'}],
+    }),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {
+      return {title: title || 'Casita ways to help'}
+    },
+  },
+})
+
+export const sectionDonationsCasitaBeeBox = defineType({
+  name: 'sectionDonationsCasitaBeeBox',
+  title: 'Casita Bee Box',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 6}),
+    defineField({name: 'imageAlt', title: 'Image alt text', type: 'string'}),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {hotspot: true},
+    }),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {
+      return {title: title || 'Casita Bee Box', media}
+    },
+  },
+})
+
+export const sectionDonationsCasitaClosing = defineType({
+  name: 'sectionDonationsCasitaClosing',
+  title: 'Casita closing',
+  type: 'object',
+  fields: [
+    defineField({name: 'dedicationTitle', title: 'Dedication title', type: 'string'}),
+    defineField({
+      name: 'dedicationParagraphs',
+      title: 'Dedication paragraphs',
+      type: 'array',
+      of: [{type: 'text'}],
+    }),
+    defineField({name: 'thanksTitle', title: 'Thanks title', type: 'string'}),
+    defineField({name: 'thanksBody', title: 'Thanks body', type: 'text', rows: 5}),
+  ],
+  preview: {
+    select: {title: 'dedicationTitle'},
+    prepare({title}) {
+      return {title: title || 'Casita closing'}
+    },
+  },
+})
+
+export const sectionDonationsKeepersOverview = defineType({
+  name: 'sectionDonationsKeepersOverview',
+  title: 'Keepers overview',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({
+      name: 'paragraphs',
+      title: 'Paragraphs',
+      type: 'array',
+      of: [{type: 'text'}],
+    }),
+    defineField({name: 'cta', title: 'CTA', type: 'donationsAction'}),
+    defineField({name: 'imageAlt', title: 'Image alt text', type: 'string'}),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {hotspot: true},
+    }),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {
+      return {title: title || 'Keepers overview', media}
+    },
+  },
+})
+
+export const sectionDonationsKeepersBenefits = defineType({
+  name: 'sectionDonationsKeepersBenefits',
+  title: 'Keepers benefits',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({
+      name: 'benefits',
+      title: 'Benefits',
+      type: 'array',
+      of: [{type: 'string'}],
+    }),
+    defineField({name: 'contactLabel', title: 'Contact label', type: 'string'}),
+    defineField({name: 'contactPrefix', title: 'Contact prefix', type: 'text', rows: 3}),
+    defineField({name: 'contactEmail', title: 'Contact email', type: 'string'}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {
+      return {title: title || 'Keepers benefits'}
+    },
+  },
+})
+
+export const sectionDonationsKeepersTiers = defineType({
+  name: 'sectionDonationsKeepersTiers',
+  title: 'Keepers tiers',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 5}),
+    defineField({name: 'focusedImpactTitle', title: 'Focused impact title', type: 'string'}),
+    defineField({name: 'focusedImpactBody', title: 'Focused impact body', type: 'text', rows: 4}),
+    defineField({
+      name: 'tiers',
+      title: 'Tiers',
+      type: 'array',
+      of: [{type: 'donationsTier'}],
+    }),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {
+      return {title: title || 'Keepers tiers'}
+    },
+  },
+})
+
+export const sectionDonationsKeepersImpact = defineType({
+  name: 'sectionDonationsKeepersImpact',
+  title: 'Keepers impact areas',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({
+      name: 'impactAreas',
+      title: 'Impact areas',
+      type: 'array',
+      of: [{type: 'donationsImpactArea'}],
+    }),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {
+      return {title: title || 'Keepers impact areas'}
     },
   },
 })
@@ -293,7 +821,7 @@ export const sectionTeam = defineType({
       title: 'Group label / heading',
       type: 'string',
       description:
-        'Heading for this block (e.g. Founder/CEO, Team Members, Board of Directors). Each team member has a Section field — keep this label aligned with that grouping.',
+          'Heading for this block (e.g. Founder/CEO, Team Members, Board of Directors). Each team member has a Section field — keep this label aligned with that grouping.',
     }),
     defineField({
       name: 'members',
@@ -336,12 +864,31 @@ export const sectionGallery = defineType({
 })
 
 export const pageSectionTypes = [
+  donationsAction,
+  donationsHighlight,
+  donationsInfoCard,
+  donationsTier,
+  donationsImpactArea,
   sectionRichText,
   sectionImageText,
+  carouselSlide,
+  sectionImageCarousel,
   sectionHero,
   sectionCardGrid,
   sectionVolunteerCards,
   sectionDonationOpportunity,
+  sectionDonationsHero,
+  sectionDonationsTabsIntro,
+  sectionDonationsCasitaOverview,
+  sectionDonationsCasitaRefuge,
+  sectionDonationsCasitaCommunity,
+  sectionDonationsCasitaWays,
+  sectionDonationsCasitaBeeBox,
+  sectionDonationsCasitaClosing,
+  sectionDonationsKeepersOverview,
+  sectionDonationsKeepersBenefits,
+  sectionDonationsKeepersTiers,
+  sectionDonationsKeepersImpact,
   sectionPartnerLogos,
   sectionTeam,
   sectionGallery,
