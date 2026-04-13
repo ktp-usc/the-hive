@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 import LanguageToggle from "@/components/language-toggle";
-import SearchModal from "@/components/search-modal";
+import SearchModal, { SearchToolbarButton } from "@/components/search-modal";
 import { useLanguage, useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import {
@@ -129,6 +129,7 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [pinnedMenu, setPinnedMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const navRef = useRef<HTMLElement | null>(null);
 
   const rows = useMemo(() => resolveNavbarRows(navSettings ?? null), [navSettings]);
@@ -246,7 +247,7 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
           })}
 
           <div className="ml-2 flex items-center gap-1">
-            <SearchModal />
+            <SearchToolbarButton onClick={() => setSearchOpen(true)} />
             <LanguageToggle />
           </div>
         </div>
@@ -259,14 +260,17 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
           />
         </div>
 
-        <button
-          type="button"
-          aria-label={mobileOpen ? copy.nav.closeMenu : copy.nav.openMenu}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-black/8 text-gray-700 lg:hidden"
-          onClick={() => setMobileOpen((value) => !value)}
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-1 lg:hidden">
+          <SearchToolbarButton onClick={() => setSearchOpen(true)} />
+          <button
+            type="button"
+            aria-label={mobileOpen ? copy.nav.closeMenu : copy.nav.openMenu}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-black/8 text-gray-700"
+            onClick={() => setMobileOpen((value) => !value)}
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </nav>
 
       {mobileOpen ? (
@@ -341,6 +345,8 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
           </div>
         </div>
       ) : null}
+
+      <SearchModal open={searchOpen} onOpenChange={setSearchOpen} hideTrigger />
     </header>
   );
 }
