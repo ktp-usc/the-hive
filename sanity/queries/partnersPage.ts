@@ -36,6 +36,9 @@ export const partnersPageQuery = defineQuery(`
           "logoUrl": logo.asset->url,
           url
         }
+      },
+      _type == "sectionPartnersOpportunities" => {
+        heading, description, residencyLabel, resourceLabel, beeBoxContactText, beeBoxEmail
       }
     }
   }

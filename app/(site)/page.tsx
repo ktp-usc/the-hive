@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
 import {
@@ -45,9 +47,19 @@ export default async function Home() {
 
   return (
     <HomeClient
+      heroHeadline={home?.heroHeadline ?? null}
+      heroSubheadline={home?.heroSubheadline ?? null}
+      heroCtaLabel={home?.heroCtaLabel ?? null}
+      heroCtaHref={home?.heroCtaHref ?? null}
       heroBackgroundImageUrl={heroBackgroundImageUrl}
+      missionHeading={home?.missionHeading ?? null}
+      missionBody={home?.missionBody ?? null}
       missionImageUrl={missionImageUrl}
-      missionDims={home?.missionDims}
+      missionDims={home?.missionDims ?? undefined}
+      whatWeDoTitle={home?.whatWeDoTitle ?? null}
+      whatWeDoCards={home?.whatWeDoCards ?? null}
+      supportTitle={home?.supportTitle ?? null}
+      supportBody={home?.supportBody ?? null}
       landingPopup={landingPopup}
     />
   );

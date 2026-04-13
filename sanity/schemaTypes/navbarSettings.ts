@@ -77,6 +77,11 @@ export const navbarSettings = defineType({
   name: 'navbarSettings',
   title: 'Navigation',
   type: 'document',
+  preview: {
+    prepare() {
+      return { title: 'Navigation' }
+    },
+  },
   fields: [
     defineField({
       name: 'items',

@@ -49,6 +49,7 @@ export const page = defineType({
       type: 'landingPopup',
       description:
         'Shown only on the site homepage when enabled and an image is set. Does not affect other pages.',
+      hidden: ({document}) => (document?.slug as {current?: string} | undefined)?.current !== 'landing',
     }),
     defineField({
       name: 'sections',
@@ -77,6 +78,34 @@ export const page = defineType({
         {type: 'sectionPartnerLogos'},
         {type: 'sectionTeam'},
         {type: 'sectionGallery'},
+        // Awareness
+        {type: 'sectionAwarenessHero'},
+        {type: 'sectionAwarenessValues'},
+        {type: 'sectionAwarenessPrograms'},
+        {type: 'sectionAwarenessTraining'},
+        {type: 'sectionAwarenessTechAssist'},
+        {type: 'sectionAwarenessCta'},
+        // Support
+        {type: 'sectionSupportHero'},
+        {type: 'sectionSupportIntro'},
+        {type: 'sectionSupportServices'},
+        {type: 'sectionSupportAccessibility'},
+        {type: 'sectionSupportResources'},
+        // Our Impact
+        {type: 'sectionImpactHero'},
+        {type: 'sectionImpactMedia'},
+        {type: 'sectionImpactAwards'},
+        {type: 'sectionImpactDocuments'},
+        // Contact
+        {type: 'sectionContactHero'},
+        {type: 'sectionContactNewsletter'},
+        {type: 'sectionContactForm'},
+        {type: 'sectionContactInfo'},
+        // Events
+        {type: 'sectionEventsHero'},
+        {type: 'sectionEventsUpcoming'},
+        // Partners
+        {type: 'sectionPartnersOpportunities'},
       ],
     }),
   ],

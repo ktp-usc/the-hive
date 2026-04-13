@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { sanityFetch } from "@/sanity/lib/live";
 import { donationsPageQuery, type DonationsPageData } from "@/sanity/queries/donationsPage";
 import DonationsClient from "./donations-client";

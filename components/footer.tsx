@@ -44,24 +44,67 @@ function FooterAnchor({
   );
 }
 
-export default function Footer({ navSettings }: { navSettings: NavbarSettingsData }) {
+const FALLBACK_EMAIL = "hello@thehivecc.org";
+const FALLBACK_PHONE = "803-888-7725";
+const FALLBACK_ADDRESS = "4704 Colonial Drive, Columbia, SC 29203";
+
+export default function Footer({
+  navSettings,
+  contactEmail,
+  contactPhone,
+  contactAddress,
+  tagline,
+  brand,
+  copyright,
+  quickLinksHeading,
+  contactHeading,
+  emailLabel,
+  phoneLabel,
+  addressLabel,
+}: {
+  navSettings: NavbarSettingsData;
+  contactEmail?: string | null;
+  contactPhone?: string | null;
+  contactAddress?: string | null;
+  tagline?: string | null;
+  brand?: string | null;
+  copyright?: string | null;
+  quickLinksHeading?: string | null;
+  contactHeading?: string | null;
+  emailLabel?: string | null;
+  phoneLabel?: string | null;
+  addressLabel?: string | null;
+}) {
   const copy = useSiteCopy();
   const { language } = useLanguage();
 
   const quickLinks = useMemo(() => resolveFooterQuickLinks(navSettings), [navSettings]);
 
+  const resolvedEmail = contactEmail ?? FALLBACK_EMAIL;
+  const resolvedPhone = contactPhone ?? FALLBACK_PHONE;
+  const resolvedPhoneHref = resolvedPhone.replace(/\D/g, "");
+  const resolvedAddress = contactAddress ?? FALLBACK_ADDRESS;
+  const resolvedTagline = tagline ?? copy.footer.tagline;
+  const resolvedBrand = brand ?? copy.footer.brand;
+  const resolvedCopyright = copyright ?? copy.footer.copyright;
+  const resolvedQuickLinksHeading = quickLinksHeading ?? copy.footer.quickLinks;
+  const resolvedContactHeading = contactHeading ?? copy.footer.contact;
+  const resolvedEmailLabel = emailLabel ?? copy.footer.email;
+  const resolvedPhoneLabel = phoneLabel ?? copy.footer.phone;
+  const resolvedAddressLabel = addressLabel ?? copy.footer.address;
+
   return (
     <footer className="bg-hive-blue px-6 pb-8 pt-12 text-white">
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-3">
         <div>
-          <h2 className="text-3xl font-bold">{copy.footer.brand}</h2>
+          <h2 className="text-3xl font-bold">{resolvedBrand}</h2>
           <p className="mt-4 max-w-md text-sm leading-7 text-white/80">
-            {copy.footer.tagline}
+            {resolvedTagline}
           </p>
         </div>
 
         <div>
-          <h3 className="text-lg font-bold text-white/90">{copy.footer.quickLinks}</h3>
+          <h3 className="text-lg font-bold text-white/90">{resolvedQuickLinksHeading}</h3>
           <div className="mt-4 grid gap-2">
             {quickLinks.map((link) => (
               <FooterAnchor
@@ -77,27 +120,27 @@ export default function Footer({ navSettings }: { navSettings: NavbarSettingsDat
         </div>
 
         <div>
-          <h3 className="text-lg font-bold text-white/90">{copy.footer.contact}</h3>
+          <h3 className="text-lg font-bold text-white/90">{resolvedContactHeading}</h3>
           <div className="mt-4 space-y-2 text-sm leading-7 text-white/85">
             <p>
-              {copy.footer.email}{" "}
-              <a href="mailto:hello@thehivecc.org" className="font-semibold text-white">
-                hello@thehivecc.org
+              {resolvedEmailLabel}{" "}
+              <a href={`mailto:${resolvedEmail}`} className="font-semibold text-white">
+                {resolvedEmail}
               </a>
             </p>
             <p>
-              {copy.footer.phone}{" "}
-              <a href="tel:8038887725" className="font-semibold text-white">
-                803-888-7725
+              {resolvedPhoneLabel}{" "}
+              <a href={`tel:${resolvedPhoneHref}`} className="font-semibold text-white">
+                {resolvedPhone}
               </a>
             </p>
-            <p>{copy.footer.address} 4704 Colonial Drive, Columbia, SC 29203</p>
+            <p>{resolvedAddressLabel} {resolvedAddress}</p>
           </div>
         </div>
       </div>
 
       <div className="mx-auto mt-8 max-w-6xl border-t border-white/20 pt-4 text-center text-sm text-white/75">
-        {copy.footer.copyright}
+        {resolvedCopyright}
       </div>
     </footer>
   );

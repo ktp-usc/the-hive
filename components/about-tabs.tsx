@@ -57,6 +57,11 @@ type Props = {
   founderMembers: FounderMember[];
   teamMembers: TeamMemberSanity[];
   boardMembers: BoardMemberSanity[];
+  missionTitle?: string | null;
+  missionBody?: string | null;
+  valuesTitle?: string | null;
+  valuesIntro?: string | null;
+  valuesPillars?: string[] | null;
 };
 
 // ── member cards ───────────────────────────────────────────────────────────
@@ -178,9 +183,20 @@ export default function AboutTabs({
   founderMembers,
   teamMembers,
   boardMembers,
+  missionTitle,
+  missionBody,
+  valuesTitle,
+  valuesIntro,
+  valuesPillars,
 }: Props) {
   const copy = useSiteCopy();
   const [activeTab, setActiveTab] = useState<"founder" | "team" | "board">("founder");
+
+  const resolvedMissionTitle = missionTitle ?? copy.home.missionTitle;
+  const resolvedMissionBody = missionBody ?? copy.home.missionBody;
+  const resolvedValuesTitle = valuesTitle ?? copy.awareness.valuesTitle;
+  const resolvedValuesIntro = valuesIntro ?? copy.awareness.valuesIntro;
+  const resolvedValuesPillars = valuesPillars?.length ? valuesPillars : [...copy.awareness.valuesPillars];
 
   const tabs = [
     { id: "founder" as const, label: founderSection.label },
@@ -193,9 +209,9 @@ export default function AboutTabs({
       <div className="mx-auto mb-12 max-w-5xl space-y-5">
         <div className="rounded-2xl border border-hive-orange/10 bg-hive-orange/5 p-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-orange">
-            {copy.home.missionTitle}
+            {resolvedMissionTitle}
           </p>
-          <p className="mt-3 text-sm leading-7 text-gray-600">{copy.home.missionBody}</p>
+          <p className="mt-3 text-sm leading-7 text-gray-600">{resolvedMissionBody}</p>
         </div>
 
         {founderMembers[0]?.visionBody ? (
@@ -211,11 +227,11 @@ export default function AboutTabs({
 
         <div className="rounded-2xl border border-hive-blue/10 bg-white p-6 text-center shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-blue">
-            {copy.awareness.valuesTitle}
+            {resolvedValuesTitle}
           </p>
-          <p className="mt-3 text-sm leading-7 text-gray-600">{copy.awareness.valuesIntro}</p>
+          <p className="mt-3 text-sm leading-7 text-gray-600">{resolvedValuesIntro}</p>
           <div className="mt-4 flex flex-wrap justify-center gap-3">
-            {copy.awareness.valuesPillars.map((value) => (
+            {resolvedValuesPillars.map((value) => (
               <span
                 key={value}
                 className="rounded-full bg-hive-blue/5 px-4 py-2 text-sm font-semibold text-hive-blue"

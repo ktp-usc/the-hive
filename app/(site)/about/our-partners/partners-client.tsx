@@ -38,6 +38,19 @@ type PartnerPageData = {
     }
         | {
         _key?: string;
+        _type: "sectionImageCarousel";
+        heading?: string;
+        body?: string;
+        slides?: Array<{
+            _key?: string;
+            title?: string;
+            caption?: string;
+            alt?: string;
+            imageUrl?: string | null;
+        }>;
+    }
+        | {
+        _key?: string;
         _type: "sectionPartnerLogos";
         groupLabel?: string;
         partners?: Array<{
@@ -47,13 +60,25 @@ type PartnerPageData = {
             logoUrl: string | null;
         }>;
     }
+        | {
+        _key?: string;
+        _type: "sectionPartnersOpportunities";
+        heading?: string | null;
+        description?: string | null;
+        residencyLabel?: string | null;
+        resourceLabel?: string | null;
+        beeBoxContactText?: string | null;
+        beeBoxEmail?: string | null;
+    }
     >;
 } | null;
 
 type PartnerSection = NonNullable<NonNullable<PartnerPageData>["sections"]>[number];
 type PartnerHeroSection = Extract<PartnerSection, { _type: "sectionHero" }>;
 type PartnerImageTextSection = Extract<PartnerSection, { _type: "sectionImageText" }>;
+type PartnerCarouselSection = Extract<PartnerSection, { _type: "sectionImageCarousel" }>;
 type PartnerLogoSection = Extract<PartnerSection, { _type: "sectionPartnerLogos" }>;
+type PartnerOpportunitiesSection = Extract<PartnerSection, { _type: "sectionPartnersOpportunities" }>;
 
 const DEFAULT_HOST_THE_HIVE = {
     heading: "Host the Hive",
@@ -98,9 +123,17 @@ const STATIC_PARTNERSHIP_SLIDES: PartnershipCarouselSlide[] = [
     },
 ];
 
+const DEFAULT_OPPORTUNITIES_HEADING = "Partnership Opportunities";
+const DEFAULT_OPPORTUNITIES_DESCRIPTION = "We are grateful for the organizations, businesses, and community leaders who support this work.";
+const DEFAULT_RESIDENCY_LABEL = "Residency Partnership";
+const DEFAULT_RESOURCE_LABEL = "Resource Partnership";
+const DEFAULT_BEE_BOX_CONTACT_TEXT = "If you are interested in becoming a partner site for the Bee Box, please reach out to";
+const DEFAULT_BEE_BOX_EMAIL = "volunteer@thehivecc.org";
+
 function PartnershipOpportunitiesSection({
                                              hostTheHive,
                                              beeBox,
+                                             opportunitiesSec,
                                          }: {
     hostTheHive: {
         heading: string;
@@ -114,13 +147,21 @@ function PartnershipOpportunitiesSection({
         imageUrl: string;
         alt: string;
     };
+    opportunitiesSec: PartnerOpportunitiesSection | null;
 }) {
+    const sectionHeading = opportunitiesSec?.heading ?? DEFAULT_OPPORTUNITIES_HEADING;
+    const sectionDescription = opportunitiesSec?.description ?? DEFAULT_OPPORTUNITIES_DESCRIPTION;
+    const residencyLabel = opportunitiesSec?.residencyLabel ?? DEFAULT_RESIDENCY_LABEL;
+    const resourceLabel = opportunitiesSec?.resourceLabel ?? DEFAULT_RESOURCE_LABEL;
+    const beeBoxContactText = opportunitiesSec?.beeBoxContactText ?? DEFAULT_BEE_BOX_CONTACT_TEXT;
+    const beeBoxEmail = opportunitiesSec?.beeBoxEmail ?? DEFAULT_BEE_BOX_EMAIL;
+
     return (
         <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
             <div className="mx-auto max-w-3xl text-center">
-                <h2 className="site-heading">Partnership Opportunities</h2>
+                <h2 className="site-heading">{sectionHeading}</h2>
                 <p className="site-copy mt-4">
-                    We are grateful for the organizations, businesses, and community leaders who support this work.
+                    {sectionDescription}
                 </p>
             </div>
 
@@ -128,7 +169,7 @@ function PartnershipOpportunitiesSection({
                 <div className="site-panel overflow-hidden">
                     <div className="grid items-stretch md:grid-cols-[1.05fr_0.95fr]">
                         <div className="p-6 sm:p-8 lg:p-10">
-                            <p className="site-subheading">Residency Partnership</p>
+                            <p className="site-subheading">{residencyLabel}</p>
                             <h3 className="mt-3 text-3xl font-semibold text-hive-blue">
                                 {hostTheHive.heading}
                             </h3>
@@ -161,15 +202,15 @@ function PartnershipOpportunitiesSection({
                         </div>
 
                         <div>
-                            <p className="site-subheading">Resource Partnership</p>
+                            <p className="site-subheading">{resourceLabel}</p>
                             <h3 className="mt-3 text-3xl font-semibold text-hive-blue">
                                 {beeBox.heading}
                             </h3>
                             <p className="site-copy mt-4 whitespace-pre-line">{beeBox.body}</p>
                             <p className="site-copy mt-6">
-                                If you are interested in becoming a partner site for the Bee Box, please reach out to{" "}
-                                <a className="site-link font-medium" href="mailto:volunteer@thehivecc.org">
-                                    volunteer@thehivecc.org
+                                {beeBoxContactText}{" "}
+                                <a className="site-link font-medium" href={`mailto:${beeBoxEmail}`}>
+                                    {beeBoxEmail}
                                 </a>
                             </p>
                         </div>
@@ -218,9 +259,20 @@ export default function PartnersClient({ page }: { page: PartnerPageData }) {
         (section): section is PartnerHeroSection => section._type === "sectionHero"
     );
 
-    const beeBox = sections.find(
+    const imageTextSections = sections.filter(
         (section): section is PartnerImageTextSection => section._type === "sectionImageText"
     );
+    // Convention: first sectionImageText = host the hive, second = bee box
+    const hostTheHiveSec = imageTextSections[0] ?? null;
+    const beeBoxSec = imageTextSections[1] ?? null;
+
+    const carouselSec = sections.find(
+        (section): section is PartnerCarouselSection => section._type === "sectionImageCarousel"
+    ) ?? null;
+
+    const opportunitiesSec = sections.find(
+        (section): section is PartnerOpportunitiesSection => section._type === "sectionPartnersOpportunities"
+    ) ?? null;
 
     const partnerSections = sections.filter(
         (section): section is PartnerLogoSection => section._type === "sectionPartnerLogos"
@@ -231,6 +283,31 @@ export default function PartnersClient({ page }: { page: PartnerPageData }) {
 
     const heroTitle =
         useCmsText && hero?.headline ? hero.headline : copy.partners.heroTitle;
+
+    const resolvedHostTheHive = {
+        heading: hostTheHiveSec?.heading ?? DEFAULT_HOST_THE_HIVE.heading,
+        body: hostTheHiveSec?.body ?? DEFAULT_HOST_THE_HIVE.body,
+        imageUrl: hostTheHiveSec?.imageUrl ?? DEFAULT_HOST_THE_HIVE.imageUrl,
+        alt: DEFAULT_HOST_THE_HIVE.alt,
+    };
+
+    const resolvedBeeBox = {
+        heading: beeBoxSec?.heading ?? DEFAULT_BEE_BOX.heading,
+        body: beeBoxSec?.body ?? DEFAULT_BEE_BOX.body,
+        imageUrl: beeBoxSec?.imageUrl ?? DEFAULT_BEE_BOX.imageUrl,
+        alt: DEFAULT_BEE_BOX.alt,
+    };
+
+    const resolvedCarouselSlides: PartnershipCarouselSlide[] =
+        carouselSec?.slides?.length
+            ? carouselSec.slides.map((s) => ({
+                key: s._key ?? s.title ?? "",
+                imageUrl: s.imageUrl ?? "",
+                alt: s.alt ?? "",
+                title: s.title ?? "",
+                caption: s.caption ?? "",
+            }))
+            : STATIC_PARTNERSHIP_SLIDES;
 
     const partnerCategories =
         partnerSections.length > 0
@@ -264,13 +341,14 @@ export default function PartnersClient({ page }: { page: PartnerPageData }) {
                 {/* CAROUSEL */}
                 <section className="px-6">
                     <div className="mx-auto max-w-5xl">
-                        <PartnershipCarousel slides={STATIC_PARTNERSHIP_SLIDES} />
+                        <PartnershipCarousel slides={resolvedCarouselSlides} />
                     </div>
                 </section>
 
                 <PartnershipOpportunitiesSection
-                    hostTheHive={DEFAULT_HOST_THE_HIVE}
-                    beeBox={DEFAULT_BEE_BOX}
+                    hostTheHive={resolvedHostTheHive}
+                    beeBox={resolvedBeeBox}
+                    opportunitiesSec={opportunitiesSec}
                 />
 
                 {/* PARTNERS */}

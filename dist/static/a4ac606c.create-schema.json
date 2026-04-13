@@ -1,0 +1,3431 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "label",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "/path, https://..., etc.",
+        "name": "href",
+        "type": "string",
+        "title": "Link"
+      }
+    ],
+    "name": "donationsAction",
+    "type": "object",
+    "title": "Donations action"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "body",
+        "type": "text"
+      }
+    ],
+    "name": "donationsHighlight",
+    "type": "object",
+    "title": "Donations highlight"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 5,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text"
+      }
+    ],
+    "name": "donationsInfoCard",
+    "type": "object",
+    "title": "Donations info card"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "amount",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "yearly",
+        "type": "string",
+        "title": "Yearly equivalent"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Tier name"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text"
+      }
+    ],
+    "name": "donationsTier",
+    "type": "object",
+    "title": "Donations tier"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "alt",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "donationsImpactArea",
+    "type": "object",
+    "title": "Donations impact area"
+  },
+  {
+    "fields": [
+      {
+        "description": "Small label above the heading (e.g. \"Join The Hive\").",
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "description": "Plain text body. Used instead of (or alongside) the rich-text content field.",
+        "name": "body",
+        "type": "text",
+        "title": "Body text"
+      },
+      {
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          }
+        ],
+        "name": "content",
+        "type": "array",
+        "title": "Rich text content"
+      }
+    ],
+    "name": "sectionRichText",
+    "type": "object",
+    "title": "Rich text"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "rows": 8,
+        "name": "body",
+        "type": "text"
+      }
+    ],
+    "name": "sectionImageText",
+    "type": "object",
+    "title": "Image & text"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Slide title"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "caption",
+        "type": "text"
+      },
+      {
+        "description": "Describe the image for screen readers.",
+        "name": "alt",
+        "type": "string",
+        "title": "Alt text"
+      }
+    ],
+    "name": "carouselSlide",
+    "type": "object",
+    "title": "Carousel slide"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "body",
+        "type": "text",
+        "title": "Intro text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "type": "carouselSlide",
+            "title": "Carousel slide"
+          }
+        ],
+        "name": "slides",
+        "type": "array"
+      }
+    ],
+    "name": "sectionImageCarousel",
+    "type": "object",
+    "title": "Image carousel"
+  },
+  {
+    "fields": [
+      {
+        "name": "headline",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "subheadline",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "images",
+        "type": "array"
+      },
+      {
+        "name": "ctaLabel",
+        "type": "string",
+        "title": "Button label"
+      },
+      {
+        "description": "/path, https://..., etc.",
+        "name": "ctaHref",
+        "type": "string",
+        "title": "Button link"
+      }
+    ],
+    "name": "sectionHero",
+    "type": "object",
+    "title": "Hero"
+  },
+  {
+    "fields": [
+      {
+        "name": "sectionTitle",
+        "type": "string",
+        "title": "Section title"
+      },
+      {
+        "rows": 4,
+        "name": "intro",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "contentCard"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to card"
+          }
+        ],
+        "name": "cards",
+        "type": "array"
+      }
+    ],
+    "name": "sectionCardGrid",
+    "type": "object",
+    "title": "Card grid"
+  },
+  {
+    "fields": [
+      {
+        "name": "sectionTitle",
+        "type": "string",
+        "title": "Section title"
+      },
+      {
+        "rows": 4,
+        "name": "intro",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "rows": 5,
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "cards",
+        "type": "array"
+      },
+      {
+        "name": "ctaLabel",
+        "type": "string",
+        "title": "Button label"
+      },
+      {
+        "description": "/path, https://..., etc.",
+        "name": "ctaHref",
+        "type": "string",
+        "title": "Button link"
+      }
+    ],
+    "name": "sectionVolunteerCards",
+    "type": "object",
+    "title": "Volunteer cards"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "sectionTitle",
+        "type": "string",
+        "title": "Section title"
+      },
+      {
+        "rows": 6,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "ctaLabel",
+        "type": "string",
+        "title": "Button label"
+      },
+      {
+        "description": "/path, https://..., etc.",
+        "name": "ctaHref",
+        "type": "string",
+        "title": "Button link"
+      }
+    ],
+    "name": "sectionDonationOpportunity",
+    "type": "object",
+    "title": "Donation opportunity"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "primaryCta",
+        "type": "donationsAction",
+        "title": "Primary CTA"
+      },
+      {
+        "name": "secondaryCta",
+        "type": "donationsAction",
+        "title": "Secondary CTA"
+      },
+      {
+        "of": [
+          {
+            "type": "donationsHighlight",
+            "title": "Donations highlight"
+          }
+        ],
+        "name": "highlights",
+        "type": "array"
+      }
+    ],
+    "name": "sectionDonationsHero",
+    "type": "object",
+    "title": "Donations hero"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "casitaTabLabel",
+        "type": "string",
+        "title": "Casita tab label"
+      },
+      {
+        "name": "keepersTabLabel",
+        "type": "string",
+        "title": "Keepers tab label"
+      }
+    ],
+    "name": "sectionDonationsTabsIntro",
+    "type": "object",
+    "title": "Donations tabs intro"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "text"
+          }
+        ],
+        "name": "paragraphs",
+        "type": "array"
+      },
+      {
+        "name": "cta",
+        "type": "donationsAction",
+        "title": "CTA"
+      },
+      {
+        "name": "imageAlt",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "sectionDonationsCasitaOverview",
+    "type": "object",
+    "title": "Casita overview"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "text"
+          }
+        ],
+        "name": "paragraphs",
+        "type": "array"
+      },
+      {
+        "name": "imageAlt",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "sectionDonationsCasitaRefuge",
+    "type": "object",
+    "title": "Casita refuge"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "lead",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "type": "text"
+          }
+        ],
+        "name": "paragraphs",
+        "type": "array"
+      }
+    ],
+    "name": "sectionDonationsCasitaCommunity",
+    "type": "object",
+    "title": "Casita community story"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 5,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "volunteerCta",
+        "type": "donationsAction",
+        "title": "Volunteer CTA"
+      },
+      {
+        "name": "wishlistCta",
+        "type": "donationsAction",
+        "title": "Wishlist CTA"
+      },
+      {
+        "rows": 4,
+        "name": "wishlistNote",
+        "type": "text",
+        "title": "Wishlist note"
+      },
+      {
+        "of": [
+          {
+            "type": "donationsInfoCard",
+            "title": "Donations info card"
+          }
+        ],
+        "name": "waysToGive",
+        "type": "array",
+        "title": "Ways to give"
+      }
+    ],
+    "name": "sectionDonationsCasitaWays",
+    "type": "object",
+    "title": "Casita ways to help"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 6,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "imageAlt",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "sectionDonationsCasitaBeeBox",
+    "type": "object",
+    "title": "Casita Bee Box"
+  },
+  {
+    "fields": [
+      {
+        "name": "dedicationTitle",
+        "type": "string",
+        "title": "Dedication title"
+      },
+      {
+        "of": [
+          {
+            "type": "text"
+          }
+        ],
+        "name": "dedicationParagraphs",
+        "type": "array",
+        "title": "Dedication paragraphs"
+      },
+      {
+        "name": "thanksTitle",
+        "type": "string",
+        "title": "Thanks title"
+      },
+      {
+        "rows": 5,
+        "name": "thanksBody",
+        "type": "text",
+        "title": "Thanks body"
+      }
+    ],
+    "name": "sectionDonationsCasitaClosing",
+    "type": "object",
+    "title": "Casita closing"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "text"
+          }
+        ],
+        "name": "paragraphs",
+        "type": "array"
+      },
+      {
+        "name": "cta",
+        "type": "donationsAction",
+        "title": "CTA"
+      },
+      {
+        "name": "imageAlt",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "sectionDonationsKeepersOverview",
+    "type": "object",
+    "title": "Keepers overview"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "benefits",
+        "type": "array"
+      },
+      {
+        "name": "contactLabel",
+        "type": "string",
+        "title": "Contact label"
+      },
+      {
+        "rows": 3,
+        "name": "contactPrefix",
+        "type": "text",
+        "title": "Contact prefix"
+      },
+      {
+        "name": "contactEmail",
+        "type": "string",
+        "title": "Contact email"
+      }
+    ],
+    "name": "sectionDonationsKeepersBenefits",
+    "type": "object",
+    "title": "Keepers benefits"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 5,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "focusedImpactTitle",
+        "type": "string",
+        "title": "Focused impact title"
+      },
+      {
+        "rows": 4,
+        "name": "focusedImpactBody",
+        "type": "text",
+        "title": "Focused impact body"
+      },
+      {
+        "of": [
+          {
+            "type": "donationsTier",
+            "title": "Donations tier"
+          }
+        ],
+        "name": "tiers",
+        "type": "array"
+      }
+    ],
+    "name": "sectionDonationsKeepersTiers",
+    "type": "object",
+    "title": "Keepers tiers"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "donationsImpactArea",
+            "title": "Donations impact area"
+          }
+        ],
+        "name": "impactAreas",
+        "type": "array",
+        "title": "Impact areas"
+      }
+    ],
+    "name": "sectionDonationsKeepersImpact",
+    "type": "object",
+    "title": "Keepers impact areas"
+  },
+  {
+    "fields": [
+      {
+        "description": "e.g. Philanthropic, Corporate",
+        "name": "groupLabel",
+        "type": "string",
+        "title": "Group label"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "partnerLogo"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to partner logo"
+          }
+        ],
+        "name": "partners",
+        "type": "array"
+      }
+    ],
+    "name": "sectionPartnerLogos",
+    "type": "object",
+    "title": "Partner logos"
+  },
+  {
+    "fields": [
+      {
+        "description": "Small label above the section heading (e.g. \"Team\", \"Leadership\").",
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "description": "Heading for this block (e.g. Founder/CEO, Team Members, Board of Directors). Each team member has a Section field — keep this label aligned with that grouping.",
+        "name": "groupLabel",
+        "type": "string",
+        "title": "Group label / heading"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "teamMember"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to team member"
+          }
+        ],
+        "name": "members",
+        "type": "array"
+      }
+    ],
+    "name": "sectionTeam",
+    "type": "object",
+    "title": "Team"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "galleryEvent"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to past event"
+          }
+        ],
+        "name": "items",
+        "type": "array"
+      }
+    ],
+    "name": "sectionGallery",
+    "type": "object",
+    "title": "Past events gallery"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 5,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "description": "e.g. \"Available in English & Spanish\"",
+        "name": "languages",
+        "type": "string",
+        "title": "Languages badge"
+      },
+      {
+        "description": "e.g. \"NEW\"",
+        "name": "badge",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "awarenessProgram",
+    "type": "object",
+    "title": "Awareness program"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "description": "Optional e.g. \"NEW\"",
+        "name": "badge",
+        "type": "string"
+      }
+    ],
+    "name": "awarenessTrainingItem",
+    "type": "object",
+    "title": "Training item"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "body",
+        "type": "text"
+      }
+    ],
+    "name": "awarenessOffering",
+    "type": "object",
+    "title": "Technical assistance offering"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "label",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "href",
+        "type": "string",
+        "title": "URL or path"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "value": "primary",
+              "title": "Primary (orange)"
+            },
+            {
+              "value": "outline",
+              "title": "Outline"
+            }
+          ]
+        },
+        "initialValue": "primary",
+        "name": "variant",
+        "type": "string",
+        "title": "Style"
+      }
+    ],
+    "name": "awarenessCTAButton",
+    "type": "object",
+    "title": "CTA button"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "body",
+        "type": "text"
+      }
+    ],
+    "name": "sectionAwarenessHero",
+    "type": "object",
+    "title": "Awareness hero"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 2,
+        "name": "intro",
+        "type": "text",
+        "title": "Intro (before list)"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "pillars",
+        "type": "array",
+        "title": "Value pillars (highlighted in blue)"
+      },
+      {
+        "rows": 2,
+        "name": "outro",
+        "type": "text",
+        "title": "Outro (after list)"
+      }
+    ],
+    "name": "sectionAwarenessValues",
+    "type": "object",
+    "title": "Values / pillars"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string",
+        "title": "Section title"
+      },
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "type": "awarenessProgram",
+            "title": "Awareness program"
+          }
+        ],
+        "name": "programs",
+        "type": "array"
+      }
+    ],
+    "name": "sectionAwarenessPrograms",
+    "type": "object",
+    "title": "Awareness programs"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string",
+        "title": "Section title"
+      },
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "rows": 2,
+        "name": "note",
+        "type": "text",
+        "title": "Italic note (below body)"
+      },
+      {
+        "of": [
+          {
+            "type": "awarenessTrainingItem",
+            "title": "Training item"
+          }
+        ],
+        "name": "trainingSeries",
+        "type": "array",
+        "title": "Training items"
+      },
+      {
+        "rows": 2,
+        "name": "contactNote",
+        "type": "text",
+        "title": "Contact note (below items)"
+      }
+    ],
+    "name": "sectionAwarenessTraining",
+    "type": "object",
+    "title": "Training series"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string",
+        "title": "Section title"
+      },
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "type": "awarenessOffering",
+            "title": "Technical assistance offering"
+          }
+        ],
+        "name": "offerings",
+        "type": "array"
+      }
+    ],
+    "name": "sectionAwarenessTechAssist",
+    "type": "object",
+    "title": "Technical assistance"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "type": "awarenessCTAButton",
+            "title": "CTA button"
+          }
+        ],
+        "name": "buttons",
+        "type": "array"
+      }
+    ],
+    "name": "sectionAwarenessCta",
+    "type": "object",
+    "title": "Awareness CTA"
+  },
+  {
+    "fields": [
+      {
+        "description": "Slug for anchor links (e.g. peer-advocacy).",
+        "name": "cardId",
+        "type": "string",
+        "title": "Card ID"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "rows": 5,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "details",
+        "type": "array",
+        "title": "Details (bullet points)"
+      },
+      {
+        "rows": 3,
+        "name": "note",
+        "type": "text"
+      },
+      {
+        "name": "noteLinkLabel",
+        "type": "string",
+        "title": "Note link label"
+      },
+      {
+        "name": "noteLinkHref",
+        "type": "string",
+        "title": "Note link URL"
+      },
+      {
+        "name": "ctaLabel",
+        "type": "string",
+        "title": "CTA label"
+      },
+      {
+        "name": "ctaHref",
+        "type": "string",
+        "title": "CTA URL or path"
+      }
+    ],
+    "name": "supportServiceCard",
+    "type": "object",
+    "title": "Support service card"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "label",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "href",
+        "type": "string",
+        "title": "URL or path"
+      }
+    ],
+    "name": "supportResourceButton",
+    "type": "object",
+    "title": "Resource button"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "body",
+        "type": "text"
+      }
+    ],
+    "name": "sectionSupportHero",
+    "type": "object",
+    "title": "Support hero"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 5,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "sectionSupportIntro",
+    "type": "object",
+    "title": "Support intro"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "languageNote",
+        "type": "string",
+        "title": "Language availability note"
+      },
+      {
+        "of": [
+          {
+            "type": "supportServiceCard",
+            "title": "Support service card"
+          }
+        ],
+        "name": "cards",
+        "type": "array",
+        "title": "Service cards"
+      }
+    ],
+    "name": "sectionSupportServices",
+    "type": "object",
+    "title": "Support services"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 5,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "sectionSupportAccessibility",
+    "type": "object",
+    "title": "Support accessibility"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "type": "supportResourceButton",
+            "title": "Resource button"
+          }
+        ],
+        "name": "buttons",
+        "type": "array"
+      }
+    ],
+    "name": "sectionSupportResources",
+    "type": "object",
+    "title": "Support resources"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "outlet",
+        "type": "string",
+        "title": "Outlet / publication"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "headline",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "title": "Article URL"
+      }
+    ],
+    "name": "impactMediaItem",
+    "type": "object",
+    "title": "Media item"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Award name"
+      },
+      {
+        "name": "year",
+        "type": "string"
+      },
+      {
+        "name": "issuer",
+        "type": "string",
+        "title": "Issuing organization"
+      },
+      {
+        "rows": 3,
+        "name": "description",
+        "type": "text"
+      }
+    ],
+    "name": "impactAward",
+    "type": "object",
+    "title": "Award"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "/public path or https://...",
+        "name": "href",
+        "type": "string",
+        "title": "Link or file path"
+      },
+      {
+        "description": "e.g. \"Download PDF\"",
+        "name": "cta",
+        "type": "string",
+        "title": "Button label"
+      },
+      {
+        "initialValue": false,
+        "name": "external",
+        "type": "boolean",
+        "title": "Opens in new tab"
+      }
+    ],
+    "name": "impactDocument",
+    "type": "object",
+    "title": "Report / document"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "title": "Eyebrow / headline"
+      },
+      {
+        "rows": 3,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "sectionImpactHero",
+    "type": "object",
+    "title": "Impact hero"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "impactMediaItem",
+            "title": "Media item"
+          }
+        ],
+        "name": "items",
+        "type": "array",
+        "title": "Media items"
+      }
+    ],
+    "name": "sectionImpactMedia",
+    "type": "object",
+    "title": "In the media"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "impactAward",
+            "title": "Award"
+          }
+        ],
+        "name": "awards",
+        "type": "array"
+      }
+    ],
+    "name": "sectionImpactAwards",
+    "type": "object",
+    "title": "Awards & recognition"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "impactDocument",
+            "title": "Report / document"
+          }
+        ],
+        "name": "documents",
+        "type": "array"
+      }
+    ],
+    "name": "sectionImpactDocuments",
+    "type": "object",
+    "title": "Reports & documents"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "body",
+        "type": "text"
+      }
+    ],
+    "name": "sectionContactHero",
+    "type": "object",
+    "title": "Contact hero"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "formTitle",
+        "type": "string",
+        "title": "Form title"
+      },
+      {
+        "name": "emailLabel",
+        "type": "string",
+        "title": "Email field label"
+      },
+      {
+        "name": "submitLabel",
+        "type": "string",
+        "title": "Submit button label"
+      },
+      {
+        "description": "Overrides the site-wide newsletter URL for this section.",
+        "name": "newsletterUrl",
+        "type": "string",
+        "title": "Newsletter CTA URL"
+      }
+    ],
+    "name": "sectionContactNewsletter",
+    "type": "object",
+    "title": "Newsletter section"
+  },
+  {
+    "fields": [
+      {
+        "description": "e.g. general-inquiry",
+        "name": "value",
+        "type": "string",
+        "title": "Value (URL-safe)"
+      },
+      {
+        "description": "e.g. General Inquiry",
+        "name": "label",
+        "type": "string",
+        "title": "Display label"
+      }
+    ],
+    "name": "contactFormSubjectOption",
+    "type": "object",
+    "title": "Subject option"
+  },
+  {
+    "fields": [
+      {
+        "name": "formTitle",
+        "type": "string",
+        "title": "Form heading"
+      },
+      {
+        "rows": 2,
+        "name": "formDescription",
+        "type": "text",
+        "title": "Form description"
+      },
+      {
+        "name": "nameLabel",
+        "type": "string",
+        "title": "Name field label"
+      },
+      {
+        "name": "namePlaceholder",
+        "type": "string",
+        "title": "Name placeholder"
+      },
+      {
+        "name": "emailLabel",
+        "type": "string",
+        "title": "Email field label"
+      },
+      {
+        "name": "emailPlaceholder",
+        "type": "string",
+        "title": "Email placeholder"
+      },
+      {
+        "name": "phoneLabel",
+        "type": "string",
+        "title": "Phone field label"
+      },
+      {
+        "name": "phonePlaceholder",
+        "type": "string",
+        "title": "Phone placeholder"
+      },
+      {
+        "name": "subjectLabel",
+        "type": "string",
+        "title": "Subject field label"
+      },
+      {
+        "name": "subjectPlaceholder",
+        "type": "string",
+        "title": "Subject placeholder"
+      },
+      {
+        "name": "commentLabel",
+        "type": "string",
+        "title": "Comment field label"
+      },
+      {
+        "name": "commentPlaceholder",
+        "type": "string",
+        "title": "Comment placeholder"
+      },
+      {
+        "name": "submitLabel",
+        "type": "string",
+        "title": "Submit button label"
+      },
+      {
+        "description": "Leave empty to use the default options from site copy.",
+        "of": [
+          {
+            "type": "contactFormSubjectOption",
+            "title": "Subject option"
+          }
+        ],
+        "name": "subjectOptions",
+        "type": "array",
+        "title": "Subject options"
+      }
+    ],
+    "name": "sectionContactForm",
+    "type": "object",
+    "title": "Contact form section"
+  },
+  {
+    "fields": [
+      {
+        "name": "infoTitle",
+        "type": "string",
+        "title": "Info panel heading"
+      },
+      {
+        "rows": 2,
+        "name": "infoDescription",
+        "type": "text",
+        "title": "Info panel description"
+      },
+      {
+        "name": "stayConnectedLabel",
+        "type": "string",
+        "title": "\"Stay Connected\" label"
+      },
+      {
+        "name": "emailLabel",
+        "type": "string",
+        "title": "Email row label"
+      },
+      {
+        "name": "phoneLabel",
+        "type": "string",
+        "title": "Phone row label"
+      },
+      {
+        "name": "addressLabel",
+        "type": "string",
+        "title": "Address row label"
+      }
+    ],
+    "name": "sectionContactInfo",
+    "type": "object",
+    "title": "Contact info section"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "openCalendarLabel",
+        "type": "string",
+        "title": "\"Open Calendar\" button label"
+      },
+      {
+        "name": "askAboutEventLabel",
+        "type": "string",
+        "title": "\"Ask About Event\" button label"
+      },
+      {
+        "name": "calendarIframeTitle",
+        "type": "string",
+        "title": "Calendar iframe title (accessibility)"
+      }
+    ],
+    "name": "sectionEventsHero",
+    "type": "object",
+    "title": "Events hero"
+  },
+  {
+    "fields": [
+      {
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "title": "Section heading"
+      },
+      {
+        "name": "openCalendarLabel",
+        "type": "string",
+        "title": "\"Open Calendar\" button label"
+      },
+      {
+        "name": "loadingLabel",
+        "type": "string",
+        "title": "Loading text"
+      },
+      {
+        "name": "emptyLabel",
+        "type": "string",
+        "title": "Empty state text"
+      },
+      {
+        "rows": 2,
+        "name": "privacyNote",
+        "type": "text",
+        "title": "Privacy note (for \"Busy\" events)"
+      },
+      {
+        "name": "ctaLabel",
+        "type": "string",
+        "title": "Event card CTA label"
+      },
+      {
+        "name": "allDayLabel",
+        "type": "string",
+        "title": "\"All day\" time label"
+      }
+    ],
+    "name": "sectionEventsUpcoming",
+    "type": "object",
+    "title": "Upcoming events section"
+  },
+  {
+    "fields": [
+      {
+        "description": "e.g. \"Partnership Opportunities\"",
+        "name": "heading",
+        "type": "string",
+        "title": "Section heading"
+      },
+      {
+        "rows": 2,
+        "name": "description",
+        "type": "text",
+        "title": "Section description"
+      },
+      {
+        "description": "e.g. \"Residency Partnership\"",
+        "name": "residencyLabel",
+        "type": "string",
+        "title": "Residency partnership label"
+      },
+      {
+        "description": "e.g. \"Resource Partnership\"",
+        "name": "resourceLabel",
+        "type": "string",
+        "title": "Resource partnership label"
+      },
+      {
+        "rows": 2,
+        "description": "Text before the contact email link in the Bee Box section.",
+        "name": "beeBoxContactText",
+        "type": "text",
+        "title": "Bee Box contact intro text"
+      },
+      {
+        "name": "beeBoxEmail",
+        "type": "string",
+        "title": "Bee Box contact email"
+      }
+    ],
+    "name": "sectionPartnersOpportunities",
+    "type": "object",
+    "title": "Partnership opportunities section"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "labelEn",
+        "type": "string",
+        "title": "Label (English)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "labelEsMx",
+        "type": "string",
+        "title": "Label (Spanish)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Internal pages: paths like `/about` or `/contact`. External: full URL `https://…`.",
+        "name": "href",
+        "type": "string",
+        "title": "URL or path"
+      },
+      {
+        "initialValue": false,
+        "name": "openInNewTab",
+        "type": "boolean",
+        "title": "Open in new tab"
+      }
+    ],
+    "name": "navLink",
+    "type": "object",
+    "title": "Link"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "labelEn",
+        "type": "string",
+        "title": "Group label (English)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "labelEsMx",
+        "type": "string",
+        "title": "Group label (Spanish)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "type": "navLink",
+            "title": "Link"
+          }
+        ],
+        "name": "items",
+        "type": "array",
+        "title": "Links"
+      }
+    ],
+    "name": "navDropdown",
+    "type": "object",
+    "title": "Dropdown group"
+  },
+  {
+    "description": "Optional homepage modal (only used for the page with slug \"landing\"). Shows image, CTA, and close when enabled.",
+    "fields": [
+      {
+        "initialValue": false,
+        "name": "enabled",
+        "type": "boolean",
+        "title": "Show popup"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "name": "ctaLabel",
+        "type": "string",
+        "title": "CTA button label"
+      },
+      {
+        "description": "Path (e.g. /donations) or full URL.",
+        "name": "ctaHref",
+        "type": "string",
+        "title": "CTA link"
+      }
+    ],
+    "name": "landingPopup",
+    "type": "object",
+    "title": "Landing popup"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Optional kebab-case id for the app (e.g. peer-advocacy). Used for keys and icon mapping when wired up.",
+        "name": "key",
+        "type": "string",
+        "title": "Stable key"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "rows": 6,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Main body copy for the card. When the site reads from Sanity, this maps to the card summary paragraph in the UI.",
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "details",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Allowed: /path, https://..., tel:..., mailto:...",
+            "name": "href",
+            "type": "string",
+            "title": "Link"
+          }
+        ],
+        "name": "cta",
+        "type": "object",
+        "title": "Call to action"
+      },
+      {
+        "name": "badge",
+        "type": "string"
+      }
+    ],
+    "name": "contentCard",
+    "type": "document",
+    "title": "Card"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "logo",
+        "type": "image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "url",
+        "type": "url",
+        "title": "Website URL"
+      },
+      {
+        "description": "e.g. Philanthropic, Corporate — used when grouping on the site.",
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "description": "Lower numbers appear first within a group.",
+        "name": "sortOrder",
+        "type": "number",
+        "title": "Sort order"
+      }
+    ],
+    "name": "partnerLogo",
+    "type": "document",
+    "title": "Partner logo"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "role",
+        "type": "string",
+        "title": "Role / Title"
+      },
+      {
+        "rows": 4,
+        "description": "For board members: organization and title (e.g. \"Ignite Leadership Solutions\\nCEO\"). For the founder: a short profile summary.",
+        "name": "bio",
+        "type": "text",
+        "title": "Bio / Organization note"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "image",
+        "type": "image",
+        "title": "Photo"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Founder/CEO",
+              "value": "founder"
+            },
+            {
+              "title": "Team Members",
+              "value": "team"
+            },
+            {
+              "title": "Board of Directors",
+              "value": "board"
+            }
+          ],
+          "layout": "radio"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "founder",
+                  "team",
+                  "board"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "group",
+        "type": "string",
+        "title": "Section"
+      },
+      {
+        "description": "Displayed as a mailto link on the card (team members).",
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "description": "e.g. ext 104",
+        "name": "extension",
+        "type": "string",
+        "title": "Phone extension"
+      },
+      {
+        "description": "Founder only — small label above the story heading (e.g. \"Founder Story\").",
+        "name": "storyEyebrow",
+        "type": "string",
+        "title": "Story eyebrow"
+      },
+      {
+        "description": "Founder only — label inside the narrative box (e.g. \"Narrative\").",
+        "name": "narrativeLabel",
+        "type": "string",
+        "title": "Narrative label"
+      },
+      {
+        "description": "Founder only — each item is one paragraph of the founder narrative.",
+        "of": [
+          {
+            "type": "text"
+          }
+        ],
+        "name": "narrativeParagraphs",
+        "type": "array",
+        "title": "Narrative paragraphs"
+      },
+      {
+        "name": "sparkTitle",
+        "type": "string",
+        "title": "Founding spark title"
+      },
+      {
+        "rows": 6,
+        "name": "sparkBody",
+        "type": "text",
+        "title": "Founding spark body"
+      },
+      {
+        "name": "visionTitle",
+        "type": "string",
+        "title": "Vision today title"
+      },
+      {
+        "rows": 6,
+        "name": "visionBody",
+        "type": "text",
+        "title": "Vision today body"
+      },
+      {
+        "rows": 3,
+        "description": "Founder only — short paragraph shown beneath the photo in the aside.",
+        "name": "profileBody",
+        "type": "text",
+        "title": "Profile summary"
+      }
+    ],
+    "name": "teamMember",
+    "type": "document",
+    "title": "Team member"
+  },
+  {
+    "validation": [
+      {
+        "rules": [
+          {
+            "flag": "custom"
+          }
+        ],
+        "level": "error"
+      }
+    ],
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "date",
+        "type": "datetime"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "options": {
+          "accept": "video/*"
+        },
+        "name": "video",
+        "type": "file",
+        "title": "Video file"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Embed or external video link (e.g. YouTube, Vimeo).",
+        "name": "videoUrl",
+        "type": "url",
+        "title": "Video URL"
+      }
+    ],
+    "name": "galleryEvent",
+    "type": "document",
+    "title": "Past event"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "URL key for this page in the app. Prefer: landing, support, awareness, invest-in-the-hive, about, events - one document per site page that pulls from the CMS.",
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 3,
+        "description": "Optional short intro for pages that render a subtitle/intro paragraph below the title.",
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "description": "Shown only on the site homepage when enabled and an image is set. Does not affect other pages.",
+        "hidden": "conditional",
+        "name": "landingPopup",
+        "type": "landingPopup",
+        "title": "Homepage popup"
+      },
+      {
+        "of": [
+          {
+            "type": "sectionRichText",
+            "title": "Rich text"
+          },
+          {
+            "type": "sectionImageText",
+            "title": "Image & text"
+          },
+          {
+            "type": "sectionImageCarousel",
+            "title": "Image carousel"
+          },
+          {
+            "type": "sectionHero",
+            "title": "Hero"
+          },
+          {
+            "type": "sectionCardGrid",
+            "title": "Card grid"
+          },
+          {
+            "type": "sectionVolunteerCards",
+            "title": "Volunteer cards"
+          },
+          {
+            "type": "sectionDonationOpportunity",
+            "title": "Donation opportunity"
+          },
+          {
+            "type": "sectionDonationsHero",
+            "title": "Donations hero"
+          },
+          {
+            "type": "sectionDonationsTabsIntro",
+            "title": "Donations tabs intro"
+          },
+          {
+            "type": "sectionDonationsCasitaOverview",
+            "title": "Casita overview"
+          },
+          {
+            "type": "sectionDonationsCasitaRefuge",
+            "title": "Casita refuge"
+          },
+          {
+            "type": "sectionDonationsCasitaCommunity",
+            "title": "Casita community story"
+          },
+          {
+            "type": "sectionDonationsCasitaWays",
+            "title": "Casita ways to help"
+          },
+          {
+            "type": "sectionDonationsCasitaBeeBox",
+            "title": "Casita Bee Box"
+          },
+          {
+            "type": "sectionDonationsCasitaClosing",
+            "title": "Casita closing"
+          },
+          {
+            "type": "sectionDonationsKeepersOverview",
+            "title": "Keepers overview"
+          },
+          {
+            "type": "sectionDonationsKeepersBenefits",
+            "title": "Keepers benefits"
+          },
+          {
+            "type": "sectionDonationsKeepersTiers",
+            "title": "Keepers tiers"
+          },
+          {
+            "type": "sectionDonationsKeepersImpact",
+            "title": "Keepers impact areas"
+          },
+          {
+            "type": "sectionPartnerLogos",
+            "title": "Partner logos"
+          },
+          {
+            "type": "sectionTeam",
+            "title": "Team"
+          },
+          {
+            "type": "sectionGallery",
+            "title": "Past events gallery"
+          },
+          {
+            "type": "sectionAwarenessHero",
+            "title": "Awareness hero"
+          },
+          {
+            "type": "sectionAwarenessValues",
+            "title": "Values / pillars"
+          },
+          {
+            "type": "sectionAwarenessPrograms",
+            "title": "Awareness programs"
+          },
+          {
+            "type": "sectionAwarenessTraining",
+            "title": "Training series"
+          },
+          {
+            "type": "sectionAwarenessTechAssist",
+            "title": "Technical assistance"
+          },
+          {
+            "type": "sectionAwarenessCta",
+            "title": "Awareness CTA"
+          },
+          {
+            "type": "sectionSupportHero",
+            "title": "Support hero"
+          },
+          {
+            "type": "sectionSupportIntro",
+            "title": "Support intro"
+          },
+          {
+            "type": "sectionSupportServices",
+            "title": "Support services"
+          },
+          {
+            "type": "sectionSupportAccessibility",
+            "title": "Support accessibility"
+          },
+          {
+            "type": "sectionSupportResources",
+            "title": "Support resources"
+          },
+          {
+            "type": "sectionImpactHero",
+            "title": "Impact hero"
+          },
+          {
+            "type": "sectionImpactMedia",
+            "title": "In the media"
+          },
+          {
+            "type": "sectionImpactAwards",
+            "title": "Awards & recognition"
+          },
+          {
+            "type": "sectionImpactDocuments",
+            "title": "Reports & documents"
+          },
+          {
+            "type": "sectionContactHero",
+            "title": "Contact hero"
+          },
+          {
+            "type": "sectionContactNewsletter",
+            "title": "Newsletter section"
+          },
+          {
+            "type": "sectionContactForm",
+            "title": "Contact form section"
+          },
+          {
+            "type": "sectionContactInfo",
+            "title": "Contact info section"
+          },
+          {
+            "type": "sectionEventsHero",
+            "title": "Events hero"
+          },
+          {
+            "type": "sectionEventsUpcoming",
+            "title": "Upcoming events section"
+          },
+          {
+            "type": "sectionPartnersOpportunities",
+            "title": "Partnership opportunities section"
+          }
+        ],
+        "name": "sections",
+        "type": "array"
+      }
+    ],
+    "name": "page",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "description": "Leave empty to use the built-in default menu on the site.",
+        "of": [
+          {
+            "type": "navLink",
+            "title": "Link"
+          },
+          {
+            "type": "navDropdown",
+            "title": "Dropdown group"
+          }
+        ],
+        "name": "items",
+        "type": "array",
+        "title": "Menu items"
+      },
+      {
+        "description": "Leave empty to use the built-in default quick links on the site.",
+        "of": [
+          {
+            "type": "navLink",
+            "title": "Link"
+          }
+        ],
+        "name": "footerQuickLinks",
+        "type": "array",
+        "title": "Footer quick links"
+      },
+      {
+        "description": "Optional. When URL is set, the navbar uses these values instead of the site default.",
+        "fields": [
+          {
+            "name": "labelEn",
+            "type": "string",
+            "title": "Label (English)"
+          },
+          {
+            "name": "labelEsMx",
+            "type": "string",
+            "title": "Label (Spanish)"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "URL"
+          },
+          {
+            "initialValue": true,
+            "name": "openInNewTab",
+            "type": "boolean",
+            "title": "Open in new tab"
+          }
+        ],
+        "name": "donate",
+        "type": "object",
+        "title": "Donate button"
+      }
+    ],
+    "name": "navbarSettings",
+    "type": "document",
+    "title": "Navigation"
+  },
+  {
+    "fields": [
+      {
+        "description": "Shown in the footer and Contact page. e.g. hello@thehivecc.org",
+        "name": "contactEmail",
+        "type": "string",
+        "title": "Contact email"
+      },
+      {
+        "description": "Displayed in footer and Contact page. e.g. 803-888-7725",
+        "name": "contactPhone",
+        "type": "string",
+        "title": "Contact phone"
+      },
+      {
+        "description": "Street address shown in footer and Contact page.",
+        "name": "contactAddress",
+        "type": "string",
+        "title": "Contact address"
+      },
+      {
+        "description": "Full Google Maps link for the address on the Contact page.",
+        "name": "googleMapsUrl",
+        "type": "string",
+        "title": "Google Maps URL"
+      },
+      {
+        "name": "instagramUrl",
+        "type": "string",
+        "title": "Instagram URL"
+      },
+      {
+        "name": "facebookUrl",
+        "type": "string",
+        "title": "Facebook URL"
+      },
+      {
+        "name": "linkedinUrl",
+        "type": "string",
+        "title": "LinkedIn URL"
+      },
+      {
+        "name": "twitterUrl",
+        "type": "string",
+        "title": "Twitter / X URL"
+      },
+      {
+        "name": "youtubeUrl",
+        "type": "string",
+        "title": "YouTube URL"
+      },
+      {
+        "rows": 2,
+        "description": "Short mission statement shown under \"The Hive\" in the footer.",
+        "name": "footerTagline",
+        "type": "text",
+        "title": "Footer tagline"
+      },
+      {
+        "description": "Large heading in the footer, defaults to \"The Hive\".",
+        "name": "footerBrand",
+        "type": "string",
+        "title": "Footer brand name"
+      },
+      {
+        "description": "e.g. \"© 2026 The Hive Community Circle\"",
+        "name": "footerCopyright",
+        "type": "string",
+        "title": "Footer copyright line"
+      },
+      {
+        "name": "footerQuickLinksHeading",
+        "type": "string",
+        "title": "Footer \"Quick Links\" heading"
+      },
+      {
+        "name": "footerContactHeading",
+        "type": "string",
+        "title": "Footer \"Contact\" column heading"
+      },
+      {
+        "description": "Text before the email address, e.g. \"Email:\"",
+        "name": "footerEmailLabel",
+        "type": "string",
+        "title": "Footer email label"
+      },
+      {
+        "description": "Text before the phone number, e.g. \"Phone:\"",
+        "name": "footerPhoneLabel",
+        "type": "string",
+        "title": "Footer phone label"
+      },
+      {
+        "description": "Text before the address, e.g. \"Address:\"",
+        "name": "footerAddressLabel",
+        "type": "string",
+        "title": "Footer address label"
+      },
+      {
+        "description": "Google Calendar link for the \"Open Full Calendar\" button on the Events page.",
+        "name": "calendarDirectUrl",
+        "type": "string",
+        "title": "Calendar direct URL"
+      },
+      {
+        "description": "Google Calendar embed src used in the iframe on the Events page.",
+        "name": "calendarEmbedUrl",
+        "type": "string",
+        "title": "Calendar embed URL"
+      },
+      {
+        "description": "Shown in the About page team section header, e.g. \"Our Mission\".",
+        "name": "missionTitle",
+        "type": "string",
+        "title": "Mission title"
+      },
+      {
+        "rows": 4,
+        "description": "Mission statement shown in the About page team section.",
+        "name": "missionBody",
+        "type": "text",
+        "title": "Mission body"
+      },
+      {
+        "description": "e.g. \"Our Values\".",
+        "name": "valuesTitle",
+        "type": "string",
+        "title": "Values title"
+      },
+      {
+        "rows": 3,
+        "name": "valuesIntro",
+        "type": "text",
+        "title": "Values intro text"
+      },
+      {
+        "description": "List of value pillars shown as pills in the About page.",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "valuesPillars",
+        "type": "array",
+        "title": "Values pillars"
+      },
+      {
+        "description": "External newsletter link shown on the Contact page.",
+        "name": "newsletterUrl",
+        "type": "string",
+        "title": "Newsletter sign-up URL"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  }
+]
