@@ -5,9 +5,54 @@ import { useRouter } from "next/navigation";
 import { Search, X, ArrowRight } from "lucide-react";
 
 import { searchPages, type SearchEntry } from "@/lib/search-index";
+import { cn } from "@/lib/utils";
 
-export default function SearchModal() {
-    const [open, setOpen] = useState(false);
+export function SearchToolbarButton({
+    onClick,
+    className,
+}: {
+    onClick: () => void;
+    className?: string;
+}) {
+    return (
+        <button
+            type="button"
+            aria-label="Search"
+            onClick={onClick}
+            className={cn(
+                "inline-flex h-9 w-9 items-center justify-center rounded-md text-gray-500 transition hover:bg-gray-100 hover:text-hive-blue",
+                className,
+            )}
+        >
+            <Search className="h-4 w-4" />
+        </button>
+    );
+}
+
+type SearchModalProps = {
+    /** Controlled open state (use with `onOpenChange` and external triggers). */
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    /** Omit the built-in icon when using `SearchToolbarButton` elsewhere. */
+    hideTrigger?: boolean;
+};
+
+export default function SearchModal({
+    open: controlledOpen,
+    onOpenChange,
+    hideTrigger = false,
+}: SearchModalProps = {}) {
+    const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+    const controlled = controlledOpen !== undefined && onOpenChange !== undefined;
+    const open = controlled ? controlledOpen : uncontrolledOpen;
+
+    const setOpen = (next: boolean) => {
+        if (controlled) {
+            onOpenChange(next);
+        } else {
+            setUncontrolledOpen(next);
+        }
+    };
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<SearchEntry[]>([]);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -19,13 +64,23 @@ export default function SearchModal() {
         function handleKey(e: KeyboardEvent) {
             if ((e.metaKey || e.ctrlKey) && e.key === "k") {
                 e.preventDefault();
-                setOpen((v) => !v);
+                if (controlled) {
+                    onOpenChange?.(!open);
+                } else {
+                    setUncontrolledOpen((v) => !v);
+                }
             }
-            if (e.key === "Escape") setOpen(false);
+            if (e.key === "Escape") {
+                if (controlled) {
+                    onOpenChange?.(false);
+                } else {
+                    setUncontrolledOpen(false);
+                }
+            }
         }
         document.addEventListener("keydown", handleKey);
         return () => document.removeEventListener("keydown", handleKey);
-    }, []);
+    }, [controlled, open, onOpenChange]);
 
     // Focus input when opened
     useEffect(() => {
@@ -62,15 +117,7 @@ export default function SearchModal() {
 
     return (
         <>
-            {/* Search button */}
-            <button
-                type="button"
-                aria-label="Search"
-                onClick={() => setOpen(true)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-md text-gray-500 transition hover:bg-gray-100 hover:text-hive-blue"
-            >
-                <Search className="h-4 w-4" />
-            </button>
+            {!hideTrigger ? <SearchToolbarButton onClick={() => setOpen(true)} /> : null}
 
             {/* Overlay */}
             {open ? (

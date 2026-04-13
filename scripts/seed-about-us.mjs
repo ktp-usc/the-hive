@@ -315,7 +315,7 @@ async function seed() {
         _type: "sectionRichText",
         eyebrow: "Join The Hive",
         heading: "Looking to join our team?",
-        body: "Send your resume and a cover letter to hello@thehivecc.org.",
+        body: "Send your resume and a cover letter to hello@thehivecc.org",
       },
     ],
   };
