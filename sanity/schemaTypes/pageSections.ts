@@ -863,6 +863,557 @@ export const sectionGallery = defineType({
   },
 })
 
+// ── Awareness page ───────────────────────────────────────────────────────────
+
+export const awarenessProgram = defineType({
+  name: 'awarenessProgram',
+  title: 'Awareness program',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Title', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 5}),
+    defineField({name: 'languages', title: 'Languages badge', type: 'string', description: 'e.g. "Available in English & Spanish"'}),
+    defineField({name: 'badge', title: 'Badge', type: 'string', description: 'e.g. "NEW"'}),
+    defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {return {title: title || 'Program', media}},
+  },
+})
+
+export const awarenessTrainingItem = defineType({
+  name: 'awarenessTrainingItem',
+  title: 'Training item',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Title', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'badge', title: 'Badge', type: 'string', description: 'Optional e.g. "NEW"'}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Training item'}},
+  },
+})
+
+export const awarenessOffering = defineType({
+  name: 'awarenessOffering',
+  title: 'Technical assistance offering',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Title', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 4}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Offering'}},
+  },
+})
+
+export const awarenessCTAButton = defineType({
+  name: 'awarenessCTAButton',
+  title: 'CTA button',
+  type: 'object',
+  fields: [
+    defineField({name: 'label', title: 'Label', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'href', title: 'URL or path', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({
+      name: 'variant',
+      title: 'Style',
+      type: 'string',
+      options: {list: [{value: 'primary', title: 'Primary (orange)'}, {value: 'outline', title: 'Outline'}]},
+      initialValue: 'primary',
+    }),
+  ],
+  preview: {
+    select: {title: 'label', subtitle: 'href'},
+    prepare({title, subtitle}) {return {title: title || 'Button', subtitle}},
+  },
+})
+
+export const sectionAwarenessHero = defineType({
+  name: 'sectionAwarenessHero',
+  title: 'Awareness hero',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 3}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Awareness hero'}},
+  },
+})
+
+export const sectionAwarenessValues = defineType({
+  name: 'sectionAwarenessValues',
+  title: 'Values / pillars',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'intro', title: 'Intro (before list)', type: 'text', rows: 2}),
+    defineField({name: 'pillars', title: 'Value pillars (highlighted in blue)', type: 'array', of: [{type: 'string'}]}),
+    defineField({name: 'outro', title: 'Outro (after list)', type: 'text', rows: 2}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Values / pillars'}},
+  },
+})
+
+export const sectionAwarenessPrograms = defineType({
+  name: 'sectionAwarenessPrograms',
+  title: 'Awareness programs',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Section title', type: 'string'}),
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 4}),
+    defineField({name: 'programs', title: 'Programs', type: 'array', of: [{type: 'awarenessProgram'}]}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Awareness programs'}},
+  },
+})
+
+export const sectionAwarenessTraining = defineType({
+  name: 'sectionAwarenessTraining',
+  title: 'Training series',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Section title', type: 'string'}),
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 4}),
+    defineField({name: 'note', title: 'Italic note (below body)', type: 'text', rows: 2}),
+    defineField({name: 'trainingSeries', title: 'Training items', type: 'array', of: [{type: 'awarenessTrainingItem'}]}),
+    defineField({name: 'contactNote', title: 'Contact note (below items)', type: 'text', rows: 2}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Training series'}},
+  },
+})
+
+export const sectionAwarenessTechAssist = defineType({
+  name: 'sectionAwarenessTechAssist',
+  title: 'Technical assistance',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Section title', type: 'string'}),
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 4}),
+    defineField({name: 'offerings', title: 'Offerings', type: 'array', of: [{type: 'awarenessOffering'}]}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Technical assistance'}},
+  },
+})
+
+export const sectionAwarenessCta = defineType({
+  name: 'sectionAwarenessCta',
+  title: 'Awareness CTA',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 3}),
+    defineField({name: 'buttons', title: 'Buttons', type: 'array', of: [{type: 'awarenessCTAButton'}]}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Awareness CTA'}},
+  },
+})
+
+// ── Support page ─────────────────────────────────────────────────────────────
+
+export const supportServiceCard = defineType({
+  name: 'supportServiceCard',
+  title: 'Support service card',
+  type: 'object',
+  fields: [
+    defineField({name: 'cardId', title: 'Card ID', type: 'string', description: 'Slug for anchor links (e.g. peer-advocacy).'}),
+    defineField({name: 'title', title: 'Title', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'subtitle', title: 'Subtitle', type: 'string'}),
+    defineField({name: 'summary', title: 'Summary', type: 'text', rows: 5, validation: (Rule) => Rule.required()}),
+    defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
+    defineField({name: 'details', title: 'Details (bullet points)', type: 'array', of: [{type: 'string'}]}),
+    defineField({name: 'note', title: 'Note', type: 'text', rows: 3}),
+    defineField({name: 'noteLinkLabel', title: 'Note link label', type: 'string'}),
+    defineField({name: 'noteLinkHref', title: 'Note link URL', type: 'string'}),
+    defineField({name: 'ctaLabel', title: 'CTA label', type: 'string'}),
+    defineField({name: 'ctaHref', title: 'CTA URL or path', type: 'string'}),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {return {title: title || 'Service card', media}},
+  },
+})
+
+export const supportResourceButton = defineType({
+  name: 'supportResourceButton',
+  title: 'Resource button',
+  type: 'object',
+  fields: [
+    defineField({name: 'label', title: 'Label', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'href', title: 'URL or path', type: 'string', validation: (Rule) => Rule.required()}),
+  ],
+  preview: {
+    select: {title: 'label', subtitle: 'href'},
+    prepare({title, subtitle}) {return {title: title || 'Button', subtitle}},
+  },
+})
+
+export const sectionSupportHero = defineType({
+  name: 'sectionSupportHero',
+  title: 'Support hero',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 3}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Support hero'}},
+  },
+})
+
+export const sectionSupportIntro = defineType({
+  name: 'sectionSupportIntro',
+  title: 'Support intro',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 5}),
+    defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {return {title: title || 'Support intro', media}},
+  },
+})
+
+export const sectionSupportServices = defineType({
+  name: 'sectionSupportServices',
+  title: 'Support services',
+  type: 'object',
+  fields: [
+    defineField({name: 'heading', title: 'Heading', type: 'string'}),
+    defineField({name: 'languageNote', title: 'Language availability note', type: 'string'}),
+    defineField({name: 'cards', title: 'Service cards', type: 'array', of: [{type: 'supportServiceCard'}]}),
+  ],
+  preview: {
+    select: {title: 'heading'},
+    prepare({title}) {return {title: title || 'Support services'}},
+  },
+})
+
+export const sectionSupportAccessibility = defineType({
+  name: 'sectionSupportAccessibility',
+  title: 'Support accessibility',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 5}),
+    defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
+  ],
+  preview: {
+    select: {title: 'title', media: 'image'},
+    prepare({title, media}) {return {title: title || 'Support accessibility', media}},
+  },
+})
+
+export const sectionSupportResources = defineType({
+  name: 'sectionSupportResources',
+  title: 'Support resources',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 4}),
+    defineField({name: 'buttons', title: 'Buttons', type: 'array', of: [{type: 'supportResourceButton'}]}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Support resources'}},
+  },
+})
+
+// ── Our Impact page ──────────────────────────────────────────────────────────
+
+export const impactMediaItem = defineType({
+  name: 'impactMediaItem',
+  title: 'Media item',
+  type: 'object',
+  fields: [
+    defineField({name: 'outlet', title: 'Outlet / publication', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'headline', title: 'Headline', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'description', title: 'Description', type: 'text', rows: 3}),
+    defineField({name: 'href', title: 'Article URL', type: 'string'}),
+  ],
+  preview: {
+    select: {title: 'outlet', subtitle: 'headline'},
+    prepare({title, subtitle}) {return {title: title || 'Media item', subtitle}},
+  },
+})
+
+export const impactAward = defineType({
+  name: 'impactAward',
+  title: 'Award',
+  type: 'object',
+  fields: [
+    defineField({name: 'name', title: 'Award name', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'year', title: 'Year', type: 'string'}),
+    defineField({name: 'issuer', title: 'Issuing organization', type: 'string'}),
+    defineField({name: 'description', title: 'Description', type: 'text', rows: 3}),
+  ],
+  preview: {
+    select: {title: 'name', subtitle: 'year'},
+    prepare({title, subtitle}) {return {title: title || 'Award', subtitle}},
+  },
+})
+
+export const impactDocument = defineType({
+  name: 'impactDocument',
+  title: 'Report / document',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Title', type: 'string', validation: (Rule) => Rule.required()}),
+    defineField({name: 'description', title: 'Description', type: 'text', rows: 3}),
+    defineField({name: 'href', title: 'Link or file path', type: 'string', description: '/public path or https://...', validation: (Rule) => Rule.required()}),
+    defineField({name: 'cta', title: 'Button label', type: 'string', description: 'e.g. "Download PDF"'}),
+    defineField({name: 'external', title: 'Opens in new tab', type: 'boolean', initialValue: false}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Document'}},
+  },
+})
+
+export const sectionImpactHero = defineType({
+  name: 'sectionImpactHero',
+  title: 'Impact hero',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow / headline', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 3}),
+    defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
+  ],
+  preview: {
+    select: {title: 'eyebrow', media: 'image'},
+    prepare({title, media}) {return {title: title || 'Impact hero', media}},
+  },
+})
+
+export const sectionImpactMedia = defineType({
+  name: 'sectionImpactMedia',
+  title: 'In the media',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'items', title: 'Media items', type: 'array', of: [{type: 'impactMediaItem'}]}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'In the media'}},
+  },
+})
+
+export const sectionImpactAwards = defineType({
+  name: 'sectionImpactAwards',
+  title: 'Awards & recognition',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'awards', title: 'Awards', type: 'array', of: [{type: 'impactAward'}]}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Awards & recognition'}},
+  },
+})
+
+export const sectionImpactDocuments = defineType({
+  name: 'sectionImpactDocuments',
+  title: 'Reports & documents',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'documents', title: 'Documents', type: 'array', of: [{type: 'impactDocument'}]}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Reports & documents'}},
+  },
+})
+
+// ── Contact page ─────────────────────────────────────────────────────────────
+
+export const sectionContactHero = defineType({
+  name: 'sectionContactHero',
+  title: 'Contact hero',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 3}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Contact hero'}},
+  },
+})
+
+export const sectionContactNewsletter = defineType({
+  name: 'sectionContactNewsletter',
+  title: 'Newsletter section',
+  type: 'object',
+  fields: [
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'formTitle', title: 'Form title', type: 'string'}),
+    defineField({name: 'emailLabel', title: 'Email field label', type: 'string'}),
+    defineField({name: 'submitLabel', title: 'Submit button label', type: 'string'}),
+    defineField({name: 'newsletterUrl', title: 'Newsletter CTA URL', type: 'string', description: 'Overrides the site-wide newsletter URL for this section.'}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Newsletter section'}},
+  },
+})
+
+// ── Contact form ─────────────────────────────────────────────────────────────
+
+export const contactFormSubjectOption = defineType({
+  name: 'contactFormSubjectOption',
+  title: 'Subject option',
+  type: 'object',
+  fields: [
+    defineField({name: 'value', title: 'Value (URL-safe)', type: 'string', description: 'e.g. general-inquiry'}),
+    defineField({name: 'label', title: 'Display label', type: 'string', description: 'e.g. General Inquiry'}),
+  ],
+  preview: {
+    select: {title: 'label'},
+    prepare({title}) {return {title: title || 'Subject option'}},
+  },
+})
+
+export const sectionContactForm = defineType({
+  name: 'sectionContactForm',
+  title: 'Contact form section',
+  type: 'object',
+  fields: [
+    defineField({name: 'formTitle', title: 'Form heading', type: 'string'}),
+    defineField({name: 'formDescription', title: 'Form description', type: 'text', rows: 2}),
+    defineField({name: 'nameLabel', title: 'Name field label', type: 'string'}),
+    defineField({name: 'namePlaceholder', title: 'Name placeholder', type: 'string'}),
+    defineField({name: 'emailLabel', title: 'Email field label', type: 'string'}),
+    defineField({name: 'emailPlaceholder', title: 'Email placeholder', type: 'string'}),
+    defineField({name: 'phoneLabel', title: 'Phone field label', type: 'string'}),
+    defineField({name: 'phonePlaceholder', title: 'Phone placeholder', type: 'string'}),
+    defineField({name: 'subjectLabel', title: 'Subject field label', type: 'string'}),
+    defineField({name: 'subjectPlaceholder', title: 'Subject placeholder', type: 'string'}),
+    defineField({name: 'commentLabel', title: 'Comment field label', type: 'string'}),
+    defineField({name: 'commentPlaceholder', title: 'Comment placeholder', type: 'string'}),
+    defineField({name: 'submitLabel', title: 'Submit button label', type: 'string'}),
+    defineField({
+      name: 'subjectOptions',
+      title: 'Subject options',
+      type: 'array',
+      of: [{type: 'contactFormSubjectOption'}],
+      description: 'Leave empty to use the default options from site copy.',
+    }),
+  ],
+  preview: {
+    select: {title: 'formTitle'},
+    prepare({title}) {return {title: title || 'Contact form section'}},
+  },
+})
+
+export const sectionContactInfo = defineType({
+  name: 'sectionContactInfo',
+  title: 'Contact info section',
+  type: 'object',
+  fields: [
+    defineField({name: 'infoTitle', title: 'Info panel heading', type: 'string'}),
+    defineField({name: 'infoDescription', title: 'Info panel description', type: 'text', rows: 2}),
+    defineField({name: 'stayConnectedLabel', title: '"Stay Connected" label', type: 'string'}),
+    defineField({name: 'emailLabel', title: 'Email row label', type: 'string'}),
+    defineField({name: 'phoneLabel', title: 'Phone row label', type: 'string'}),
+    defineField({name: 'addressLabel', title: 'Address row label', type: 'string'}),
+  ],
+  preview: {
+    select: {title: 'infoTitle'},
+    prepare({title}) {return {title: title || 'Contact info section'}},
+  },
+})
+
+// ── Events page ───────────────────────────────────────────────────────────────
+
+export const sectionEventsHero = defineType({
+  name: 'sectionEventsHero',
+  title: 'Events hero',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Title', type: 'string'}),
+    defineField({name: 'body', title: 'Body', type: 'text', rows: 3}),
+    defineField({name: 'openCalendarLabel', title: '"Open Calendar" button label', type: 'string'}),
+    defineField({name: 'askAboutEventLabel', title: '"Ask About Event" button label', type: 'string'}),
+    defineField({name: 'calendarIframeTitle', title: 'Calendar iframe title (accessibility)', type: 'string'}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Events hero'}},
+  },
+})
+
+export const sectionEventsUpcoming = defineType({
+  name: 'sectionEventsUpcoming',
+  title: 'Upcoming events section',
+  type: 'object',
+  fields: [
+    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+    defineField({name: 'title', title: 'Section heading', type: 'string'}),
+    defineField({name: 'openCalendarLabel', title: '"Open Calendar" button label', type: 'string'}),
+    defineField({name: 'loadingLabel', title: 'Loading text', type: 'string'}),
+    defineField({name: 'emptyLabel', title: 'Empty state text', type: 'string'}),
+    defineField({name: 'privacyNote', title: 'Privacy note (for "Busy" events)', type: 'text', rows: 2}),
+    defineField({name: 'ctaLabel', title: 'Event card CTA label', type: 'string'}),
+    defineField({name: 'allDayLabel', title: '"All day" time label', type: 'string'}),
+  ],
+  preview: {
+    select: {title: 'title'},
+    prepare({title}) {return {title: title || 'Upcoming events section'}},
+  },
+})
+
+// ── Partners page ─────────────────────────────────────────────────────────────
+
+export const sectionPartnersOpportunities = defineType({
+  name: 'sectionPartnersOpportunities',
+  title: 'Partnership opportunities section',
+  type: 'object',
+  fields: [
+    defineField({name: 'heading', title: 'Section heading', type: 'string', description: 'e.g. "Partnership Opportunities"'}),
+    defineField({name: 'description', title: 'Section description', type: 'text', rows: 2}),
+    defineField({name: 'residencyLabel', title: 'Residency partnership label', type: 'string', description: 'e.g. "Residency Partnership"'}),
+    defineField({name: 'resourceLabel', title: 'Resource partnership label', type: 'string', description: 'e.g. "Resource Partnership"'}),
+    defineField({name: 'beeBoxContactText', title: 'Bee Box contact intro text', type: 'text', rows: 2, description: 'Text before the contact email link in the Bee Box section.'}),
+    defineField({name: 'beeBoxEmail', title: 'Bee Box contact email', type: 'string'}),
+  ],
+  preview: {
+    select: {title: 'heading'},
+    prepare({title}) {return {title: title || 'Partnership opportunities section'}},
+  },
+})
+
 export const pageSectionTypes = [
   donationsAction,
   donationsHighlight,
@@ -892,4 +1443,42 @@ export const pageSectionTypes = [
   sectionPartnerLogos,
   sectionTeam,
   sectionGallery,
+  // Awareness
+  awarenessProgram,
+  awarenessTrainingItem,
+  awarenessOffering,
+  awarenessCTAButton,
+  sectionAwarenessHero,
+  sectionAwarenessValues,
+  sectionAwarenessPrograms,
+  sectionAwarenessTraining,
+  sectionAwarenessTechAssist,
+  sectionAwarenessCta,
+  // Support
+  supportServiceCard,
+  supportResourceButton,
+  sectionSupportHero,
+  sectionSupportIntro,
+  sectionSupportServices,
+  sectionSupportAccessibility,
+  sectionSupportResources,
+  // Our Impact
+  impactMediaItem,
+  impactAward,
+  impactDocument,
+  sectionImpactHero,
+  sectionImpactMedia,
+  sectionImpactAwards,
+  sectionImpactDocuments,
+  // Contact
+  sectionContactHero,
+  sectionContactNewsletter,
+  contactFormSubjectOption,
+  sectionContactForm,
+  sectionContactInfo,
+  // Events
+  sectionEventsHero,
+  sectionEventsUpcoming,
+  // Partners
+  sectionPartnersOpportunities,
 ] as const

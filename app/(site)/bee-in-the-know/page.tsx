@@ -1,15 +1,12 @@
-"use client";
+export const dynamic = "force-dynamic";
 
-import { useSiteCopy } from "@/components/language-provider";
+import { sanityFetch } from "@/sanity/lib/live";
+import { beeInTheKnowPageQuery, type BeeInTheKnowPageData } from "@/sanity/queries/beeInTheKnowPage";
+import BeeInTheKnowClient from "./bee-in-the-know-client";
 
-export default function BeeInTheKnowPage() {
-  const copy = useSiteCopy();
+export const metadata = { title: "Bee In The Know | The Hive" };
 
-  return (
-    <main className="site-page">
-      <div className="site-page--narrow px-6 py-12 sm:px-10 lg:px-14">
-        <h1 className="site-heading text-center">{copy.beeInTheKnow.title}</h1>
-      </div>
-    </main>
-  );
+export default async function BeeInTheKnowPage() {
+    const { data } = await sanityFetch({ query: beeInTheKnowPageQuery });
+    return <BeeInTheKnowClient cmsContent={(data ?? null) as BeeInTheKnowPageData} />;
 }

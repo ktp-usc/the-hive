@@ -242,10 +242,12 @@ async function seed() {
     categoryRefs[category.key] = { label: category.label, refs };
   }
 
-  // ── Bee Box image ──────────────────────────────────────────────────────
-  console.log("\nUploading Bee Box image…");
-  const beeBoxLogo = await uploadImage("/partner-images/TheBeeBox.avif", "TheBeeBox.avif");
-  console.log(beeBoxLogo ? "  ✓ TheBeeBox.avif" : "  ⚠ skipped");
+  // ── Page images ────────────────────────────────────────────────────────
+  console.log("\nUploading page images…");
+  const beeBoxImg  = await uploadImage("/partner-images/TheBeeBox.avif",      "TheBeeBox.avif");
+  const hive135Img = await uploadImage("/images/TheHive_12.06.2025_135.jpg",  "TheHive_partners_135.jpg");
+  const hive87Img  = await uploadImage("/images/TheHive_12.06.2025_87.jpg",   "TheHive_partners_87.jpg");
+  console.log("  ✓ page images");
 
   // ── page document ──────────────────────────────────────────────────────
   console.log("\nCreating partners page…");
@@ -256,22 +258,80 @@ async function seed() {
     title: "Our Partners",
     slug: { _type: "slug", current: "our-partners" },
     sections: [
+      // Hero
       {
         _key: "section-hero",
         _type: "sectionHero",
-        headline: "Our Partners",
-        subheadline:
-          "We are grateful for the organizations, businesses, and community leaders who support this work.",
+        headline: "Community grows stronger when we grow together.",
+        subheadline: "Our Partners",
       },
+
+      // Carousel
+      {
+        _key: "section-carousel",
+        _type: "sectionImageCarousel",
+        heading: "Partnership in Action",
+        slides: [
+          {
+            _key: "slide1",
+            title: "A month-long community presence",
+            caption:
+              "Host The Hive in your business or workplace for a short residency that keeps survivor-centered resources visible and accessible all month long.",
+            alt: "The Hive team and community members at an event",
+            ...(hive135Img ? { image: hive135Img } : {}),
+          },
+          {
+            _key: "slide2",
+            title: "Support at the point of disclosure",
+            caption:
+              "Partner sites can place Bee Boxes in public-facing spaces so survivors receive grounding items, care tools, and affirming support in the moment they need it.",
+            alt: "The Bee Box support package for survivors",
+            ...(beeBoxImg ? { image: beeBoxImg } : {}),
+          },
+          {
+            _key: "slide3",
+            title: "A partnership tailored to your audience",
+            caption:
+              "Residencies can combine outreach, awareness moments, and educational touchpoints designed to fit the rhythm of your team, customers, or community.",
+            alt: "The Hive staff and supporters gathered together indoors",
+            ...(hive87Img ? { image: hive87Img } : {}),
+          },
+        ],
+      },
+
+      // Partnership opportunities labels (CMS-editable strings)
+      {
+        _key: "section-opportunities",
+        _type: "sectionPartnersOpportunities",
+        heading: "Partnership Opportunities",
+        description:
+          "We are grateful for the organizations, businesses, and community leaders who support this work.",
+        residencyLabel: "Residency Partnership",
+        resourceLabel: "Resource Partnership",
+        beeBoxContactText:
+          "If you are interested in becoming a partner site for the Bee Box, please reach out to",
+        beeBoxEmail: "volunteer@thehivecc.org",
+      },
+
+      // Host the Hive (first sectionImageText — convention used by partners-client.tsx)
+      {
+        _key: "section-host-the-hive",
+        _type: "sectionImageText",
+        heading: "Host the Hive",
+        body: "Invite The Hive into your business, workplace, or community space for a short-term residency, typically around a month or tailored to your schedule. We work alongside your team to create visible, approachable moments of support through outreach, education, and resource-sharing that meet people where they are.",
+        ...(hive87Img ? { image: hive87Img } : {}),
+      },
+
+      // Bee Box (second sectionImageText — convention used by partners-client.tsx)
       {
         _key: "section-bee-box",
         _type: "sectionImageText",
-        heading: "Partnership Opportunities",
-        body:
-          "Sitting in a cold waiting room, trembling with fear as one contemplates disclosing their abuse is never a vision one would desire to have, but this is often the reality for survivors of abuse and violence. The Bee Box was designed to support survivors who disclose in public settings such as healthcare settings, police stations, schools, or churches. The Bee Box has been uniquely designed to provide aid and support as a survivor embarks on their journey of healing, consisting of a grounding tool, tea for care and wellness, powerful affirmations written by fellow survivors, and an all-natural room enhancer spray.\n\nIf you are interested in becoming a partner site for the Bee Box, please reach out to volunteer@thehivecc.org",
-        ...(beeBoxLogo ? { image: beeBoxLogo } : {}),
+        heading: "The Bee Box",
+        body: "Sitting in a cold waiting room, trembling with fear as one contemplates disclosing their abuse is never a vision one would desire to have, but this is often the reality for survivors of abuse and violence. The Bee Box was designed to support survivors who disclose in public settings such as healthcare settings, police stations, schools, or churches. The Bee Box has been uniquely designed to provide aid and support as a survivor embarks on their journey of healing, consisting of a grounding tool, tea for care and wellness, powerful affirmations written by fellow survivors, and an all-natural room enhancer spray.",
+        ...(beeBoxImg ? { image: beeBoxImg } : {}),
       },
-      // one sectionPartnerLogos per category
+
+      // One sectionPartnerLogos per category
       ...categories.map((cat) => ({
         _key: `section-${cat.key}`,
         _type: "sectionPartnerLogos",
@@ -284,7 +344,7 @@ async function seed() {
   await client.createOrReplace(partnersPage);
   console.log("  ✓ page-our-partners");
 
-  console.log("\nDone! Visit http://localhost:3000/about/our-partners");
+  console.log("\nDone!");
 }
 
 seed().catch((err) => {

@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { sanityFetch } from "@/sanity/lib/live";
 import { aboutPageQuery } from "@/sanity/queries/aboutPage";
+import { siteSettingsQuery, type SiteSettingsData } from "@/sanity/queries/siteSettings";
 import AboutTabs, {
   type FounderMember,
   type TeamMemberSanity,
@@ -146,7 +147,11 @@ const FALLBACK_BOARD: BoardMemberSanity[] = [
 ];
 
 export default async function AboutPage() {
-  const { data: page } = await sanityFetch({ query: aboutPageQuery });
+  const [{ data: page }, { data: siteData }] = await Promise.all([
+    sanityFetch({ query: aboutPageQuery }),
+    sanityFetch({ query: siteSettingsQuery }),
+  ]);
+  const site = siteData as SiteSettingsData;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sections = (page?.sections ?? []) as any[];
@@ -229,6 +234,11 @@ export default async function AboutPage() {
           founderMembers={founderMembers}
           teamMembers={teamMembers}
           boardMembers={boardMembers}
+          missionTitle={site?.missionTitle}
+          missionBody={site?.missionBody}
+          valuesTitle={site?.valuesTitle}
+          valuesIntro={site?.valuesIntro}
+          valuesPillars={site?.valuesPillars}
         />
 
         <section className="site-surface px-6 py-2 pb-20 text-center sm:px-10 lg:px-14">
