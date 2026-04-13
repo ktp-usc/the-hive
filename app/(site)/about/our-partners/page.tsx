@@ -10,7 +10,13 @@ export const metadata = {
 };
 
 export default async function OurPartnersPage() {
-  const { data: page } = await sanityFetch({ query: partnersPageQuery });
+  let page = null;
+  try {
+      const result = await sanityFetch({ query: partnersPageQuery });
+      page = result.data;
+  } catch (err) {
+      console.error("[OurPartnersPage] Sanity fetch failed, rendering with fallbacks:", err);
+  }
 
   return (
     <PartnersClient

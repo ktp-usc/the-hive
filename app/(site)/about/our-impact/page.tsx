@@ -7,6 +7,12 @@ import OurImpactClient from "./our-impact-client";
 export const metadata = { title: "Our Impact | The Hive" };
 
 export default async function OurImpactPage() {
-    const { data } = await sanityFetch({ query: ourImpactPageQuery });
+    let data = null;
+    try {
+        const result = await sanityFetch({ query: ourImpactPageQuery });
+        data = result.data;
+    } catch (err) {
+        console.error("[OurImpactPage] Sanity fetch failed, rendering with fallbacks:", err);
+    }
     return <OurImpactClient cmsContent={(data ?? null) as OurImpactPageData} />;
 }

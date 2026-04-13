@@ -8,6 +8,7 @@ import AboutTabs, {
   type TeamMemberSanity,
 } from "@/components/about-tabs";
 import { useLanguage, useSiteCopy } from "@/components/language-provider";
+import type { SiteSettingsData } from "@/sanity/queries/siteSettings";
 
 type AboutHeroSection = {
   _type: "sectionHero";
@@ -162,7 +163,13 @@ function findTeamSection(sections: AboutTeamSection[], patterns: RegExp[]) {
   );
 }
 
-export default function AboutClient({ page }: { page: AboutPageData }) {
+export default function AboutClient({
+  page,
+  siteData,
+}: {
+  page: AboutPageData;
+  siteData?: SiteSettingsData;
+}) {
   const copy = useSiteCopy();
   const { language } = useLanguage();
   const useCmsText = language === "en";
@@ -235,11 +242,11 @@ export default function AboutClient({ page }: { page: AboutPageData }) {
       ? (teamSec?.members as TeamMemberSanity[])
       : FALLBACK_TEAM) ?? FALLBACK_TEAM;
 
-  const teamMembers = sourceTeamMembers.map((member, index) => {
-    const translatedMember =
-      copy.about.teamMembers.find((entry) => entry.name === member.name) ??
-      copy.about.teamMembers[index];
-
+  const teamMembers = sourceTeamMembers.map((member) => {
+    const normalizedName = member.name.trim().toLowerCase();
+    const translatedMember = copy.about.teamMembers.find(
+      (entry) => entry.name.trim().toLowerCase() === normalizedName,
+    );
     return {
       ...member,
       role: useCmsText ? member.role : translatedMember?.role ?? member.role,
@@ -251,11 +258,11 @@ export default function AboutClient({ page }: { page: AboutPageData }) {
       ? (boardSec?.members as BoardMemberSanity[])
       : FALLBACK_BOARD) ?? FALLBACK_BOARD;
 
-  const boardMembers = sourceBoardMembers.map((member, index) => {
-    const translatedMember =
-      copy.about.boardMembers.find((entry) => entry.name === member.name) ??
-      copy.about.boardMembers[index];
-
+  const boardMembers = sourceBoardMembers.map((member) => {
+    const normalizedName = member.name.trim().toLowerCase();
+    const translatedMember = copy.about.boardMembers.find(
+      (entry) => entry.name.trim().toLowerCase() === normalizedName,
+    );
     return {
       ...member,
       role: useCmsText ? member.role : translatedMember?.role ?? member.role,
@@ -316,6 +323,11 @@ export default function AboutClient({ page }: { page: AboutPageData }) {
           founderMembers={founderMembers}
           teamMembers={teamMembers}
           boardMembers={boardMembers}
+          missionTitle={siteData?.missionTitle}
+          missionBody={siteData?.missionBody}
+          valuesTitle={siteData?.valuesTitle}
+          valuesIntro={siteData?.valuesIntro}
+          valuesPillars={siteData?.valuesPillars}
         />
 
         <section className="site-surface px-6 py-2 pb-20 text-center sm:px-10 lg:px-14">

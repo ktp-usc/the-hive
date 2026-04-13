@@ -7,6 +7,12 @@ import SupportClient from "./support-client";
 export const metadata = { title: "Survivor Support | The Hive" };
 
 export default async function SupportPage() {
-    const { data } = await sanityFetch({ query: supportPageQuery });
+    let data = null;
+    try {
+        const result = await sanityFetch({ query: supportPageQuery });
+        data = result.data;
+    } catch (err) {
+        console.error("[SupportPage] Sanity fetch failed, rendering with fallbacks:", err);
+    }
     return <SupportClient cmsContent={(data ?? null) as SupportPageData} />;
 }

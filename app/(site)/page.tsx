@@ -9,8 +9,13 @@ import {
 import HomeClient from "./home-client";
 
 export default async function Home() {
-  const { data } = await sanityFetch({ query: homePageQuery });
-  const home = data as HomePageQueryResult;
+  let home: HomePageQueryResult = null;
+  try {
+    const { data } = await sanityFetch({ query: homePageQuery });
+    home = data as HomePageQueryResult;
+  } catch (err) {
+    console.error("[Home] Sanity fetch failed, rendering with fallbacks:", err);
+  }
 
   const heroBackgroundImageUrl = home?.heroImage
     ? urlFor(home.heroImage).width(2000).height(1200).url()
