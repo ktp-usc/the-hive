@@ -172,7 +172,7 @@ export default async function AboutPage() {
   const joinEyebrow = joinSection?.eyebrow ?? "Join The Hive";
   const joinTitle = joinSection?.heading ?? "Looking to join our team?";
   const joinBody =
-    joinSection?.body ?? "Send your resume and a cover letter to hello@thehivecc.org.";
+    joinSection?.body ?? "Send your resume and a cover letter to hello@thehivecc.org";
 
   // ── member data (Sanity → fallback) ───────────────────────────────────
   const founderSec = teamSections.find((s) => s.groupLabel === "Founder/CEO");
@@ -247,7 +247,7 @@ export default async function AboutPage() {
           </p>
           <h2 className="site-heading mt-4">{joinTitle}</h2>
           <p className="site-copy mx-auto mt-4 max-w-2xl">
-            {joinBody.replace("hello@thehivecc.org", "").trim()}{" "}
+            {joinBody.replace(/hello@thehivecc\.org\.?/i, "").trim()}{" "}
             <a href="mailto:hello@thehivecc.org" className="site-link">
               hello@thehivecc.org
             </a>
