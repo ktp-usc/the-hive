@@ -8,7 +8,10 @@ export const aboutPageQuery = defineQuery(`
       _type,
       _type == "sectionHero" => {
         headline,
-        subheadline
+        subheadline,
+        ctaLabel,
+        ctaHref,
+        "heroImages": images[].asset->url
       },
       _type == "sectionImageText" => {
         heading,
@@ -41,6 +44,21 @@ export const aboutPageQuery = defineQuery(`
         eyebrow,
         heading,
         body
+      },
+      _type == "sectionImageCarousel" => {
+        heading, body,
+        "slides": slides[]{_key, title, caption, alt, "imageUrl": image.asset->url}
+      },
+      _type == "sectionCardGrid" => {
+        sectionTitle, intro,
+        "cards": cards[]->{_id, title, body}
+      },
+      _type == "sectionVolunteerCards" => {
+        sectionTitle, intro, ctaLabel, ctaHref,
+        "volunteerCards": cards[]{_key, title, description}
+      },
+      _type == "sectionDonationOpportunity" => {
+        eyebrow, sectionTitle, body, ctaLabel, ctaHref
       }
     }
   }

@@ -8,6 +8,13 @@ import AboutTabs, {
   type TeamMemberSanity,
   type BoardMemberSanity,
 } from "@/components/about-tabs";
+import GenericSectionRenderer from "@/components/generic-section-renderer";
+
+const ABOUT_HANDLED = new Set(["sectionHero", "sectionImageText", "sectionTeam", "sectionRichText"]);
+const GENERIC_TYPES = new Set([
+  "sectionRichText", "sectionImageText", "sectionHero", "sectionImageCarousel",
+  "sectionCardGrid", "sectionVolunteerCards", "sectionDonationOpportunity",
+]);
 
 export const dynamic = "force-dynamic";
 
@@ -147,14 +154,23 @@ const FALLBACK_BOARD: BoardMemberSanity[] = [
 ];
 
 export default async function AboutPage() {
-  const [{ data: page }, { data: siteData }] = await Promise.all([
-    sanityFetch({ query: aboutPageQuery }),
-    sanityFetch({ query: siteSettingsQuery }),
-  ]);
+  let page = null;
+  let siteData = null;
+  try {
+    [{ data: page }, { data: siteData }] = await Promise.all([
+      sanityFetch({ query: aboutPageQuery }),
+      sanityFetch({ query: siteSettingsQuery }),
+    ]);
+  } catch {
+    // Sanity fetch failed; render with static fallback
+  }
   const site = siteData as SiteSettingsData;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sections = (page?.sections ?? []) as any[];
+  const extraSections = sections.filter(
+    (s) => GENERIC_TYPES.has(s._type) && !ABOUT_HANDLED.has(s._type)
+  );
 
   const hero = sections.find((s) => s._type === "sectionHero");
   const imageText = sections.find((s) => s._type === "sectionImageText");
@@ -255,6 +271,7 @@ export default async function AboutPage() {
           </p>
         </section>
       </div>
+      <GenericSectionRenderer sections={extraSections} />
     </main>
   );
 }
