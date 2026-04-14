@@ -17,7 +17,7 @@ const DEFAULT_SECTIONS = [
 
 export default function OurImpactClient({ cmsContent }: { cmsContent: OurImpactPageData }) {
     const copy = useSiteCopy();
-    const { heroEyebrow, heroBody, mediaEyebrow, mediaTitle, mediaItems, awardsEyebrow, awardsTitle, awards, documentsEyebrow, documentsTitle, documents } = copy.ourImpact;
+    const { heroEyebrow, heroTitle, heroBody, mediaEyebrow, mediaTitle, mediaItems, awardsEyebrow, awardsTitle, awards, documentsEyebrow, documentsTitle, documents } = copy.ourImpact;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rawSections = (cmsContent?.sections ?? []) as any[];

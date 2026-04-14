@@ -78,13 +78,23 @@ export default function HomeClient({
             {/* Hero */}
             <section
                 style={{ backgroundImage: `url("${heroBackgroundImageUrl}")` }}
-                className="relative flex min-h-[80vh] w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-24 text-center text-white"
+                className="relative flex min-h-[90vh] w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-28 text-center text-white md:py-32"
             >
                 <div className="absolute inset-0 bg-hive-blue/70" />
                 <div className="relative z-10">
-                    <h1 className="mx-auto max-w-5xl text-4xl font-medium leading-tight md:text-6xl">
+                    <h1
+                        className="mx-auto max-w-5xl font-medium leading-tight"
+                        style={{
+                            fontSize: "clamp(1.75rem, 2.25vw + 1rem, 3.75rem)",
+                        }}
+                    >
                         {heroHeadline ?? copy.home.heroTitleLine1}
-                        <span className="block text-8xl font-bold">
+                        <span
+                            className="block font-bold leading-[1.05] tracking-tight"
+                            style={{
+                                fontSize: "clamp(2.5rem, 5.5vw + 1.25rem, 6rem)",
+                            }}
+                        >
                             {heroSubheadline ?? copy.home.heroTitleLine2}
                         </span>
                     </h1>
@@ -101,14 +111,14 @@ export default function HomeClient({
             </section>
 
             {/* Mission */}
-            <section className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-8 px-6 py-20 text-center md:flex-row">
-                <div>
+            <section className="mx-auto flex w-full max-w-5xl min-w-0 flex-col items-center justify-center gap-8 px-6 py-20 text-center md:flex-row">
+                <div className="w-full min-w-0 max-w-md">
                     <Image
                         src={missionImageUrl}
                         alt={copy.home.missionImageAlt}
                         width={missionDims?.width ?? 1500}
                         height={missionDims?.height ?? 1500}
-                        className="max-w-md rounded-lg border-2 border-gray-200"
+                        className="h-auto w-full max-w-full rounded-lg border-2 border-gray-200"
                     />
                 </div>
                 <div>
