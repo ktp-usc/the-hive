@@ -15,7 +15,7 @@ import type {
 
 export default function OurImpactClient({ cmsContent }: { cmsContent: OurImpactPageData }) {
     const copy = useSiteCopy();
-    const { heroEyebrow, heroBody, mediaEyebrow, mediaTitle, mediaItems, awardsEyebrow, awardsTitle, awards, documentsEyebrow, documentsTitle, documents } = copy.ourImpact;
+    const { heroEyebrow, heroTitle, heroBody, mediaEyebrow, mediaTitle, mediaItems, awardsEyebrow, awardsTitle, awards, documentsEyebrow, documentsTitle, documents } = copy.ourImpact;
 
     const sections = cmsContent?.sections ?? [];
     const heroSec = sections.find((s): s is ImpactHeroSection => s._type === "sectionImpactHero");
@@ -24,6 +24,7 @@ export default function OurImpactClient({ cmsContent }: { cmsContent: OurImpactP
     const docsSec = sections.find((s): s is ImpactDocumentsSection => s._type === "sectionImpactDocuments");
 
     const resolvedHeroEyebrow = heroSec?.eyebrow ?? heroEyebrow;
+    const resolvedHeroTitle = cmsContent?.title ?? heroTitle;
     const resolvedHeroBody = heroSec?.body ?? heroBody;
     const heroImageUrl = heroSec?.imageUrl ?? "/images/hive-community.png";
 
@@ -40,10 +41,11 @@ export default function OurImpactClient({ cmsContent }: { cmsContent: OurImpactP
     const resolvedDocuments = docsSec?.documents?.length ? docsSec.documents : documents;
 
     return (
-        <main className="min-h-screen bg-white text-gray-800">
-            <section className="site-hero relative left-1/2 right-1/2 mt-16 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-white sm:px-10 sm:py-12 lg:py-14">
-                <div className="mx-auto max-w-4xl text-center">
-                    <h1 className="site-title">{resolvedHeroEyebrow}</h1>
+        <main className="site-page text-gray-800">
+            <section className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14">
+                <div className="mx-auto max-w-7xl">
+                    <p className="site-eyebrow">{resolvedHeroEyebrow}</p>
+                    <h1 className="site-title mt-4">{resolvedHeroTitle}</h1>
                     <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
                         {resolvedHeroBody}
                     </p>
