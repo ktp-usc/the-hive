@@ -359,6 +359,18 @@ export const donationsPageQuery = defineQuery(`
         heading,
         body,
         "imageUrl": image.asset->url
+      },
+      _type == "sectionHero" => {
+        headline, subheadline, ctaLabel, ctaHref,
+        "heroImages": images[].asset->url
+      },
+      _type == "sectionImageCarousel" => {
+        heading, body,
+        "slides": slides[]{_key, title, caption, alt, "imageUrl": image.asset->url}
+      },
+      _type == "sectionCardGrid" => {
+        sectionTitle, intro,
+        "cards": cards[]->{_id, title, body}
       }
     }
   }

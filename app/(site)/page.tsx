@@ -7,10 +7,16 @@ import {
   type HomePageQueryResult,
 } from "@/sanity/queries/homePage";
 import HomeClient from "./home-client";
+import GenericSectionRenderer from "@/components/generic-section-renderer";
 
 export default async function Home() {
-  const { data } = await sanityFetch({ query: homePageQuery });
-  const home = data as HomePageQueryResult;
+  let home: HomePageQueryResult | null = null;
+  try {
+    const { data } = await sanityFetch({ query: homePageQuery });
+    home = data as HomePageQueryResult;
+  } catch {
+    // Sanity fetch failed; render with static fallback
+  }
 
   const heroBackgroundImageUrl = home?.heroImage
     ? urlFor(home.heroImage).width(2000).height(1200).url()
@@ -46,21 +52,24 @@ export default async function Home() {
       : null;
 
   return (
-    <HomeClient
-      heroHeadline={home?.heroHeadline ?? null}
-      heroSubheadline={home?.heroSubheadline ?? null}
-      heroCtaLabel={home?.heroCtaLabel ?? null}
-      heroCtaHref={home?.heroCtaHref ?? null}
-      heroBackgroundImageUrl={heroBackgroundImageUrl}
-      missionHeading={home?.missionHeading ?? null}
-      missionBody={home?.missionBody ?? null}
-      missionImageUrl={missionImageUrl}
-      missionDims={home?.missionDims ?? undefined}
-      whatWeDoTitle={home?.whatWeDoTitle ?? null}
-      whatWeDoCards={home?.whatWeDoCards ?? null}
-      supportTitle={home?.supportTitle ?? null}
-      supportBody={home?.supportBody ?? null}
-      landingPopup={landingPopup}
-    />
+    <>
+      <HomeClient
+        heroHeadline={home?.heroHeadline ?? null}
+        heroSubheadline={home?.heroSubheadline ?? null}
+        heroCtaLabel={home?.heroCtaLabel ?? null}
+        heroCtaHref={home?.heroCtaHref ?? null}
+        heroBackgroundImageUrl={heroBackgroundImageUrl}
+        missionHeading={home?.missionHeading ?? null}
+        missionBody={home?.missionBody ?? null}
+        missionImageUrl={missionImageUrl}
+        missionDims={home?.missionDims ?? undefined}
+        whatWeDoTitle={home?.whatWeDoTitle ?? null}
+        whatWeDoCards={home?.whatWeDoCards ?? null}
+        supportTitle={home?.supportTitle ?? null}
+        supportBody={home?.supportBody ?? null}
+        landingPopup={landingPopup}
+      />
+      <GenericSectionRenderer sections={home?.extraSections ?? []} />
+    </>
   );
 }

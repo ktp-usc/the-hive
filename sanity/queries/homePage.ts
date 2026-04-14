@@ -25,6 +25,21 @@ export const homePageQuery = defineQuery(`
       ctaLabel,
       ctaHref,
       "popupDims": image.asset->metadata.dimensions
+    },
+    "extraSections": sections[_type in ["sectionImageCarousel", "sectionVolunteerCards", "sectionDonationOpportunity"]]{
+      _key,
+      _type,
+      _type == "sectionImageCarousel" => {
+        heading, body,
+        "slides": slides[]{_key, title, caption, alt, "imageUrl": image.asset->url}
+      },
+      _type == "sectionVolunteerCards" => {
+        sectionTitle, intro, ctaLabel, ctaHref,
+        "volunteerCards": cards[]{_key, title, description}
+      },
+      _type == "sectionDonationOpportunity" => {
+        eyebrow, sectionTitle, body, ctaLabel, ctaHref
+      }
     }
   }
 `);
@@ -56,4 +71,5 @@ export type HomePageQueryResult = {
     ctaHref?: string | null;
     popupDims?: { width: number; height: number; aspectRatio: number } | null;
   } | null;
+  extraSections?: import("@/components/generic-section-renderer").GenericSection[] | null;
 } | null;

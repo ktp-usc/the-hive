@@ -1,31 +1,11 @@
 import { defineQuery } from "next-sanity";
+import type { GenericSection } from "@/components/generic-section-renderer";
 
-type BeeBaseSection = { _key?: string; _type: string };
-
-export type BeeHeroSection = BeeBaseSection & {
-  _type: "sectionHero";
-  headline?: string;
-  subheadline?: string;
-};
-
-export type BeeRichTextSection = BeeBaseSection & {
-  _type: "sectionRichText";
-  eyebrow?: string;
-  heading?: string;
-  body?: string;
-};
-
-export type BeeInTheKnowSection = BeeHeroSection | BeeRichTextSection;
-
-export type BeeInTheKnowPageData = {
-  title?: string;
-  sections?: BeeInTheKnowSection[];
-} | null;
-
-export const beeInTheKnowPageQuery = defineQuery(`
-  *[_type == "page" && slug.current == "bee-in-the-know"][0]{
+export const genericPageQuery = defineQuery(`
+  *[_type == "page" && slug.current == $slug][0]{
     title,
-    sections[]{
+    description,
+    "sections": sections[]{
       _key,
       _type,
       _type == "sectionHero" => {
@@ -41,7 +21,10 @@ export const beeInTheKnowPageQuery = defineQuery(`
       },
       _type == "sectionImageCarousel" => {
         heading, body,
-        "slides": slides[]{_key, title, caption, alt, "imageUrl": image.asset->url}
+        "slides": slides[]{
+          _key, title, caption, alt,
+          "imageUrl": image.asset->url
+        }
       },
       _type == "sectionCardGrid" => {
         sectionTitle, intro,
@@ -57,3 +40,9 @@ export const beeInTheKnowPageQuery = defineQuery(`
     }
   }
 `);
+
+export type GenericPageData = {
+  title?: string | null;
+  description?: string | null;
+  sections?: GenericSection[];
+} | null;
