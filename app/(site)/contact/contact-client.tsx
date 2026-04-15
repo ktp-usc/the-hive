@@ -291,36 +291,34 @@ export default function ContactClient({
             <Image src="/images/TheHive_12.06.2025_87.jpg" alt="The Hive community members smiling together" fill sizes="(max-width: 1024px) 100vw, 60vw" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-hive-blue/70 via-hive-blue/20 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-hive-yellow">The Hive</p>
-              <p className="mt-2 max-w-xs text-lg font-semibold leading-snug">
+              <p className="text-lg font-semibold uppercase tracking-[0.22em] text-hive-yellow">Subscribe with The Hive</p>
+              <p className="mt-1 max-w-xs text-lg leading-snug">
                 Stories, updates, and community moments delivered to your inbox.
               </p>
             </div>
           </div>
 
-          <form className="w-full">
-            <FieldSet className="h-full rounded-xl bg-hive-blue p-5 sm:p-6">
-              <FieldGroup className="h-full justify-center">
-                <Field>
-                  <Link href={newsletterUrl} rel="noopener noreferrer" target="_blank" className="block rounded-2xl bg-hive-orange px-6 py-6 text-center text-white transition-colors hover:bg-hive-orange/90">
-                    <strong className="text-2xl sm:text-3xl">{newsletterTitle}</strong>
-                  </Link>
-                </Field>
-                <Field>
-                  <h1 className="text-center text-3xl text-white">
-                    <strong>{newsletterFormTitle}</strong>
-                  </h1>
-                  <FieldLabel htmlFor="newsletter-email" className="text-xl text-gray-200">
-                    {newsletterEmailLabel}
-                  </FieldLabel>
-                  <Input id="newsletter-email" name="newsletterEmail" type="email" required autoComplete="off" placeholder={copy.contact.fields.placeholders.email} className="bg-gray-200 placeholder:text-black focus-visible:ring-hive-blue/90" />
-                </Field>
-                <Button type="submit" className="bg-hive-orange text-xl text-white hover:bg-hive-orange/90">
-                  {newsletterSubmitLabel}
-                </Button>
-              </FieldGroup>
-            </FieldSet>
-          </form>
+            <div className="w-full">
+                <FieldSet className="h-full rounded-xl bg-hive-blue p-5 sm:p-6">
+                    <h2 className="mb-1 text-center text-2xl font-bold text-white sm:text-3xl">
+                        Subscribe to Our Newsletter
+                    </h2>
+
+                    <div className="rounded-2xl bg-white shadow-lg p-4 sm:p-6">
+                        <div className="mx-auto max-w-[420px]">
+                            <iframe
+                                src="https://thehivecc.dm.networkforgood.com/forms/40977?iframe=1"
+                                title="The Hive newsletter signup form"
+                                width="100%"
+                                height="550"
+                                frameBorder="0"
+                                loading="lazy"
+                                className="block w-full rounded-lg"
+                            />
+                        </div>
+                    </div>
+                </FieldSet>
+            </div>
         </div>
       </section>
     </main>
