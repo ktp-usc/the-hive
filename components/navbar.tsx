@@ -158,7 +158,7 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
   return (
     <header
       ref={navRef}
-      className="fixed inset-x-0 top-0 z-50 border-b border-black/8 bg-white shadow-sm"
+      className="fixed inset-x-0 top-0 z-50 border-black/8 bg-white shadow-sm"
     >
       <nav className="flex h-16 w-full items-center justify-between px-4 sm:px-6">
         <Link href="/" onClick={closeMenus}>
@@ -272,6 +272,8 @@ export default function Navbar({ navSettings }: { navSettings?: NavbarSettingsDa
           </button>
         </div>
       </nav>
+
+        <div className="h-1 w-full bg-hive-yellow" />
 
       {mobileOpen ? (
         <div className="border-t border-black/8 bg-white px-4 py-4 lg:hidden sm:px-6">

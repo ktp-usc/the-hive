@@ -94,8 +94,9 @@ export default function Footer({
   const resolvedAddressLabel = addressLabel ?? copy.footer.address;
 
   return (
-    <footer className="bg-hive-blue px-6 pb-8 pt-12 text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-3">
+      <footer className="relative bg-hive-blue px-6 pb-8 pt-0 text-white">
+          <div className="absolute inset-x-0 top-0 h-1 bg-hive-yellow" />
+      <div className="mx-auto grid max-w-6xl gap-10 pt-16 md:grid-cols-3">
         <div>
           <h2 className="text-3xl font-bold">{resolvedBrand}</h2>
           <p className="mt-4 max-w-md text-sm leading-7 text-white/80">
