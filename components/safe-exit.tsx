@@ -56,7 +56,7 @@ export default function SafeExit() {
     return (
         <button
             onClick={handleClick}
-            className="fixed bottom-6 right-6 z-50 bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 text-lg rounded-lg shadow-lg transition-colors"
+            className="fixed bottom-6 right-6 z-[9999] bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 text-lg rounded-lg shadow-lg transition-colors"
             aria-label={copy.common.safeExitAriaLabel}
         >
             {copy.common.safeExit}
