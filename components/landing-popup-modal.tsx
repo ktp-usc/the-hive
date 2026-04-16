@@ -36,13 +36,13 @@ export function LandingPopupModal({
       <Dialog.Portal>
         <Dialog.Overlay
           className={cn(
-            "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-40 bg-black/60 pointer-events-none",
+            "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-[100] bg-black/60 pointer-events-none",
           )}
         />
         <Dialog.Content
           className={cn(
             "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-            "fixed top-1/2 left-1/2 z-40 w-[min(94vw,32rem)] max-w-[94vw] -translate-x-1/2 -translate-y-1/2 outline-none pointer-events-auto",
+            "fixed top-1/2 left-1/2 z-[100] w-[min(94vw,32rem)] max-w-[94vw] -translate-x-1/2 -translate-y-1/2 outline-none pointer-events-auto",
             "max-h-[90dvh] overflow-visible bg-transparent p-0 shadow-none",
           )}
         >
