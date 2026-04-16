@@ -80,6 +80,45 @@ export default function HomeClient({
                 style={{ backgroundImage: `url("${heroBackgroundImageUrl}")` }}
                 className="relative flex min-h-[90vh] w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-28 text-center text-white md:py-32"
             >
+                <div className="absolute bottom-6 left-6 z-10 text-left text-black">
+                    <div className="mt-3">
+                        <a
+                            href="https://app.candid.org/profile/9455379/the-hive-community-circle-47-0992295"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                        <Image
+                            src="/images/candid.avif"
+                            alt="Candid."
+                            width={100}
+                            height={40}
+                            className="h-auto w-[100px]"
+                        />
+                        </a>
+                    </div>
+
+                    <p className="mt-2 text-sm leading-snug">
+                        The <span className="font-bold">Hive Community Circle</span> <br />
+                        is a Proud Member of
+                    </p>
+
+                    <div className="mt-3">
+                        <a
+                            href="https://columbiachamber.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                        <Image
+                            src="/images/columbiachamberslogo.png"
+                            alt="Columbia Chamber logo"
+                            width={90}
+                            height={90}
+                            className="h-auto w-[90px]"
+                        />
+                        </a>
+                    </div>
+                </div>
+
                 <div className="absolute inset-0 bg-hive-blue/70" />
                 <div className="relative z-10">
                     <h1
