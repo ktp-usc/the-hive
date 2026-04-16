@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import { localizedString, localizedText } from "./localized";
 
 export const sectionRichText = defineType({
   name: 'sectionRichText',
@@ -1481,4 +1482,6 @@ export const pageSectionTypes = [
   sectionEventsUpcoming,
   // Partners
   sectionPartnersOpportunities,
+    localizedString,
+    localizedText,
 ] as const
