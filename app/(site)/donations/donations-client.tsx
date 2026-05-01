@@ -4,11 +4,13 @@ import { useState, type ReactNode } from "react";
 import Image from "next/image";
 import { Sparkles, Star } from "lucide-react";
 
-import { useSiteCopy } from "@/components/language-provider";
+import { useLanguage, useSiteCopy } from "@/components/language-provider";
+import { resolveLocalized } from "@/lib/resolved-localized";
 import { Button } from "@/components/ui/button";
 import type {
   DonationsPageData,
   DonationsPageSection,
+  LocalizedValue,
 } from "@/sanity/queries/donationsPage";
 
 type DonationTabId = "casita" | "keepers";
@@ -36,7 +38,6 @@ const impactImages = [
   "/donations/keepersclub5.avif",
 ];
 
-// Default layout used when no Studio-managed section list has been published yet.
 const fallbackSections: DonationsPageSection[] = [
   { _key: "hero", _type: "sectionDonationsHero" },
   { _key: "volunteer", _type: "sectionVolunteerCards" },
@@ -56,72 +57,6 @@ const fallbackSections: DonationsPageSection[] = [
 
 const hasItems = <T,>(items: T[] | undefined | null): items is T[] =>
   Array.isArray(items) && items.length > 0;
-
-const action = (
-  value: { href?: string; label?: string } | undefined,
-  fallback: Action,
-): Action =>
-  value?.href && value?.label ? { href: value.href, label: value.label } : fallback;
-
-const list = (value: (string | undefined)[] | undefined, fallback: string[]) =>
-  hasItems(value) ? value.filter((item): item is string => Boolean(item?.trim())) || fallback : fallback;
-
-const cards = (
-  value: { _key?: string; title?: string; description?: string }[] | undefined,
-  fallback: Card[],
-) =>
-  hasItems(value)
-    ? value
-        .filter((item) => item.title && item.description)
-        .map((item) => ({
-          _key: item._key,
-          title: item.title as string,
-          description: item.description as string,
-        }))
-    : fallback;
-
-const highlights = (
-  value: { _key?: string; title?: string; body?: string }[] | undefined,
-  fallback: Highlight[],
-) =>
-  hasItems(value)
-    ? value
-        .filter((item) => item.title && item.body)
-        .map((item) => ({ _key: item._key, title: item.title as string, body: item.body as string }))
-    : fallback;
-
-const tiers = (
-  value:
-    | { _key?: string; amount?: string; yearly?: string; name?: string; description?: string }[]
-    | undefined,
-  fallback: Tier[],
-) =>
-  hasItems(value)
-    ? value
-        .filter((item) => item.amount && item.yearly && item.name && item.description)
-        .map((item) => ({
-          _key: item._key,
-          amount: item.amount as string,
-          yearly: item.yearly as string,
-          name: item.name as string,
-          description: item.description as string,
-        }))
-    : fallback;
-
-const impactAreas = (
-  value: { _key?: string; title?: string; alt?: string; imageUrl?: string }[] | undefined,
-  fallback: ImpactArea[],
-) =>
-  hasItems(value)
-    ? value
-        .filter((item) => item.title && item.alt && item.imageUrl)
-        .map((item) => ({
-          _key: item._key,
-          title: item.title as string,
-          alt: item.alt as string,
-          imageUrl: item.imageUrl as string,
-        }))
-    : fallback;
 
 function ActionButton({
   href,
@@ -169,9 +104,107 @@ export default function DonationsClient({
   cmsContent: DonationsPageData | null;
 }) {
   const copy = useSiteCopy();
+  const { language } = useLanguage();
   const pageCopy = copy.donations.page;
   const [activeTab, setActiveTab] = useState<DonationTabId>("casita");
+
+  // Shorthand — always returns a resolved string
+  function r(value: unknown, fallback: string): string {
+    return resolveLocalized(value, language, fallback);
+  }
+
+  // Resolve a DonationsAction — label goes through resolveLocalized, href is plain string
+  function resolveAction(
+    value: { label?: LocalizedValue; href?: string } | undefined,
+    fallback: Action,
+  ): Action {
+    if (value?.href && value?.label) {
+      return { href: value.href, label: r(value.label, fallback.label) };
+    }
+    return fallback;
+  }
+
+  // Resolve an array of LocalizedValue strings, filtering out empty results
+  function resolveList(
+    value: LocalizedValue[] | undefined | null,
+    fallback: string[],
+  ): string[] {
+    if (!hasItems(value)) return fallback;
+    const resolved = value.map((item) => r(item, "")).filter(Boolean);
+    return resolved.length > 0 ? resolved : fallback;
+  }
+
+  // Resolve an array of { title, description } cards
+  function resolveCards(
+    value: { _key?: string; title?: LocalizedValue; description?: LocalizedValue }[] | undefined,
+    fallback: Card[],
+  ): Card[] {
+    if (!hasItems(value)) return fallback;
+    const resolved = value
+      .map((item) => ({
+        _key: item._key,
+        title: r(item.title, ""),
+        description: r(item.description, ""),
+      }))
+      .filter((item) => item.title && item.description);
+    return resolved.length > 0 ? resolved : fallback;
+  }
+
+  // Resolve highlights array
+  function resolveHighlights(
+    value: { _key?: string; title?: LocalizedValue; body?: LocalizedValue }[] | undefined,
+    fallback: Highlight[],
+  ): Highlight[] {
+    if (!hasItems(value)) return fallback;
+    const resolved = value
+      .map((item) => ({
+        _key: item._key,
+        title: r(item.title, ""),
+        body: r(item.body, ""),
+      }))
+      .filter((item) => item.title && item.body);
+    return resolved.length > 0 ? resolved : fallback;
+  }
+
+  // Resolve tiers array
+  function resolveTiers(
+    value:
+      | { _key?: string; amount?: LocalizedValue; yearly?: LocalizedValue; name?: LocalizedValue; description?: LocalizedValue }[]
+      | undefined,
+    fallback: Tier[],
+  ): Tier[] {
+    if (!hasItems(value)) return fallback;
+    const resolved = value
+      .map((item) => ({
+        _key: item._key,
+        amount: r(item.amount, ""),
+        yearly: r(item.yearly, ""),
+        name: r(item.name, ""),
+        description: r(item.description, ""),
+      }))
+      .filter((item) => item.amount && item.name && item.description);
+    return resolved.length > 0 ? resolved : fallback;
+  }
+
+  // Resolve impact areas array
+  function resolveImpactAreas(
+    value: { _key?: string; title?: LocalizedValue; alt?: string; imageUrl?: string }[] | undefined,
+    fallback: ImpactArea[],
+  ): ImpactArea[] {
+    if (!hasItems(value)) return fallback;
+    const resolved = value
+      .map((item) => ({
+        _key: item._key,
+        title: r(item.title, ""),
+        alt: item.alt ?? "",
+        imageUrl: item.imageUrl ?? "",
+      }))
+      .filter((item) => item.title && item.imageUrl);
+    return resolved.length > 0 ? resolved : fallback;
+  }
+
   const sections = hasItems(cmsContent?.sections) ? cmsContent.sections : fallbackSections;
+
   const fallbackAreas: ImpactArea[] = pageCopy.keepers.impactAreas.map((area, index) => ({
     title: area.title,
     alt: area.alt,
@@ -181,9 +214,15 @@ export default function DonationsClient({
   const renderSection = (section: DonationsPageSection): ReactNode => {
     switch (section._type) {
       case "sectionDonationsHero": {
-        const primary = action(section.primaryCta, { href: donateHref, label: pageCopy.primaryCta });
-        const secondary = action(section.secondaryCta, { href: volunteerHref, label: pageCopy.secondaryCta });
-        const items = highlights(section.highlights, pageCopy.highlights);
+        const primary = resolveAction(section.primaryCta, {
+          href: donateHref,
+          label: pageCopy.primaryCta,
+        });
+        const secondary = resolveAction(section.secondaryCta, {
+          href: volunteerHref,
+          label: pageCopy.secondaryCta,
+        });
+        const items = resolveHighlights(section.highlights, pageCopy.highlights);
 
         return (
           <section
@@ -191,7 +230,7 @@ export default function DonationsClient({
             className="site-hero relative left-1/2 right-1/2 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14"
           >
             <div className="mx-auto max-w-7xl">
-              <p className="site-eyebrow">{section.eyebrow ?? pageCopy.heroEyebrow}</p>
+              <p className="site-eyebrow">{r(section.eyebrow, pageCopy.heroEyebrow)}</p>
               <h1 className="site-title mt-4">{cmsContent?.title ?? pageCopy.heroTitle}</h1>
               <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
                 {cmsContent?.description ?? copy.donations.subtitle}
@@ -225,14 +264,14 @@ export default function DonationsClient({
       }
 
       case "sectionVolunteerCards": {
-        const items = cards(section.cards, pageCopy.volunteerOpportunities);
+        const items = resolveCards(section.cards, pageCopy.volunteerOpportunities);
         return (
           <section key={section._key} className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
             <div className="mx-auto max-w-4xl text-center">
-              <h2 className="site-heading">{section.sectionTitle ?? pageCopy.volunteerTitle}</h2>
+              <h2 className="site-heading">{r(section.sectionTitle, pageCopy.volunteerTitle)}</h2>
               {section.intro ? (
                 <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-gray-600">
-                  {section.intro}
+                  {r(section.intro, "")}
                 </p>
               ) : null}
             </div>
@@ -250,7 +289,7 @@ export default function DonationsClient({
               <div className="mt-8 flex justify-center">
                 <ActionButton
                   href={section.ctaHref}
-                  label={section.ctaLabel}
+                  label={r(section.ctaLabel, "")}
                   className="h-auto rounded-full bg-hive-orange px-6 py-3 text-sm font-semibold text-white hover:bg-hive-orange/90"
                 />
               </div>
@@ -264,19 +303,19 @@ export default function DonationsClient({
           <section key={section._key} className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
             <div className="mx-auto max-w-4xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-hive-orange">
-                {section.eyebrow ?? "Support the Hive"}
+                {r(section.eyebrow, "Support the Hive")}
               </p>
-              <h2 className="site-heading mt-4">{section.sectionTitle}</h2>
+              <h2 className="site-heading mt-4">{r(section.sectionTitle, "")}</h2>
               {section.body ? (
                 <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-gray-600">
-                  {section.body}
+                  {r(section.body, "")}
                 </p>
               ) : null}
               {section.ctaHref && section.ctaLabel ? (
                 <div className="mt-8">
                   <ActionButton
                     href={section.ctaHref}
-                    label={section.ctaLabel}
+                    label={r(section.ctaLabel, "")}
                     className="h-auto rounded-full bg-hive-blue px-6 py-3 text-sm font-semibold text-white hover:bg-hive-blue/90"
                   />
                 </div>
@@ -287,18 +326,18 @@ export default function DonationsClient({
 
       case "sectionDonationsTabsIntro": {
         const tabs = [
-          { id: "casita" as const, label: section.casitaTabLabel ?? pageCopy.tabs.casita },
-          { id: "keepers" as const, label: section.keepersTabLabel ?? pageCopy.tabs.keepers },
+          { id: "casita" as const, label: r(section.casitaTabLabel, pageCopy.tabs.casita) },
+          { id: "keepers" as const, label: r(section.keepersTabLabel, pageCopy.tabs.keepers) },
         ];
 
         return (
           <section key={section._key} className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-hive-orange">
-                {section.eyebrow ?? pageCopy.givingSectionsEyebrow}
+                {r(section.eyebrow, pageCopy.givingSectionsEyebrow)}
               </p>
               <h2 className="site-heading mt-4">
-                {section.heading ?? pageCopy.givingSectionsTitle}
+                {r(section.heading, pageCopy.givingSectionsTitle)}
               </h2>
             </div>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -327,17 +366,17 @@ export default function DonationsClient({
 
       case "sectionDonationsCasitaOverview": {
         if (activeTab !== "casita") return null;
-        const paragraphs = list(section.paragraphs, pageCopy.casita.paragraphs);
-        const cta = action(section.cta, { href: donateHref, label: pageCopy.casita.cta });
+        const paragraphs = resolveList(section.paragraphs, pageCopy.casita.paragraphs);
+        const cta = resolveAction(section.cta, { href: donateHref, label: pageCopy.casita.cta });
 
         return (
           <section key={section._key} className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <article className="px-2 sm:px-4">
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-orange">
-                {section.eyebrow ?? pageCopy.casita.eyebrow}
+                {r(section.eyebrow, pageCopy.casita.eyebrow)}
               </p>
               <h3 className="mt-4 text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
-                {section.title ?? pageCopy.casita.title}
+                {r(section.title, pageCopy.casita.title)}
               </h3>
               <div className="mt-6 space-y-6 text-lg leading-9 text-gray-600">
                 {paragraphs.map((paragraph) => (
@@ -362,7 +401,7 @@ export default function DonationsClient({
 
       case "sectionDonationsCasitaRefuge": {
         if (activeTab !== "casita") return null;
-        const paragraphs = list(section.paragraphs, pageCopy.casita.refugeParagraphs);
+        const paragraphs = resolveList(section.paragraphs, pageCopy.casita.refugeParagraphs);
 
         return (
           <section key={section._key} className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -372,7 +411,7 @@ export default function DonationsClient({
             />
             <article className="px-2 sm:px-4">
               <h4 className="text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
-                {section.title ?? pageCopy.casita.refugeTitle}
+                {r(section.title, pageCopy.casita.refugeTitle)}
               </h4>
               <div className="mt-6 space-y-6 text-lg leading-9 text-gray-600">
                 {paragraphs.map((paragraph) => (
@@ -386,18 +425,18 @@ export default function DonationsClient({
 
       case "sectionDonationsCasitaCommunity": {
         if (activeTab !== "casita") return null;
-        const paragraphs = list(section.paragraphs, pageCopy.casita.communityParagraphs);
+        const paragraphs = resolveList(section.paragraphs, pageCopy.casita.communityParagraphs);
 
         return (
           <section key={section._key} className="site-card p-6 text-center sm:p-8 lg:p-12">
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-blue">
-              {section.eyebrow ?? pageCopy.casita.communityEyebrow}
+              {r(section.eyebrow, pageCopy.casita.communityEyebrow)}
             </p>
             <h4 className="mx-auto mt-4 max-w-5xl text-3xl font-bold leading-tight text-hive-blue sm:text-4xl">
-              {section.title ?? pageCopy.casita.communityTitle}
+              {r(section.title, pageCopy.casita.communityTitle)}
             </h4>
             <p className="mx-auto mt-6 max-w-4xl text-xl leading-10 text-gray-500">
-              {section.lead ?? pageCopy.casita.communityLead}
+              {r(section.lead, pageCopy.casita.communityLead)}
             </p>
             <div className="mx-auto mt-10 max-w-5xl space-y-8 text-lg leading-10 text-gray-800">
               {paragraphs.map((paragraph) => (
@@ -410,28 +449,28 @@ export default function DonationsClient({
 
       case "sectionDonationsCasitaWays": {
         if (activeTab !== "casita") return null;
-        const volunteer = action(section.volunteerCta, {
+        const volunteer = resolveAction(section.volunteerCta, {
           href: volunteerHref,
           label: pageCopy.casita.volunteerCta,
         });
-        const wishlist = action(section.wishlistCta, {
+        const wishlist = resolveAction(section.wishlistCta, {
           href: wishlistHref,
           label: pageCopy.casita.wishlistCta,
         });
-        const items = cards(section.waysToGive, pageCopy.casita.waysToGive);
+        const items = resolveCards(section.waysToGive, pageCopy.casita.waysToGive);
 
         return (
           <section key={section._key} className="site-card p-6 sm:p-8">
             <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-orange">
-                  {section.eyebrow ?? pageCopy.casita.waysEyebrow}
+                  {r(section.eyebrow, pageCopy.casita.waysEyebrow)}
                 </p>
                 <h4 className="mt-3 text-3xl font-bold text-hive-blue">
-                  {section.title ?? pageCopy.casita.waysTitle}
+                  {r(section.title, pageCopy.casita.waysTitle)}
                 </h4>
                 <p className="mt-4 text-base leading-8 text-gray-600">
-                  {section.body ?? pageCopy.casita.waysBody}
+                  {r(section.body, pageCopy.casita.waysBody)}
                 </p>
                 <div className="mt-6">
                   <div className="flex flex-wrap gap-3">
@@ -447,7 +486,7 @@ export default function DonationsClient({
                     />
                   </div>
                   <p className="mt-4 max-w-xl text-sm leading-7 text-gray-600">
-                    {section.wishlistNote ?? pageCopy.casita.wishlistNote}
+                    {r(section.wishlistNote, pageCopy.casita.wishlistNote)}
                   </p>
                 </div>
               </div>
@@ -472,22 +511,22 @@ export default function DonationsClient({
             <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
               <FeatureImage
                 src={section.imageUrl ?? "/partner-images/TheBeeBox.avif"}
-                alt={section.imageAlt ?? (section.title ?? "Bee Box image")}
+                alt={section.imageAlt ?? r(section.title, "Bee Box image")}
               />
               <article className="px-2 sm:px-4">
                 {section.eyebrow ? (
                   <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-orange">
-                    {section.eyebrow}
+                    {r(section.eyebrow, "")}
                   </p>
                 ) : null}
                 {section.title ? (
                   <h4 className="mt-3 text-3xl font-bold text-hive-blue sm:text-4xl">
-                    {section.title}
+                    {r(section.title, "")}
                   </h4>
                 ) : null}
                 {section.body ? (
                   <p className="mt-4 whitespace-pre-line text-base leading-8 text-gray-600">
-                    {section.body}
+                    {r(section.body, "")}
                   </p>
                 ) : null}
               </article>
@@ -497,13 +536,13 @@ export default function DonationsClient({
 
       case "sectionDonationsCasitaClosing": {
         if (activeTab !== "casita") return null;
-        const dedication = list(section.dedicationParagraphs, pageCopy.casita.dedicationParagraphs);
+        const dedication = resolveList(section.dedicationParagraphs, pageCopy.casita.dedicationParagraphs);
 
         return (
           <section key={section._key} className="space-y-8 text-center">
             <div className="site-card px-6 py-10 sm:px-10 sm:py-12">
               <h4 className="text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
-                {section.dedicationTitle ?? pageCopy.casita.dedicationTitle}
+                {r(section.dedicationTitle, pageCopy.casita.dedicationTitle)}
               </h4>
               <div className="mx-auto mt-6 max-w-4xl space-y-6 text-lg leading-10 text-gray-800">
                 {dedication.map((paragraph) => (
@@ -513,10 +552,10 @@ export default function DonationsClient({
             </div>
             <div className="site-card px-6 py-10 sm:px-10 sm:py-12">
               <h4 className="text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
-                {section.thanksTitle ?? pageCopy.casita.thanksTitle}
+                {r(section.thanksTitle, pageCopy.casita.thanksTitle)}
               </h4>
               <p className="mx-auto mt-6 max-w-4xl text-lg leading-10 text-gray-800">
-                {section.thanksBody ?? pageCopy.casita.thanksBody}
+                {r(section.thanksBody, pageCopy.casita.thanksBody)}
               </p>
             </div>
           </section>
@@ -525,17 +564,17 @@ export default function DonationsClient({
 
       case "sectionDonationsKeepersOverview": {
         if (activeTab !== "keepers") return null;
-        const paragraphs = list(section.paragraphs, pageCopy.keepers.paragraphs);
-        const cta = action(section.cta, { href: donateHref, label: pageCopy.keepers.cta });
+        const paragraphs = resolveList(section.paragraphs, pageCopy.keepers.paragraphs);
+        const cta = resolveAction(section.cta, { href: donateHref, label: pageCopy.keepers.cta });
 
         return (
           <section key={section._key} className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <article className="px-2 sm:px-4">
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-blue">
-                {section.eyebrow ?? pageCopy.keepers.eyebrow}
+                {r(section.eyebrow, pageCopy.keepers.eyebrow)}
               </p>
               <h3 className="mt-4 text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
-                {section.title ?? pageCopy.keepers.title}
+                {r(section.title, pageCopy.keepers.title)}
               </h3>
               <div className="mt-6 space-y-6 text-lg leading-9 text-gray-600">
                 {paragraphs.map((paragraph) => (
@@ -560,7 +599,7 @@ export default function DonationsClient({
 
       case "sectionDonationsKeepersBenefits": {
         if (activeTab !== "keepers") return null;
-        const items = list(section.benefits, pageCopy.keepers.benefits);
+        const items = resolveList(section.benefits, pageCopy.keepers.benefits);
 
         return (
           <section key={section._key} className="mx-auto max-w-4xl">
@@ -568,11 +607,11 @@ export default function DonationsClient({
               <div className="flex items-center justify-center gap-3">
                 <Star className="h-5 w-5 text-hive-orange" />
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-orange">
-                  {section.eyebrow ?? pageCopy.keepers.benefitsEyebrow}
+                  {r(section.eyebrow, pageCopy.keepers.benefitsEyebrow)}
                 </p>
               </div>
               <h4 className="mt-4 text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
-                {section.title ?? pageCopy.keepers.benefitsTitle}
+                {r(section.title, pageCopy.keepers.benefitsTitle)}
               </h4>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {items.map((item) => (
@@ -583,10 +622,10 @@ export default function DonationsClient({
               </div>
               <div className="mt-6 rounded-xl border border-hive-orange/20 bg-[#fff7ea] p-5 text-left">
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-hive-orange">
-                  {section.contactLabel ?? pageCopy.keepers.contactLabel}
+                  {r(section.contactLabel, pageCopy.keepers.contactLabel)}
                 </p>
                 <p className="mt-2 text-sm leading-7 text-gray-600">
-                  {section.contactPrefix ?? pageCopy.keepers.contactPrefix}{" "}
+                  {r(section.contactPrefix, pageCopy.keepers.contactPrefix)}{" "}
                   <a className="site-link" href={`mailto:${section.contactEmail ?? contactEmail}`}>
                     {section.contactEmail ?? contactEmail}
                   </a>
@@ -600,27 +639,27 @@ export default function DonationsClient({
 
       case "sectionDonationsKeepersTiers": {
         if (activeTab !== "keepers") return null;
-        const items = tiers(section.tiers, pageCopy.keepers.tiers);
+        const items = resolveTiers(section.tiers, pageCopy.keepers.tiers);
 
         return (
           <section key={section._key} className="site-card p-8 sm:p-10">
             <div className="grid gap-8 lg:min-h-176 lg:grid-cols-[0.85fr_1.15fr] lg:p-4">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-blue">
-                  {section.eyebrow ?? pageCopy.keepers.monthlyEyebrow}
+                  {r(section.eyebrow, pageCopy.keepers.monthlyEyebrow)}
                 </p>
                 <h4 className="mt-3 text-3xl font-bold text-hive-blue">
-                  {section.title ?? pageCopy.keepers.monthlyTitle}
+                  {r(section.title, pageCopy.keepers.monthlyTitle)}
                 </h4>
                 <p className="mt-4 text-base leading-8 text-gray-600">
-                  {section.body ?? pageCopy.keepers.monthlyBody}
+                  {r(section.body, pageCopy.keepers.monthlyBody)}
                 </p>
                 <div className="mt-6 rounded-xl border border-hive-blue/20 bg-hive-blue/5 p-5">
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-blue">
-                    {section.focusedImpactTitle ?? pageCopy.keepers.focusedImpactTitle}
+                    {r(section.focusedImpactTitle, pageCopy.keepers.focusedImpactTitle)}
                   </p>
                   <p className="mt-3 text-sm leading-7 text-gray-600">
-                    {section.focusedImpactBody ?? pageCopy.keepers.focusedImpactBody}
+                    {r(section.focusedImpactBody, pageCopy.keepers.focusedImpactBody)}
                   </p>
                 </div>
               </div>
@@ -649,16 +688,16 @@ export default function DonationsClient({
 
       case "sectionDonationsKeepersImpact": {
         if (activeTab !== "keepers") return null;
-        const items = impactAreas(section.impactAreas, fallbackAreas);
+        const items = resolveImpactAreas(section.impactAreas, fallbackAreas);
 
         return (
           <section key={section._key} className="site-card p-6 sm:p-8">
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-orange">
-                {section.eyebrow ?? pageCopy.keepers.supportedEyebrow}
+                {r(section.eyebrow, pageCopy.keepers.supportedEyebrow)}
               </p>
               <h4 className="mt-3 text-3xl font-bold text-hive-blue sm:text-4xl">
-                {section.title ?? pageCopy.keepers.supportedTitle}
+                {r(section.title, pageCopy.keepers.supportedTitle)}
               </h4>
             </div>
             <div className="mt-8 flex gap-4 overflow-x-auto pb-2 lg:overflow-visible">
@@ -694,13 +733,15 @@ export default function DonationsClient({
             <div className="mx-auto max-w-4xl text-center">
               {section.eyebrow ? (
                 <p className="text-sm font-semibold uppercase tracking-[0.28em] text-hive-orange">
-                  {section.eyebrow}
+                  {r(section.eyebrow, "")}
                 </p>
               ) : null}
-              {section.heading ? <h2 className="site-heading mt-4">{section.heading}</h2> : null}
+              {section.heading ? (
+                <h2 className="site-heading mt-4">{r(section.heading, "")}</h2>
+              ) : null}
               {section.body ? (
                 <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-gray-600">
-                  {section.body}
+                  {r(section.body, "")}
                 </p>
               ) : null}
             </div>
@@ -711,20 +752,24 @@ export default function DonationsClient({
         return section.heading || section.body || section.imageUrl ? (
           <section key={section._key} className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
             <div className="mx-auto max-w-3xl text-center">
-              {section.heading ? <h2 className="site-heading">{section.heading}</h2> : null}
+              {section.heading ? (
+                <h2 className="site-heading">{r(section.heading, "")}</h2>
+              ) : null}
             </div>
             <div className="mx-auto mt-12 grid max-w-6xl items-center gap-8 md:grid-cols-2">
               {section.imageUrl ? (
                 <div className="relative h-72 w-full sm:h-96 md:h-full">
                   <Image
                     src={section.imageUrl}
-                    alt={section.heading ?? "Section image"}
+                    alt={r(section.heading, "Section image")}
                     fill
                     className="rounded-xl object-cover"
                   />
                 </div>
               ) : null}
-              {section.body ? <p className="site-copy whitespace-pre-line">{section.body}</p> : null}
+              {section.body ? (
+                <p className="site-copy whitespace-pre-line">{r(section.body, "")}</p>
+              ) : null}
             </div>
           </section>
         ) : null;

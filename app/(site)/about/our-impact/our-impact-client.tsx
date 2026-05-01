@@ -130,7 +130,7 @@ export default function OurImpactClient({
                                                     rel="noopener noreferrer"
                                                     className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-hive-blue hover:underline"
                                                 >
-                                                    Read more
+                                                    c.readMore
                                                     <ExternalLink className="h-3.5 w-3.5" />
                                                 </a>
                                             ) : null}
