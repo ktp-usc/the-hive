@@ -21,15 +21,15 @@ export const teamMember = defineType({
     defineField({
       name: 'role',
       title: 'Role / Title',
-      type: 'string',
+      type: 'localizedString',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'bio',
       title: 'Bio / Organization note',
-      description: 'For board members: organization and title (e.g. "Ignite Leadership Solutions\\nCEO"). For the founder: a short profile summary.',
-      type: 'text',
-      rows: 4,
+      description:
+        'For board members: organization and title (e.g. "Ignite Leadership Solutions\\nCEO"). For the founder: a short profile summary.',
+      type: 'localizedText',
     }),
     defineField({
       name: 'image',
@@ -64,56 +64,33 @@ export const teamMember = defineType({
     defineField({
       name: 'storyEyebrow',
       title: 'Story eyebrow',
-      type: 'string',
+      type: 'localizedString',
       description: 'Founder only — small label above the story heading (e.g. "Founder Story").',
     }),
     defineField({
       name: 'narrativeLabel',
       title: 'Narrative label',
-      type: 'string',
+      type: 'localizedString',
       description: 'Founder only — label inside the narrative box (e.g. "Narrative").',
     }),
     defineField({
       name: 'narrativeParagraphs',
       title: 'Narrative paragraphs',
       type: 'array',
-      of: [{type: 'text'}],
+      of: [{type: 'localizedText'}],
       description: 'Founder only — each item is one paragraph of the founder narrative.',
-    }),
-    defineField({
-      name: 'sparkTitle',
-      title: 'Founding spark title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'sparkBody',
-      title: 'Founding spark body',
-      type: 'text',
-      rows: 6,
-    }),
-    defineField({
-      name: 'visionTitle',
-      title: 'Vision today title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'visionBody',
-      title: 'Vision today body',
-      type: 'text',
-      rows: 6,
     }),
     defineField({
       name: 'profileBody',
       title: 'Profile summary',
-      type: 'text',
-      rows: 3,
+      type: 'localizedText',
       description: 'Founder only — short paragraph shown beneath the photo in the aside.',
     }),
   ],
   preview: {
     select: {
       title: 'name',
-      subtitle: 'role',
+      subtitle: 'role.en',
       group: 'group',
       media: 'image',
     },

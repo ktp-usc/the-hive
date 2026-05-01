@@ -21,19 +21,18 @@ export const contentCard = defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
+      type: 'localizedString',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'subtitle',
       title: 'Subtitle',
-      type: 'string',
+      type: 'localizedString',
     }),
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
-      rows: 6,
+      type: 'localizedText',
       description:
         'Main body copy for the card. When the site reads from Sanity, this maps to the card summary paragraph in the UI.',
       validation: (Rule) => Rule.required(),
@@ -42,7 +41,7 @@ export const contentCard = defineType({
       name: 'details',
       title: 'Details',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{type: 'localizedString'}],
     }),
     defineField({
       name: 'cta',
@@ -52,7 +51,7 @@ export const contentCard = defineType({
         defineField({
           name: 'label',
           title: 'Label',
-          type: 'string',
+          type: 'localizedString',
           validation: (Rule) => Rule.required(),
         }),
         defineField({
@@ -80,13 +79,13 @@ export const contentCard = defineType({
     defineField({
       name: 'badge',
       title: 'Badge',
-      type: 'string',
+      type: 'localizedString',
     }),
   ],
   preview: {
     select: {
-      title: 'title',
-      subtitle: 'subtitle',
+      title: 'title.en',
+      subtitle: 'subtitle.en',
       key: 'key',
     },
     prepare({title, subtitle, key}) {

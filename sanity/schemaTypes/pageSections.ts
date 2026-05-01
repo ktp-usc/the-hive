@@ -179,34 +179,33 @@ export const sectionHero = defineType({
 })
 
 export const sectionCardGrid = defineType({
-  name: 'sectionCardGrid',
-  title: 'Card grid',
-  type: 'object',
-  fields: [
-    defineField({
-      name: 'sectionTitle',
-      title: 'Section title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'intro',
-      title: 'Intro',
-      type: 'text',
-      rows: 4,
-    }),
-    defineField({
-      name: 'cards',
-      title: 'Cards',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'contentCard'}]}],
-    }),
-  ],
-  preview: {
-    select: {title: 'sectionTitle'},
-    prepare({title}) {
-      return {title: title || 'Card grid'}
+    name: 'sectionCardGrid',
+    title: 'Card grid',
+    type: 'object',
+    fields: [
+        defineField({
+            name: 'sectionTitle',
+            title: 'Section title',
+            type: 'localizedString',
+        }),
+        defineField({
+            name: 'intro',
+            title: 'Intro',
+            type: 'localizedText',
+        }),
+        defineField({
+            name: 'cards',
+            title: 'Cards',
+            type: 'array',
+            of: [{type: 'reference', to: [{type: 'contentCard'}]}],
+        }),
+    ],
+    preview: {
+        select: {title: 'sectionTitle.en'},
+        prepare({title}) {
+            return {title: title || 'Card grid'}
+        },
     },
-  },
 })
 
 export const sectionVolunteerCards = defineType({
@@ -798,32 +797,32 @@ export const sectionTeam = defineType({
   title: 'Team',
   type: 'object',
   fields: [
-    defineField({
-      name: 'eyebrow',
-      title: 'Eyebrow',
-      type: 'string',
-      description: 'Small label above the section heading (e.g. "Team", "Leadership").',
-    }),
-    defineField({
-      name: 'groupLabel',
-      title: 'Group label / heading',
-      type: 'string',
-      description:
-          'Heading for this block (e.g. Founder/CEO, Team Members, Board of Directors). Each team member has a Section field — keep this label aligned with that grouping.',
-    }),
-    defineField({
-      name: 'members',
-      title: 'Members',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'teamMember'}]}],
-    }),
+      defineField({
+          name: 'eyebrow',
+          title: 'Eyebrow',
+          type: 'localizedString',
+          description: 'Small label above the section heading (e.g. "Team", "Leadership").',
+      }),
+      defineField({
+          name: 'groupLabel',
+          title: 'Group label / heading',
+          type: 'localizedString',
+          description:
+              'Heading for this block (e.g. Founder/CEO, Team Members, Board of Directors). Each team member has a Section field — keep this label aligned with that grouping.',
+      }),
+      defineField({
+          name: 'members',
+          title: 'Members',
+          type: 'array',
+          of: [{type: 'reference', to: [{type: 'teamMember'}]}],
+      }),
   ],
-  preview: {
-    select: {label: 'groupLabel'},
-    prepare({label}) {
-      return {title: label || 'Team'}
+    preview: {
+        select: {label: 'groupLabel.en'},
+        prepare({label}) {
+            return {title: label || 'Team'}
+        },
     },
-  },
 })
 
 export const sectionGallery = defineType({
