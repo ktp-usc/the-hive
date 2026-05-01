@@ -1,25 +1,32 @@
 import { defineQuery } from "next-sanity";
 
+type LocalizedValue =
+  | string
+  | { en?: string | null; es?: string | null }
+  | null
+  | undefined;
+
 export type EventsHeroSection = {
   _type: "sectionEventsHero";
-  eyebrow?: string | null;
-  title?: string | null;
-  body?: string | null;
-  openCalendarLabel?: string | null;
-  askAboutEventLabel?: string | null;
-  calendarIframeTitle?: string | null;
+  eyebrow?: LocalizedValue;
+  title?: LocalizedValue;
+  body?: LocalizedValue;
+  openCalendarLabel?: LocalizedValue;
+  askAboutEventLabel?: LocalizedValue;
+  calendarIframeTitle?: LocalizedValue;
 };
 
 export type EventsUpcomingSection = {
   _type: "sectionEventsUpcoming";
-  eyebrow?: string | null;
-  title?: string | null;
-  openCalendarLabel?: string | null;
-  loadingLabel?: string | null;
-  emptyLabel?: string | null;
-  privacyNote?: string | null;
-  ctaLabel?: string | null;
-  allDayLabel?: string | null;
+  eyebrow?: LocalizedValue;
+  title?: LocalizedValue;
+  body?: LocalizedValue;
+  openCalendarLabel?: LocalizedValue;
+  loadingLabel?: LocalizedValue;
+  emptyLabel?: LocalizedValue;
+  privacyNote?: LocalizedValue;
+  ctaLabel?: LocalizedValue;
+  allDayLabel?: LocalizedValue;
 };
 
 export type EventsPageSection = EventsHeroSection | EventsUpcomingSection;
@@ -37,7 +44,7 @@ export const eventsPageQuery = defineQuery(`
         eyebrow, title, body, openCalendarLabel, askAboutEventLabel, calendarIframeTitle
       },
       _type == "sectionEventsUpcoming" => {
-        eyebrow, title, openCalendarLabel, loadingLabel, emptyLabel, privacyNote, ctaLabel, allDayLabel
+        eyebrow, title, body, openCalendarLabel, loadingLabel, emptyLabel, privacyNote, ctaLabel, allDayLabel
       },
       _type == "sectionHero" => {
         headline, subheadline, ctaLabel, ctaHref,
