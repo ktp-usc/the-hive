@@ -6,6 +6,7 @@ import PartnershipCarousel, {
     type PartnershipCarouselSlide,
 } from "@/components/partnership-carousel";
 import { useLanguage, useSiteCopy } from "@/components/language-provider";
+import { resolveLocalized } from "@/lib/resolved-localized";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
@@ -21,55 +22,61 @@ type CategoryKey =
 
 type StaticCategory = { key: CategoryKey; partners: StaticPartner[] };
 
+type LocalizedValue =
+    | string
+    | { en?: string | null; es?: string | null }
+    | null
+    | undefined;
+
 type PartnerPageData = {
     sections?: Array<
         | {
-        _key?: string;
-        _type: "sectionHero";
-        headline?: string;
-        subheadline?: string;
-    }
+              _key?: string;
+              _type: "sectionHero";
+              headline?: LocalizedValue;
+              subheadline?: LocalizedValue;
+          }
         | {
-        _key?: string;
-        _type: "sectionImageText";
-        heading?: string;
-        body?: string;
-        imageUrl?: string | null;
-    }
+              _key?: string;
+              _type: "sectionImageText";
+              heading?: LocalizedValue;
+              body?: LocalizedValue;
+              imageUrl?: string | null;
+          }
         | {
-        _key?: string;
-        _type: "sectionImageCarousel";
-        heading?: string;
-        body?: string;
-        slides?: Array<{
-            _key?: string;
-            title?: string;
-            caption?: string;
-            alt?: string;
-            imageUrl?: string | null;
-        }>;
-    }
+              _key?: string;
+              _type: "sectionImageCarousel";
+              heading?: LocalizedValue;
+              body?: LocalizedValue;
+              slides?: Array<{
+                  _key?: string;
+                  title?: LocalizedValue;
+                  caption?: LocalizedValue;
+                  alt?: string;
+                  imageUrl?: string | null;
+              }>;
+          }
         | {
-        _key?: string;
-        _type: "sectionPartnerLogos";
-        groupLabel?: string;
-        partners?: Array<{
-            _id: string;
-            name: string;
-            category?: string | null;
-            logoUrl: string | null;
-        }>;
-    }
+              _key?: string;
+              _type: "sectionPartnerLogos";
+              groupLabel?: LocalizedValue;
+              partners?: Array<{
+                  _id: string;
+                  name: string;
+                  category?: string | null;
+                  logoUrl: string | null;
+              }>;
+          }
         | {
-        _key?: string;
-        _type: "sectionPartnersOpportunities";
-        heading?: string | null;
-        description?: string | null;
-        residencyLabel?: string | null;
-        resourceLabel?: string | null;
-        beeBoxContactText?: string | null;
-        beeBoxEmail?: string | null;
-    }
+              _key?: string;
+              _type: "sectionPartnersOpportunities";
+              heading?: LocalizedValue;
+              description?: LocalizedValue;
+              residencyLabel?: LocalizedValue;
+              resourceLabel?: LocalizedValue;
+              beeBoxContactText?: LocalizedValue;
+              beeBoxEmail?: string | null;
+          }
     >;
 } | null;
 
@@ -80,21 +87,9 @@ type PartnerCarouselSection = Extract<PartnerSection, { _type: "sectionImageCaro
 type PartnerLogoSection = Extract<PartnerSection, { _type: "sectionPartnerLogos" }>;
 type PartnerOpportunitiesSection = Extract<PartnerSection, { _type: "sectionPartnersOpportunities" }>;
 
-const DEFAULT_HOST_THE_HIVE = {
-    heading: "Host the Hive",
-    body:
-        "Invite The Hive into your business, workplace, or community space for a short-term residency, typically around a month or tailored to your schedule. We work alongside your team to create visible, approachable moments of support through outreach, education, and resource-sharing that meet people where they are.",
-    imageUrl: "/images/TheHive_12.06.2025_87.jpg",
-    alt: "The Hive team members and supporters gathered together at an event",
-};
-
-const DEFAULT_BEE_BOX = {
-    heading: "The Bee Box",
-    body:
-        "Sitting in a cold waiting room, trembling with fear as one contemplates disclosing their abuse is never a vision one would desire to have, but this is often the reality for survivors of abuse and violence. The Bee Box was designed to support survivors who disclose in public settings such as healthcare settings, police stations, schools, or churches. The Bee Box has been uniquely designed to provide aid and support as a survivor embarks on their journey of healing, consisting of a grounding tool, tea for care and wellness, powerful affirmations written by fellow survivors, and an all-natural room enhancer spray.",
-    imageUrl: "/partner-images/TheBeeBox.avif",
-    alt: "The Bee Box",
-};
+function r(value: unknown, language: "en" | "es-MX", fallback: string): string {
+    return resolveLocalized(value, language, fallback);
+}
 
 const STATIC_PARTNERSHIP_SLIDES: PartnershipCarouselSlide[] = [
     {
@@ -123,46 +118,73 @@ const STATIC_PARTNERSHIP_SLIDES: PartnershipCarouselSlide[] = [
     },
 ];
 
-const DEFAULT_OPPORTUNITIES_HEADING = "Partnership Opportunities";
-const DEFAULT_OPPORTUNITIES_DESCRIPTION = "We are grateful for the organizations, businesses, and community leaders who support this work.";
-const DEFAULT_RESIDENCY_LABEL = "Residency Partnership";
-const DEFAULT_RESOURCE_LABEL = "Resource Partnership";
-const DEFAULT_BEE_BOX_CONTACT_TEXT = "If you are interested in becoming a partner site for the Bee Box, please reach out to";
-const DEFAULT_BEE_BOX_EMAIL = "volunteer@thehivecc.org";
+const STATIC_CATEGORIES: StaticCategory[] = [
+    {
+        key: "philanthropic",
+        partners: [
+            { src: "/partner-images/JLC.png", alt: "Junior League of Columbia" },
+            { src: "/partner-images/Allstate.webp", alt: "Allstate Foundation" },
+        ],
+    },
+];
+
+function PartnerGrid({ partners }: { partners: { src: string; alt: string }[] }) {
+    return (
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
+            {partners.map((partner) => (
+                <div
+                    key={partner.alt}
+                    className="flex items-center justify-center rounded-xl border border-gray-200 bg-background p-4 shadow-sm"
+                >
+                    <div className="relative h-16 w-full">
+                        <Image
+                            src={partner.src}
+                            alt={partner.alt}
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
 
 function PartnershipOpportunitiesSection({
-                                             hostTheHive,
-                                             beeBox,
-                                             opportunitiesSec,
-                                         }: {
-    hostTheHive: {
-        heading: string;
-        body: string;
-        imageUrl: string;
-        alt: string;
-    };
-    beeBox: {
-        heading: string;
-        body: string;
-        imageUrl: string;
-        alt: string;
-    };
+    language,
+    hostTheHive,
+    beeBox,
+    opportunitiesSec,
+    defaultHeading,
+    defaultDescription,
+    defaultResidencyLabel,
+    defaultResourceLabel,
+    defaultBeeBoxContactText,
+    defaultBeeBoxEmail,
+}: {
+    language: "en" | "es-MX";
+    hostTheHive: { heading: string; body: string; imageUrl: string; alt: string };
+    beeBox: { heading: string; body: string; imageUrl: string; alt: string };
     opportunitiesSec: PartnerOpportunitiesSection | null;
+    defaultHeading: string;
+    defaultDescription: string;
+    defaultResidencyLabel: string;
+    defaultResourceLabel: string;
+    defaultBeeBoxContactText: string;
+    defaultBeeBoxEmail: string;
 }) {
-    const sectionHeading = opportunitiesSec?.heading ?? DEFAULT_OPPORTUNITIES_HEADING;
-    const sectionDescription = opportunitiesSec?.description ?? DEFAULT_OPPORTUNITIES_DESCRIPTION;
-    const residencyLabel = opportunitiesSec?.residencyLabel ?? DEFAULT_RESIDENCY_LABEL;
-    const resourceLabel = opportunitiesSec?.resourceLabel ?? DEFAULT_RESOURCE_LABEL;
-    const beeBoxContactText = opportunitiesSec?.beeBoxContactText ?? DEFAULT_BEE_BOX_CONTACT_TEXT;
-    const beeBoxEmail = opportunitiesSec?.beeBoxEmail ?? DEFAULT_BEE_BOX_EMAIL;
+    const sectionHeading = r(opportunitiesSec?.heading, language, defaultHeading);
+    const sectionDescription = r(opportunitiesSec?.description, language, defaultDescription);
+    const residencyLabel = r(opportunitiesSec?.residencyLabel, language, defaultResidencyLabel);
+    const resourceLabel = r(opportunitiesSec?.resourceLabel, language, defaultResourceLabel);
+    const beeBoxContactText = r(opportunitiesSec?.beeBoxContactText, language, defaultBeeBoxContactText);
+    const beeBoxEmail = opportunitiesSec?.beeBoxEmail ?? defaultBeeBoxEmail;
 
     return (
         <section className="site-surface px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
             <div className="mx-auto max-w-3xl text-center">
                 <h2 className="site-heading">{sectionHeading}</h2>
-                <p className="site-copy mt-4">
-                    {sectionDescription}
-                </p>
+                <p className="site-copy mt-4">{sectionDescription}</p>
             </div>
 
             <div className="mx-auto mt-12 max-w-6xl space-y-8">
@@ -175,7 +197,6 @@ function PartnershipOpportunitiesSection({
                             </h3>
                             <p className="site-copy mt-4">{hostTheHive.body}</p>
                         </div>
-
                         <div className="relative min-h-72 bg-hive-blue/5">
                             <Image
                                 src={hostTheHive.imageUrl}
@@ -200,7 +221,6 @@ function PartnershipOpportunitiesSection({
                                 priority
                             />
                         </div>
-
                         <div>
                             <p className="site-subheading">{resourceLabel}</p>
                             <h3 className="mt-3 text-3xl font-semibold text-hive-blue">
@@ -209,7 +229,10 @@ function PartnershipOpportunitiesSection({
                             <p className="site-copy mt-4 whitespace-pre-line">{beeBox.body}</p>
                             <p className="site-copy mt-6">
                                 {beeBoxContactText}{" "}
-                                <a className="site-link font-medium" href={`mailto:${beeBoxEmail}`}>
+                                <a
+                                    className="site-link font-medium"
+                                    href={`mailto:${beeBoxEmail}`}
+                                >
                                     {beeBoxEmail}
                                 </a>
                             </p>
@@ -221,110 +244,87 @@ function PartnershipOpportunitiesSection({
     );
 }
 
-const STATIC_CATEGORIES: StaticCategory[] = [
-    {
-        key: "philanthropic",
-        partners: [
-            { src: "/partner-images/JLC.png", alt: "Junior League of Columbia" },
-            { src: "/partner-images/Allstate.webp", alt: "Allstate Foundation" },
-        ],
-    },
-];
-
-function PartnerGrid({ partners }: { partners: { src: string; alt: string }[] }) {
-    return (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
-            {partners.map((partner) => (
-                <div
-                    key={partner.alt}
-                    className="flex items-center justify-center rounded-xl border border-gray-200 bg-background p-4 shadow-sm"
-                >
-                    <div className="relative h-16 w-full">
-                        <Image src={partner.src} alt={partner.alt} fill className="object-contain" />
-                    </div>
-                </div>
-            ))}
-        </div>
-    );
-}
-
 export default function PartnersClient({ page }: { page: PartnerPageData }) {
     const copy = useSiteCopy();
     const { language } = useLanguage();
-    const useCmsText = language === "en";
 
     const sections = page?.sections ?? [];
 
     const hero = sections.find(
-        (section): section is PartnerHeroSection => section._type === "sectionHero"
+        (section): section is PartnerHeroSection => section._type === "sectionHero",
     );
 
     const imageTextSections = sections.filter(
-        (section): section is PartnerImageTextSection => section._type === "sectionImageText"
+        (section): section is PartnerImageTextSection =>
+            section._type === "sectionImageText",
     );
-    // Convention: first sectionImageText = host the hive, second = bee box
     const hostTheHiveSec = imageTextSections[0] ?? null;
     const beeBoxSec = imageTextSections[1] ?? null;
 
-    const carouselSec = sections.find(
-        (section): section is PartnerCarouselSection => section._type === "sectionImageCarousel"
-    ) ?? null;
+    const carouselSec =
+        sections.find(
+            (section): section is PartnerCarouselSection =>
+                section._type === "sectionImageCarousel",
+        ) ?? null;
 
-    const opportunitiesSec = sections.find(
-        (section): section is PartnerOpportunitiesSection => section._type === "sectionPartnersOpportunities"
-    ) ?? null;
+    const opportunitiesSec =
+        sections.find(
+            (section): section is PartnerOpportunitiesSection =>
+                section._type === "sectionPartnersOpportunities",
+        ) ?? null;
 
     const partnerSections = sections.filter(
-        (section): section is PartnerLogoSection => section._type === "sectionPartnerLogos"
+        (section): section is PartnerLogoSection =>
+            section._type === "sectionPartnerLogos",
     );
 
-    const heroEyebrow =
-        useCmsText && hero?.subheadline ? hero.subheadline : copy.partners.heroEyebrow;
+    // Hero — resolveLocalized handles Sanity objects, plain strings, and null
+    const heroEyebrow = r(hero?.subheadline, language, copy.partners.heroEyebrow);
+    const heroTitle = r(hero?.headline, language, copy.partners.heroTitle);
 
-    const heroTitle =
-        useCmsText && hero?.headline ? hero.headline : copy.partners.heroTitle;
-
+    // Host the Hive section — Sanity fields override, site-copy is bilingual fallback
     const resolvedHostTheHive = {
-        heading: hostTheHiveSec?.heading ?? DEFAULT_HOST_THE_HIVE.heading,
-        body: hostTheHiveSec?.body ?? DEFAULT_HOST_THE_HIVE.body,
-        imageUrl: hostTheHiveSec?.imageUrl ?? DEFAULT_HOST_THE_HIVE.imageUrl,
-        alt: DEFAULT_HOST_THE_HIVE.alt,
+        heading: r(hostTheHiveSec?.heading, language, copy.partners.beeBoxTitle),
+        body: r(hostTheHiveSec?.body, language, copy.partners.beeBoxBody),
+        imageUrl: hostTheHiveSec?.imageUrl ?? "/images/TheHive_12.06.2025_87.jpg",
+        alt: "The Hive team members and supporters gathered together at an event",
     };
 
+    // Bee Box section — Sanity fields override, site-copy is bilingual fallback
     const resolvedBeeBox = {
-        heading: beeBoxSec?.heading ?? DEFAULT_BEE_BOX.heading,
-        body: beeBoxSec?.body ?? DEFAULT_BEE_BOX.body,
-        imageUrl: beeBoxSec?.imageUrl ?? DEFAULT_BEE_BOX.imageUrl,
-        alt: DEFAULT_BEE_BOX.alt,
+        heading: r(beeBoxSec?.heading, language, copy.partners.beeBoxTitle),
+        body: r(beeBoxSec?.body, language, copy.partners.beeBoxBody),
+        imageUrl: beeBoxSec?.imageUrl ?? "/partner-images/TheBeeBox.avif",
+        alt: "The Bee Box",
     };
 
     const resolvedCarouselSlides: PartnershipCarouselSlide[] =
         carouselSec?.slides?.length
             ? carouselSec.slides.map((s) => ({
-                key: s._key ?? s.title ?? "",
-                imageUrl: s.imageUrl ?? "",
-                alt: s.alt ?? "",
-                title: s.title ?? "",
-                caption: s.caption ?? "",
-            }))
+                  key: s._key ?? "",
+                  imageUrl: s.imageUrl ?? "",
+                  alt: s.alt ?? "",
+                  title: r(s.title, language, ""),
+                  caption: r(s.caption, language, ""),
+              }))
             : STATIC_PARTNERSHIP_SLIDES;
 
     const partnerCategories =
         partnerSections.length > 0
             ? partnerSections.map((section) => ({
-                key: section._key ?? section.groupLabel,
-                label: section.groupLabel ?? "",
-                partners:
-                    section.partners?.map((p) => ({
-                        src: p.logoUrl ?? "",
-                        alt: p.name,
-                    })) ?? [],
-            }))
-            : STATIC_CATEGORIES.map((c) => ({
-                key: c.key,
-                label: copy.partners.categoryTitles[c.key],
-                partners: c.partners,
-            }));
+                  key: section._key ?? r(section.groupLabel, language, ""),
+                  label: r(section.groupLabel, language, ""),
+                  partners:
+                      section.partners?.map((p) => ({
+                          src: p.logoUrl ?? "",
+                          alt: p.name,
+                      })) ?? [],
+              }))
+            : STATIC_CATEGORIES.map((cat) => ({
+                  key: cat.key,
+                  label: copy.partners.categoryTitles[cat.key],
+                  partners: cat.partners,
+              }));
 
     return (
         <main className="site-page">
@@ -346,9 +346,16 @@ export default function PartnersClient({ page }: { page: PartnerPageData }) {
                 </section>
 
                 <PartnershipOpportunitiesSection
+                    language={language}
                     hostTheHive={resolvedHostTheHive}
                     beeBox={resolvedBeeBox}
                     opportunitiesSec={opportunitiesSec}
+                    defaultHeading={copy.partners.opportunitiesTitle}
+                    defaultDescription={copy.partners.heroBody}
+                    defaultResidencyLabel="Residency Partnership"
+                    defaultResourceLabel="Resource Partnership"
+                    defaultBeeBoxContactText={copy.partners.beeBoxPartnerPrefix}
+                    defaultBeeBoxEmail="volunteer@thehivecc.org"
                 />
 
                 {/* PARTNERS */}
