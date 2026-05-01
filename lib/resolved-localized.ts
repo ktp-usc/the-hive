@@ -5,15 +5,18 @@ export function resolveLocalized(
     language: LanguageCode,
     fallback: string
 ): string {
-    if (typeof value === "string") return value;
+    if (typeof value === "string") {
+        return value.trim() || fallback;
+    }
 
     if (!value || typeof value !== "object") return fallback;
 
-    const v = value as { en?: string; es?: string };
+    const v = value as Record<string, string | null | undefined>;
 
     if (language === "es-MX") {
-        return v.es || v.en || fallback;
+        const spanish = v["es"] || v["es-MX"] || null;
+        return spanish?.trim() || v["en"]?.trim() || fallback;
     }
 
-    return v.en || v.es || fallback;
+    return v["en"]?.trim() || v["es"]?.trim() || v["es-MX"]?.trim() || fallback;
 }

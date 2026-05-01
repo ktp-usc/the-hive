@@ -10,16 +10,26 @@ import GenericSectionRenderer from "@/components/generic-section-renderer";
 export const metadata = { title: "Contact | The Hive" };
 
 const HANDLED = new Set([
-  "sectionContactHero", "sectionContactNewsletter", "sectionContactForm", "sectionContactInfo",
+    "sectionContactHero",
+    "sectionContactNewsletter",
+    "sectionContactForm",
+    "sectionContactInfo",
 ]);
+
 const GENERIC_TYPES = new Set([
-  "sectionRichText", "sectionImageText", "sectionHero", "sectionImageCarousel",
-  "sectionCardGrid", "sectionVolunteerCards", "sectionDonationOpportunity",
+    "sectionRichText",
+    "sectionImageText",
+    "sectionHero",
+    "sectionImageCarousel",
+    "sectionCardGrid",
+    "sectionVolunteerCards",
+    "sectionDonationOpportunity",
 ]);
 
 export default async function ContactPage() {
     let pageData = null;
     let siteData = null;
+
     try {
         [{ data: pageData }, { data: siteData }] = await Promise.all([
             sanityFetch({ query: contactPageQuery }),
@@ -28,10 +38,10 @@ export default async function ContactPage() {
     } catch {
         // Sanity fetch failed; render with static fallback
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const allSections = ((pageData as any)?.sections ?? []) as any[];
+
+    const allSections = ((pageData as { sections?: { _type: string }[] } | null)?.sections ?? []);
     const extraSections = allSections.filter(
-      (s) => GENERIC_TYPES.has(s._type) && !HANDLED.has(s._type)
+        (s) => GENERIC_TYPES.has(s._type) && !HANDLED.has(s._type)
     );
 
     return (
@@ -42,7 +52,7 @@ export default async function ContactPage() {
                     siteSettings={(siteData ?? null) as SiteSettingsData}
                 />
             </Suspense>
-            <GenericSectionRenderer sections={extraSections} />
+            <GenericSectionRenderer sections={extraSections as any} />
         </>
     );
 }

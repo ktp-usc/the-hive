@@ -1,64 +1,73 @@
 import { defineQuery } from "next-sanity";
 
+type LocalizedValue =
+    | string
+    | {
+    en?: string | null;
+    "es-MX"?: string | null;
+}
+    | null
+    | undefined;
+
 type ContactBaseSection = { _key?: string; _type: string };
 
 export type ContactHeroSection = ContactBaseSection & {
-  _type: "sectionContactHero";
-  eyebrow?: string;
-  title?: string;
-  body?: string;
+    _type: "sectionContactHero";
+    eyebrow?: LocalizedValue;
+    title?: LocalizedValue;
+    body?: LocalizedValue;
 };
 
 export type ContactNewsletterSection = ContactBaseSection & {
-  _type: "sectionContactNewsletter";
-  title?: string;
-  formTitle?: string;
-  emailLabel?: string;
-  submitLabel?: string;
-  newsletterUrl?: string | null;
+    _type: "sectionContactNewsletter";
+    title?: LocalizedValue;
+    formTitle?: LocalizedValue;
+    emailLabel?: LocalizedValue;
+    submitLabel?: LocalizedValue;
+    newsletterUrl?: string | null;
 };
 
 export type ContactFormSubjectOption = {
-  value?: string | null;
-  label?: string | null;
+    value?: string | null;
+    label?: LocalizedValue;
 };
 
 export type ContactFormSection = ContactBaseSection & {
-  _type: "sectionContactForm";
-  formTitle?: string | null;
-  formDescription?: string | null;
-  nameLabel?: string | null;
-  namePlaceholder?: string | null;
-  emailLabel?: string | null;
-  emailPlaceholder?: string | null;
-  phoneLabel?: string | null;
-  phonePlaceholder?: string | null;
-  subjectLabel?: string | null;
-  subjectPlaceholder?: string | null;
-  commentLabel?: string | null;
-  commentPlaceholder?: string | null;
-  submitLabel?: string | null;
-  subjectOptions?: ContactFormSubjectOption[] | null;
+    _type: "sectionContactForm";
+    formTitle?: LocalizedValue;
+    formDescription?: LocalizedValue;
+    nameLabel?: LocalizedValue;
+    namePlaceholder?: LocalizedValue;
+    emailLabel?: LocalizedValue;
+    emailPlaceholder?: LocalizedValue;
+    phoneLabel?: LocalizedValue;
+    phonePlaceholder?: LocalizedValue;
+    subjectLabel?: LocalizedValue;
+    subjectPlaceholder?: LocalizedValue;
+    commentLabel?: LocalizedValue;
+    commentPlaceholder?: LocalizedValue;
+    submitLabel?: LocalizedValue;
+    subjectOptions?: ContactFormSubjectOption[] | null;
 };
 
 export type ContactInfoSection = ContactBaseSection & {
-  _type: "sectionContactInfo";
-  infoTitle?: string | null;
-  infoDescription?: string | null;
-  stayConnectedLabel?: string | null;
-  emailLabel?: string | null;
-  phoneLabel?: string | null;
-  addressLabel?: string | null;
+    _type: "sectionContactInfo";
+    infoTitle?: LocalizedValue;
+    infoDescription?: LocalizedValue;
+    stayConnectedLabel?: LocalizedValue;
+    emailLabel?: LocalizedValue;
+    phoneLabel?: LocalizedValue;
+    addressLabel?: LocalizedValue;
 };
 
 export type ContactPageSection =
-  | ContactHeroSection
-  | ContactNewsletterSection
-  | ContactFormSection
-  | ContactInfoSection;
+    | ContactHeroSection
+    | ContactNewsletterSection
+    | ContactFormSection
+    | ContactInfoSection;
 
 export type ContactPageData = {
-  sections?: ContactPageSection[];
+    sections?: ContactPageSection[];
 } | null;
 
 export const contactPageQuery = defineQuery(`

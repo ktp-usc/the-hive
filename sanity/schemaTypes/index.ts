@@ -8,19 +8,24 @@ import {pageSectionTypes} from './pageSections'
 import {partnerLogo} from './partnerLogo'
 import {siteSettings} from './siteSettings'
 import {teamMember} from './teamMember'
+import { localizedString, localizedText } from './localized'
 
 export const schema: {types: SchemaTypeDefinition[]} = {
-  types: [
-    ...pageSectionTypes,
-    navLink,
-    navDropdown,
-    landingPopup,
-    contentCard,
-    partnerLogo,
-    teamMember,
-    galleryEvent,
-    page,
-    navbarSettings,
-    siteSettings,
-  ],
+    types: [
+        localizedString,
+        localizedText,
+
+        ...pageSectionTypes,
+
+        navLink,
+        navDropdown,
+        landingPopup,
+        contentCard,
+        partnerLogo,
+        teamMember,
+        galleryEvent,
+        page,
+        navbarSettings,
+        siteSettings,
+    ],
 }

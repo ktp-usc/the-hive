@@ -1,75 +1,84 @@
 import { defineQuery } from "next-sanity";
 
+export type LocalizedValue =
+    | string
+    | {
+    en?: string | null;
+    es?: string | null;
+}
+    | null
+    | undefined;
+
 export type SupportServiceCard = {
-  _key?: string;
-  cardId?: string;
-  title?: string;
-  subtitle?: string | null;
-  summary?: string;
-  imageUrl?: string | null;
-  details?: string[] | null;
-  note?: string | null;
-  noteLinkLabel?: string | null;
-  noteLinkHref?: string | null;
-  ctaLabel?: string | null;
-  ctaHref?: string | null;
+    _key?: string;
+    cardId?: string;
+    title?: LocalizedValue;
+    subtitle?: LocalizedValue;
+    summary?: LocalizedValue;
+    imageUrl?: string | null;
+    details?: Array<LocalizedValue> | null;
+    note?: LocalizedValue;
+    noteLinkLabel?: LocalizedValue;
+    noteLinkHref?: string | null;
+    ctaLabel?: LocalizedValue;
+    ctaHref?: string | null;
 };
 
 export type SupportResourceButton = {
-  _key?: string;
-  label?: string;
-  href?: string;
+    _key?: string;
+    label?: LocalizedValue;
+    href?: string;
 };
 
 type SupportBaseSection = { _key?: string; _type: string };
 
 export type SupportHeroSection = SupportBaseSection & {
-  _type: "sectionSupportHero";
-  eyebrow?: string;
-  title?: string;
-  body?: string;
+    _type: "sectionSupportHero";
+    eyebrow?: LocalizedValue;
+    title?: LocalizedValue;
+    body?: LocalizedValue;
 };
 
 export type SupportIntroSection = SupportBaseSection & {
-  _type: "sectionSupportIntro";
-  eyebrow?: string;
-  title?: string;
-  body?: string;
-  imageUrl?: string | null;
+    _type: "sectionSupportIntro";
+    eyebrow?: LocalizedValue;
+    title?: LocalizedValue;
+    body?: LocalizedValue;
+    imageUrl?: string | null;
 };
 
 export type SupportServicesSection = SupportBaseSection & {
-  _type: "sectionSupportServices";
-  heading?: string;
-  languageNote?: string | null;
-  cards?: SupportServiceCard[];
+    _type: "sectionSupportServices";
+    heading?: LocalizedValue;
+    languageNote?: LocalizedValue;
+    cards?: SupportServiceCard[];
 };
 
 export type SupportAccessibilitySection = SupportBaseSection & {
-  _type: "sectionSupportAccessibility";
-  eyebrow?: string;
-  title?: string;
-  body?: string;
-  imageUrl?: string | null;
+    _type: "sectionSupportAccessibility";
+    eyebrow?: LocalizedValue;
+    title?: LocalizedValue;
+    body?: LocalizedValue;
+    imageUrl?: string | null;
 };
 
 export type SupportResourcesSection = SupportBaseSection & {
-  _type: "sectionSupportResources";
-  title?: string;
-  body?: string;
-  buttons?: SupportResourceButton[];
+    _type: "sectionSupportResources";
+    title?: LocalizedValue;
+    body?: LocalizedValue;
+    buttons?: SupportResourceButton[];
 };
 
 export type SupportPageSection =
-  | SupportHeroSection
-  | SupportIntroSection
-  | SupportServicesSection
-  | SupportAccessibilitySection
-  | SupportResourcesSection;
+    | SupportHeroSection
+    | SupportIntroSection
+    | SupportServicesSection
+    | SupportAccessibilitySection
+    | SupportResourcesSection;
 
 export type SupportPageData = {
-  title?: string;
-  sections?: SupportPageSection[];
+    title?: string;
+    sections?: SupportPageSection[];
 } | null;
 
 export const supportPageQuery = defineQuery(`
