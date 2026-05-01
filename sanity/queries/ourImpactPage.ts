@@ -1,69 +1,76 @@
 import { defineQuery } from "next-sanity";
 
+export type LocalizedValue =
+    | string
+    | { en?: string | null; es?: string | null }
+    | null
+    | undefined;
+
 export type ImpactMediaItem = {
-  _key?: string;
-  outlet?: string;
-  headline?: string;
-  description?: string | null;
-  href?: string | null;
+    _key?: string;
+    outlet?: LocalizedValue;
+    headline?: LocalizedValue;
+    description?: LocalizedValue;
+    href?: string | null;
 };
 
 export type ImpactAward = {
-  _key?: string;
-  name?: string;
-  year?: string | null;
-  issuer?: string | null;
-  description?: string | null;
+    _key?: string;
+    name?: LocalizedValue;
+    year?: string | null;
+    issuer?: LocalizedValue;
+    description?: LocalizedValue;
 };
 
 export type ImpactDocument = {
-  _key?: string;
-  title?: string;
-  description?: string | null;
-  href?: string;
-  cta?: string | null;
-  external?: boolean | null;
+    _key?: string;
+    title?: LocalizedValue;
+    description?: LocalizedValue;
+    href?: string;
+    cta?: LocalizedValue;
+    external?: boolean | null;
 };
 
 type ImpactBaseSection = { _key?: string; _type: string };
 
 export type ImpactHeroSection = ImpactBaseSection & {
-  _type: "sectionImpactHero";
-  eyebrow?: string;
-  body?: string;
-  imageUrl?: string | null;
+    _type: "sectionImpactHero";
+    eyebrow?: LocalizedValue;
+    title?: LocalizedValue;
+    body?: LocalizedValue;
+    imageUrl?: string | null;
 };
 
 export type ImpactMediaSection = ImpactBaseSection & {
-  _type: "sectionImpactMedia";
-  eyebrow?: string;
-  title?: string;
-  items?: ImpactMediaItem[];
+    _type: "sectionImpactMedia";
+    eyebrow?: LocalizedValue;
+    title?: LocalizedValue;
+    items?: ImpactMediaItem[];
 };
 
 export type ImpactAwardsSection = ImpactBaseSection & {
-  _type: "sectionImpactAwards";
-  eyebrow?: string;
-  title?: string;
-  awards?: ImpactAward[];
+    _type: "sectionImpactAwards";
+    eyebrow?: LocalizedValue;
+    title?: LocalizedValue;
+    awards?: ImpactAward[];
 };
 
 export type ImpactDocumentsSection = ImpactBaseSection & {
-  _type: "sectionImpactDocuments";
-  eyebrow?: string;
-  title?: string;
-  documents?: ImpactDocument[];
+    _type: "sectionImpactDocuments";
+    eyebrow?: LocalizedValue;
+    title?: LocalizedValue;
+    documents?: ImpactDocument[];
 };
 
 export type OurImpactPageSection =
-  | ImpactHeroSection
-  | ImpactMediaSection
-  | ImpactAwardsSection
-  | ImpactDocumentsSection;
+    | ImpactHeroSection
+    | ImpactMediaSection
+    | ImpactAwardsSection
+    | ImpactDocumentsSection;
 
 export type OurImpactPageData = {
-  title?: string;
-  sections?: OurImpactPageSection[];
+    title?: string;
+    sections?: OurImpactPageSection[];
 } | null;
 
 export const ourImpactPageQuery = defineQuery(`
@@ -73,7 +80,7 @@ export const ourImpactPageQuery = defineQuery(`
       _key,
       _type,
       _type == "sectionImpactHero" => {
-        eyebrow, body,
+        eyebrow, title, body,
         "imageUrl": image.asset->url
       },
       _type == "sectionImpactMedia" => {
