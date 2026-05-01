@@ -92,14 +92,6 @@ function FounderCard({ member }: { member: FounderMember }) {
                             <p className="mt-3 text-sm leading-7 text-gray-600">{member.sparkBody}</p>
                         </div>
                     ) : null}
-                    {member.visionTitle ? (
-                        <div className="rounded-xl bg-gray-50 p-5">
-                            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
-                                {member.visionTitle}
-                            </p>
-                            <p className="mt-3 text-sm leading-7 text-gray-600">{member.visionBody}</p>
-                        </div>
-                    ) : null}
                 </div>
             </article>
 
@@ -202,35 +194,24 @@ export default function AboutTabs({
 
     return (
         <section className="site-surface px-6 py-2 sm:px-10 sm:py-10 lg:px-14">
-            <div className="mx-auto mb-12 max-w-5xl space-y-5">
-                <div className="rounded-2xl border border-hive-orange/10 bg-hive-orange/5 p-6 text-center">
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-orange">
+            <div className="mx-auto mb-12 max-w-5xl space-y-15">
+                <div className="rounded-2xl border border-hive-orange/10 bg-hive-orange/5 p-8 text-center">
+                    <p className="text-xl font-semibold uppercase tracking-[0.2em] text-hive-orange">
                         {resolvedMissionTitle}
                     </p>
-                    <p className="mt-3 text-sm leading-7 text-gray-600">{resolvedMissionBody}</p>
+                    <p className="mt-3 text-md leading-7 text-gray-600">{resolvedMissionBody}</p>
                 </div>
 
-                {founderMembers[0]?.visionBody ? (
-                    <div className="rounded-2xl border border-hive-yellow/20 bg-hive-yellow/10 p-6 text-center">
-                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#9b7a00]">
-                            {founderMembers[0].visionTitle ?? "Vision"}
-                        </p>
-                        <p className="mt-3 text-sm leading-7 text-gray-600">
-                            {founderMembers[0].visionBody}
-                        </p>
-                    </div>
-                ) : null}
-
-                <div className="rounded-2xl border border-hive-blue/10 bg-white p-6 text-center shadow-sm">
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-hive-blue">
+                <div className="rounded-2xl border border-hive-blue/10 bg-white p-8 text-center shadow-sm">
+                    <p className="text-xl font-semibold uppercase tracking-[0.2em] text-hive-blue">
                         {resolvedValuesTitle}
                     </p>
-                    <p className="mt-3 text-sm leading-7 text-gray-600">{resolvedValuesIntro}</p>
+                    <p className="mt-3 text-md leading-7 text-gray-600">{resolvedValuesIntro}</p>
                     <div className="mt-4 flex flex-wrap justify-center gap-3">
                         {resolvedValuesPillars.map((value) => (
                             <span
                                 key={value}
-                                className="rounded-full bg-hive-blue/5 px-4 py-2 text-sm font-semibold text-hive-blue"
+                                className="rounded-full bg-hive-blue/5 px-4 py-2 text-md font-semibold text-hive-blue"
                             >
                 {value}
               </span>

@@ -24,6 +24,7 @@ type DeepWiden<T> = T extends string
 const enPartners = {
     heroEyebrow: "Partnerships",
     heroTitle: "Our Partners",
+    partnershipExampleLabel: "Partnership Example",
     heroBody:
         "We are grateful for the organizations, businesses, and community leaders who support this work.",
     opportunitiesTitle: "Partnership Opportunities",
@@ -49,6 +50,7 @@ const enPartners = {
 const esPartners = {
     heroEyebrow: "Alianzas",
     heroTitle: "Nuestras Personas Aliadas",
+    partnershipExampleLabel: "Ejemplo de Alianza",
     heroBody:
         "Agradecemos a las organizaciones, negocios y líderes comunitarios que apoyan este trabajo.",
     opportunitiesTitle: "Oportunidades de Alianza",

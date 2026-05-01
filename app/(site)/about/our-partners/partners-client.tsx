@@ -341,7 +341,10 @@ export default function PartnersClient({ page }: { page: PartnerPageData }) {
                 {/* CAROUSEL */}
                 <section className="px-6">
                     <div className="mx-auto max-w-5xl">
-                        <PartnershipCarousel slides={resolvedCarouselSlides} />
+                        <PartnershipCarousel
+                            slides={resolvedCarouselSlides}
+                            partnershipExampleLabel={copy.partners.partnershipExampleLabel}
+                        />
                     </div>
                 </section>
 

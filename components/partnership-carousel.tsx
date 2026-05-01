@@ -15,11 +15,13 @@ export type PartnershipCarouselSlide = {
 type PartnershipCarouselProps = {
   slides: PartnershipCarouselSlide[];
   autoAdvanceMs?: number;
+    partnershipExampleLabel?: string;
 };
 
 export default function PartnershipCarousel({
   slides,
   autoAdvanceMs = 2600,
+                                                partnershipExampleLabel = "Partnership Example",
 }: PartnershipCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -106,8 +108,7 @@ export default function PartnershipCarousel({
 
       <div className="flex flex-col gap-4 border-t border-[rgba(29,151,156,0.12)] px-4 py-5 sm:gap-5 sm:px-6 sm:py-6">
         <div>
-          <p className="site-subheading text-hive-orange!">Partnership Example</p>
-          <h3 className="mt-1 text-xl font-semibold text-foreground sm:text-2xl">
+            <p className="site-subheading text-hive-orange!">{partnershipExampleLabel}</p>          <h3 className="mt-1 text-xl font-semibold text-foreground sm:text-2xl">
             {active.title}
           </h3>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
