@@ -27,6 +27,9 @@ const enPartners = {
     heroBody:
         "We are grateful for the organizations, businesses, and community leaders who support this work.",
     opportunitiesTitle: "Partnership Opportunities",
+    // Labels used in the partnership opportunities section
+    residencyLabel: "Residency Partnership",
+    resourceLabel: "Resource Partnership",
     beeBoxTitle: "The Bee Box",
     beeBoxBody:
         "Sitting in a cold waiting room, trembling with fear as one contemplates disclosing their abuse is never a vision one would desire to have, but this is often the reality for survivors of abuse and violence. The Bee Box was designed to support survivors who disclose in public settings such as healthcare settings, police stations, schools, or churches. The Bee Box has been uniquely designed to provide aid and support as a survivor embarks on their journey of healing, consisting of a grounding tool, tea for care and wellness, powerful affirmations written by fellow survivors, and an all-natural room enhancer spray.",
@@ -49,6 +52,8 @@ const esPartners = {
     heroBody:
         "Agradecemos a las organizaciones, negocios y líderes comunitarios que apoyan este trabajo.",
     opportunitiesTitle: "Oportunidades de Alianza",
+    residencyLabel: "Alianza de Residencia",
+    resourceLabel: "Alianza de Recursos",
     beeBoxTitle: "La Bee Box",
     beeBoxBody:
         "Estar sentada en una sala de espera fría, temblando de miedo mientras una persona contempla revelar el abuso que ha vivido, nunca es una escena que alguien quisiera imaginar, pero con frecuencia esa es la realidad para sobrevivientes de abuso y violencia. La Bee Box fue diseñada para apoyar a sobrevivientes que revelan su experiencia en espacios públicos como entornos de salud, estaciones de policía, escuelas o iglesias. La Bee Box fue creada de forma única para brindar ayuda y apoyo mientras una sobreviviente inicia su camino de sanación; incluye una herramienta de regulación, té para el cuidado y el bienestar, afirmaciones poderosas escritas por otras sobrevivientes y un spray natural para armonizar el espacio.",
@@ -70,9 +75,9 @@ const enOurImpact = {
     heroTitle: "Recognized. Published. Making Waves.",
     heroBody:
         "From national media features to strategic milestones, explore The Hive's growing footprint in the movement to end gender-based violence.",
-
     mediaEyebrow: "Press & Interviews",
     mediaTitle: "In the Media",
+    readMore: "Read more",
     mediaItems: [
         {
             outlet: "Black Enterprise",
@@ -96,7 +101,6 @@ const enOurImpact = {
             href: "https://www.thestate.com",
         },
     ],
-
     awardsEyebrow: "Honors & Distinctions",
     awardsTitle: "Awards & Recognition",
     awards: [
@@ -122,7 +126,6 @@ const enOurImpact = {
                 "Honored among South Carolina's top young professionals making a meaningful difference.",
         },
     ],
-
     documentsEyebrow: "Strategic Documents",
     documentsTitle: "Reports & Plans",
     documents: [
@@ -384,7 +387,6 @@ const esMxAwareness = {
     heroEyebrow: "Prevención y Concientización",
     heroTitle: "Capacitación y Educación en The Hive",
     heroBody: "Aprendizaje centrado en la sanación, arraigado en la cultura, el cuidado y la conexión.",
-
     trainingSeries: [
         {
             title: "Sanar es Trabajo: Enfocando el Cerebro, el Cuerpo y la Cultura en el Cuidado del Trauma",
@@ -447,17 +449,17 @@ const esEvents = {
     title: "Mantente al día con los eventos de The Hive.",
     body:
         "Este calendario está conectado directamente con el Google Calendar de The Hive, así que los nuevos eventos y actualizaciones aparecen aquí automáticamente.",
-    upcomingEyebrow: "Pr\u00f3ximamente",
-    upcomingTitle: "Un vistazo r\u00e1pido a lo que sigue.",
+    upcomingEyebrow: "Próximamente",
+    upcomingTitle: "Un vistazo rápido a lo que sigue.",
     upcomingBody:
-        "Estas tarjetas de pr\u00f3ximos eventos se sincronizan autom\u00e1ticamente con el mismo Google Calendar que aparece abajo.",
+        "Estas tarjetas de próximos eventos se sincronizan automáticamente con el mismo Google Calendar que aparece abajo.",
     upcomingPrivacyNote:
-        "Algunas entradas pueden aparecer como Busy porque Google Calendar est\u00e1 ocultando los detalles p\u00fablicos del evento.",
-    upcomingLoading: "Cargando pr\u00f3ximos eventos...",
+        "Algunas entradas pueden aparecer como Busy porque Google Calendar está ocultando los detalles públicos del evento.",
+    upcomingLoading: "Cargando próximos eventos...",
     upcomingEmpty:
-        "No hay eventos pr\u00f3ximos en este momento. Vuelve pronto o abre el calendario completo.",
-    upcomingCta: "Ver d\u00eda en el calendario",
-    allDayLabel: "Todo el d\u00eda",
+        "No hay eventos próximos en este momento. Vuelve pronto o abre el calendario completo.",
+    upcomingCta: "Ver día en el calendario",
+    allDayLabel: "Todo el día",
     openCalendar: "Abrir Calendario Completo",
     askAboutEvent: "Preguntar por un Evento",
     iframeTitle: "Calendario de eventos de The Hive",
@@ -495,7 +497,7 @@ const enDonationsPage = {
     givingSectionsTitle: "Explore the giving story that speaks to you.",
     volunteerOpportunities: [
         {
-            title: "The Voices of Washindi-Speaker’s Bureau",
+            title: "The Voices of Washindi-Speaker's Bureau",
             description:
                 "A community and platform for survivors of sexual assault and intimate partner violence to share their stories of resiliency and courage through the incorporation of the arts and craft of storytelling. Additional training is required.",
         },
@@ -685,7 +687,7 @@ const esDonationsPage = {
     givingSectionsTitle: "Explora la historia de generosidad que más conecta contigo.",
     volunteerOpportunities: [
         {
-            title: "The Voices of Washindi-Speaker’s Bureau",
+            title: "The Voices of Washindi-Speaker's Bureau",
             description:
                 "Una comunidad y plataforma para sobrevivientes de agresión sexual y violencia de pareja que comparten sus historias de resiliencia y valentía a través del arte y la narración. Se requiere capacitación adicional.",
         },
@@ -960,78 +962,26 @@ const en = {
         joinTitle: "Looking to join our team?",
         joinBodyPrefix: "Send your resume and a cover letter to",
         teamMembers: [
-            {
-                name: "Alyson Berry",
-                role: "Executive Administrator",
-            },
-            {
-                name: "Jalona Webb",
-                role: "Legal Outreach Advocate",
-            },
-            {
-                name: "Kinnethia Tolson",
-                role: "Education and Volunteer Coordinator",
-            },
-            {
-                name: "Beatrice Hernandez-Morales",
-                role: "Bilingual Outreach Advocate",
-            },
+            { name: "Alyson Berry", role: "Executive Administrator" },
+            { name: "Jalona Webb", role: "Legal Outreach Advocate" },
+            { name: "Kinnethia Tolson", role: "Education and Volunteer Coordinator" },
+            { name: "Beatrice Hernandez-Morales", role: "Bilingual Outreach Advocate" },
         ],
         boardMembers: [
-            {
-                name: "Dr. Stephanie Kirkland",
-                role: "Board Chair",
-                note: "Identity Dynamics\nCEO",
-            },
-            {
-                name: "Jordan Crapps",
-                role: "Vice Chair",
-                note: "Gallivan, White, Boyd\nPartner",
-            },
-            {
-                name: "Andrea Lee",
-                role: "Treasurer",
-                note: "Center for Community Health Alignment\nAssociate Director of Operations",
-            },
-            {
-                name: "Ann Turner",
-                role: "AVP",
-                note: "Underwriting Operations",
-            },
-            {
-                name: "Anthony Bryant",
-                role: "Board Member",
-                note: "Leadership Strategist, Speaker, Author",
-            },
-            {
-                name: "Bency Beals",
-                role: "Board Member",
-                note: "Ignite Leadership Solutions\nCEO",
-            },
-            {
-                name: "Ebone Ivory",
-                role: "Board Member",
-                note: "SC Department of Employment and Workforce\nAdministrative Hearing Officer",
-            },
-            {
-                name: "Naomi Walton",
-                role: "Board Member",
-                note: "",
-            },
-            {
-                name: "Nicki Woodson",
-                role: "Board Member",
-                note: "Starbucks\nManager of Partner Resources (HR)",
-            },
-            {
-                name: "Terry Judy",
-                role: "Board Member",
-                note: "Ignite Leadership Solutions\nImpact & Partnerships Director",
-            },
+            { name: "Dr. Stephanie Kirkland", role: "Board Chair", note: "Identity Dynamics\nCEO" },
+            { name: "Jordan Crapps", role: "Vice Chair", note: "Gallivan, White, Boyd\nPartner" },
+            { name: "Andrea Lee", role: "Treasurer", note: "Center for Community Health Alignment\nAssociate Director of Operations" },
+            { name: "Ann Turner", role: "AVP", note: "Underwriting Operations" },
+            { name: "Anthony Bryant", role: "Board Member", note: "Leadership Strategist, Speaker, Author" },
+            { name: "Bency Beals", role: "Board Member", note: "Ignite Leadership Solutions\nCEO" },
+            { name: "Ebone Ivory", role: "Board Member", note: "SC Department of Employment and Workforce\nAdministrative Hearing Officer" },
+            { name: "Naomi Walton", role: "Board Member", note: "" },
+            { name: "Nicki Woodson", role: "Board Member", note: "Starbucks\nManager of Partner Resources (HR)" },
+            { name: "Terry Judy", role: "Board Member", note: "Ignite Leadership Solutions\nImpact & Partnerships Director" },
         ],
     },
     support: {
-        heroEyebrow: "Support &amp; Care",
+        heroEyebrow: "Support & Care",
         heroTitle: "Support Services",
         heroBody: "Compassionate support and practical resources, here when you need them.",
         heroImage: {
@@ -1052,12 +1002,8 @@ const en = {
             {
                 title: "Peer Advocacy",
                 subtitle: "Emotional support & navigation",
-                image: {
-                    src: "/images/TheHive_12.06.2025_135.jpg",
-                    alt: "Peer advocacy support session",
-                },
-                summary:
-                    "Trained peer advocates provide confidential support, help you understand rights and options, and connect you to resources.",
+                image: { src: "/images/TheHive_12.06.2025_135.jpg", alt: "Peer advocacy support session" },
+                summary: "Trained peer advocates provide confidential support, help you understand rights and options, and connect you to resources.",
                 details: [
                     "Ensure survivors understand their rights and options",
                     "Social-emotional support and safety planning",
@@ -1070,12 +1016,8 @@ const en = {
             {
                 title: "Economic Relief",
                 subtitle: "Immediate financial support",
-                image: {
-                    src: "/donations/casitaofcare1.avif",
-                    alt: "Casita of Care resources prepared for survivors",
-                },
-                summary:
-                    "Wrap-around financial support for urgent needs - housing, food, utility help, relocation, and transportation support.",
+                image: { src: "/donations/casitaofcare1.avif", alt: "Casita of Care resources prepared for survivors" },
+                summary: "Wrap-around financial support for urgent needs - housing, food, utility help, relocation, and transportation support.",
                 details: [],
                 note: "This resource is provided by Casita of Care. Learn more and support it through",
                 noteLinkLabel: "Invest in the Hive",
@@ -1086,12 +1028,8 @@ const en = {
             {
                 title: "Wellness Coaching",
                 subtitle: "Licensed trauma-trained support",
-                image: {
-                    src: "/donations/keepersclub2.avif",
-                    alt: "Wellness coaching support",
-                },
-                summary:
-                    "Trauma-informed wellness coaching for survivors. Services are provided by licensed therapists trained in trauma treatment.",
+                image: { src: "/donations/keepersclub2.avif", alt: "Wellness coaching support" },
+                summary: "Trauma-informed wellness coaching for survivors. Services are provided by licensed therapists trained in trauma treatment.",
                 details: [
                     "For survivors of sexual assault, IPV, or stalking (ages 11+)",
                     "Provided at no cost to the survivor",
@@ -1102,12 +1040,8 @@ const en = {
             {
                 title: "Peer Support Healing Circles",
                 subtitle: "Peer-led group healing",
-                image: {
-                    src: "/images/TheHive_12.06.2025_87.jpg",
-                    alt: "Peer support healing circle gathering",
-                },
-                summary:
-                    "Confidential healing circles using psycho-educational and wellness-based curriculum for community and recovery.",
+                image: { src: "/images/TheHive_12.06.2025_87.jpg", alt: "Peer support healing circle gathering" },
+                summary: "Confidential healing circles using psycho-educational and wellness-based curriculum for community and recovery.",
                 details: [
                     "Queens Gather - Women 18+",
                     "Bloom - Girls 11-18",
@@ -1119,12 +1053,8 @@ const en = {
             {
                 title: "Holistic Support",
                 subtitle: "Wrap-around support",
-                image: {
-                    src: "/donations/keepersclub4.avif",
-                    alt: "Holistic support planning and care",
-                },
-                summary:
-                    "Support that goes beyond one service and helps address the survivor's full situation.",
+                image: { src: "/donations/keepersclub4.avif", alt: "Holistic support planning and care" },
+                summary: "Support that goes beyond one service and helps address the survivor's full situation.",
                 details: [
                     "Goal and intervention case planning",
                     "Financial planning",
@@ -1137,12 +1067,8 @@ const en = {
             {
                 title: "How to Refer a Survivor",
                 subtitle: "Quick contact info",
-                image: {
-                    src: "/donations/casitaofcare3.avif",
-                    alt: "Resource and referral support information",
-                },
-                summary:
-                    "Use these contact options to connect a survivor with General Support, Wellness Coaching, or Advocacy.",
+                image: { src: "/donations/casitaofcare3.avif", alt: "Resource and referral support information" },
+                summary: "Use these contact options to connect a survivor with General Support, Wellness Coaching, or Advocacy.",
                 details: [
                     "General Support / Advocacy: 803-888-7725",
                     "Groups and Wellness Coaching: 803-766-8067",
@@ -1155,12 +1081,8 @@ const en = {
             {
                 title: "Request Training / Prevention Programming",
                 subtitle: "Outreach events",
-                image: {
-                    src: "/donations/keepersclub5.avif",
-                    alt: "Training and prevention programming session",
-                },
-                summary:
-                    "Request training, prevention programming, or outreach events for your organization or community.",
+                image: { src: "/donations/keepersclub5.avif", alt: "Training and prevention programming session" },
+                summary: "Request training, prevention programming, or outreach events for your organization or community.",
                 details: [
                     "Email: hello@thehivecc.org",
                     "Call: 803-888-7725",
@@ -1285,7 +1207,7 @@ const en = {
     partners: enPartners,
     awareness: enAwareness,
     ourImpact: enOurImpact,
-    events: enEvents, heroEyebrow: "Community Calendar",
+    events: enEvents,
 } as const;
 
 export const siteCopy = {
@@ -1331,14 +1253,11 @@ export const siteCopy = {
             events: "Eventos",
             contact: "Contacto",
             keepUpdated: "Mantente al día",
-
             email: "Correo:",
             phone: "Teléfono:",
             address: "Dirección:",
-
             supportMission: "Apoya nuestra misión",
             donationLink: "Donar aquí",
-
             copyright: "© 2026 The Hive Community Circle",
         },
         home: {
@@ -1410,74 +1329,22 @@ export const siteCopy = {
             joinTitle: "¿Te interesa unirte a nuestro equipo?",
             joinBodyPrefix: "Envía tu currículum y una carta de presentación a",
             teamMembers: [
-                {
-                    name: "Alyson Berry",
-                    role: "Administradora Ejecutiva",
-                },
-                {
-                    name: "Jalona Webb",
-                    role: "Defensora de Alcance Legal",
-                },
-                {
-                    name: "Kinnethia Tolson",
-                    role: "Coordinadora de Educación y Voluntariado",
-                },
-                {
-                    name: "Beatrice Hernandez-Morales",
-                    role: "Defensora de Alcance Bilingüe",
-                },
+                { name: "Alyson Berry", role: "Administradora Ejecutiva" },
+                { name: "Jalona Webb", role: "Defensora de Alcance Legal" },
+                { name: "Kinnethia Tolson", role: "Coordinadora de Educación y Voluntariado" },
+                { name: "Beatrice Hernandez-Morales", role: "Defensora de Alcance Bilingüe" },
             ],
             boardMembers: [
-                {
-                    name: "Dr. Stephanie Kirkland",
-                    role: "Presidenta del Consejo",
-                    note: "Identity Dynamics\nCEO",
-                },
-                {
-                    name: "Jordan Crapps",
-                    role: "Vicepresidencia",
-                    note: "Gallivan, White, Boyd\nSocio",
-                },
-                {
-                    name: "Andrea Lee",
-                    role: "Tesorería",
-                    note: "Center for Community Health Alignment\nDirectora Asociada de Operaciones",
-                },
-                {
-                    name: "Ann Turner",
-                    role: "AVP",
-                    note: "Operaciones de Suscripción",
-                },
-                {
-                    name: "Anthony Bryant",
-                    role: "Integrante del Consejo",
-                    note: "Estratega de Liderazgo, Conferencista, Autor",
-                },
-                {
-                    name: "Bency Beals",
-                    role: "Integrante del Consejo",
-                    note: "Ignite Leadership Solutions\nCEO",
-                },
-                {
-                    name: "Ebone Ivory",
-                    role: "Integrante del Consejo",
-                    note: "SC Department of Employment and Workforce\nOficial de Audiencias Administrativas",
-                },
-                {
-                    name: "Naomi Walton",
-                    role: "Integrante del Consejo",
-                    note: "",
-                },
-                {
-                    name: "Nicki Woodson",
-                    role: "Integrante del Consejo",
-                    note: "Starbucks\nGerente de Recursos para Partners (HR)",
-                },
-                {
-                    name: "Terry Judy",
-                    role: "Integrante del Consejo",
-                    note: "Ignite Leadership Solutions\nDirectora de Impacto y Alianzas",
-                },
+                { name: "Dr. Stephanie Kirkland", role: "Presidenta del Consejo", note: "Identity Dynamics\nCEO" },
+                { name: "Jordan Crapps", role: "Vicepresidencia", note: "Gallivan, White, Boyd\nSocio" },
+                { name: "Andrea Lee", role: "Tesorería", note: "Center for Community Health Alignment\nDirectora Asociada de Operaciones" },
+                { name: "Ann Turner", role: "AVP", note: "Operaciones de Suscripción" },
+                { name: "Anthony Bryant", role: "Integrante del Consejo", note: "Estratega de Liderazgo, Conferencista, Autor" },
+                { name: "Bency Beals", role: "Integrante del Consejo", note: "Ignite Leadership Solutions\nCEO" },
+                { name: "Ebone Ivory", role: "Integrante del Consejo", note: "SC Department of Employment and Workforce\nOficial de Audiencias Administrativas" },
+                { name: "Naomi Walton", role: "Integrante del Consejo", note: "" },
+                { name: "Nicki Woodson", role: "Integrante del Consejo", note: "Starbucks\nGerente de Recursos para Partners (HR)" },
+                { name: "Terry Judy", role: "Integrante del Consejo", note: "Ignite Leadership Solutions\nDirectora de Impacto y Alianzas" },
             ],
         },
         support: {
@@ -1502,12 +1369,8 @@ export const siteCopy = {
                 {
                     title: "Defensa Entre Pares",
                     subtitle: "Apoyo emocional y orientación",
-                    image: {
-                        src: "/images/TheHive_12.06.2025_135.jpg",
-                        alt: "Sesión de apoyo de defensa entre pares",
-                    },
-                    summary:
-                        "Defensoras capacitadas brindan apoyo confidencial, te ayudan a comprender tus derechos y opciones, y te conectan con recursos.",
+                    image: { src: "/images/TheHive_12.06.2025_135.jpg", alt: "Sesión de apoyo de defensa entre pares" },
+                    summary: "Defensoras capacitadas brindan apoyo confidencial, te ayudan a comprender tus derechos y opciones, y te conectan con recursos.",
                     details: [
                         "Asegurar que las sobrevivientes comprendan sus derechos y opciones",
                         "Apoyo socioemocional y planeación de seguridad",
@@ -1520,12 +1383,8 @@ export const siteCopy = {
                 {
                     title: "Alivio Económico",
                     subtitle: "Apoyo financiero inmediato",
-                    image: {
-                        src: "/donations/casitaofcare1.avif",
-                        alt: "Recursos de Casita of Care preparados para sobrevivientes",
-                    },
-                    summary:
-                        "Apoyo financiero integral para necesidades urgentes: vivienda, alimentos, ayuda con servicios, reubicación y transporte.",
+                    image: { src: "/donations/casitaofcare1.avif", alt: "Recursos de Casita of Care preparados para sobrevivientes" },
+                    summary: "Apoyo financiero integral para necesidades urgentes: vivienda, alimentos, ayuda con servicios, reubicación y transporte.",
                     details: [],
                     note: "Este recurso es provisto por Casita of Care. Conoce más y apóyalo en",
                     noteLinkLabel: "Invest in the Hive",
@@ -1536,12 +1395,8 @@ export const siteCopy = {
                 {
                     title: "Acompañamiento de Bienestar",
                     subtitle: "Apoyo guiado e informado por el trauma",
-                    image: {
-                        src: "/donations/keepersclub2.avif",
-                        alt: "Apoyo de acompañamiento de bienestar",
-                    },
-                    summary:
-                        "Acompañamiento de bienestar para sobrevivientes. Los servicios son brindados por terapeutas con licencia y formación en tratamiento del trauma.",
+                    image: { src: "/donations/keepersclub2.avif", alt: "Apoyo de acompañamiento de bienestar" },
+                    summary: "Acompañamiento de bienestar para sobrevivientes. Los servicios son brindados por terapeutas con licencia y formación en tratamiento del trauma.",
                     details: [
                         "Para sobrevivientes de agresión sexual, violencia de pareja o acoso (11 años en adelante)",
                         "Sin costo para la sobreviviente",
@@ -1552,12 +1407,8 @@ export const siteCopy = {
                 {
                     title: "Círculos de Sanación y Apoyo Entre Pares",
                     subtitle: "Sanación grupal guiada por pares",
-                    image: {
-                        src: "/images/TheHive_12.06.2025_87.jpg",
-                        alt: "Encuentro de círculos de sanación y apoyo entre pares",
-                    },
-                    summary:
-                        "Círculos confidenciales de sanación con contenido psicoeducativo y de bienestar para la comunidad y la recuperación.",
+                    image: { src: "/images/TheHive_12.06.2025_87.jpg", alt: "Encuentro de círculos de sanación y apoyo entre pares" },
+                    summary: "Círculos confidenciales de sanación con contenido psicoeducativo y de bienestar para la comunidad y la recuperación.",
                     details: [
                         "Queens Gather - Mujeres de 18 años en adelante",
                         "Bloom - Niñas de 11 a 18 años",
@@ -1569,12 +1420,8 @@ export const siteCopy = {
                 {
                     title: "Apoyo Integral",
                     subtitle: "Acompañamiento completo",
-                    image: {
-                        src: "/donations/keepersclub4.avif",
-                        alt: "Planeación y apoyo integral",
-                    },
-                    summary:
-                        "Apoyo que va más allá de un solo servicio y ayuda a atender la situación completa de la sobreviviente.",
+                    image: { src: "/donations/keepersclub4.avif", alt: "Planeación y apoyo integral" },
+                    summary: "Apoyo que va más allá de un solo servicio y ayuda a atender la situación completa de la sobreviviente.",
                     details: [
                         "Planeación de metas e intervenciones",
                         "Planeación financiera",
@@ -1587,12 +1434,8 @@ export const siteCopy = {
                 {
                     title: "Cómo Referir a una Sobreviviente",
                     subtitle: "Información de contacto rápida",
-                    image: {
-                        src: "/donations/casitaofcare3.avif",
-                        alt: "Información de recursos y referencias",
-                    },
-                    summary:
-                        "Usa estas opciones de contacto para conectar a una sobreviviente con apoyo general, acompañamiento de bienestar o defensa.",
+                    image: { src: "/donations/casitaofcare3.avif", alt: "Información de recursos y referencias" },
+                    summary: "Usa estas opciones de contacto para conectar a una sobreviviente con apoyo general, acompañamiento de bienestar o defensa.",
                     details: [
                         "Apoyo General / Defensa: 803-888-7725",
                         "Grupos y Acompañamiento de Bienestar: 803-766-8067",
@@ -1605,12 +1448,8 @@ export const siteCopy = {
                 {
                     title: "Solicita Capacitación / Programación de Prevención",
                     subtitle: "Eventos de alcance",
-                    image: {
-                        src: "/donations/keepersclub5.avif",
-                        alt: "Sesión de capacitación y prevención",
-                    },
-                    summary:
-                        "Solicita capacitaciones, programación de prevención o eventos de alcance para tu organización o comunidad.",
+                    image: { src: "/donations/keepersclub5.avif", alt: "Sesión de capacitación y prevención" },
+                    summary: "Solicita capacitaciones, programación de prevención o eventos de alcance para tu organización o comunidad.",
                     details: [
                         "Correo: hello@thehivecc.org",
                         "Llama: 803-888-7725",
@@ -1741,6 +1580,7 @@ export const siteCopy = {
                 "Desde apariciones en medios nacionales hasta hitos estratégicos, explora la huella creciente de The Hive en el movimiento para erradicar la violencia de género.",
             mediaEyebrow: "Prensa y Entrevistas",
             mediaTitle: "En los Medios",
+            readMore: "Leer más",
             mediaItems: [
                 {
                     outlet: "Black Enterprise",
@@ -1810,7 +1650,7 @@ export const siteCopy = {
                 },
             ],
         },
-        events: esEvents, heroEyebrow: "Calendario Comunitario",
+        events: esEvents,
     },
 } as const;
 
@@ -1822,20 +1662,16 @@ function mergeLocaleCopy<T>(base: T, override: unknown): T {
     if (override === undefined) {
         return base;
     }
-
     if (Array.isArray(base)) {
         return (Array.isArray(override) ? override : base) as T;
     }
-
     if (isPlainObject(base) && isPlainObject(override)) {
         const mergedEntries = Object.keys(base).map((key) => [
             key,
             mergeLocaleCopy(base[key], override[key]),
         ]);
-
         return Object.fromEntries(mergedEntries) as T;
     }
-
     return override as T;
 }
 

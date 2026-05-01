@@ -5,12 +5,15 @@ import { ArrowUpRight, CalendarDays, Clock3 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { useLanguage, useSiteCopy } from "@/components/language-provider";
+import { resolveLocalized } from "@/lib/resolved-localized";
 import {
-  calendarDirectUrl as fallbackCalendarDirectUrl,
-  calendarEmbedUrl as fallbackCalendarEmbedUrl,
   type UpcomingCalendarEvent,
 } from "@/lib/calendar";
 import type { EventsHeroSection, EventsUpcomingSection } from "@/sanity/queries/eventsPage";
+
+function r(value: unknown, language: "en" | "es-MX", fallback: string): string {
+  return resolveLocalized(value, language, fallback);
+}
 
 function formatEventDate(
   event: UpcomingCalendarEvent,
@@ -70,38 +73,29 @@ function UpcomingEventsSection({
         const payload = (await response.json()) as {
           events?: UpcomingCalendarEvent[];
         };
-
-        if (isActive) {
-          setEvents(payload.events ?? []);
-        }
+        if (isActive) setEvents(payload.events ?? []);
       } catch {
-        if (isActive) {
-          setEvents([]);
-        }
+        if (isActive) setEvents([]);
       } finally {
-        if (isActive) {
-          setIsLoading(false);
-        }
+        if (isActive) setIsLoading(false);
       }
     }
 
     void loadEvents();
-
-    return () => {
-      isActive = false;
-    };
+    return () => { isActive = false; };
   }, []);
 
   const locale = language === "es-MX" ? "es-MX" : "en-US";
 
-  const eyebrow = upcomingSec?.eyebrow ?? copy.events.upcomingEyebrow;
-  const title = upcomingSec?.title ?? copy.events.upcomingTitle;
-  const openCalendarLabel = upcomingSec?.openCalendarLabel ?? copy.events.openCalendar;
-  const loadingLabel = upcomingSec?.loadingLabel ?? copy.events.upcomingLoading;
-  const emptyLabel = upcomingSec?.emptyLabel ?? copy.events.upcomingEmpty;
-  const privacyNote = upcomingSec?.privacyNote ?? copy.events.upcomingPrivacyNote;
-  const ctaLabel = upcomingSec?.ctaLabel ?? copy.events.upcomingCta;
-  const allDayLabel = upcomingSec?.allDayLabel ?? copy.events.allDayLabel;
+  const eyebrow = r(upcomingSec?.eyebrow, language, copy.events.upcomingEyebrow);
+  const title = r(upcomingSec?.title, language, copy.events.upcomingTitle);
+  const body = r(upcomingSec?.body, language, copy.events.upcomingBody);
+  const openCalendarLabel = r(upcomingSec?.openCalendarLabel, language, copy.events.openCalendar);
+  const loadingLabel = r(upcomingSec?.loadingLabel, language, copy.events.upcomingLoading);
+  const emptyLabel = r(upcomingSec?.emptyLabel, language, copy.events.upcomingEmpty);
+  const privacyNote = r(upcomingSec?.privacyNote, language, copy.events.upcomingPrivacyNote);
+  const ctaLabel = r(upcomingSec?.ctaLabel, language, copy.events.upcomingCta);
+  const allDayLabel = r(upcomingSec?.allDayLabel, language, copy.events.allDayLabel);
 
   return (
     <section className="site-surface px-4 sm:px-6">
@@ -111,6 +105,9 @@ function UpcomingEventsSection({
             <div className="max-w-2xl space-y-3">
               <p className="site-subheading">{eyebrow}</p>
               <h2 className="site-heading">{title}</h2>
+              {body ? (
+                <p className="site-copy">{body}</p>
+              ) : null}
             </div>
             <a
               href={calendarDirectUrl}
@@ -141,7 +138,6 @@ function UpcomingEventsSection({
             <div className="grid gap-4 pt-6 md:grid-cols-2 xl:grid-cols-4">
               {events.map((event) => {
                 const { date, time } = formatEventDate(event, locale, allDayLabel);
-
                 return (
                   <a
                     key={event.id}
@@ -156,7 +152,6 @@ function UpcomingEventsSection({
                       </div>
                       <ArrowUpRight className="mt-1 size-4 text-[#1d979c] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </div>
-
                     <div className="space-y-3">
                       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#1d979c]">
                         {date}
@@ -170,7 +165,6 @@ function UpcomingEventsSection({
                         </p>
                       ) : null}
                     </div>
-
                     <div className="mt-auto flex items-center justify-between gap-3 border-t border-black/8 pt-4 text-sm font-medium text-[#4f5b69]">
                       <span className="inline-flex items-center gap-2">
                         <Clock3 className="size-4 text-[#ec7424]" />
@@ -207,13 +201,14 @@ export default function EventsClient({
   calendarEmbedUrl: string;
 }) {
   const copy = useSiteCopy();
+  const { language } = useLanguage();
 
-  const eyebrow = heroSec?.eyebrow ?? copy.events.eyebrow;
-  const title = heroSec?.title ?? copy.events.title;
-  const body = heroSec?.body ?? copy.events.body;
-  const openCalendarLabel = heroSec?.openCalendarLabel ?? copy.events.openCalendar;
-  const askAboutEventLabel = heroSec?.askAboutEventLabel ?? copy.events.askAboutEvent;
-  const iframeTitle = heroSec?.calendarIframeTitle ?? copy.events.iframeTitle;
+  const eyebrow = r(heroSec?.eyebrow, language, copy.events.eyebrow);
+  const title = r(heroSec?.title, language, copy.events.title);
+  const body = r(heroSec?.body, language, copy.events.body);
+  const openCalendarLabel = r(heroSec?.openCalendarLabel, language, copy.events.openCalendar);
+  const askAboutEventLabel = r(heroSec?.askAboutEventLabel, language, copy.events.askAboutEvent);
+  const iframeTitle = r(heroSec?.calendarIframeTitle, language, copy.events.iframeTitle);
 
   return (
     <main className="site-page">

@@ -1,94 +1,100 @@
 import { defineQuery } from "next-sanity";
 
+export type LocalizedValue =
+    | string
+    | { en?: string | null; es?: string | null }
+    | null
+    | undefined;
+
 export type AwarenessProgram = {
-  _key?: string;
-  title?: string;
-  body?: string;
-  languages?: string | null;
-  badge?: string | null;
-  imageUrl?: string | null;
+    _key?: string;
+    title?: LocalizedValue;
+    body?: LocalizedValue;
+    languages?: LocalizedValue;
+    badge?: LocalizedValue;
+    imageUrl?: string | null;
 };
 
 export type AwarenessTrainingItem = {
-  _key?: string;
-  title?: string;
-  badge?: string | null;
+    _key?: string;
+    title?: LocalizedValue;
+    badge?: LocalizedValue;
 };
 
 export type AwarenessOffering = {
-  _key?: string;
-  title?: string;
-  body?: string;
+    _key?: string;
+    title?: LocalizedValue;
+    body?: LocalizedValue;
 };
 
 export type AwarenessCTAButton = {
-  _key?: string;
-  label?: string;
-  href?: string;
-  variant?: "primary" | "outline" | null;
+    _key?: string;
+    label?: LocalizedValue;
+    href?: string;
+    variant?: "primary" | "outline" | null;
 };
 
 type AwarenessBaseSection = { _key?: string; _type: string };
 
 export type AwarenessHeroSection = AwarenessBaseSection & {
-  _type: "sectionAwarenessHero";
-  eyebrow?: string;
-  title?: string;
-  body?: string;
+    _type: "sectionAwarenessHero";
+    eyebrow?: LocalizedValue;
+    title?: LocalizedValue;
+    body?: LocalizedValue;
 };
 
 export type AwarenessValuesSection = AwarenessBaseSection & {
-  _type: "sectionAwarenessValues";
-  title?: string;
-  intro?: string;
-  pillars?: string[];
-  outro?: string;
+    _type: "sectionAwarenessValues";
+    title?: LocalizedValue;
+    intro?: LocalizedValue;
+    pillars?: string[];
+    outro?: LocalizedValue;
 };
 
 export type AwarenessProgramsSection = AwarenessBaseSection & {
-  _type: "sectionAwarenessPrograms";
-  title?: string;
-  eyebrow?: string;
-  body?: string;
-  programs?: AwarenessProgram[];
+    _type: "sectionAwarenessPrograms";
+    title?: LocalizedValue;
+    eyebrow?: LocalizedValue;
+    body?: LocalizedValue;
+    programs?: AwarenessProgram[];
 };
 
 export type AwarenessTrainingSection = AwarenessBaseSection & {
-  _type: "sectionAwarenessTraining";
-  title?: string;
-  eyebrow?: string;
-  body?: string;
-  note?: string;
-  trainingSeries?: AwarenessTrainingItem[];
-  contactNote?: string;
+    _type: "sectionAwarenessTraining";
+    title?: LocalizedValue;
+    eyebrow?: LocalizedValue;
+    body?: LocalizedValue;
+    note?: LocalizedValue;
+    trainingSeries?: AwarenessTrainingItem[];
+    contactNote?: LocalizedValue;
 };
 
 export type AwarenessTechAssistSection = AwarenessBaseSection & {
-  _type: "sectionAwarenessTechAssist";
-  title?: string;
-  eyebrow?: string;
-  body?: string;
-  offerings?: AwarenessOffering[];
+    _type: "sectionAwarenessTechAssist";
+    title?: LocalizedValue;
+    eyebrow?: LocalizedValue;
+    body?: LocalizedValue;
+    offerings?: AwarenessOffering[];
 };
 
 export type AwarenessCtaSection = AwarenessBaseSection & {
-  _type: "sectionAwarenessCta";
-  title?: string;
-  body?: string;
-  buttons?: AwarenessCTAButton[];
+    _type: "sectionAwarenessCta";
+    title?: LocalizedValue;
+    body?: LocalizedValue;
+    buttons?: AwarenessCTAButton[];
 };
 
 export type AwarenessPageSection =
-  | AwarenessHeroSection
-  | AwarenessValuesSection
-  | AwarenessProgramsSection
-  | AwarenessTrainingSection
-  | AwarenessTechAssistSection
-  | AwarenessCtaSection;
+    | AwarenessHeroSection
+    | AwarenessValuesSection
+    | AwarenessProgramsSection
+    | AwarenessTrainingSection
+    | AwarenessTechAssistSection
+    | AwarenessCtaSection;
 
 export type AwarenessPageData = {
-  title?: string;
-  sections?: AwarenessPageSection[];
+    title?: string;
+    sections?: AwarenessPageSection[];
 } | null;
 
 export const awarenessPageQuery = defineQuery(`

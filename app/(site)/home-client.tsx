@@ -2,29 +2,36 @@
 
 import Image from "next/image";
 import Script from "next/script";
-import InstagramEmbed from "@/components/InstagramEmbed/page";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { type CSSProperties } from "react";
 import { Coffee, Search, Sun } from "lucide-react";
-import { useSiteCopy } from "@/components/language-provider";
+
+import InstagramEmbed from "@/components/InstagramEmbed/page";
+import { useLanguage, useSiteCopy } from "@/components/language-provider";
 import { LandingPopupModal } from "@/components/landing-popup-modal";
-import type React from "react";
+import { Button } from "@/components/ui/button";
+import { resolveLocalized } from "@/lib/resolved-localized";
 import type { HomeWhatWeDoCard } from "@/sanity/queries/homePage";
 
+type LocalizedValue = {
+    en?: string | null;
+    "es-MX"?: string | null;
+} | null | undefined;
+
 type HomeClientProps = {
-    heroHeadline?: string | null;
-    heroSubheadline?: string | null;
-    heroCtaLabel?: string | null;
+    heroHeadline?: LocalizedValue;
+    heroSubheadline?: LocalizedValue;
+    heroCtaLabel?: LocalizedValue;
     heroCtaHref?: string | null;
     heroBackgroundImageUrl: string;
-    missionHeading?: string | null;
-    missionBody?: string | null;
+    missionHeading?: LocalizedValue;
+    missionBody?: LocalizedValue;
     missionImageUrl: string;
     missionDims?: { width: number; height: number; aspectRatio: number };
-    whatWeDoTitle?: string | null;
+    whatWeDoTitle?: LocalizedValue;
     whatWeDoCards?: HomeWhatWeDoCard[] | null;
-    supportTitle?: string | null;
-    supportBody?: string | null;
+    supportTitle?: LocalizedValue;
+    supportBody?: LocalizedValue;
     landingPopup?: {
         imageUrl: string;
         imageWidth: number;
@@ -35,28 +42,88 @@ type HomeClientProps = {
 };
 
 const CARD_ICONS = [
-    { icon: Coffee, bg: "bg-hive-blue/10",   color: "text-hive-blue",   titleClass: "text-hive-blue",   titleStyle: undefined as React.CSSProperties | undefined },
-    { icon: Search, bg: "bg-hive-orange/10", color: "text-hive-orange", titleClass: "text-hive-orange", titleStyle: undefined as React.CSSProperties | undefined },
-    { icon: Sun,    bg: "bg-hive-yellow/20", color: "text-hive-yellow", titleClass: "",                 titleStyle: { color: "#c9a000" } as React.CSSProperties },
+    {
+        icon: Coffee,
+        bg: "bg-hive-blue/10",
+        color: "text-hive-blue",
+        titleClass: "text-hive-blue",
+        titleStyle: undefined as CSSProperties | undefined,
+    },
+    {
+        icon: Search,
+        bg: "bg-hive-orange/10",
+        color: "text-hive-orange",
+        titleClass: "text-hive-orange",
+        titleStyle: undefined as CSSProperties | undefined,
+    },
+    {
+        icon: Sun,
+        bg: "bg-hive-yellow/20",
+        color: "text-hive-yellow",
+        titleClass: "",
+        titleStyle: { color: "#c9a000" } as CSSProperties,
+    },
 ];
 
 export default function HomeClient({
-    heroHeadline,
-    heroSubheadline,
-    heroCtaLabel,
-    heroCtaHref,
-    heroBackgroundImageUrl,
-    missionHeading,
-    missionBody,
-    missionImageUrl,
-    missionDims,
-    whatWeDoTitle,
-    whatWeDoCards,
-    supportTitle,
-    supportBody,
-    landingPopup,
-}: HomeClientProps) {
+                                       heroHeadline,
+                                       heroSubheadline,
+                                       heroCtaLabel,
+                                       heroCtaHref,
+                                       heroBackgroundImageUrl,
+                                       missionHeading,
+                                       missionBody,
+                                       missionImageUrl,
+                                       missionDims,
+                                       whatWeDoTitle,
+                                       whatWeDoCards,
+                                       supportTitle,
+                                       supportBody,
+                                       landingPopup,
+                                   }: HomeClientProps) {
     const copy = useSiteCopy();
+    const { language } = useLanguage();
+
+    const resolvedHeroHeadline = resolveLocalized(
+        heroHeadline,
+        language,
+        copy.home.heroTitleLine1,
+    );
+    const resolvedHeroSubheadline = resolveLocalized(
+        heroSubheadline,
+        language,
+        copy.home.heroTitleLine2,
+    );
+    const resolvedHeroCtaLabel = resolveLocalized(
+        heroCtaLabel,
+        language,
+        copy.home.donateToday,
+    );
+    const resolvedMissionHeading = resolveLocalized(
+        missionHeading,
+        language,
+        copy.home.missionTitle,
+    );
+    const resolvedMissionBody = resolveLocalized(
+        missionBody,
+        language,
+        copy.home.missionBody,
+    );
+    const resolvedWhatWeDoTitle = resolveLocalized(
+        whatWeDoTitle,
+        language,
+        copy.home.whatWeDoTitle,
+    );
+    const resolvedSupportTitle = resolveLocalized(
+        supportTitle,
+        language,
+        copy.home.supportTitle,
+    );
+    const resolvedSupportBody = resolveLocalized(
+        supportBody,
+        language,
+        copy.home.supportBody,
+    );
 
     const resolvedWhatWeDoCards = whatWeDoCards?.length
         ? whatWeDoCards
@@ -75,7 +142,6 @@ export default function HomeClient({
                 />
             ) : null}
 
-            {/* Hero */}
             <section
                 style={{ backgroundImage: `url("${heroBackgroundImageUrl}")` }}
                 className="relative flex min-h-[90vh] w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-28 text-center text-white md:py-32"
@@ -87,13 +153,13 @@ export default function HomeClient({
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                        <Image
-                            src="/images/candid.avif"
-                            alt="Candid."
-                            width={100}
-                            height={40}
-                            className="h-auto w-[100px]"
-                        />
+                            <Image
+                                src="/images/candid.avif"
+                                alt="Candid."
+                                width={100}
+                                height={40}
+                                className="h-auto w-[100px]"
+                            />
                         </a>
                     </div>
 
@@ -108,13 +174,13 @@ export default function HomeClient({
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                        <Image
-                            src="/images/columbiachamberslogo.png"
-                            alt="Columbia Chamber logo"
-                            width={90}
-                            height={90}
-                            className="h-auto w-[90px]"
-                        />
+                            <Image
+                                src="/images/columbiachamberslogo.png"
+                                alt="Columbia Chamber logo"
+                                width={90}
+                                height={90}
+                                className="h-auto w-[90px]"
+                            />
                         </a>
                     </div>
                 </div>
@@ -127,29 +193,27 @@ export default function HomeClient({
                             fontSize: "clamp(1.75rem, 2.25vw + 1rem, 3.75rem)",
                         }}
                     >
-                        {heroHeadline ?? copy.home.heroTitleLine1}
+                        {resolvedHeroHeadline}
                         <span
                             className="block font-bold leading-[1.05] tracking-tight"
                             style={{
                                 fontSize: "clamp(2.5rem, 5.5vw + 1.25rem, 6rem)",
                             }}
                         >
-                            {heroSubheadline ?? copy.home.heroTitleLine2}
-                        </span>
+              {resolvedHeroSubheadline}
+            </span>
                     </h1>
+
                     <Button
                         asChild
                         size="lg"
                         className="mt-10 h-auto rounded-full bg-hive-yellow px-16 py-8 text-2xl font-bold tracking-widest text-gray-900 transition-colors hover:bg-hive-yellow/90"
                     >
-                        <Link href={heroCtaHref ?? "/donations"}>
-                            {heroCtaLabel ?? copy.home.donateToday}
-                        </Link>
+                        <Link href={heroCtaHref ?? "/donations"}>{resolvedHeroCtaLabel}</Link>
                     </Button>
                 </div>
             </section>
 
-            {/* Mission */}
             <section className="mx-auto flex w-full max-w-5xl min-w-0 flex-col items-center justify-center gap-8 px-6 py-20 text-center md:flex-row">
                 <div className="w-full min-w-0 max-w-md">
                     <Image
@@ -162,24 +226,25 @@ export default function HomeClient({
                 </div>
                 <div>
                     <h2 className="mb-6 text-left text-3xl font-bold text-hive-blue">
-                        {missionHeading ?? copy.home.missionTitle}
+                        {resolvedMissionHeading}
                     </h2>
                     <p className="text-left text-lg leading-relaxed text-gray-600">
-                        {missionBody ?? copy.home.missionBody}
+                        {resolvedMissionBody}
                     </p>
                 </div>
             </section>
 
             <div className="mx-auto max-w-4xl border-t border-gray-200" />
 
-            {/* What We Do */}
             <section className="mx-auto max-w-5xl px-6 py-20">
                 <h2 className="mb-14 text-center text-3xl font-bold text-hive-blue">
-                    {whatWeDoTitle ?? copy.home.whatWeDoTitle}
+                    {resolvedWhatWeDoTitle}
                 </h2>
                 <div className="grid gap-10 text-center md:grid-cols-3">
                     {resolvedWhatWeDoCards.slice(0, 3).map((card, i) => {
-                        const { icon: Icon, bg, color, titleClass, titleStyle } = CARD_ICONS[i] ?? CARD_ICONS[0];
+                        const { icon: Icon, bg, color, titleClass, titleStyle } =
+                        CARD_ICONS[i] ?? CARD_ICONS[0];
+
                         return (
                             <div key={card._id ?? i} className="flex flex-col items-center gap-4">
                                 <div className={`flex h-14 w-14 items-center justify-center rounded-full ${bg}`}>
@@ -197,7 +262,6 @@ export default function HomeClient({
 
             <div className="mx-auto max-w-4xl border-t border-gray-200" />
 
-            {/* Instagram */}
             <div className="mx-auto mt-5 w-full max-w-lg">
                 <div className="mb-5 flex flex-col items-center gap-4">
                     <a
@@ -211,13 +275,12 @@ export default function HomeClient({
                 <Script async src="https://www.instagram.com/embed.js" />
             </div>
 
-            {/* Support / Donate */}
             <section id="donate" className="bg-gray-50 px-6 py-20 text-center">
                 <h2 className="mb-4 text-3xl font-bold text-hive-blue">
-                    {supportTitle ?? copy.home.supportTitle}
+                    {resolvedSupportTitle}
                 </h2>
                 <p className="mx-auto mb-10 max-w-xl text-lg text-gray-500">
-                    {supportBody ?? copy.home.supportBody}
+                    {resolvedSupportBody}
                 </p>
                 <Button
                     asChild

@@ -1,72 +1,63 @@
 import {defineField, defineType} from 'sanity'
+import { localizedString, localizedText } from "./localized";
 
 export const sectionRichText = defineType({
-  name: 'sectionRichText',
-  title: 'Rich text',
-  type: 'object',
-  fields: [
-    defineField({
-      name: 'eyebrow',
-      title: 'Eyebrow',
-      type: 'string',
-      description: 'Small label above the heading (e.g. "Join The Hive").',
-    }),
-    defineField({
-      name: 'heading',
-      title: 'Heading',
-      type: 'string',
-    }),
-    defineField({
-      name: 'body',
-      title: 'Body text',
-      type: 'text',
-      rows: 4,
-      description: 'Plain text body. Used instead of (or alongside) the rich-text content field.',
-    }),
-    defineField({
-      name: 'content',
-      title: 'Rich text content',
-      type: 'array',
-      of: [{type: 'block'}],
-    }),
-  ],
-  preview: {
-    select: {heading: 'heading'},
-    prepare({heading}) {
-      return {title: heading || 'Rich text'}
+    name: "sectionRichText",
+    title: "Rich text",
+    type: "object",
+    fields: [
+        defineField({
+            name: "eyebrow",
+            title: "Eyebrow",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "heading",
+            title: "Heading",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "body",
+            title: "Body text",
+            type: "localizedText",
+        }),
+    ],
+    preview: {
+        select: { heading: "heading.en" },
+        prepare({ heading }) {
+            return { title: heading || "Rich text" };
+        },
     },
-  },
 })
 
 export const sectionImageText = defineType({
-  name: 'sectionImageText',
-  title: 'Image & text',
-  type: 'object',
-  fields: [
-    defineField({
-      name: 'image',
-      title: 'Image',
-      type: 'image',
-      options: {hotspot: true},
-    }),
-    defineField({
-      name: 'heading',
-      title: 'Heading',
-      type: 'string',
-    }),
-    defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'text',
-      rows: 8,
-    }),
-  ],
-  preview: {
-    select: {heading: 'heading', media: 'image'},
-    prepare({heading, media}) {
-      return {title: heading || 'Image & text', media}
+    name: "sectionImageText",
+    title: "Image & text",
+    type: "object",
+    fields: [
+        defineField({
+            name: "image",
+            title: "Image",
+            type: "image",
+            options: { hotspot: true },
+        }),
+        defineField({
+            name: "heading",
+            title: "Heading",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "body",
+            title: "Body",
+            type: "localizedText",
+        }),
+    ],
+    preview: {
+        select: { heading: "heading.en", media: "image" },
+        prepare({ heading, media }) {
+            return { title: heading || "Image & text", media };
+        },
     },
-  },
 })
 
 export const carouselSlide = defineType({
@@ -143,51 +134,48 @@ export const sectionImageCarousel = defineType({
 })
 
 export const sectionHero = defineType({
-  name: 'sectionHero',
-  title: 'Hero',
-  type: 'object',
-  fields: [
-    defineField({
-      name: 'headline',
-      title: 'Headline',
-      type: 'string',
-    }),
-    defineField({
-      name: 'subheadline',
-      title: 'Subheadline',
-      type: 'text',
-      rows: 3,
-    }),
-    defineField({
-      name: 'images',
-      title: 'Images',
-      type: 'array',
-      of: [
-        {
-          type: 'image',
-          title: 'Image',
-          options: {hotspot: true},
+    name: "sectionHero",
+    title: "Hero",
+    type: "object",
+    fields: [
+        defineField({
+            name: "headline",
+            title: "Headline",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "subheadline",
+            title: "Subheadline",
+            type: "localizedText",
+        }),
+        defineField({
+            name: "images",
+            title: "Images",
+            type: "array",
+            of: [
+                {
+                    type: "image",
+                    options: { hotspot: true },
+                },
+            ],
+        }),
+        defineField({
+            name: "ctaLabel",
+            title: "Button label",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "ctaHref",
+            title: "Button link",
+            type: "string",
+        }),
+    ],
+    preview: {
+        select: { headline: "headline.en" },
+        prepare({ headline }) {
+            return { title: headline || "Hero" };
         },
-      ],
-    }),
-    defineField({
-      name: 'ctaLabel',
-      title: 'Button label',
-      type: 'string',
-    }),
-    defineField({
-      name: 'ctaHref',
-      title: 'Button link',
-      type: 'string',
-      description: '/path, https://..., etc.',
-    }),
-  ],
-  preview: {
-    select: {headline: 'headline'},
-    prepare({headline}) {
-      return {title: headline || 'Hero'}
     },
-  },
 })
 
 export const sectionCardGrid = defineType({
@@ -1030,117 +1018,210 @@ export const sectionAwarenessCta = defineType({
 // ── Support page ─────────────────────────────────────────────────────────────
 
 export const supportServiceCard = defineType({
-  name: 'supportServiceCard',
-  title: 'Support service card',
-  type: 'object',
-  fields: [
-    defineField({name: 'cardId', title: 'Card ID', type: 'string', description: 'Slug for anchor links (e.g. peer-advocacy).'}),
-    defineField({name: 'title', title: 'Title', type: 'string', validation: (Rule) => Rule.required()}),
-    defineField({name: 'subtitle', title: 'Subtitle', type: 'string'}),
-    defineField({name: 'summary', title: 'Summary', type: 'text', rows: 5, validation: (Rule) => Rule.required()}),
-    defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
-    defineField({name: 'details', title: 'Details (bullet points)', type: 'array', of: [{type: 'string'}]}),
-    defineField({name: 'note', title: 'Note', type: 'text', rows: 3}),
-    defineField({name: 'noteLinkLabel', title: 'Note link label', type: 'string'}),
-    defineField({name: 'noteLinkHref', title: 'Note link URL', type: 'string'}),
-    defineField({name: 'ctaLabel', title: 'CTA label', type: 'string'}),
-    defineField({name: 'ctaHref', title: 'CTA URL or path', type: 'string'}),
-  ],
-  preview: {
-    select: {title: 'title', media: 'image'},
-    prepare({title, media}) {return {title: title || 'Service card', media}},
-  },
+    name: "supportServiceCard",
+    title: "Support service card",
+    type: "object",
+    fields: [
+        defineField({
+            name: "cardId",
+            title: "Card ID",
+            type: "string",
+            description: "Slug for anchor links (e.g. peer-advocacy).",
+        }),
+        defineField({
+            name: "title",
+            title: "Title",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "subtitle",
+            title: "Subtitle",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "summary",
+            title: "Summary",
+            type: "localizedText",
+        }),
+        defineField({
+            name: "image",
+            title: "Image",
+            type: "image",
+            options: {hotspot: true},
+        }),
+        defineField({
+            name: "details",
+            title: "Details (bullet points)",
+            type: "array",
+            of: [{type: "localizedString"}],
+        }),
+        defineField({
+            name: "note",
+            title: "Note",
+            type: "localizedText",
+        }),
+        defineField({
+            name: "noteLinkLabel",
+            title: "Note link label",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "noteLinkHref",
+            title: "Note link URL",
+            type: "string",
+        }),
+        defineField({
+            name: "ctaLabel",
+            title: "CTA label",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "ctaHref",
+            title: "CTA URL or path",
+            type: "string",
+        }),
+    ],
+    preview: {
+        select: {title: "title.en", media: "image"},
+        prepare({title, media}) {
+            return {title: title || "Service card", media}
+        },
+    },
 })
 
 export const supportResourceButton = defineType({
-  name: 'supportResourceButton',
-  title: 'Resource button',
-  type: 'object',
-  fields: [
-    defineField({name: 'label', title: 'Label', type: 'string', validation: (Rule) => Rule.required()}),
-    defineField({name: 'href', title: 'URL or path', type: 'string', validation: (Rule) => Rule.required()}),
-  ],
-  preview: {
-    select: {title: 'label', subtitle: 'href'},
-    prepare({title, subtitle}) {return {title: title || 'Button', subtitle}},
-  },
+    name: "supportResourceButton",
+    title: "Resource button",
+    type: "object",
+    fields: [
+        defineField({
+            name: "label",
+            title: "Label",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "href",
+            title: "URL or path",
+            type: "string",
+        }),
+    ],
+    preview: {
+        select: {title: "label.en", subtitle: "href"},
+        prepare({title, subtitle}) {
+            return {title: title || "Button", subtitle}
+        },
+    },
 })
 
 export const sectionSupportHero = defineType({
-  name: 'sectionSupportHero',
-  title: 'Support hero',
-  type: 'object',
-  fields: [
-    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
-    defineField({name: 'title', title: 'Title', type: 'string'}),
-    defineField({name: 'body', title: 'Body', type: 'text', rows: 3}),
-  ],
-  preview: {
-    select: {title: 'title'},
-    prepare({title}) {return {title: title || 'Support hero'}},
-  },
+    name: "sectionSupportHero",
+    title: "Support hero",
+    type: "object",
+    fields: [
+        defineField({name: "eyebrow", title: "Eyebrow", type: "localizedString"}),
+        defineField({name: "title", title: "Title", type: "localizedString"}),
+        defineField({name: "body", title: "Body", type: "localizedText"}),
+    ],
+    preview: {
+        select: {title: "title.en"},
+        prepare({title}) {
+            return {title: title || "Support hero"}
+        },
+    },
 })
 
 export const sectionSupportIntro = defineType({
-  name: 'sectionSupportIntro',
-  title: 'Support intro',
-  type: 'object',
-  fields: [
-    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
-    defineField({name: 'title', title: 'Title', type: 'string'}),
-    defineField({name: 'body', title: 'Body', type: 'text', rows: 5}),
-    defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
-  ],
-  preview: {
-    select: {title: 'title', media: 'image'},
-    prepare({title, media}) {return {title: title || 'Support intro', media}},
-  },
+    name: "sectionSupportIntro",
+    title: "Support intro",
+    type: "object",
+    fields: [
+        defineField({name: "eyebrow", title: "Eyebrow", type: "localizedString"}),
+        defineField({name: "title", title: "Title", type: "localizedString"}),
+        defineField({name: "body", title: "Body", type: "localizedText"}),
+        defineField({
+            name: "image",
+            title: "Image",
+            type: "image",
+            options: {hotspot: true},
+        }),
+    ],
+    preview: {
+        select: {title: "title.en", media: "image"},
+        prepare({title, media}) {
+            return {title: title || "Support intro", media}
+        },
+    },
 })
 
 export const sectionSupportServices = defineType({
-  name: 'sectionSupportServices',
-  title: 'Support services',
-  type: 'object',
-  fields: [
-    defineField({name: 'heading', title: 'Heading', type: 'string'}),
-    defineField({name: 'languageNote', title: 'Language availability note', type: 'string'}),
-    defineField({name: 'cards', title: 'Service cards', type: 'array', of: [{type: 'supportServiceCard'}]}),
-  ],
-  preview: {
-    select: {title: 'heading'},
-    prepare({title}) {return {title: title || 'Support services'}},
-  },
+    name: "sectionSupportServices",
+    title: "Support services",
+    type: "object",
+    fields: [
+        defineField({name: "heading", title: "Heading", type: "localizedString"}),
+        defineField({
+            name: "languageNote",
+            title: "Language availability note",
+            type: "localizedString",
+        }),
+        defineField({
+            name: "cards",
+            title: "Service cards",
+            type: "array",
+            of: [{type: "supportServiceCard"}],
+        }),
+    ],
+    preview: {
+        select: {title: "heading.en"},
+        prepare({title}) {
+            return {title: title || "Support services"}
+        },
+    },
 })
 
 export const sectionSupportAccessibility = defineType({
-  name: 'sectionSupportAccessibility',
-  title: 'Support accessibility',
-  type: 'object',
-  fields: [
-    defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
-    defineField({name: 'title', title: 'Title', type: 'string'}),
-    defineField({name: 'body', title: 'Body', type: 'text', rows: 5}),
-    defineField({name: 'image', title: 'Image', type: 'image', options: {hotspot: true}}),
-  ],
-  preview: {
-    select: {title: 'title', media: 'image'},
-    prepare({title, media}) {return {title: title || 'Support accessibility', media}},
-  },
+    name: "sectionSupportAccessibility",
+    title: "Support accessibility",
+    type: "object",
+    fields: [
+        defineField({name: "eyebrow", title: "Eyebrow", type: "localizedString"}),
+        defineField({name: "title", title: "Title", type: "localizedString"}),
+        defineField({name: "body", title: "Body", type: "localizedText"}),
+        defineField({
+            name: "image",
+            title: "Image",
+            type: "image",
+            options: {hotspot: true},
+        }),
+    ],
+    preview: {
+        select: {title: "title.en", media: "image"},
+        prepare({title, media}) {
+            return {title: title || "Support accessibility", media}
+        },
+    },
 })
 
 export const sectionSupportResources = defineType({
-  name: 'sectionSupportResources',
-  title: 'Support resources',
-  type: 'object',
-  fields: [
-    defineField({name: 'title', title: 'Title', type: 'string'}),
-    defineField({name: 'body', title: 'Body', type: 'text', rows: 4}),
-    defineField({name: 'buttons', title: 'Buttons', type: 'array', of: [{type: 'supportResourceButton'}]}),
-  ],
-  preview: {
-    select: {title: 'title'},
-    prepare({title}) {return {title: title || 'Support resources'}},
-  },
+    name: "sectionSupportResources",
+    title: "Support resources",
+    type: "object",
+    fields: [
+        defineField({name: "title", title: "Title", type: "localizedString"}),
+        defineField({name: "body", title: "Body", type: "localizedText"}),
+        defineField({
+            name: "buttons",
+            title: "Buttons",
+            type: "array",
+            of: [{type: "supportResourceButton"}],
+        }),
+    ],
+    preview: {
+        select: {title: "title.en"},
+        prepare({title}) {
+            return {title: title || "Support resources"}
+        },
+    },
 })
 
 // ── Our Impact page ──────────────────────────────────────────────────────────
