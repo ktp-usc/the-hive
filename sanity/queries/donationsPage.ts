@@ -207,8 +207,8 @@ export type DonationsPageSection =
   | ImageTextSection;
 
 export type DonationsPageData = {
-  title?: string;
-  description?: string;
+    title?: LocalizedValue;
+    description?: LocalizedValue;
   sections?: DonationsPageSection[];
 };
 
