@@ -76,7 +76,6 @@ export const page = defineType({
                 {type: 'sectionDonationsKeepersImpact'},
                 {type: 'sectionPartnerLogos'},
                 {type: 'sectionTeam'},
-                {type: 'sectionGallery'},
                 {type: 'sectionAwarenessHero'},
                 {type: 'sectionAwarenessValues'},
                 {type: 'sectionAwarenessPrograms'},
