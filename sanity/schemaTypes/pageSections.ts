@@ -86,7 +86,22 @@ export const sectionCardGrid = defineType({
     fields: [
         defineField({ name: 'sectionTitle', title: 'Section title', type: 'localizedString' }),
         defineField({ name: 'intro', title: 'Intro', type: 'localizedText' }),
-        defineField({ name: 'cards', title: 'Cards', type: 'array', of: [{ type: 'reference', to: [{ type: 'contentCard' }] }] }),
+        defineField({
+            name: 'cards',
+            title: 'Cards',
+            type: 'array',
+            of: [{
+                type: 'object',
+                fields: [
+                    defineField({ name: 'title', title: 'Title', type: 'localizedString', validation: (Rule) => Rule.required() }),
+                    defineField({ name: 'body', title: 'Description', type: 'localizedText', validation: (Rule) => Rule.required() }),
+                ],
+                preview: {
+                    select: { title: 'title.en' },
+                    prepare({ title }) { return { title: title || 'Card' } },
+                },
+            }],
+        }),
     ],
     preview: {
         select: { title: 'sectionTitle.en' },
@@ -453,20 +468,6 @@ export const sectionTeam = defineType({
     preview: {
         select: { label: 'groupLabel.en' },
         prepare({ label }) { return { title: label || 'Team' } },
-    },
-})
-
-export const sectionGallery = defineType({
-    name: 'sectionGallery',
-    title: 'Past events gallery',
-    type: 'object',
-    fields: [
-        defineField({ name: 'heading', title: 'Heading', type: 'localizedString' }),
-        defineField({ name: 'items', title: 'Items', type: 'array', of: [{ type: 'reference', to: [{ type: 'galleryEvent' }] }] }),
-    ],
-    preview: {
-        select: { heading: 'heading.en' },
-        prepare({ heading }) { return { title: heading || 'Past events gallery' } },
     },
 })
 
@@ -1065,7 +1066,6 @@ export const pageSectionTypes = [
     sectionDonationsKeepersImpact,
     sectionPartnerLogos,
     sectionTeam,
-    sectionGallery,
     // Awareness
     awarenessProgram,
     awarenessTrainingItem,
