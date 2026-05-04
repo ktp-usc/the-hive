@@ -35,8 +35,8 @@ type AboutRichTextSection = {
 
 type AboutTeamSection = {
     _type: "sectionTeam";
-    eyebrow?: string;
-    groupLabel?: string;
+    eyebrow?: unknown;
+    groupLabel?: { en?: string; es?: string } | string | null;
     members?: FounderMember[] | TeamMemberSanity[] | BoardMemberSanity[];
 };
 
@@ -85,75 +85,16 @@ const FALLBACK_TEAM: TeamMemberSanity[] = [
 ];
 
 const FALLBACK_BOARD: BoardMemberSanity[] = [
-    {
-        _id: "b1",
-        name: "Dr. Stephanie Kirkland",
-        role: "Board Chair",
-        bio: "Identity Dynamics\nCEO",
-        imageUrl: "/member-images/StephanieKirkland.avif",
-    },
-    {
-        _id: "b2",
-        name: "Jordan Crapps",
-        role: "Vice Chair",
-        bio: "Gallivan, White, Boyd\nPartner",
-        imageUrl: "/member-images/JordanCrapps.avif",
-    },
-    {
-        _id: "b3",
-        name: "Andrea Lee",
-        role: "Treasurer",
-        bio: "Center for Community Health Alignment\nAssociate Director of Operations",
-        imageUrl: "/member-images/AndreaLee.avif",
-    },
-    {
-        _id: "b4",
-        name: "Ann Turner",
-        role: "AVP",
-        bio: "Underwriting Operations",
-        imageUrl: "/member-images/AnnTurner.avif",
-    },
-    {
-        _id: "b5",
-        name: "Anthony Bryant",
-        role: "Board Member",
-        bio: "Leadership Strategist, Speaker, Author",
-        imageUrl: "/member-images/AnthonyBryant.avif",
-    },
-    {
-        _id: "b6",
-        name: "Bency Beals",
-        role: "Board Member",
-        bio: "Ignite Leadership Solutions\nCEO",
-        imageUrl: "/member-images/BencyBeals.avif",
-    },
-    {
-        _id: "b7",
-        name: "Ebone Ivory",
-        role: "Board Member",
-        bio: "SC Department of Employment and Workforce\nAdministrative Hearing Officer",
-        imageUrl: "/member-images/EboneIvory.avif",
-    },
-    {
-        _id: "b8",
-        name: "Naomi Walton",
-        role: "Board Member",
-        imageUrl: "/member-images/NaomiWalton.avif",
-    },
-    {
-        _id: "b9",
-        name: "Nicki Woodson",
-        role: "Board Member",
-        bio: "Starbucks\nManager of Partner Resources (HR)",
-        imageUrl: "/member-images/NickiWoodson.avif",
-    },
-    {
-        _id: "b10",
-        name: "Terry Judy",
-        role: "Board Member",
-        bio: "Ignite Leadership Solutions\nImpact & Partnerships Director",
-        imageUrl: "/member-images/TerryJudy.avif",
-    },
+    { _id: "b1", name: "Dr. Stephanie Kirkland", role: "Board Chair", bio: "Identity Dynamics\nCEO", imageUrl: "/member-images/StephanieKirkland.avif" },
+    { _id: "b2", name: "Jordan Crapps", role: "Vice Chair", bio: "Gallivan, White, Boyd\nPartner", imageUrl: "/member-images/JordanCrapps.avif" },
+    { _id: "b3", name: "Andrea Lee", role: "Treasurer", bio: "Center for Community Health Alignment\nAssociate Director of Operations", imageUrl: "/member-images/AndreaLee.avif" },
+    { _id: "b4", name: "Ann Turner", role: "AVP", bio: "Underwriting Operations", imageUrl: "/member-images/AnnTurner.avif" },
+    { _id: "b5", name: "Anthony Bryant", role: "Board Member", bio: "Leadership Strategist, Speaker, Author", imageUrl: "/member-images/AnthonyBryant.avif" },
+    { _id: "b6", name: "Bency Beals", role: "Board Member", bio: "Ignite Leadership Solutions\nCEO", imageUrl: "/member-images/BencyBeals.avif" },
+    { _id: "b7", name: "Ebone Ivory", role: "Board Member", bio: "SC Department of Employment and Workforce\nAdministrative Hearing Officer", imageUrl: "/member-images/EboneIvory.avif" },
+    { _id: "b8", name: "Naomi Walton", role: "Board Member", imageUrl: "/member-images/NaomiWalton.avif" },
+    { _id: "b9", name: "Nicki Woodson", role: "Board Member", bio: "Starbucks\nManager of Partner Resources (HR)", imageUrl: "/member-images/NickiWoodson.avif" },
+    { _id: "b10", name: "Terry Judy", role: "Board Member", bio: "Ignite Leadership Solutions\nImpact & Partnerships Director", imageUrl: "/member-images/TerryJudy.avif" },
 ];
 
 function isTeamSection(section: { _type?: string }): section is AboutTeamSection {
@@ -161,9 +102,12 @@ function isTeamSection(section: { _type?: string }): section is AboutTeamSection
 }
 
 function findTeamSection(sections: AboutTeamSection[], patterns: RegExp[]) {
-    return sections.find((section) =>
-        patterns.some((pattern) => pattern.test(section.groupLabel ?? ""))
-    );
+    return sections.find((section) => {
+        const label = typeof section.groupLabel === "object"
+            ? (section.groupLabel?.en ?? "")
+            : (section.groupLabel ?? "");
+        return patterns.some((pattern) => pattern.test(label));
+    });
 }
 
 const ABOUT_HANDLED = new Set([
@@ -184,14 +128,18 @@ const GENERIC_TYPES = new Set([
 ]);
 
 export default function AboutClient({
-                                        page,
-                                        siteSettings,
-                                    }: {
+    page,
+    siteSettings,
+}: {
     page: AboutPageData;
     siteSettings?: SiteSettingsData | null;
 }) {
     const copy = useSiteCopy();
     const { language } = useLanguage();
+
+    function r(value: unknown, fallback: string): string {
+        return resolveLocalized(value, language, fallback);
+    }
 
     const sections = page?.sections ?? [];
     const extraSections = sections.filter(
@@ -215,48 +163,32 @@ export default function AboutClient({
 
     const founderMember = (founderSec?.members?.[0] as FounderMember | undefined) ?? undefined;
 
-    const missionTitle = resolveLocalized(
-        siteSettings?.missionTitle,
-        language,
-        copy.home.missionTitle
-    );
-    const missionBody = resolveLocalized(
-        siteSettings?.missionBody,
-        language,
-        copy.home.missionBody
-    );
-    const valuesTitle = resolveLocalized(
-        siteSettings?.valuesTitle,
-        language,
-        copy.awareness.valuesTitle
-    );
-    const valuesIntro = resolveLocalized(
-        siteSettings?.valuesIntro,
-        language,
-        copy.awareness.valuesIntro
-    );
+    const missionTitle = r(siteSettings?.missionTitle, copy.home.missionTitle);
+    const missionBody = r(siteSettings?.missionBody, copy.home.missionBody);
+    const valuesTitle = r(siteSettings?.valuesTitle, copy.awareness.valuesTitle);
+    const valuesIntro = r(siteSettings?.valuesIntro, copy.awareness.valuesIntro);
     const valuesPillars = Array.isArray(siteSettings?.valuesPillars)
         ? siteSettings.valuesPillars
-            .map((pillar) => resolveLocalized(pillar, language, ""))
+            .map((pillar) => r(pillar, ""))
             .filter(Boolean)
         : [...copy.awareness.valuesPillars];
 
+    // Resolve all founder fields through resolveLocalized so Sanity
+    // localized objects and site-copy fallbacks both work bilingually.
     const founderMembers: FounderMember[] = [
         {
             _id: founderMember?._id ?? "founder-ashley",
             name: founderMember?.name ?? copy.about.founderName,
-            role: founderMember?.role ?? copy.about.founderRole,
+            role: r(founderMember?.role, copy.about.founderRole),
             imageUrl: founderMember?.imageUrl ?? FALLBACK_FOUNDER_IMAGE,
-            storyEyebrow: founderMember?.storyEyebrow ?? copy.about.founderStoryEyebrow,
-            narrativeLabel: founderMember?.narrativeLabel ?? copy.about.founderNarrativeLabel,
+            storyEyebrow: r(founderMember?.storyEyebrow, copy.about.founderStoryEyebrow),
+            narrativeLabel: r(founderMember?.narrativeLabel, copy.about.founderNarrativeLabel),
             narrativeParagraphs: founderMember?.narrativeParagraphs?.length
-                ? founderMember.narrativeParagraphs
-                : copy.about.founderNarrativeParagraphs,
-            sparkTitle: founderMember?.sparkTitle ?? copy.about.founderSparkTitle,
-            sparkBody: founderMember?.sparkBody ?? copy.about.founderSparkBody,
-            visionTitle: founderMember?.visionTitle ?? copy.about.founderVisionTitle,
-            visionBody: founderMember?.visionBody ?? copy.about.founderVisionBody,
-            profileBody: founderMember?.profileBody ?? copy.about.founderProfileBody,
+                ? (founderMember.narrativeParagraphs as unknown[]).map((p) =>
+                      r(p, "")
+                  ).filter(Boolean)
+                : [...copy.about.founderNarrativeParagraphs],
+            profileBody: r(founderMember?.profileBody, copy.about.founderProfileBody),
         },
     ];
 
@@ -266,13 +198,11 @@ export default function AboutClient({
             : FALLBACK_TEAM) ?? FALLBACK_TEAM;
 
     const teamMembers = sourceTeamMembers.map((member, index) => {
-        const translatedMember =
-            copy.about.teamMembers.find((entry) => entry.name === member.name) ??
-            copy.about.teamMembers[index];
-
+        const copyFallback = copy.about.teamMembers.find((e) => e.name === member.name)
+            ?? copy.about.teamMembers[index];
         return {
             ...member,
-            role: translatedMember?.role ?? member.role,
+            role: r(member.role, copyFallback?.role ?? ""),
         };
     });
 
@@ -282,37 +212,23 @@ export default function AboutClient({
             : FALLBACK_BOARD) ?? FALLBACK_BOARD;
 
     const boardMembers = sourceBoardMembers.map((member, index) => {
-        const translatedMember =
-            copy.about.boardMembers.find((entry) => entry.name === member.name) ??
-            copy.about.boardMembers[index];
-
+        const copyFallback = copy.about.boardMembers.find((e) => e.name === member.name)
+            ?? copy.about.boardMembers[index];
         return {
             ...member,
-            role: translatedMember?.role ?? member.role,
-            bio: translatedMember?.note ?? member.bio,
+            role: r(member.role, copyFallback?.role ?? ""),
+            bio: r(member.bio, copyFallback?.note ?? ""),
         };
     });
 
-    const heroEyebrow = resolveLocalized(
-        hero?.subheadline,
-        language,
-        copy.about.heroEyebrow
-    );
-    const heroTitle = resolveLocalized(hero?.headline, language, copy.about.heroTitle);
-    const whyTitle = resolveLocalized(
-        imageText?.heading,
-        language,
-        copy.about.whyFoundedTitle
-    );
-    const whyBody = resolveLocalized(imageText?.body, language, copy.about.whyFoundedBody);
+    const heroEyebrow = r(hero?.subheadline, copy.about.heroEyebrow);
+    const heroTitle = r(hero?.headline, copy.about.heroTitle);
+    const whyTitle = r(imageText?.heading, copy.about.whyFoundedTitle);
+    const whyBody = r(imageText?.body, copy.about.whyFoundedBody);
     const beeImageUrl = imageText?.imageUrl ?? FALLBACK_ABOUT_IMAGE;
-    const joinEyebrow = resolveLocalized(
-        joinSection?.eyebrow,
-        language,
-        copy.about.joinEyebrow
-    );
-    const joinTitle = resolveLocalized(joinSection?.heading, language, copy.about.joinTitle);
-    const joinBody = resolveLocalized(joinSection?.body, language, copy.about.joinBodyPrefix);
+    const joinEyebrow = r(joinSection?.eyebrow, copy.about.joinEyebrow);
+    const joinTitle = r(joinSection?.heading, copy.about.joinTitle);
+    const joinBody = r(joinSection?.body, copy.about.joinBodyPrefix);
 
     return (
         <main className="site-page">

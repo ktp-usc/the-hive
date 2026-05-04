@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, FileText, Award, Newspaper } from "lucide-react";
+import { ExternalLink, FileText, Award } from "lucide-react";
 
 import { useLanguage, useSiteCopy } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
@@ -50,8 +50,8 @@ export default function OurImpactClient({
                 if (section._type === "sectionImpactHero") {
                     return (
                         <div key={key}>
-                            <section className="site-hero relative left-1/2 right-1/2 mt-16 w-screen -translate-x-1/2 bg-hive-blue px-6 py-10 text-white sm:px-10 sm:py-12 lg:py-14">
-                                <div className="mx-auto max-w-4xl text-center">
+                            <section className="site-hero relative left-1/2 right-1/2 mt-16 w-screen -translate-x-1/2 px-6 py-10 text-center sm:px-10 sm:py-12 lg:py-14">
+                                <div className="mx-auto max-w-4xl">
                                     <p className="site-eyebrow">
                                         {r(section.eyebrow, language, c.heroEyebrow)}
                                     </p>
@@ -63,17 +63,19 @@ export default function OurImpactClient({
                                     </p>
                                 </div>
                             </section>
-                            <section className="px-6 py-10 sm:px-10 lg:px-12">
-                                <div className="mx-auto w-full max-w-sm">
-                                    <Image
-                                        src={section.imageUrl ?? "/images/hive-community.png"}
-                                        alt="Hive community member"
-                                        width={400}
-                                        height={533}
-                                        className="w-full rounded-2xl object-cover shadow-xl"
-                                    />
-                                </div>
-                            </section>
+                            {section.imageUrl ? (
+                                <section className="px-6 py-10 sm:px-10 lg:px-12">
+                                    <div className="mx-auto w-full max-w-sm">
+                                        <Image
+                                            src={section.imageUrl}
+                                            alt="Hive community member"
+                                            width={400}
+                                            height={533}
+                                            className="w-full rounded-2xl object-cover shadow-xl"
+                                        />
+                                    </div>
+                                </section>
+                            ) : null}
                         </div>
                     );
                 }
@@ -82,13 +84,7 @@ export default function OurImpactClient({
                 if (section._type === "sectionImpactMedia") {
                     const mediaItems: ImpactMediaItem[] = section.items?.length
                         ? section.items
-                        : c.mediaItems.map((item, i) => ({
-                              _key: String(i),
-                              outlet: item.outlet,
-                              headline: item.headline,
-                              description: item.description,
-                              href: item.href,
-                          }));
+                        : [];
 
                     return (
                         <section key={key} className="mx-auto max-w-6xl px-6 py-20">
@@ -100,40 +96,47 @@ export default function OurImpactClient({
                                     {r(section.title, language, c.mediaTitle)}
                                 </h2>
                             </div>
-                            <div className="mt-10 grid gap-6 md:grid-cols-3">
+                            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                                 {mediaItems.map((item, mi) => {
-                                    const copyItem = c.mediaItems[mi];
-                                    const outlet = r(item.outlet, language, copyItem?.outlet ?? "");
-                                    const headline = r(item.headline, language, copyItem?.headline ?? "");
-                                    const description = r(item.description, language, copyItem?.description ?? "");
+                                    const title = r(item.title, language, "");
                                     return (
                                         <div
-                                            key={item._key ?? outlet}
-                                            className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+                                            key={item._key ?? String(mi)}
+                                            className="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
                                         >
-                                            <div className="mb-3 flex items-center gap-2">
-                                                <Newspaper className="h-4 w-4 shrink-0 text-hive-orange" />
-                                                <span className="text-xs font-bold uppercase tracking-wide text-hive-orange">
-                                                    {outlet}
-                                                </span>
+                                            {item.imageUrl ? (
+                                                <div className="relative aspect-[4/3] w-full">
+                                                    <Image
+                                                        src={item.imageUrl}
+                                                        alt={title}
+                                                        fill
+                                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                                        className="object-cover"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className="flex aspect-[4/3] w-full items-center justify-center bg-hive-blue/5">
+                                                    <span className="text-4xl">🐝</span>
+                                                </div>
+                                            )}
+                                            <div className="flex flex-1 flex-col p-4">
+                                                <p className="text-base font-semibold leading-snug text-hive-blue">
+                                                    {title}
+                                                </p>
+                                                {item.href ? (
+                                                    <div className="mt-auto pt-4">
+                                                        <a
+                                                            href={item.href}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-1 text-sm font-semibold text-hive-orange hover:underline"
+                                                        >
+                                                            {c.readMore}
+                                                            <ExternalLink className="h-3.5 w-3.5" />
+                                                        </a>
+                                                    </div>
+                                                ) : null}
                                             </div>
-                                            <p className="text-base font-semibold text-hive-blue">
-                                                {headline}
-                                            </p>
-                                            <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600">
-                                                {description}
-                                            </p>
-                                            {item.href ? (
-                                                <a
-                                                    href={item.href}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-hive-blue hover:underline"
-                                                >
-                                                    c.readMore
-                                                    <ExternalLink className="h-3.5 w-3.5" />
-                                                </a>
-                                            ) : null}
                                         </div>
                                     );
                                 })}
@@ -152,6 +155,7 @@ export default function OurImpactClient({
                               year: award.year,
                               issuer: award.issuer,
                               description: award.description,
+                              imageUrl: null,
                           }));
 
                     return (
@@ -178,9 +182,20 @@ export default function OurImpactClient({
                                             key={award._key ?? name}
                                             className="flex flex-col items-center rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm"
                                         >
-                                            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-hive-yellow/20">
-                                                <Award className="h-7 w-7 text-hive-yellow" />
-                                            </div>
+                                            {award.imageUrl ? (
+                                                <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-full border border-gray-200">
+                                                    <Image
+                                                        src={award.imageUrl}
+                                                        alt={name}
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-hive-yellow/20">
+                                                    <Award className="h-7 w-7 text-hive-yellow" />
+                                                </div>
+                                            )}
                                             <p className="mt-4 text-lg font-bold text-hive-blue">
                                                 {name}
                                             </p>

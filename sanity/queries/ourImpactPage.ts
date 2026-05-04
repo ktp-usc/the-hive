@@ -8,9 +8,8 @@ export type LocalizedValue =
 
 export type ImpactMediaItem = {
     _key?: string;
-    outlet?: LocalizedValue;
-    headline?: LocalizedValue;
-    description?: LocalizedValue;
+    title?: LocalizedValue;
+    imageUrl?: string | null;
     href?: string | null;
 };
 
@@ -20,6 +19,7 @@ export type ImpactAward = {
     year?: string | null;
     issuer?: LocalizedValue;
     description?: LocalizedValue;
+    imageUrl?: string | null;
 };
 
 export type ImpactDocument = {
@@ -85,11 +85,11 @@ export const ourImpactPageQuery = defineQuery(`
       },
       _type == "sectionImpactMedia" => {
         eyebrow, title,
-        items[]{_key, outlet, headline, description, href}
+        items[]{_key, title, href, "imageUrl": image.asset->url}
       },
       _type == "sectionImpactAwards" => {
         eyebrow, title,
-        awards[]{_key, name, year, issuer, description}
+        awards[]{_key, name, year, issuer, description, "imageUrl": image.asset->url}
       },
       _type == "sectionImpactDocuments" => {
         eyebrow, title,

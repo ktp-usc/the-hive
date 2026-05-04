@@ -1,10 +1,10 @@
 import { defineQuery } from "next-sanity";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-type LocalizedValue = {
+export type LocalizedValue = {
     en?: string | null;
-    "es-MX"?: string | null;
-} | null;
+    es?: string | null;
+} | string | null | undefined;
 
 export const homePageQuery = defineQuery(`
   *[_type == "page" && slug.current == "landing"][0]{
@@ -50,8 +50,8 @@ export const homePageQuery = defineQuery(`
 
 export type HomeWhatWeDoCard = {
     _id: string;
-    title?: string | null;
-    body?: string | null;
+    title?: LocalizedValue;
+    body?: LocalizedValue;
 };
 
 export type HomePageQueryResult = {
@@ -64,7 +64,7 @@ export type HomePageQueryResult = {
     missionBody?: LocalizedValue;
     missionImage?: SanityImageSource;
     missionDims?: { width: number; height: number; aspectRatio: number } | null;
-    whatWeDoTitle?: string | null;
+    whatWeDoTitle?: LocalizedValue;
     whatWeDoCards?: HomeWhatWeDoCard[] | null;
     supportTitle?: LocalizedValue;
     supportBody?: LocalizedValue;

@@ -231,10 +231,12 @@ export default function DonationsClient({
           >
             <div className="mx-auto max-w-7xl">
               <p className="site-eyebrow">{r(section.eyebrow, pageCopy.heroEyebrow)}</p>
-              <h1 className="site-title mt-4">{cmsContent?.title ?? pageCopy.heroTitle}</h1>
-              <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
-                {cmsContent?.description ?? copy.donations.subtitle}
-              </p>
+                <h1 className="site-title mt-4">
+                    {r(cmsContent?.title, pageCopy.heroTitle)}
+                </h1>
+                <p className="mx-auto mt-7 max-w-3xl text-lg leading-7 text-white/85 sm:text-xl">
+                    {r(cmsContent?.description, copy.donations.subtitle)}
+                </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <ActionButton
                   href={primary.href}
@@ -539,7 +541,7 @@ export default function DonationsClient({
         const dedication = resolveList(section.dedicationParagraphs, pageCopy.casita.dedicationParagraphs);
 
         return (
-          <section key={section._key} className="space-y-8 text-center">
+          <section key={section._key} className="space-y-8 pb-16 text-center">
             <div className="site-card px-6 py-10 sm:px-10 sm:py-12">
               <h4 className="text-4xl font-bold leading-tight text-hive-blue sm:text-5xl">
                 {r(section.dedicationTitle, pageCopy.casita.dedicationTitle)}
@@ -691,7 +693,7 @@ export default function DonationsClient({
         const items = resolveImpactAreas(section.impactAreas, fallbackAreas);
 
         return (
-          <section key={section._key} className="site-card p-6 sm:p-8">
+          <section key={section._key} className="site-card p-6 sm:p-8 mb-16">
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-hive-orange">
                 {r(section.eyebrow, pageCopy.keepers.supportedEyebrow)}

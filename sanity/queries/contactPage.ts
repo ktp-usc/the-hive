@@ -1,11 +1,11 @@
 import { defineQuery } from "next-sanity";
 
-type LocalizedValue =
+export type LocalizedValue =
     | string
     | {
-    en?: string | null;
-    "es-MX"?: string | null;
-}
+          en?: string | null;
+          es?: string | null;
+      }
     | null
     | undefined;
 
