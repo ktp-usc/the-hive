@@ -18,9 +18,9 @@ export const homePageQuery = defineQuery(`
     "missionImage":    sections[_type == "sectionImageText"][0].image,
     "missionDims":     sections[_type == "sectionImageText"][0].image.asset->metadata.dimensions,
     "whatWeDoTitle":   sections[_type == "sectionCardGrid"][0].sectionTitle,
-    "whatWeDoCards":   sections[_type == "sectionCardGrid"][0].cards[]->{
-      _id, title, body
-    },
+    "whatWeDoCards":   sections[_type == "sectionCardGrid"][0].cards[]{
+  title, body
+},
     "supportTitle": sections[_type == "sectionRichText"][0].heading,
     "supportBody":  sections[_type == "sectionRichText"][0].body,
     "landingPopup": landingPopup {
