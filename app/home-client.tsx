@@ -99,17 +99,17 @@ export default function HomeClient({
 
     // Cards — resolve each field through resolveLocalized so bilingual
     // Sanity content works and site-copy fallbacks are bilingual too
-    const resolvedWhatWeDoCards = whatWeDoCards?.length
-        ? whatWeDoCards.map((card, i) => ({
-              _id: card._id ?? String(i),
-              title: r(card.title, copy.home.whatWeDoCards[i]?.title ?? ""),
-              body: r(card.body, copy.home.whatWeDoCards[i]?.body ?? ""),
-          }))
+    const resolvedWhatWeDoCards = whatWeDoCards?.filter(Boolean).length
+        ? whatWeDoCards.filter(Boolean).map((card, i) => ({
+            _id: card._id ?? String(i),
+            title: r(card.title, copy.home.whatWeDoCards[i]?.title ?? ""),
+            body: r(card.body, copy.home.whatWeDoCards[i]?.body ?? ""),
+        }))
         : copy.home.whatWeDoCards.map((c) => ({
-              _id: c.title,
-              title: c.title,
-              body: c.body,
-          }));
+            _id: c.title,
+            title: c.title,
+            body: c.body,
+        }));
 
     return (
         <main className="min-h-screen bg-white text-gray-800">
