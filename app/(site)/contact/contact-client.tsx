@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 import { useLanguage, useSiteCopy } from "@/components/language-provider";
+import { resolveLocalized } from "@/lib/resolved-localized";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -26,15 +27,6 @@ import type {
     ContactInfoSection,
 } from "@/sanity/queries/contactPage";
 import type { SiteSettingsData } from "@/sanity/queries/siteSettings";
-
-type LocalizedValue =
-    | string
-    | {
-    en?: string | null;
-    "es-MX"?: string | null;
-}
-    | null
-    | undefined;
 
 const subjectAliases: Record<string, string[]> = {
     "general-inquiry": ["general-inquiry", "consulta-general"],
@@ -61,27 +53,21 @@ const FALLBACK_YOUTUBE = "https://www.youtube.com/@thehivecommunitycircle93";
 const FALLBACK_NEWSLETTER_URL =
     "https://thehivecc.dm.networkforgood.com/emails/first_name-hope-is-growing-in-south-carolina-thanks-to-you-9bd6cd6f-d221-4744-a983-fa7ee063e49a";
 
-function getLocalized(value: LocalizedValue, language: "en" | "es-MX", fallback: string) {
-    if (typeof value === "string") return value;
-    if (value && typeof value === "object") {
-        const en = value.en?.trim() ?? "";
-        const es = value["es-MX"]?.trim() ?? "";
-        if (language === "es-MX") return es || en || fallback;
-        return en || es || fallback;
-    }
-    return fallback;
-}
-
 export default function ContactClient({
-                                          cmsContent,
-                                          siteSettings,
-                                      }: {
+    cmsContent,
+    siteSettings,
+}: {
     cmsContent: ContactPageData;
     siteSettings: SiteSettingsData;
 }) {
     const copy = useSiteCopy();
     const { language } = useLanguage();
     const searchParams = useSearchParams();
+
+    // Always returns a resolved string — never an object
+    function r(value: unknown, fallback: string): string {
+        return resolveLocalized(value, language, fallback);
+    }
 
     const sections = cmsContent?.sections ?? [];
     const heroSec = sections.find((s): s is ContactHeroSection => s._type === "sectionContactHero");
@@ -91,70 +77,31 @@ export default function ContactClient({
     const formSec = sections.find((s): s is ContactFormSection => s._type === "sectionContactForm");
     const infoSec = sections.find((s): s is ContactInfoSection => s._type === "sectionContactInfo");
 
-    const heroEyebrow = getLocalized(heroSec?.eyebrow, language, copy.contact.heroEyebrow);
-    const heroTitle = getLocalized(heroSec?.title, language, copy.contact.heroTitle);
-    const heroBody = getLocalized(heroSec?.body, language, copy.contact.heroBody);
+    const heroEyebrow = r(heroSec?.eyebrow, copy.contact.heroEyebrow);
+    const heroTitle = r(heroSec?.title, copy.contact.heroTitle);
+    const heroBody = r(heroSec?.body, copy.contact.heroBody);
 
-    const newsletterTitle = getLocalized(
-        newsletterSec?.title,
-        language,
-        copy.contact.newsletterTitle
-    );
-    const newsletterFormTitle = getLocalized(
-        newsletterSec?.formTitle,
-        language,
-        copy.contact.newsletterFormTitle
-    );
-    const newsletterEmailLabel = getLocalized(
-        newsletterSec?.emailLabel,
-        language,
-        copy.contact.newsletterEmail
-    );
-    const newsletterSubmitLabel = getLocalized(
-        newsletterSec?.submitLabel,
-        language,
-        copy.contact.newsletterSubmit
-    );
+    const newsletterTitle = r(newsletterSec?.title, copy.contact.newsletterTitle);
+    const newsletterFormTitle = r(newsletterSec?.formTitle, copy.contact.newsletterFormTitle);
+    const newsletterEmailLabel = r(newsletterSec?.emailLabel, copy.contact.newsletterEmail);
+    const newsletterSubmitLabel = r(newsletterSec?.submitLabel, copy.contact.newsletterSubmit);
+    const newsletterBlurb = r(null, copy.contact.newsletterBlurb);
     const newsletterUrl =
         newsletterSec?.newsletterUrl ?? siteSettings?.newsletterUrl ?? FALLBACK_NEWSLETTER_URL;
 
-    const formTitle = getLocalized(formSec?.formTitle, language, copy.contact.formTitle);
-    const formDescription = getLocalized(
-        formSec?.formDescription,
-        language,
-        "Choose the topic that best matches your message so we can route it to the right member of the team faster."
-    );
-    const nameLabel = getLocalized(formSec?.nameLabel, language, copy.contact.fields.name);
-    const namePlaceholder = getLocalized(
-        formSec?.namePlaceholder,
-        language,
-        copy.contact.fields.placeholders.name
-    );
-    const emailFieldLabel = getLocalized(formSec?.emailLabel, language, copy.contact.fields.email);
-    const emailPlaceholder = getLocalized(
-        formSec?.emailPlaceholder,
-        language,
-        copy.contact.fields.placeholders.email
-    );
-    const phoneLabel = getLocalized(formSec?.phoneLabel, language, copy.contact.fields.phone);
-    const phonePlaceholder = getLocalized(
-        formSec?.phonePlaceholder,
-        language,
-        copy.contact.fields.placeholders.phone
-    );
-    const subjectLabel = getLocalized(formSec?.subjectLabel, language, copy.contact.fields.subject);
-    const subjectPlaceholder = getLocalized(
-        formSec?.subjectPlaceholder,
-        language,
-        copy.contact.fields.placeholders.subject
-    );
-    const commentLabel = getLocalized(formSec?.commentLabel, language, copy.contact.fields.comment);
-    const commentPlaceholder = getLocalized(
-        formSec?.commentPlaceholder,
-        language,
-        copy.contact.fields.placeholders.comment
-    );
-    const submitLabel = getLocalized(formSec?.submitLabel, language, copy.contact.fields.submit);
+    const formTitle = r(formSec?.formTitle, copy.contact.formTitle);
+    const formDescription = r(formSec?.formDescription, copy.contact.formDescription);
+    const nameLabel = r(formSec?.nameLabel, copy.contact.fields.name);
+    const namePlaceholder = r(formSec?.namePlaceholder, copy.contact.fields.placeholders.name);
+    const emailFieldLabel = r(formSec?.emailLabel, copy.contact.fields.email);
+    const emailPlaceholder = r(formSec?.emailPlaceholder, copy.contact.fields.placeholders.email);
+    const phoneLabel = r(formSec?.phoneLabel, copy.contact.fields.phone);
+    const phonePlaceholder = r(formSec?.phonePlaceholder, copy.contact.fields.placeholders.phone);
+    const subjectLabel = r(formSec?.subjectLabel, copy.contact.fields.subject);
+    const subjectPlaceholder = r(formSec?.subjectPlaceholder, copy.contact.fields.placeholders.subject);
+    const commentLabel = r(formSec?.commentLabel, copy.contact.fields.comment);
+    const commentPlaceholder = r(formSec?.commentPlaceholder, copy.contact.fields.placeholders.comment);
+    const submitLabel = r(formSec?.submitLabel, copy.contact.fields.submit);
 
     const resolvedSubjectOptions =
         formSec?.subjectOptions?.length
@@ -166,21 +113,17 @@ export default function ContactClient({
                         copy.contact.fields.subjectOptions[index];
                     return {
                         value: o.value!,
-                        label: getLocalized(o.label, language, fallback?.label ?? o.value ?? ""),
+                        label: r(o.label, fallback?.label ?? o.value ?? ""),
                     };
                 })
             : copy.contact.fields.subjectOptions;
 
-    const infoTitle = getLocalized(infoSec?.infoTitle, language, copy.contact.infoTitle);
-    const infoDescription = getLocalized(
-        infoSec?.infoDescription,
-        language,
-        "Prefer to reach out directly? You can call, email, or connect with us on social media."
-    );
-    const stayConnectedLabel = getLocalized(infoSec?.stayConnectedLabel, language, "Stay Connected");
-    const infoEmailLabel = getLocalized(infoSec?.emailLabel, language, copy.contact.info.email);
-    const infoPhoneLabel = getLocalized(infoSec?.phoneLabel, language, copy.contact.info.phone);
-    const infoAddressLabel = getLocalized(infoSec?.addressLabel, language, copy.contact.info.address);
+    const infoTitle = r(infoSec?.infoTitle, copy.contact.infoTitle);
+    const infoDescription = r(infoSec?.infoDescription, copy.contact.infoDescription);
+    const stayConnectedLabel = r(infoSec?.stayConnectedLabel, copy.contact.stayConnected);
+    const infoEmailLabel = r(infoSec?.emailLabel, copy.contact.info.email);
+    const infoPhoneLabel = r(infoSec?.phoneLabel, copy.contact.info.phone);
+    const infoAddressLabel = r(infoSec?.addressLabel, copy.contact.info.address);
 
     const email = siteSettings?.contactEmail ?? FALLBACK_EMAIL;
     const phone = siteSettings?.contactPhone ?? FALLBACK_PHONE;
@@ -253,59 +196,37 @@ export default function ContactClient({
                         <FieldSet className="rounded-[2rem] border border-hive-blue/10 bg-gradient-to-br from-hive-blue via-cyan-700 to-teal-600 p-6 shadow-[0_24px_60px_-24px_rgba(7,89,133,0.75)] sm:p-8">
                             <FieldGroup className="gap-6">
                                 <Field>
-                                    <FieldLabel
-                                        htmlFor="name"
-                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
-                                    >
+                                    <FieldLabel htmlFor="name" className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
                                         {nameLabel}
                                     </FieldLabel>
                                     <Input
-                                        id="name"
-                                        name="name"
-                                        autoComplete="off"
-                                        required
+                                        id="name" name="name" autoComplete="off" required
                                         placeholder={namePlaceholder}
                                         className="h-12 rounded-2xl border-white/15 bg-white/96 px-4 text-base text-slate-900 placeholder:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
                                     />
                                 </Field>
                                 <Field>
-                                    <FieldLabel
-                                        htmlFor="email"
-                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
-                                    >
+                                    <FieldLabel htmlFor="email" className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
                                         {emailFieldLabel}
                                     </FieldLabel>
                                     <Input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        required
-                                        autoComplete="off"
+                                        id="email" name="email" type="email" required autoComplete="off"
                                         placeholder={emailPlaceholder}
                                         className="h-12 rounded-2xl border-white/15 bg-white/96 px-4 text-base text-slate-900 placeholder:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
                                     />
                                 </Field>
                                 <Field>
-                                    <FieldLabel
-                                        htmlFor="phone"
-                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
-                                    >
+                                    <FieldLabel htmlFor="phone" className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
                                         {phoneLabel}
                                     </FieldLabel>
                                     <Input
-                                        id="phone"
-                                        name="phone"
-                                        type="tel"
-                                        autoComplete="off"
+                                        id="phone" name="phone" type="tel" autoComplete="off"
                                         placeholder={phonePlaceholder}
                                         className="h-12 rounded-2xl border-white/15 bg-white/96 px-4 text-base text-slate-900 placeholder:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
                                     />
                                 </Field>
                                 <Field>
-                                    <FieldLabel
-                                        htmlFor="subject"
-                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
-                                    >
+                                    <FieldLabel htmlFor="subject" className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
                                         {subjectLabel}
                                     </FieldLabel>
                                     <Select name="subject" required defaultValue={defaultSubject}>
@@ -315,10 +236,7 @@ export default function ContactClient({
                                         >
                                             <SelectValue placeholder={subjectPlaceholder} />
                                         </SelectTrigger>
-                                        <SelectContent
-                                            position="popper"
-                                            className="z-50 rounded-2xl border border-slate-200 bg-white p-1 text-slate-900 shadow-2xl"
-                                        >
+                                        <SelectContent position="popper" className="z-50 rounded-2xl border border-slate-200 bg-white p-1 text-slate-900 shadow-2xl">
                                             {resolvedSubjectOptions.map((option) => (
                                                 <SelectItem key={option.value} value={option.value}>
                                                     {option.label}
@@ -328,17 +246,11 @@ export default function ContactClient({
                                     </Select>
                                 </Field>
                                 <Field>
-                                    <FieldLabel
-                                        htmlFor="comment"
-                                        className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80"
-                                    >
+                                    <FieldLabel htmlFor="comment" className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
                                         {commentLabel}
                                     </FieldLabel>
                                     <Textarea
-                                        id="comment"
-                                        name="comment"
-                                        required
-                                        autoComplete="off"
+                                        id="comment" name="comment" required autoComplete="off"
                                         placeholder={commentPlaceholder}
                                         className="min-h-36 rounded-2xl border-white/15 bg-white/96 px-4 py-3 text-base text-slate-900 placeholder:text-slate-500 focus-visible:border-hive-orange focus-visible:ring-hive-orange/30"
                                     />
@@ -368,10 +280,7 @@ export default function ContactClient({
                                     <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
                                         {infoEmailLabel}
                                     </p>
-                                    <Link
-                                        href={`mailto:${email}`}
-                                        className="text-lg font-semibold text-slate-800 transition-colors hover:text-hive-blue"
-                                    >
+                                    <Link href={`mailto:${email}`} className="text-lg font-semibold text-slate-800 transition-colors hover:text-hive-blue">
                                         {email}
                                     </Link>
                                 </div>
@@ -385,10 +294,7 @@ export default function ContactClient({
                                     <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
                                         {infoPhoneLabel}
                                     </p>
-                                    <Link
-                                        href={`tel:+${phoneHref}`}
-                                        className="text-lg font-semibold text-slate-800 transition-colors hover:text-hive-orange"
-                                    >
+                                    <Link href={`tel:+${phoneHref}`} className="text-lg font-semibold text-slate-800 transition-colors hover:text-hive-orange">
                                         {phone}
                                     </Link>
                                 </div>
@@ -462,7 +368,7 @@ export default function ContactClient({
                                 {newsletterTitle}
                             </p>
                             <p className="mt-1 max-w-xs text-lg leading-snug">
-                                Stories, updates, and community moments delivered to your inbox.
+                                {newsletterBlurb}
                             </p>
                         </div>
                     </div>
@@ -472,7 +378,6 @@ export default function ContactClient({
                             <h2 className="mb-1 text-center text-2xl font-bold text-white sm:text-3xl">
                                 {newsletterFormTitle}
                             </h2>
-
                             <div className="rounded-2xl bg-white p-4 shadow-lg sm:p-6">
                                 <div className="mx-auto max-w-[420px]">
                                     <iframe

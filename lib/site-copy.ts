@@ -1163,6 +1163,10 @@ const en = {
         newsletterFormTitle: "Subscribe to Our Newsletter",
         newsletterEmail: "Email",
         newsletterSubmit: "Submit",
+        newsletterBlurb: "Stories, updates, and community moments delivered to your inbox.",
+        formDescription: "Choose the topic that best matches your message so we can route it to the right member of the team faster.",
+        stayConnected: "Stay Connected",
+        infoDescription: "Prefer to reach out directly? You can call, email, or connect with us on social media.",
     },
     beeInTheKnow: {
         title: "Bee in the Know",
@@ -1530,6 +1534,10 @@ export const siteCopy = {
             newsletterFormTitle: "Suscríbete a Nuestro Boletín",
             newsletterEmail: "Correo",
             newsletterSubmit: "Enviar",
+            newsletterBlurb: "Historias, actualizaciones y momentos comunitarios en tu bandeja de entrada.",
+            formDescription: "Elige el tema que mejor describe tu mensaje para que podamos dirigirlo al miembro del equipo indicado.",
+            stayConnected: "Mantente Conectada",
+            infoDescription: "¿Prefieres comunicarte directamente? Puedes llamar, escribir un correo o conectarte con nosotras en redes sociales.",
         },
         beeInTheKnow: {
             title: "Entérate con Bee",

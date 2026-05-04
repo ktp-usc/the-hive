@@ -755,14 +755,28 @@ export const impactMediaItem = defineType({
     title: 'Media item',
     type: 'object',
     fields: [
-        defineField({ name: 'outlet', title: 'Outlet / publication', type: 'localizedString', validation: (Rule) => Rule.required() }),
-        defineField({ name: 'headline', title: 'Headline', type: 'localizedString', validation: (Rule) => Rule.required() }),
-        defineField({ name: 'description', title: 'Description', type: 'localizedText' }),
-        defineField({ name: 'href', title: 'Article URL', type: 'string' }),
+        defineField({
+            name: 'title',
+            title: 'Title',
+            type: 'localizedString',
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: 'image',
+            title: 'Image (optional)',
+            type: 'image',
+            options: { hotspot: true },
+        }),
+        defineField({
+            name: 'href',
+            title: 'Link URL',
+            type: 'string',
+            description: 'External link for the card button.',
+        }),
     ],
     preview: {
-        select: { title: 'outlet.en', subtitle: 'headline.en' },
-        prepare({ title, subtitle }) { return { title: title || 'Media item', subtitle } },
+        select: { title: 'title.en', media: 'image' },
+        prepare({ title, media }) { return { title: title || 'Media item', media } },
     },
 })
 
@@ -775,10 +789,16 @@ export const impactAward = defineType({
         defineField({ name: 'year', title: 'Year', type: 'string' }),
         defineField({ name: 'issuer', title: 'Issuing organization', type: 'localizedString' }),
         defineField({ name: 'description', title: 'Description', type: 'localizedText' }),
+        defineField({
+            name: 'image',
+            title: 'Image (optional)',
+            type: 'image',
+            options: { hotspot: true },
+        }),
     ],
     preview: {
-        select: { title: 'name.en', subtitle: 'year' },
-        prepare({ title, subtitle }) { return { title: title || 'Award', subtitle } },
+        select: { title: 'name.en', subtitle: 'year', media: 'image' },
+        prepare({ title, subtitle, media }) { return { title: title || 'Award', subtitle, media } },
     },
 })
 

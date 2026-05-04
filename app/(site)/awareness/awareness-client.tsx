@@ -73,7 +73,7 @@ export default function AwarenessClient({
                 if (section._type === "sectionAwarenessValues") {
                     const pillars: string[] =
                         section.pillars?.length
-                            ? section.pillars
+                            ? section.pillars.map((p: unknown) => r(p, language, "")).filter(Boolean)
                             : [...copy.awareness.valuesPillars];
 
                     const valuesListParts = new Intl.ListFormat(language, {
